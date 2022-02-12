@@ -175,7 +175,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   logout() {
     this.authenticationService.logout();
-    location.reload(true);
+    location.reload();
   }
 }
 

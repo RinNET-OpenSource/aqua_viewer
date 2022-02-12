@@ -52,10 +52,10 @@ export class AmazonCharacterComponent implements OnInit {
       map(
         data => {
           data.content.forEach(x => {
-            this.dbService.getByID<ChuniCharacter>('chuniCharacter', x.characterId).then(
+            this.dbService.getByID<ChuniCharacter>('chuniCharacter', x.characterId).subscribe(
               m => x.characterInfo = m
             );
-            this.dbService.getByID<ChuniSkill>('chuniSkill', x.skillId).then(
+            this.dbService.getByID<ChuniSkill>('chuniSkill', x.skillId).subscribe(
               m => x.skillInfo = m
             );
           });

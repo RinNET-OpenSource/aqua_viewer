@@ -64,19 +64,19 @@ export class OngekiRecentComponent implements OnInit {
             x.isFullCombo = x.fullCombo ? x.fullCombo : x.isFullCombo;
             x.isAllBreak = x.allBreak ? x.allBreak : x.isAllBreak;
             x.isFullBell = x.fullBell ? x.fullBell : x.isFullBell;
-            this.dbService.getByID<OngekiMusic>('ongekiMusic', x.musicId).then(
+            this.dbService.getByID<OngekiMusic>('ongekiMusic', x.musicId).subscribe(
               m => x.songInfo = m
             );
-            this.dbService.getByID<OngekiCharacter>('ongekiCharacter', x.bossCharaId).then(
+            this.dbService.getByID<OngekiCharacter>('ongekiCharacter', x.bossCharaId).subscribe(
               m => x.bossCharaInfo = m
             );
-            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId1).then(
+            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId1).subscribe(
               m => x.cardInfo1 = m
             );
-            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId2).then(
+            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId2).subscribe(
               m => x.cardInfo2 = m
             );
-            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId3).then(
+            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId3).subscribe(
               m => x.cardInfo3 = m
             );
           });

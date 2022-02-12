@@ -52,7 +52,7 @@ export class AmazonRecentComponent implements OnInit {
       map(
         data => {
           data.content.forEach(x => {
-            this.dbService.getByID<ChuniMusic>('chuniMusic', x.musicId).then(
+            this.dbService.getByID<ChuniMusic>('chuniMusic', x.musicId).subscribe(
               m => x.songInfo = m
             );
           });

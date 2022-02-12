@@ -38,7 +38,7 @@ export class AmazonSongDetailComponent implements OnInit {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     const aimeId = String(this.auth.currentUserValue.extId);
     const param = new HttpParams().set('aimeId', String(aimeId));
-    this.dbService.getByID<ChuniMusic>('chuniMusic', this.id).then(x => {
+    this.dbService.getByID<ChuniMusic>('chuniMusic', this.id).subscribe(x => {
       if (x) {
         this.music = x;
         for (const key of Object.keys(this.music.levels)) {

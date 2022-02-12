@@ -16,7 +16,7 @@ export class DivaModulesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dbService.getAll<DivaModule>('divaModule').then(
+    this.dbService.getAll<DivaModule>('divaModule').subscribe(
       x => x.forEach(y => this.modules.push(y))
     );
   }

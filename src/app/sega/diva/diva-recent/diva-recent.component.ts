@@ -54,19 +54,19 @@ export class DivaRecentComponent implements OnInit {
 
         this.playLogList.forEach(x => {
           if (!x.songInfo) {
-            this.dbService.getByID<DivaPv>('divaPv', x.pvId).then(y => {
+            this.dbService.getByID<DivaPv>('divaPv', x.pvId).subscribe(y => {
               x.songInfo = y;
               const p = x.songInfo.performerNumber;
               const moduleIds = x.modules.split(',');
               x.modulesInfo = [];
               if (p > 0) {
-                this.dbService.getByID<DivaModule>('divaModule', moduleIds[0]).then(y => x.modulesInfo[0] = y);
+                this.dbService.getByID<DivaModule>('divaModule', moduleIds[0]).subscribe(y => x.modulesInfo[0] = y);
               }
               if (p > 1) {
-                this.dbService.getByID<DivaModule>('divaModule', moduleIds[1]).then(y => x.modulesInfo[1] = y);
+                this.dbService.getByID<DivaModule>('divaModule', moduleIds[1]).subscribe(y => x.modulesInfo[1] = y);
               }
               if (p > 2) {
-                this.dbService.getByID<DivaModule>('divaModule', moduleIds[2]).then(y => x.modulesInfo[2] = y);
+                this.dbService.getByID<DivaModule>('divaModule', moduleIds[2]).subscribe(y => x.modulesInfo[2] = y);
               }
             });
           }

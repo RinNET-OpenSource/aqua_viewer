@@ -21,7 +21,7 @@ export class AmazonSonglistComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dbService.getAll<ChuniMusic>('chuniMusic').then(
+    this.dbService.getAll<ChuniMusic>('chuniMusic').subscribe(
       x => {
         this.songList = x;
         this.dataSource.data = this.songList;

@@ -66,7 +66,7 @@ export class PreloadService {
   }
 
   loader<T>(storeName: string, url: string, status: ReplaySubject<string>) {
-    this.dbService.count(storeName).then(
+    this.dbService.count(storeName).subscribe(
       pageCount => {
         if (pageCount > 0) {
           status.next('OK');
@@ -76,7 +76,7 @@ export class PreloadService {
             data => {
               let errorFlag = false;
               data.forEach(x => {
-                this.dbService.add<T>(storeName, x).then(
+                this.dbService.add<T>(storeName, x).subscribe(
                   () => '', error => {
                     console.error(error);
                     errorFlag = true;

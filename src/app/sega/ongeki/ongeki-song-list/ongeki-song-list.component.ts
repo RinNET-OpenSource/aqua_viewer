@@ -21,7 +21,7 @@ export class OngekiSongListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dbService.getAll<OngekiMusic>('ongekiMusic').then(
+    this.dbService.getAll<OngekiMusic>('ongekiMusic').subscribe(
       x => {
         this.songList = x;
         this.dataSource.data = this.songList;

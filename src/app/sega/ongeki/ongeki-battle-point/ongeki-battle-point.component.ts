@@ -63,11 +63,11 @@ export class OngekiBattlePointComponent implements OnInit {
               level: Number(value[1]),
               value: Number(value[2]),
             };
-            this.dbService.getByID<OngekiMusic>('ongekiMusic', item.musicId).then(
+            this.dbService.getByID<OngekiMusic>('ongekiMusic', item.musicId).subscribe(
               x => {
                 item.musicInfo = x;
                 this.dbService.getByID<OngekiCard>('ongekiCard', item.musicInfo.bossCardId)
-                  .then(y => item.bossCardInfo = y);
+                  .subscribe(y => item.bossCardInfo = y);
               }
             );
             this.bPList.push(item);

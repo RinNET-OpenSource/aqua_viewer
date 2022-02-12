@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
   reload() {
     this.preload.reload();
-    this.dbService.deleteDatabase().then(
+    this.dbService.deleteDatabase().subscribe(
       () => window.location.reload()
     );
   }

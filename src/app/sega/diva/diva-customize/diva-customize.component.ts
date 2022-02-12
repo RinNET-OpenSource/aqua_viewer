@@ -16,7 +16,7 @@ export class DivaCustomizeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dbService.getAll<DivaCustomize>('divaCustomize').then(
+    this.dbService.getAll<DivaCustomize>('divaCustomize').subscribe(
       x => x.forEach(y => this.customizes.push(y))
     );
   }

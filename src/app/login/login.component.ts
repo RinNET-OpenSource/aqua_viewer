@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         data => {
           if (data != null) {
             this.messageService.notice('OK');
-            location.reload(true);
+            location.reload();
           } else {
             this.messageService.notice('No such Card');
           }

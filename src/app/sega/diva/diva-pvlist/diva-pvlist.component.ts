@@ -21,7 +21,7 @@ export class DivaPvlistComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dbService.getAll<DivaPv>('divaPv').then(
+    this.dbService.getAll<DivaPv>('divaPv').subscribe(
       x => {
         x.forEach(y => this.pvList.push(y));
         this.dataSource.data = this.pvList;

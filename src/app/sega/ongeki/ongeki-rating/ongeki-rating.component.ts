@@ -74,7 +74,7 @@ export class OngekiRatingComponent implements OnInit {
               level: Number(value[1]),
               value: Number(value[2]),
             };
-            this.dbService.getByID<OngekiMusic>('ongekiMusic', item.musicId).then(
+            this.dbService.getByID<OngekiMusic>('ongekiMusic', item.musicId).subscribe(
               x => item.musicInfo = x
             );
             list.push(item);

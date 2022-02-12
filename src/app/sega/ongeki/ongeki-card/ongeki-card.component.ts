@@ -51,13 +51,13 @@ export class OngekiCardComponent implements OnInit {
       map(
         data => {
           data.content.forEach(x => {
-            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId).then(
+            this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId).subscribe(
               y => {
                 x.cardInfo = y;
-                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', y.charaId).then(
+                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', y.charaId).subscribe(
                   z => x.characterInfo = z
                 );
-                this.dbService.getByID<OngekiSkill>('ongekiSkill', y.skillId).then(
+                this.dbService.getByID<OngekiSkill>('ongekiSkill', y.skillId).subscribe(
                   z => x.skillInfo = z
                 );
               }

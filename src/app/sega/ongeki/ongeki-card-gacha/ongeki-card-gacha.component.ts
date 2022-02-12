@@ -71,7 +71,7 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
     this.rarity = Array(70).fill(1);
     this.rarity = this.rarity.concat(Array(25).fill(2));
     this.rarity = this.rarity.concat(Array(5).fill(3));
-    this.dbService.getAll<OngekiCard>('ongekiCard').then(
+    this.dbService.getAll<OngekiCard>('ongekiCard').subscribe(
       x => {
         x.forEach(y => {
           switch (y.rarity) {

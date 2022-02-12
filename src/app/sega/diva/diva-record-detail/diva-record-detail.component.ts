@@ -62,7 +62,7 @@ export class DivaRecordDetailComponent implements OnInit {
     this.api.get('api/game/diva/pvRecord/' + this.pvId, param).subscribe(
       data => {
         this.record = data;
-        this.dbService.getByID<DivaPv>('divaPv', this.pvId).then(x => this.record.songInfo = x);
+        this.dbService.getByID<DivaPv>('divaPv', this.pvId).subscribe(x => this.record.songInfo = x);
         if (!this.record.customize) {
           this.record.customize = {
             pvId: this.pvId,
@@ -110,7 +110,7 @@ export class DivaRecordDetailComponent implements OnInit {
       };
       this.moduleLoadFlag++;
     } else if (moduleIds[i] >= 0) {
-      this.dbService.getByID<DivaModule>('divaModule', moduleIds[i]).then(y => {
+      this.dbService.getByID<DivaModule>('divaModule', moduleIds[i]).subscribe(y => {
           this.record.customize.modulesInfo[i] = y;
           this.moduleLoadFlag++;
         }

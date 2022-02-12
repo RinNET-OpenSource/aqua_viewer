@@ -51,7 +51,7 @@ export class DivaPvRecordComponent implements OnInit {
         });
         this.pvRecords.forEach(x => {
           if (!x.songInfo) {
-            this.dbService.getByID<DivaPv>('divaPv', x.pvId).then(
+            this.dbService.getByID<DivaPv>('divaPv', x.pvId).subscribe(
               m => x.songInfo = m
             );
           }

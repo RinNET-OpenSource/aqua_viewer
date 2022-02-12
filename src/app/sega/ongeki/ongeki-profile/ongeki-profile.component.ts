@@ -31,10 +31,10 @@ export class OngekiProfileComponent implements OnInit {
     this.api.get('api/game/ongeki/profile', param).subscribe(
       data => {
         this.profile = data;
-        this.dbService.getByID<OngekiCard>('ongekiCard', this.profile.cardId).then(
+        this.dbService.getByID<OngekiCard>('ongekiCard', this.profile.cardId).subscribe(
           x => this.profile.card = x
         );
-        this.dbService.getByID<OngekiCharacter>('ongekiCharacter', this.profile.characterId).then(
+        this.dbService.getByID<OngekiCharacter>('ongekiCharacter', this.profile.characterId).subscribe(
           x => this.profile.character = x
         );
       },
