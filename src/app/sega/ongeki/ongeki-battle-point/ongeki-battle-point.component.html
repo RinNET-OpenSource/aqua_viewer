@@ -20,7 +20,7 @@
     <tbody>
     <tr *ngFor="let item of bPList; index as i">
       <td class="music-title">
-        <img src="{{host}}ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.png">
+        <img src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.png">
         {{i + 1}}: {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}
       </td>
       <td>

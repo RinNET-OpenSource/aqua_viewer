@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  assetsHost: '//static.samnyan.icu/'
+  assetsHost: ''
 };
 
 /*

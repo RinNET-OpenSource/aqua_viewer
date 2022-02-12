@@ -10,7 +10,7 @@
     <mat-card-title>{{item.userPlayDate}}</mat-card-title>
     <mat-card-content>
       <div class="song-header">
-        <img src="{{host}}ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.png">
+        <img src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.png">
         <div class="song-info">
           <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span><br>
           <span
@@ -35,7 +35,7 @@
             <div class="score-element">
               <div class="score-rank-icon">
                 <img [alt]="battleRank[item.battleScoreRank]"
-                     src="{{host}}ongeki/gameUi/{{item.battleScoreRank | toBattleSprite}}">
+                     src="{{host}}assets/ongeki/gameUi/{{item.battleScoreRank | toBattleSprite}}">
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
             <div class="score-element">
               <div class="score-rank-icon">
                 <img [alt]="technicalRank[item.techScoreRank]"
-                     src="{{host}}ongeki/gameUi/{{item.techScoreRank | toTechSprite}}">
+                     src="{{host}}assets/ongeki/gameUi/{{item.techScoreRank | toTechSprite}}">
               </div>
             </div>
           </div>
@@ -96,14 +96,14 @@
         <div class="bottom">
           <div class="bottom-achievement-icon">
             <img
-              src="{{host}}/ongeki/gameUi/{{item.isFullBell ? 'UI_RES_Score_FB_Badge.png' : 'UI_RES_Score_FB_Base.png'}}">
+              src="{{host}}assets//ongeki/gameUi/{{item.isFullBell ? 'UI_RES_Score_FB_Badge.png' : 'UI_RES_Score_FB_Base.png'}}">
           </div>
           <div class="bottom-achievement-icon">
             <img
-              src="{{host}}/ongeki/gameUi/{{item.isFullCombo ? 'UI_RES_Score_FC_Badge.png' : 'UI_RES_Score_FC_Base.png'}}">
+              src="{{host}}assets//ongeki/gameUi/{{item.isFullCombo ? 'UI_RES_Score_FC_Badge.png' : 'UI_RES_Score_FC_Base.png'}}">
           </div>
           <div *ngIf="item.isAllBreak" class="bottom-achievement-icon">
-            <img src="{{host}}/ongeki/gameUi/UI_RES_Score_AB_Badge.png">
+            <img src="{{host}}assets//ongeki/gameUi/UI_RES_Score_AB_Badge.png">
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
               <div class="attack">ATK {{item.cardAttack1}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}ongeki/card/UI_Card_{{item.cardId1|formatNumber:6}}_S.png">
+              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId1|formatNumber:6}}_S.png">
             </div>
           </div>
           <div class="player-card">
@@ -130,7 +130,7 @@
               <div class="attack">ATK {{item.cardAttack2}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}ongeki/card/UI_Card_{{item.cardId2|formatNumber:6}}_S.png">
+              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId2|formatNumber:6}}_S.png">
             </div>
           </div>
           <div class="player-card">
@@ -139,7 +139,7 @@
               <div class="attack">ATK {{item.cardAttack3}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}ongeki/card/UI_Card_{{item.cardId3|formatNumber:6}}_S.png">
+              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId3|formatNumber:6}}_S.png">
             </div>
           </div>
         </div>
