@@ -35,50 +35,45 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {ToolsModule} from '../../../util/tools.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-
-    AmazonRoutes,
-
-    MatFormFieldModule,
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    FlexLayoutModule,
-    NgxPaginationModule,
-    ToolsModule
-  ],
-  declarations: [
-    AmazonProfileComponent,
-    AmazonRatingComponent,
-    ToRatingPipe,
-    RatingClass,
-    CourceIdToClassPipe,
-    AmazonRecentComponent,
-    ToRankPipe,
-    AmazonSettingComponent,
-    AmazonNameSettingDialog,
-    AmazonCharacterComponent,
-    AmazonSonglistComponent,
-    AmazonSongDetailComponent,
-    AmazonSongPlaylogComponent
-  ],
-  entryComponents: [
-    AmazonNameSettingDialog
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        AmazonRoutes,
+        MatFormFieldModule,
+        MatCardModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        FlexLayoutModule,
+        NgxPaginationModule,
+        ToolsModule
+    ],
+    declarations: [
+        AmazonProfileComponent,
+        AmazonRatingComponent,
+        ToRatingPipe,
+        RatingClass,
+        CourceIdToClassPipe,
+        AmazonRecentComponent,
+        ToRankPipe,
+        AmazonSettingComponent,
+        AmazonNameSettingDialog,
+        AmazonCharacterComponent,
+        AmazonSonglistComponent,
+        AmazonSongDetailComponent,
+        AmazonSongPlaylogComponent
+    ]
 })
 export class AmazonModule {
 }

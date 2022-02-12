@@ -46,38 +46,35 @@ import {DivaPvlistComponent} from './diva-pvlist/diva-pvlist.component';
 
 
 @NgModule({
-  declarations: [
-    DivaProfileComponent,
-    DivaPvRecordComponent,
-    DivaRecentComponent,
-    DivaDecimalPipe,
-    DivaSettingComponent,
-    DivaRecordDetailComponent,
-
-    DivaNameSettingDialog,
-    DivaTitleSettingDialog,
-    DivaPlateSettingDialog,
-    DivaSkinSettingDialog,
-    DivaMylistSettingDialog,
-    DivaSeSettingDialog,
-    DivaDisplaySettingDialog,
-    DivaRivalSettingDialog,
-
-    DivaManagementComponent,
-    DivaFestaComponent,
-    DivaFestaEditComponent,
-    DivaContestComponent,
-    DivaContestEditComponent,
-    DivaModulesComponent,
-    DivaNewsComponent,
-    DivaCustomizeComponent,
-    DivaPvlistComponent,
-  ],
+    declarations: [
+        DivaProfileComponent,
+        DivaPvRecordComponent,
+        DivaRecentComponent,
+        DivaDecimalPipe,
+        DivaSettingComponent,
+        DivaRecordDetailComponent,
+        DivaNameSettingDialog,
+        DivaTitleSettingDialog,
+        DivaPlateSettingDialog,
+        DivaSkinSettingDialog,
+        DivaMylistSettingDialog,
+        DivaSeSettingDialog,
+        DivaDisplaySettingDialog,
+        DivaRivalSettingDialog,
+        DivaManagementComponent,
+        DivaFestaComponent,
+        DivaFestaEditComponent,
+        DivaContestComponent,
+        DivaContestEditComponent,
+        DivaModulesComponent,
+        DivaNewsComponent,
+        DivaCustomizeComponent,
+        DivaPvlistComponent,
+    ],
     imports: [
         CommonModule,
         FormsModule,
         DivaRoutes,
-
         MatFormFieldModule,
         MatCardModule,
         MatButtonModule,
@@ -97,17 +94,7 @@ import {DivaPvlistComponent} from './diva-pvlist/diva-pvlist.component';
         MatCheckboxModule,
         MatDatepickerModule,
         NgxPaginationModule
-    ],
-  entryComponents: [
-    DivaNameSettingDialog,
-    DivaTitleSettingDialog,
-    DivaPlateSettingDialog,
-    DivaSkinSettingDialog,
-    DivaMylistSettingDialog,
-    DivaSeSettingDialog,
-    DivaDisplaySettingDialog,
-    DivaRivalSettingDialog
-  ]
+    ]
 })
 export class DivaModule {
 }

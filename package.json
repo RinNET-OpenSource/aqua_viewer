@@ -14,18 +14,18 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~12.2.16",
+    "@angular/animations": "~13.2.2",
     "@angular/cdk": "~10.1.0",
-    "@angular/common": "~12.2.16",
-    "@angular/compiler": "~12.2.16",
-    "@angular/core": "~12.2.16",
+    "@angular/common": "~13.2.2",
+    "@angular/compiler": "~13.2.2",
+    "@angular/core": "~13.2.2",
     "@angular/flex-layout": "^10.0.0-beta.32",
-    "@angular/forms": "~12.2.16",
+    "@angular/forms": "~13.2.2",
     "@angular/material": "^10.1.0",
-    "@angular/platform-browser": "~12.2.16",
-    "@angular/platform-browser-dynamic": "~12.2.16",
-    "@angular/router": "~12.2.16",
-    "@angular/service-worker": "~12.2.16",
+    "@angular/platform-browser": "~13.2.2",
+    "@angular/platform-browser-dynamic": "~13.2.2",
+    "@angular/router": "~13.2.2",
+    "@angular/service-worker": "~13.2.2",
     "@createjs/easeljs": "^2.0.0-beta.4",
     "@createjs/tweenjs": "^2.0.0-beta.4",
     "angular-cli-ghpages": "^0.6.2",
@@ -37,10 +37,10 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.2.16",
-    "@angular/cli": "~12.2.16",
-    "@angular/compiler-cli": "~12.2.16",
-    "@angular/language-service": "~12.2.16",
+    "@angular-devkit/build-angular": "~13.2.3",
+    "@angular/cli": "~13.2.3",
+    "@angular/compiler-cli": "~13.2.2",
+    "@angular/language-service": "~13.2.2",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^12.12.31",
@@ -56,6 +56,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.8.1",
     "tslint": "~6.1.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.5.5"
   }
 }
