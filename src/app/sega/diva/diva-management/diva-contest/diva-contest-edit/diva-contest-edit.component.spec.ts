@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DivaContestEditComponent} from './diva-contest-edit.component';
 
@@ -6,7 +6,7 @@ describe('DivaContestEditComponent', () => {
   let component: DivaContestEditComponent;
   let fixture: ComponentFixture<DivaContestEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DivaContestEditComponent]
     })

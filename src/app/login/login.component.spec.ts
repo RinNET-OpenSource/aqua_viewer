@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -14,7 +14,7 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [
@@ -42,13 +42,13 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`form should be invalid`, async(() => {
+  it(`form should be invalid`, waitForAsync(() => {
     component.loginForm.controls.email.setValue('');
     component.loginForm.controls.password.setValue('');
     expect(component.loginForm.invalid).toBeTruthy();
   }));
 
-  it(`form should be valid`, async(() => {
+  it(`form should be valid`, waitForAsync(() => {
     component.loginForm.controls.email.setValue('test@eamil.com');
     component.loginForm.controls.password.setValue('12345');
     expect(component.loginForm.invalid).toBeFalsy();

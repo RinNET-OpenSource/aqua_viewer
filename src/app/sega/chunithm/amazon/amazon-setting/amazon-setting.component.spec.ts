@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AmazonSettingComponent } from './amazon-setting.component';
 
@@ -6,7 +6,7 @@ describe('AmazonSettingComponent', () => {
   let component: AmazonSettingComponent;
   let fixture: ComponentFixture<AmazonSettingComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AmazonSettingComponent ]
     })

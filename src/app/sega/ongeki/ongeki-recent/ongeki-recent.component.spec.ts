@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {OngekiRecentComponent} from './ongeki-recent.component';
 
@@ -6,7 +6,7 @@ describe('OngekiRecentComponent', () => {
   let component: OngekiRecentComponent;
   let fixture: ComponentFixture<OngekiRecentComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [OngekiRecentComponent]
     })

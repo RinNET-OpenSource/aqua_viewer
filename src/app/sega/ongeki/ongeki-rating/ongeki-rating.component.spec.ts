@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {OngekiRatingComponent} from './ongeki-rating.component';
 
@@ -6,7 +6,7 @@ describe('OngekiRatingComponent', () => {
   let component: OngekiRatingComponent;
   let fixture: ComponentFixture<OngekiRatingComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [OngekiRatingComponent]
     })

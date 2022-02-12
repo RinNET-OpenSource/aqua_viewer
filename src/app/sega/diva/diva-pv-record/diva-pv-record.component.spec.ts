@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DivaPvRecordComponent} from './diva-pv-record.component';
 
@@ -6,7 +6,7 @@ describe('DivaPvRecordComponent', () => {
   let component: DivaPvRecordComponent;
   let fixture: ComponentFixture<DivaPvRecordComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DivaPvRecordComponent]
     })
