@@ -2,17 +2,15 @@
 
 A WebUI for AQUA Server
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
-
-## Live Version
-Go http://aqua.samnyan.icu/
-
-Please notice that if you are using HTTPS, your browser may block HTTP connect to the game server.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
 ## Self Host
-Go to [gh-pages branch](https://github.com/samnyan/aqua-viewer/tree/gh-pages), then clone all the file or download as zip. This build is up to date with the source.
+Due to modern browser's security restriction, there is no simple way to self host like old days.
 
-###Build From Source
-You need to have Angular-cli installed and run `ng build --prod`.
+- To serve local instance: install NodeJS and required dependencies respectively then run `ng serve`.
+
+- To build: same as above but run `ng build --prod`.
+
+For static images, place them into assets folder. Otherwise, all related images won't display.
 
 Please follow the [deployment guide](https://angular.io/guide/deployment) if you are new to angular.
