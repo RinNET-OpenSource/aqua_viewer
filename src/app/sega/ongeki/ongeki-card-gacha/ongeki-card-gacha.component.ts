@@ -195,7 +195,7 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
     FLASH.graphics.beginFill('white').drawRect(0, 0, STAGE.canvas.width, STAGE.canvas.height);
 
     const CARD_BITMAP = new Bitmap(this.host + 'ongeki/card/UI_Card_' +
-      this.formatNumber(this.cardResultList[this.currentShowedIndex].card.id, 6) + '.png');
+      this.formatNumber(this.cardResultList[this.currentShowedIndex].card.id, 6) + '_S.jpg');
 
     // Set anchor point
     CARD_BITMAP.regX = 768 / 2;

@@ -9,9 +9,7 @@
   <mat-card-content>
     <div class="card-display">
       <div class="image">
-        <a href="{{host}}assets/ongeki/card/UI_Card_{{item.id|formatNumber:6}}.png" target="_blank">
-          <img src="{{host}}assets/ongeki/card/UI_Card_{{item.id|formatNumber:6}}_S.png">
-        </a>
+        <img src="{{host}}assets/ongeki/card/UI_Card_{{item.id|formatNumber:6}}_S.jpg">
         <div *ngIf="item.characterInfo">
           {{item.characterInfo.name}}<br>
           {{item.characterInfo.cv ? '(CV: ' + item.characterInfo.cv + ')' : ''}}

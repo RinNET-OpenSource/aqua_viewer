@@ -27,7 +27,7 @@
   right: 0;
   height: 100%;
   width: 100%;
-  background: url("/assets/ongeki/gameUi/Evt_BattleStart_UI_CMN_Transition_bg.png") no-repeat center;
+  background: url("/web/assets/ongeki/gameUi/Evt_BattleStart_UI_CMN_Transition_bg.png") no-repeat center;
   background-size: cover;
 }
 

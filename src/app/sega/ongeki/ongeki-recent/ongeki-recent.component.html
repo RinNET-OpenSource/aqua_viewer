@@ -10,7 +10,7 @@
     <mat-card-title>{{item.userPlayDate}}</mat-card-title>
     <mat-card-content>
       <div class="song-header">
-        <img src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.png">
+        <img src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
         <div class="song-info">
           <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span><br>
           <span
@@ -121,7 +121,7 @@
               <div class="attack">ATK {{item.cardAttack1}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId1|formatNumber:6}}_S.png">
+              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId1|formatNumber:6}}_S.jpg">
             </div>
           </div>
           <div class="player-card">
@@ -130,7 +130,7 @@
               <div class="attack">ATK {{item.cardAttack2}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId2|formatNumber:6}}_S.png">
+              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId2|formatNumber:6}}_S.jpg">
             </div>
           </div>
           <div class="player-card">
@@ -139,7 +139,7 @@
               <div class="attack">ATK {{item.cardAttack3}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId3|formatNumber:6}}_S.png">
+              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId3|formatNumber:6}}_S.jpg">
             </div>
           </div>
         </div>
