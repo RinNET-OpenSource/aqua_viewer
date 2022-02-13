@@ -23,20 +23,20 @@
     <div *ngFor="let item of cardResultList" class="result-card" style>
       <div [class.flip]="item.show" class="card-image">
         <div class="image-front">
-          <img src="{{assets}}UI_CMN_CardBackSide.png">
+          <img src="{{host}}assets/UI_CMN_CardBackSide.png">
         </div>
         <div class="image-back">
           <img src="{{host}}assets/ongeki/card/UI_Card_{{item.card.id|formatNumber:6}}.png">
         </div>
       </div>
       <div class="overlay">
-        <img src="{{assets}}SB_CMN_CardGet_Card_kira.png">
+        <img src="{{host}}assets/SB_CMN_CardGet_Card_kira.png">
       </div>
       <div *ngIf="item.card.rarity == 'SR' && !item.show" class="overlay-rarity">
-        <img src="{{assets}}UI_CMN_CardGlow_SR.png">
+        <img src="{{host}}assets/UI_CMN_CardGlow_SR.png">
       </div>
       <div *ngIf="item.card.rarity == 'SSR' && !item.show" class="overlay-rarity">
-        <img src="{{assets}}UI_CMN_CardGlow_SSR.png">
+        <img src="{{hostUI_CMN_CardGlow_SSR.png">
       </div>
     </div>
   </div>
@@ -51,9 +51,9 @@
 </div>
 
 <div id="image_loader">
-  <img id="new_card_get" src="{{assets}}UI_CMN_CardGet_NEW.png">
-  <img src="{{assets}}UI_CMN_CardGet_NEW_Right_Eff_00_1.png">
-  <img src="{{assets}}SB_CMN_CardGet_class_N.png">
-  <img src="{{assets}}SB_CMN_CardGet_Title.png">
-  <img src="{{assets}}UI_CMN_CardCharacter_Mask.png">
+  <img id="new_card_get" src="{{host}}assets/UI_CMN_CardGet_NEW.png">
+  <img src="{{host}}assets/UI_CMN_CardGet_NEW_Right_Eff_00_1.png">
+  <img src="{{host}}assets/SB_CMN_CardGet_class_N.png">
+  <img src="{{host}}assets/SB_CMN_CardGet_Title.png">
+  <img src="{{host}}assets/UI_CMN_CardCharacter_Mask.png">
 </div>
