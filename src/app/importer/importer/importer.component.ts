@@ -28,7 +28,7 @@ export class ImporterComponent implements OnInit {
   }
 
   chunithm(event) {
-    this.uploadDocument(event.target.files[0], 'api/game/chuni/amazon/import', 'SDBT');
+    this.uploadDocument(event.target.files[0], 'api/game/chuni/v1/import', 'SDBT');
   }
 
   ongeki(event) {

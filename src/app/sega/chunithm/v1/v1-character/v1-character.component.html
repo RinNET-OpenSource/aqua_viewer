@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-title>Characters</mat-card-title>
+  <mat-card-actions>
+    <button mat-button>Show All</button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card
+  *ngFor="let item of characters | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
+  <mat-card-title>
+    {{item.characterInfo ? item.characterInfo.name : 'ID:' + item.characterId}}
+  </mat-card-title>
+  <mat-card-content>
+    <div class="character-display">
+      <div class="image">
+        <a href="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|formatNumber:4}}_00_00.png"
+           target="_blank">
+          <img src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|formatNumber:4}}_00_00.png">
+        </a>
+      </div>
+      <div class="content">
+        <table class="zebra">
+          <tr>
+            <th>Level</th>
+            <td>{{item.level}}</td>
+          </tr>
+          <tr>
+            <th>Friendship Exp</th>
+            <td>{{item.friendshipExp}}</td>
+          </tr>
+          <tr>
+            <th>Play Count</th>
+            <td>{{item.playCount}}</td>
+          </tr>
+          <tr>
+            <th>Skill</th>
+            <td>{{item.skillInfo ? item.skillInfo.name : 'SkillId: ' + item.skillId}}<br>
+              {{item.skillInfo ? item.skillInfo.category : ''}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div fxFlex></div>
+    <button (click)="levelUp(item.characterId, item.level)"
+            mat-button>
+      LevelUp
+    </button>
+  </mat-card-actions>
+</mat-card>
+<div class="pagination">
+  <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
+</div>

@@ -1,0 +1,36 @@
+export interface V1Profile {
+  userName: string;
+  level: number;
+  exp: number;
+  point: number;
+  totalPoint: bigint;
+  playCount: number;
+  multiPlayCount: number;
+  multiWinCount: number;
+  requestResCount: number;
+  acceptResCount: number;
+  successResCount: number;
+  playerRating: number;
+  highestRating: number;
+  nameplateId: number;
+  frameId: number;
+  characterId: number;
+  trophyId: number;
+  playedTutorialBit: number;
+  firstTutorialCancelNum: number;
+  masterTutorialCancelNum: number;
+  totalRepertoireCount: number;
+  totalMapNum: number;
+  totalHiScore: bigint;
+  totalBasicHighScore: bigint;
+  totalAdvancedHighScore: bigint;
+  totalExpertHighScore: bigint;
+  totalMasterHighScore: bigint;
+  friendCount: number;
+  firstGameId: string;
+  firstRomVersion: string;
+  firstDataVersion: string;
+  firstPlayDate: Date;
+  lastPlayDate: Date;
+  courseClass: number;
+}

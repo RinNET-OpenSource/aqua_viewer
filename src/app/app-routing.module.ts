@@ -15,8 +15,8 @@ const routes: Routes = [
   {path: 'diva', loadChildren: () => import('./sega/diva/diva.module').then(mod => mod.DivaModule), canLoad: [AuthGuardService]},
   {path: 'ongeki', loadChildren: () => import('./sega/ongeki/ongeki.module').then(mod => mod.OngekiModule), canLoad: [AuthGuardService]},
   {
-    path: 'amazon',
-    loadChildren: () => import('./sega/chunithm/amazon/amazon.module').then(mod => mod.AmazonModule),
+    path: 'v1',
+    loadChildren: () => import('./sega/chunithm/v1/v1.module').then(mod => mod.V1Module),
     canLoad: [AuthGuardService]
   },
 ];
