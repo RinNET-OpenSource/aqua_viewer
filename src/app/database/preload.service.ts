@@ -3,15 +3,15 @@ import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {ReplaySubject} from 'rxjs';
 import {ApiService} from '../api.service';
 import {DivaPv} from '../sega/diva/model/DivaPv';
-import {ChuniMusic} from '../sega/chunithm/amazon/model/ChuniMusic';
+import {ChuniMusic} from '../sega/chunithm/v1/model/ChuniMusic';
 import {DivaModule} from '../sega/diva/model/DivaModule';
 import {DivaCustomize} from '../sega/diva/model/DivaCustomize';
 import {OngekiCard} from '../sega/ongeki/model/OngekiCard';
 import {OngekiCharacter} from '../sega/ongeki/model/OngekiCharacter';
 import {OngekiMusic} from '../sega/ongeki/model/OngekiMusic';
 import {OngekiSkill} from '../sega/ongeki/model/OngekiSkill';
-import {ChuniCharacter} from '../sega/chunithm/amazon/model/ChuniCharacter';
-import {ChuniSkill} from '../sega/chunithm/amazon/model/ChuniSkill';
+import {ChuniCharacter} from '../sega/chunithm/v1/model/ChuniCharacter';
+import {ChuniSkill} from '../sega/chunithm/v1/model/ChuniSkill';
 
 @Injectable({
   providedIn: 'root'
@@ -52,13 +52,13 @@ export class PreloadService {
     this.loader<DivaPv>('divaPv', 'api/game/diva/data/musicList', this.divaPv);
     this.loader<DivaModule>('divaModule', 'api/game/diva/data/moduleList', this.divaModule);
     this.loader<DivaCustomize>('divaCustomize', 'api/game/diva/data/customizeList', this.divaCustomize);
-    this.loader<ChuniMusic>('chuniMusic', 'api/game/chuni/amazon/music', this.chuniMusic);
+    this.loader<ChuniMusic>('chuniMusic', 'api/game/chuni/v1/music', this.chuniMusic);
     this.loader<OngekiCard>('ongekiCard', 'api/game/ongeki/data/cardList', this.ongekiCard);
     this.loader<OngekiCharacter>('ongekiCharacter', 'api/game/ongeki/data/charaList', this.ongekiCharacter);
     this.loader<OngekiMusic>('ongekiMusic', 'api/game/ongeki/data/musicList', this.ongekiMusic);
     this.loader<OngekiSkill>('ongekiSkill', 'api/game/ongeki/data/skillList', this.ongekiSkill);
-    this.loader<ChuniCharacter>('chuniCharacter', 'api/game/chuni/amazon/data/character', this.chuniCharacter);
-    this.loader<ChuniSkill>('chuniSkill', 'api/game/chuni/amazon/data/skill', this.chuniSkill);
+    this.loader<ChuniCharacter>('chuniCharacter', 'api/game/chuni/v1/data/character', this.chuniCharacter);
+    this.loader<ChuniSkill>('chuniSkill', 'api/game/chuni/v1/data/skill', this.chuniSkill);
   }
 
   reload() {

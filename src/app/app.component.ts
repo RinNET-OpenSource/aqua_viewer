@@ -63,36 +63,36 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   mobileQuery: MediaQueryList;
 
   dark = 'dark';
-  amazonMenus: Menu[] = [
+  v1Menus: Menu[] = [
     {
       id: 0,
       name: 'Profile',
-      url: 'amazon/profile'
+      url: 'v1/profile'
     },
     {
       id: 1,
       name: 'Rating',
-      url: 'amazon/rating'
+      url: 'v1/rating'
     },
     {
       id: 2,
       name: 'Recent Play',
-      url: 'amazon/recent'
+      url: 'v1/recent'
     },
     {
       id: 3,
       name: 'Song List',
-      url: 'amazon/song'
+      url: 'v1/song'
     },
     {
       id: 4,
       name: 'Character',
-      url: 'amazon/character'
+      url: 'v1/character'
     },
     {
       id: 5,
       name: 'Setting',
-      url: 'amazon/setting'
+      url: 'v1/setting'
     }
   ];
 

@@ -20,7 +20,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
 import {LoginModule} from './login/login.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {DivaModule} from './sega/diva/diva.module';
-import {AmazonModule} from './sega/chunithm/amazon/amazon.module';
+import {V1Module} from './sega/chunithm/v1/v1.module';
 import {DatabaseModule} from './database/database.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OngekiModule} from './sega/ongeki/ongeki.module';
@@ -50,7 +50,7 @@ import {environment} from '../environments/environment';
     LoginModule,
     ImporterModule,
     DivaModule,
-    AmazonModule,
+    V1Module,
     OngekiModule,
 
     ReactiveFormsModule,
