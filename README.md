@@ -9,7 +9,7 @@ Due to modern browser's security restriction, there is no simple way to self hos
 
 - To serve local instance: install NodeJS and required dependencies respectively then run `ng serve`.
 
-- To build: same as above but run `ng build --prod`.
+- To build: same as above but run `ng build --configuration=production`.
 
 For static images, place them into assets folder. Otherwise, all related images won't display.
 
