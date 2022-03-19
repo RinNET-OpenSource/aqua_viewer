@@ -2,7 +2,7 @@
 <div *ngIf="recent" class="record">
   <mat-card
     *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"
-    routerLink="/v1/song/{{item.musicId}}">
+    routerLink="/chuni/v1/song/{{item.musicId}}">
     <mat-card-title>{{item.userPlayDate}}</mat-card-title>
     <mat-card-content>
       <div class="song-header">

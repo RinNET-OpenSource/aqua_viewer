@@ -1,7 +1,7 @@
 <h1 class="mat-display-1">Music Play Record</h1>
 
 <div *ngIf="records">
-  <mat-card *ngFor="let item of records" class="record" routerLink="/v2/song/{{item.musicId}}">
+  <mat-card *ngFor="let item of records" class="record" routerLink="/chuni/v2/song/{{item.musicId}}">
     <mat-card-title>{{item.userPlayDate}}</mat-card-title>
     <mat-card-content>
       <div class="song-header">
