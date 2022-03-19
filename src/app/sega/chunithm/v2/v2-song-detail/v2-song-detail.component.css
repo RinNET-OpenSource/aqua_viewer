@@ -1,0 +1,52 @@
+.song-info {
+  display: flex;
+}
+
+.song-info img {
+  width: 128px;
+  height: 128px;
+}
+
+.text-content {
+  margin-left: 12px;
+}
+
+.text-content .title {
+  font-size: 1.5em;
+}
+
+.level-title {
+  display: flex;
+}
+
+.level-title .level {
+  margin-left: auto;
+  font-size: 0.75em;
+}
+
+.result-content {
+  display: flex;
+}
+
+.result-content .left {
+  min-width: 30%;
+  text-align: center;
+  margin: auto;
+}
+
+.score-rank-icon {
+  font-size: 1.5rem;
+}
+
+.score-value {
+  font-size: 1.4rem;
+}
+
+mat-card-actions {
+  display: flex;
+  padding-bottom: 0;
+}
+
+mat-card-actions button {
+  margin-left: auto;
+}

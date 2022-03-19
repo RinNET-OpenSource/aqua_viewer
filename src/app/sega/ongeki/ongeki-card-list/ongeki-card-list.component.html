@@ -1,6 +1,4 @@
-<mat-card>
-  <mat-card-title>All Card List</mat-card-title>
-</mat-card>
+<h1 class="mat-display-1">All cards</h1>
 
 <mat-card *ngFor="let item of cardList | paginate: { id: 'card', itemsPerPage: 10, currentPage: p }">
   <mat-card-title>
@@ -9,7 +7,7 @@
   <mat-card-content>
     <div class="card-display">
       <div class="image">
-        <img src="{{host}}assets/ongeki/card/UI_Card_{{item.id|formatNumber:6}}_S.jpg">
+        <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/card/UI_Card_{{item.id|formatNumber:6}}_S.jpg">
         <div *ngIf="item.characterInfo">
           {{item.characterInfo.name}}<br>
           {{item.characterInfo.cv ? '(CV: ' + item.characterInfo.cv + ')' : ''}}
@@ -50,7 +48,7 @@
             <td>{{item.choKaikaSkillInfo ? item.choKaikaSkillInfo.name : 'ID:' + item.choKaikaSkillId}}</td>
           </tr>
           <tr>
-            <th>CardNumber</th>
+            <th>Card Number</th>
             <td>{{item.cardNumber}}</td>
           </tr>
         </table>
@@ -59,7 +57,7 @@
   </mat-card-content>
   <mat-card-actions>
     <div fxFlex></div>
-    <button (click)="insertCard(item.id)" mat-button>I want it!!</button>
+    <button (click)="insertCard(item.id)" mat-button>I want it!</button>
   </mat-card-actions>
 </mat-card>
 <div class="pagination">

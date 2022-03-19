@@ -20,6 +20,7 @@ import {OngekiSkill} from '../model/OngekiSkill';
 export class OngekiCardComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   cardList: Observable<PlayerCard[]>;
 

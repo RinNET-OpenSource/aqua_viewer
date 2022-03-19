@@ -1,59 +1,61 @@
-<mat-card *ngIf="!isStarted" [@control] class="control">
+<h1 class="mat-display-1">Card Gacha</h1>
+
+<mat-card *ngIf="!isStarted">
   <mat-card-content>
-    <h2>Regular Gacha</h2>
-    <p>This is still work in progress. Animation isn't implemented.</p>
+    <p>This is still work in progress.</p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!isStarted">
+  <mat-card-title>
+    Regular Gacha
+  </mat-card-title>
+  <mat-card-content>
     <div class="gacha-button-group">
       <button (click)="gacha(1)" mat-raised-button>Gacha<br>1x</button>
       <button (click)="gacha(5)" mat-raised-button>Gacha<br>5x</button>
       <button (click)="gacha(11)" mat-raised-button>Gacha<br>11x</button>
     </div>
-    <p>Detail:<br>
-      R: 70%<br>
-      SR: 25%<br>
+    <p>Probability:
+      R: 70%, 
+      SR: 25%, 
       SSR: 5%
-    </p>
-    <p *ngIf="cardResultList.length > 0">
-      Card data saved in server: {{submitSuccessful}} , failed {{cardResultList.length - submitSuccessful}}
     </p>
   </mat-card-content>
 </mat-card>
 
-<div class="full-screen">
-  <div (click)="clickHandler()" *ngIf="isStarted" [@control] class="card-container">
-    <div *ngFor="let item of cardResultList" class="result-card" style>
-      <div [class.flip]="item.show" class="card-image">
-        <div class="image-front">
-          <img src="{{host}}assets/ongeki/gameUi/UI_CMN_CardBackSide.png">
-        </div>
-        <div class="image-back">
-          <img src="{{host}}assets/ongeki/card/UI_Card_{{item.card.id|formatNumber:6}}_S.jpg">
-        </div>
-      </div>
-      <div class="overlay">
-        <img src="{{host}}assets/ongeki/gameUi/SB_CMN_CardGet_Card_kira.png">
-      </div>
-      <div *ngIf="item.card.rarity == 'SR' && !item.show" class="overlay-rarity">
-        <img src="{{host}}assets/ongeki/gameUi/UI_CMN_CardGlow_SR.png">
-      </div>
-      <div *ngIf="item.card.rarity == 'SSR' && !item.show" class="overlay-rarity">
-        <img src="{{host}}assets/ongeki/gameUi/UI_CMN_CardGlow_SSR.png">
-      </div>
-    </div>
-  </div>
-</div>
+<mat-card *ngIf="isStarted">
+  <mat-card-title>
+    Gacha Result
+  </mat-card-title>
+  <mat-card-content>
+    <table class="zebra">
+      <thead>
+      <th>Rarity</th>
+      <th>Card name</th>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let item of cardResultList">
+        <ng-container *ngTemplateOutlet="resultRow; context: {item: item}"></ng-container>
+      </ng-container>
+      </tbody>
+    </table>
+    <p *ngIf="cardResultList.length > 0">
+      {{submitSuccessful}} card(s) sucessfully saved ({{cardResultList.length - submitSuccessful}} failed)
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="goBack()" mat-raised-button>Go back</button>
+  </mat-card-actions>
+</mat-card>
 
-<div #card_rarity_animation_container (click)="clickHandler()" class="card-animation-full-screen">
-  <canvas #card_rarity_animation height="1920" id="card-rarity-animation" width="1080"></canvas>
-</div>
-
-<div class="card-animation-full-screen" style="display: none">
-  <canvas #card_animation height="1920" id="card-detail-animation" width="1080"></canvas>
-</div>
-
-<div id="image_loader">
-  <img id="new_card_get" src="{{host}}assets/ongeki/gameUi/UI_CMN_CardGet_NEW.png">
-  <img src="{{host}}assets/ongeki/gameUi/UI_CMN_CardGet_NEW_Right_Eff_00_1.png">
-  <img src="{{host}}assets/ongeki/gameUi/SB_CMN_CardGet_class_N.png">
-  <img src="{{host}}assets/ongeki/gameUi/SB_CMN_CardGet_Title.png">
-  <img src="{{host}}assets/ongeki/gameUi/UI_CMN_CardCharacter_Mask.png">
-</div>
+<ng-template #resultRow let-item="item">
+  <tr>
+    <td>
+      {{item.card.rarity}}
+    </td>
+    <td>
+      {{item.card.name}}
+    </td>
+  </tr>
+</ng-template>

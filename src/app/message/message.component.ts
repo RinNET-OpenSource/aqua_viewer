@@ -18,9 +18,7 @@ export class MessageComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-    this.openSnackBar('Initialized');
-  }
+  ngOnInit() {}
 
   public openSnackBar(message: string) {
     this._snackBar.open(message, 'OK', {

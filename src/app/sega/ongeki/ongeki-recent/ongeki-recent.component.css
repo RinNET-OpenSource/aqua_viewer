@@ -86,11 +86,6 @@
   margin: auto;
 }
 
-.bottom .bottom-achievement-icon img {
-  width: 100%;
-  max-width: 100px;
-}
-
 .battle-info {
   font-size: 0.8em;
   color: #cfcfcf;
@@ -110,7 +105,6 @@
 
 .player-card .player-card-header {
   display: flex;
-  padding: 0 10px;
 }
 
 .player-card-header .attack {

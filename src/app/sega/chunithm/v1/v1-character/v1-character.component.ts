@@ -19,6 +19,7 @@ import {ChuniSkill} from '../model/ChuniSkill';
 export class V1CharacterComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   aimeId: string;
 

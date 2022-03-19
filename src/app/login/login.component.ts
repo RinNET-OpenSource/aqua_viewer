@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           if (data != null) {
-            this.messageService.notice('OK');
+            this.messageService.notice('Logging in');
             location.reload();
           } else {
-            this.messageService.notice('No such Card');
+            this.messageService.notice('Card you entered does not exist');
           }
         },
         error => {

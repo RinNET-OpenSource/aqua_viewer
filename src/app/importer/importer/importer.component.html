@@ -1,13 +1,11 @@
+<h1 class="mat-display-1">Import</h1>
+
 <mat-card>
   <mat-card-title>
-    Import Data
+    Warning!
   </mat-card-title>
   <mat-card-content>
-    <mat-form-field class="example-full-width">
-      <mat-label>API Server</mat-label>
-      <input [(ngModel)]="apiServer" matInput placeholder="">
-    </mat-form-field>
-
+    While this could work, it is not recommended to use this feature.
   </mat-card-content>
 </mat-card>
 
@@ -17,6 +15,15 @@
   </mat-card-title>
   <mat-card-content>
     <input (change)="chunithm($event)" accept=".json" class="upload-button" type='file'>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>
+    CHUNITHM New
+  </mat-card-title>
+  <mat-card-content>
+    <input (change)="chusan($event)" accept=".json" class="upload-button" type='file'>
   </mat-card-content>
 </mat-card>
 

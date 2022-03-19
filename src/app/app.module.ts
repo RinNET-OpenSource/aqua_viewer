@@ -21,6 +21,7 @@ import {LoginModule} from './login/login.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {DivaModule} from './sega/diva/diva.module';
 import {V1Module} from './sega/chunithm/v1/v1.module';
+import {V2Module} from './sega/chunithm/v2/v2.module';
 import {DatabaseModule} from './database/database.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OngekiModule} from './sega/ongeki/ongeki.module';
@@ -51,6 +52,7 @@ import {environment} from '../environments/environment';
     ImporterModule,
     DivaModule,
     V1Module,
+    V2Module,
     OngekiModule,
 
     ReactiveFormsModule,

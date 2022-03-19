@@ -21,6 +21,7 @@ import {OngekiCharacter} from '../model/OngekiCharacter';
 export class OngekiRecentComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   aimeId: string;
 

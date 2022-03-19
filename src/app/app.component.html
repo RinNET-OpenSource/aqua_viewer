@@ -26,11 +26,14 @@
         <mat-toolbar>O.N.G.E.K.I</mat-toolbar>
         <a *ngFor="let item of ongekiMenu" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>
         <mat-divider></mat-divider>
-        <mat-toolbar>Project DIVA AFT</mat-toolbar>
-        <a *ngFor="let item of divaMenus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>
-        <mat-divider></mat-divider>
         <mat-toolbar>CHUNITHM</mat-toolbar>
         <a *ngFor="let item of v1Menus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>
+        <mat-divider></mat-divider>
+        <mat-toolbar>CHUNITHM NEW</mat-toolbar>
+        <a *ngFor="let item of v2Menus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>
+        <mat-divider></mat-divider>
+        <mat-toolbar>Project DIVA AFT</mat-toolbar>
+        <a *ngFor="let item of divaMenus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>
       </mat-nav-list>
     </mat-sidenav>
 

@@ -17,6 +17,7 @@ import {V1Record} from '../model/V1Record';
 export class V1SongDetailComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   id: number;
   music: ChuniMusic;

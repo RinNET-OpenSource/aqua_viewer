@@ -1,16 +1,11 @@
-<mat-card>
-  <mat-card-title>
-    Recent Play
-  </mat-card-title>
-</mat-card>
+<h1 class="mat-display-1">Play Record</h1>
 <div *ngIf="recent" class="record">
   <mat-card
-    *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"
-    routerLink="/ongeki/song/{{item.musicId}}">
+    *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
     <mat-card-title>{{item.userPlayDate}}</mat-card-title>
     <mat-card-content>
       <div class="song-header">
-        <img src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
+        <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
         <div class="song-info">
           <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span><br>
           <span
@@ -34,8 +29,7 @@
             </div>
             <div class="score-element">
               <div class="score-rank-icon">
-                <img [alt]="battleRank[item.battleScoreRank]"
-                     src="{{host}}assets/ongeki/gameUi/{{item.battleScoreRank | toBattleSprite}}">
+                {{battleRank[item.battleScoreRank]}}
               </div>
             </div>
           </div>
@@ -47,8 +41,7 @@
             </div>
             <div class="score-element">
               <div class="score-rank-icon">
-                <img [alt]="technicalRank[item.techScoreRank]"
-                     src="{{host}}assets/ongeki/gameUi/{{item.techScoreRank | toTechSprite}}">
+                {{technicalRank[item.techScoreRank]}}
               </div>
             </div>
           </div>
@@ -95,15 +88,13 @@
         </div>
         <div class="bottom">
           <div class="bottom-achievement-icon">
-            <img
-              src="{{host}}assets/ongeki/gameUi/{{item.isFullBell ? 'UI_RES_Score_FB_Badge.png' : 'UI_RES_Score_FB_Base.png'}}">
+            {{item.isFullBell ? 'Full Bell' : ''}}
           </div>
           <div class="bottom-achievement-icon">
-            <img
-              src="{{host}}assets/ongeki/gameUi/{{item.isFullCombo ? 'UI_RES_Score_FC_Badge.png' : 'UI_RES_Score_FC_Base.png'}}">
+            {{item.isFullCombo ? 'Full Combo' : ''}}
           </div>
           <div *ngIf="item.isAllBreak" class="bottom-achievement-icon">
-            <img src="{{host}}assets/ongeki/gameUi/UI_RES_Score_AB_Badge.png">
+            {{item.isAllBreak ? 'All Break' : ''}}
           </div>
         </div>
       </div>
@@ -121,7 +112,8 @@
               <div class="attack">ATK {{item.cardAttack1}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId1|formatNumber:6}}_S.jpg">
+              <div *ngIf="item.cardInfo1 && enableImages == false">{{item.cardInfo1.name}}</div>
+              <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId1|formatNumber:6}}_S.jpg">
             </div>
           </div>
           <div class="player-card">
@@ -130,7 +122,8 @@
               <div class="attack">ATK {{item.cardAttack2}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId2|formatNumber:6}}_S.jpg">
+              <div *ngIf="item.cardInfo2 && enableImages == false">{{item.cardInfo2.name}}</div>
+              <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId2|formatNumber:6}}_S.jpg">
             </div>
           </div>
           <div class="player-card">
@@ -139,7 +132,8 @@
               <div class="attack">ATK {{item.cardAttack3}}</div>
             </div>
             <div class="player-card-image">
-              <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId3|formatNumber:6}}_S.jpg">
+              <div *ngIf="item.cardInfo3 && enableImages == false">{{item.cardInfo3.name}}</div>
+              <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId3|formatNumber:6}}_S.jpg">
             </div>
           </div>
         </div>

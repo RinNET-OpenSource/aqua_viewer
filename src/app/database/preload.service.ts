@@ -12,6 +12,14 @@ import {OngekiMusic} from '../sega/ongeki/model/OngekiMusic';
 import {OngekiSkill} from '../sega/ongeki/model/OngekiSkill';
 import {ChuniCharacter} from '../sega/chunithm/v1/model/ChuniCharacter';
 import {ChuniSkill} from '../sega/chunithm/v1/model/ChuniSkill';
+import {ChusanMusic} from '../sega/chunithm/v2/model/ChusanMusic';
+import {ChusanCharacter} from '../sega/chunithm/v2/model/ChusanCharacter';
+import {ChusanTrophy} from '../sega/chunithm/v2/model/ChusanTrophy';
+import {ChusanNamePlate} from '../sega/chunithm/v2/model/ChusanNamePlate';
+import {ChusanSystemVoice} from '../sega/chunithm/v2/model/ChusanSystemVoice';
+import {ChusanMapIcon} from '../sega/chunithm/v2/model/ChusanMapIcon';
+import { ChusanFrame } from '../sega/chunithm/v2/model/ChusanFrame';
+import { ChusanAvatarAcc } from '../sega/chunithm/v2/model/ChusanAvatarAcc';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +50,23 @@ export class PreloadService {
   private chuniSkill = new ReplaySubject<string>();
   chuniSkillState = this.chuniSkill.asObservable();
 
+  private chusanMusic = new ReplaySubject<string>();
+  chusanMusicState = this.chusanMusic.asObservable();
+  private chusanCharacter = new ReplaySubject<string>();
+  chusanCharacterState = this.chusanCharacter.asObservable();
+  private chusanTrophy = new ReplaySubject<string>();
+  chusanTrophyState = this.chusanTrophy.asObservable();
+  private chusanNamePlate = new ReplaySubject<string>();
+  chusanNamePlateState = this.chusanNamePlate.asObservable();
+  private chusanSystemVoice = new ReplaySubject<string>();
+  chusanSystemVoiceState = this.chusanSystemVoice.asObservable();
+  private chusanMapIcon = new ReplaySubject<string>();
+  chusanMapIconState = this.chusanMapIcon.asObservable();
+  private chusanFrame = new ReplaySubject<string>();
+  chusanFrameState = this.chusanFrame.asObservable();
+  private chusanAvatarAcc = new ReplaySubject<string>();
+  chusanAvatarAccState = this.chusanAvatarAcc.asObservable();
+
   constructor(
     private dbService: NgxIndexedDBService,
     private api: ApiService
@@ -59,6 +84,14 @@ export class PreloadService {
     this.loader<OngekiSkill>('ongekiSkill', 'api/game/ongeki/data/skillList', this.ongekiSkill);
     this.loader<ChuniCharacter>('chuniCharacter', 'api/game/chuni/v1/data/character', this.chuniCharacter);
     this.loader<ChuniSkill>('chuniSkill', 'api/game/chuni/v1/data/skill', this.chuniSkill);
+    this.loader<ChusanMusic>('chusanMusic', 'api/game/chuni/v2/data/music', this.chusanMusic);
+    this.loader<ChusanCharacter>('chusanCharacter', 'api/game/chuni/v2/data/character', this.chusanCharacter);
+    this.loader<ChusanTrophy>('chusanTrophy', 'api/game/chuni/v2/data/trophy', this.chusanTrophy);
+    this.loader<ChusanNamePlate>('chusanNamePlate', 'api/game/chuni/v2/data/nameplate', this.chusanNamePlate);
+    this.loader<ChusanSystemVoice>('chusanSystemVoice', 'api/game/chuni/v2/data/sysvoice', this.chusanSystemVoice);
+    this.loader<ChusanMapIcon>('chusanMapIcon', 'api/game/chuni/v2/data/mapicon', this.chusanMapIcon);
+    this.loader<ChusanFrame>('chusanFrame', 'api/game/chuni/v2/data/frame', this.chusanFrame);
+    this.loader<ChusanAvatarAcc>('chusanAvatarAcc', 'api/game/chuni/v2/data/avatar', this.chusanAvatarAcc);
   }
 
   reload() {

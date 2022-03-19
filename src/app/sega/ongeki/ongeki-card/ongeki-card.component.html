@@ -1,19 +1,18 @@
+<h1 class="mat-display-1">Card</h1>
 <mat-card>
-  <mat-card-title>My Card List</mat-card-title>
   <mat-card-content>
     <p class="hint">
-      Hint: <br>
-      Every card has base Lv.10 Max. After Kaika, max level will plus 40. (Means 10 + 40)<br>
-      Every Star larger than 1 will add 5 levels to max level. And R,SR,SSR card can get max 5 stars, N card can get max
+      Every card has base Lv.10 Max. After Kaika, max level will plus 40. (= 10 + 40)<br>
+      Every star larger than 1 will add 5 levels to max level. R, SR, SSR card can get max 5 stars, N card can get max
       10 stars.<br>
-      Means max level for N card is 100, for R,SR,SSR card is 70.<br>
-      Star level can be increase by getting the same card or use item in game.
+      Means max level for N card is 100, for R, SR, SSR card is 70.<br>
+      Star level can be increase by getting the same card or using item.
     </p>
-    <div class="action">
-      <button mat-button routerLink="all">Show All Cards</button>
-      <button mat-button routerLink="gacha">Gacha(Work in progress)</button>
-    </div>
   </mat-card-content>
+  <mat-card-actions>
+    <button mat-button routerLink="all">Show All Cards</button>
+    <button mat-button routerLink="gacha">Gacha</button>
+  </mat-card-actions>
 </mat-card>
 
 <mat-card
@@ -24,7 +23,7 @@
   <mat-card-content>
     <div class="card-display">
       <div class="image">
-        <img src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId|formatNumber:6}}_S.jpg">
+        <img *ngIf="enableImages" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId|formatNumber:6}}_S.jpg">
         <div *ngIf="item.characterInfo">
           {{item.characterInfo.name}}<br>
           {{item.characterInfo.cv ? '(CV: ' + item.characterInfo.cv + ')' : ''}}

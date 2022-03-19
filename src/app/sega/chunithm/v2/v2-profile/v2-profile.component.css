@@ -1,0 +1,11 @@
+/*mat-card {*/
+/*    background-image: url("https://i.loli.net/2019/11/25/Xv4M5Npl9wib3Em.png");*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: right top;*/
+/*    background-size: 50%;*/
+/*}*/
+
+mat-card-content {
+  font-size: 18px;
+  line-height: 1.5rem;
+}

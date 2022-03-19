@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Change Item</h1>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-select [(ngModel)]="data.itemId">
+      <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.itemId}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="data.itemId">Apply</button>
+</mat-dialog-actions>

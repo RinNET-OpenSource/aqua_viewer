@@ -1,25 +1,19 @@
+<h1 class="mat-display-1">Profile</h1>
 <mat-card>
-  <mat-card-title>Player Profile</mat-card-title>
+  <mat-card-title>Overview</mat-card-title>
+  <mat-card-subtitle *ngIf="profile">{{profile.userName}}</mat-card-subtitle>
   <mat-card-content>
     <table *ngIf="profile" class="zebra">
       <tr>
-        <th>Player Name</th>
-        <td>{{profile.userName}}</td>
-      </tr>
-      <tr>
-        <th>Player Rating</th>
-        <td>{{profile.playerRating / 100 | number: '1.2-2'}}</td>
-      </tr>
-      <tr>
-        <th>Player Highest Rating</th>
-        <td>{{profile.highestRating / 100 | number: '1.2-2'}}</td>
+        <th>Rating</th>
+        <td>{{profile.playerRating / 100 | number: '1.2-2'}} (max {{profile.highestRating / 100 | number: '1.2-2'}})</td>
       </tr>
       <tr>
         <th>Battle Point</th>
         <td>{{profile.battlePoint}}</td>
       </tr>
       <tr>
-        <th>Player Level</th>
+        <th>Level</th>
         <td>{{profile.level}}</td>
       </tr>
       <tr>
@@ -27,7 +21,7 @@
         <td>{{profile.playCount}}</td>
       </tr>
       <tr>
-        <th>Name Plate Id</th>
+        <th>Name Plate ID</th>
         <td>{{profile.nameplateId}}</td>
       </tr>
       <tr>

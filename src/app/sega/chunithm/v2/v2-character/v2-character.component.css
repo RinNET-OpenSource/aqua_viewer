@@ -1,0 +1,16 @@
+.character-display {
+  display: flex;
+}
+
+.character-display .image {
+  max-width: 30%;
+}
+
+.character-display .image img {
+  width: 100%;
+}
+
+.character-display .content {
+  margin: 0 auto;
+  width: 65%;
+}

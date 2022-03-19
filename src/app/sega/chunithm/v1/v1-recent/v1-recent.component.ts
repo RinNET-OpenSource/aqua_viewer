@@ -18,6 +18,7 @@ import {Observable} from 'rxjs';
 export class V1RecentComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   aimeId: string;
 

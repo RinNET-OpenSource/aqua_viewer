@@ -1,17 +1,17 @@
+<h1 class="mat-display-1">Welcome!</h1>
 <mat-card class="login-card">
-  <mat-card-title>
-    Login
-  </mat-card-title>
   <mat-card-content>
     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
 
       <mat-form-field class="full-width">
         <mat-label>Access Code</mat-label>
+        <mat-hint>20-digit number of your card</mat-hint>
         <input formControlName="accessCode" matInput required type="text">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-label>ApiServer</mat-label>
+        <mat-label>API Server endpoint</mat-label>
         <input formControlName="apiServer" matInput required type="text">
+        
       </mat-form-field>
       <button [disabled]="!loginForm.valid" mat-raised-button type="submit">Login</button>
     </form>

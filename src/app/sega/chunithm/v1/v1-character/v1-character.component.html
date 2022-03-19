@@ -1,9 +1,4 @@
-<mat-card>
-  <mat-card-title>Characters</mat-card-title>
-  <mat-card-actions>
-    <button mat-button>Show All</button>
-  </mat-card-actions>
-</mat-card>
+<h1 class="mat-display-1">Character</h1>
 
 <mat-card
   *ngFor="let item of characters | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
@@ -13,10 +8,7 @@
   <mat-card-content>
     <div class="character-display">
       <div class="image">
-        <a href="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|formatNumber:4}}_00_00.png"
-           target="_blank">
-          <img src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|formatNumber:4}}_00_00.png">
-        </a>
+          <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|formatNumber:4}}_00_00.png">
       </div>
       <div class="content">
         <table class="zebra">

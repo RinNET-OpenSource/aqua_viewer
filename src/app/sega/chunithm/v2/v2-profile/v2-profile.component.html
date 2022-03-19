@@ -1,0 +1,66 @@
+<h1 class="mat-display-1">Profile</h1>
+
+<div>
+  <mat-card>
+    <mat-card-title>Overview</mat-card-title>
+    <mat-card-subtitle *ngIf="profile">{{profile.userName}}</mat-card-subtitle>
+    <mat-card-content>
+      <table *ngIf="profile" class="zebra">
+        <tr>
+          <th>Level</th>
+          <td>{{profile.level}}</td>
+        </tr>
+        <tr>
+          <th>Rating</th>
+          <td>{{profile.playerRating / 100}} (max {{profile.highestRating / 100}})</td>
+        </tr>
+        <tr>
+          <th>Over Power</th>
+          <td>{{profile.overPowerPoint / 100}} ({{profile.overPowerRate / 100}}%)</td>
+        </tr>
+        <tr>
+          <th>Play Count</th>
+          <td>{{profile.playCount}}</td>
+        </tr>
+        <tr>
+          <th>Last Play</th>
+          <td>{{profile.lastPlayDate}}</td>
+        </tr>
+      </table>
+      <p>Looking for more? Some info moved to its respective menus.</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div>
+  <mat-card>
+    <mat-card-title>Score Statistics</mat-card-title>
+    <mat-card-content>
+      <table *ngIf="profile" class="zebra">
+        <tr>
+          <th>Total High Score</th>
+          <td>{{profile.totalHiScore}}</td>
+        </tr>
+        <tr>
+          <th>Total Basic High Score</th>
+          <td>{{profile.totalBasicHighScore}}</td>
+        </tr>
+        <tr>
+          <th>Total Advanced High Score</th>
+          <td>{{profile.totalAdvancedHighScore}}</td>
+        </tr>
+        <tr>
+          <th>Total Expert High Score</th>
+          <td>{{profile.totalExpertHighScore}}</td>
+        </tr>
+        <tr>
+          <th>Total Master High Score</th>
+          <td>{{profile.totalMasterHighScore}}</td>
+        </tr>
+        <tr>
+          <th>Total Ultima High Score</th>
+          <td>{{profile.totalUltimaHighScore}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

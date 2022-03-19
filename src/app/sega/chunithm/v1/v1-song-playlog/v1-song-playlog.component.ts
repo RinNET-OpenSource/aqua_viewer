@@ -17,6 +17,7 @@ import {ActivatedRoute} from '@angular/router';
 export class V1SongPlaylogComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   id: number;
   level: number;

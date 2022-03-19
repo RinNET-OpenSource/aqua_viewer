@@ -1,13 +1,4 @@
-<mat-card>
-  <mat-card-title>Rating (TECHNICAL Score)</mat-card-title>
-  <mat-card-content>
-    ONGEKI rating is calculate from 55 songs avg.<br>
-    Including :<br>
-    1. Best 30 chart in all old song.<br>
-    2. Best 15 chart in new song.<br>
-    3. Best 10 chart in recent 30 plays. (Can be same chart, but not include LUNATIC chart)
-  </mat-card-content>
-</mat-card>
+<h1 class="mat-display-1">Rating</h1>
 
 <mat-card>
   <mat-card-content>
@@ -45,7 +36,7 @@
 <ng-template #recordRow let-i="i" let-item="item">
   <tr *ngIf="item.musicId > 0">
     <td class="music-title">
-      <img src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
+      <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
       {{i + 1}}: {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}
     </td>
     <td>

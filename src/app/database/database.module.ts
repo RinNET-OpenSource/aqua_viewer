@@ -43,7 +43,7 @@ const dbConfig: DBConfig = {
       storeConfig: {keyPath: 'musicId', autoIncrement: false},
       storeSchema: [
         {name: 'name', keypath: 'name', options: {unique: false}},
-        {name: 'sotrName', keypath: 'sotrName', options: {unique: false}},
+        {name: 'sortName', keypath: 'sortName', options: {unique: false}},
         {name: 'copyright', keypath: 'copyright', options: {unique: false}},
         {name: 'artistName', keypath: 'artistName', options: {unique: false}},
         {name: 'genre', keypath: 'genre', options: {unique: false}},
@@ -113,6 +113,63 @@ const dbConfig: DBConfig = {
       ]
     }, {
       store: 'chuniSkill',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}},
+        {name: 'category', keypath: 'category', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanMusic',
+      storeConfig: {keyPath: 'musicId', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}},
+        {name: 'sortName', keypath: 'sotrName', options: {unique: false}},
+        {name: 'artistName', keypath: 'artistName', options: {unique: false}},
+        {name: 'genre', keypath: 'genre', options: {unique: false}},
+        {name: 'releaseVersion', keypath: 'releaseVersion', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanCharacter',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}},
+        {name: 'releaseTag', keypath: 'releaseTag', options: {unique: false}},
+        {name: 'worksName', keypath: 'worksName', options: {unique: false}},
+        {name: 'illustratorName', keypath: 'illustratorName', options: {unique: false}},
+        {name: 'addImages', keypath: 'addImages', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanTrophy',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanNamePlate',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanSystemVoice',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanMapIcon',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanFrame',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanAvatarAcc',
       storeConfig: {keyPath: 'id', autoIncrement: false},
       storeSchema: [
         {name: 'name', keypath: 'name', options: {unique: false}},

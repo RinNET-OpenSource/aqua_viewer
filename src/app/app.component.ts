@@ -35,26 +35,21 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 3,
-      name: 'Recent Play',
+      name: 'Play Record',
       url: 'ongeki/recent'
     },
     {
       id: 4,
-      name: 'Song List',
+      name: 'Music List',
       url: 'ongeki/song'
     },
     {
       id: 5,
-      name: 'Card Maker',
+      name: 'Card',
       url: 'ongeki/card'
     },
     {
       id: 6,
-      name: 'Item',
-      url: 'ongeki/item'
-    },
-    {
-      id: 7,
       name: 'Setting',
       url: 'ongeki/setting'
     }
@@ -67,32 +62,70 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     {
       id: 0,
       name: 'Profile',
-      url: 'v1/profile'
+      url: 'chuni/v1/profile'
     },
     {
       id: 1,
       name: 'Rating',
-      url: 'v1/rating'
+      url: 'chuni/v1/rating'
     },
     {
       id: 2,
-      name: 'Recent Play',
-      url: 'v1/recent'
+      name: 'Play Record',
+      url: 'chuni/v1/recent'
     },
     {
       id: 3,
-      name: 'Song List',
-      url: 'v1/song'
+      name: 'Music List',
+      url: 'chuni/v1/song'
     },
     {
       id: 4,
       name: 'Character',
-      url: 'v1/character'
+      url: 'chuni/v1/character'
     },
     {
       id: 5,
       name: 'Setting',
-      url: 'v1/setting'
+      url: 'chuni/v1/setting'
+    }
+  ];
+
+  v2Menus: Menu[] = [
+    {
+      id: 0,
+      name: 'Profile',
+      url: 'chuni/v2/profile'
+    },
+    {
+      id: 1,
+      name: 'Rating',
+      url: 'chuni/v2/rating'
+    },
+    {
+      id: 2,
+      name: 'Play Record',
+      url: 'chuni/v2/recent'
+    },
+    {
+      id: 3,
+      name: 'Music List',
+      url: 'chuni/v2/song'
+    },
+    {
+      id: 4,
+      name: 'Character',
+      url: 'chuni/v2/character'
+    },
+    {
+      id: 5,
+      name: 'User Box',
+      url: 'chuni/v2/userbox'
+    },
+    {
+      id: 6,
+      name: 'Setting',
+      url: 'chuni/v2/setting'
     }
   ];
 

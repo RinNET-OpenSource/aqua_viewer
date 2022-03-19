@@ -1,0 +1,55 @@
+<h1 class="mat-display-1">Character</h1>
+<mat-card>
+  <mat-card-title>Player Character</mat-card-title>
+  <mat-card-subtitle *ngIf="equippedCharaName">
+    {{equippedCharaName}}
+  </mat-card-subtitle>
+  <mat-card-content *ngIf="equippedCharaId">
+    <div class="image">
+      <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{equippedCharaId|formatNumber:4}}_00_00.png">
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card
+  *ngFor="let item of characters | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
+  <mat-card-title>
+    {{item.characterInfo ? item.characterInfo.name : 'ID:' + item.characterId}}
+  </mat-card-title>
+  <mat-card-content>
+    <div class="character-display">
+      <div class="image">
+        <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|formatNumber:4}}_00_00.png">
+      </div>
+      <div class="content">
+        <table class="zebra">
+          <tr>
+            <th>Level</th>
+            <td>{{item.level}}</td>
+          </tr>
+          <tr>
+            <th>Friendship Exp</th>
+            <td>{{item.friendshipExp}}</td>
+          </tr>
+          <tr>
+            <th>Play Count</th>
+            <td>{{item.playCount}}</td>
+          </tr>
+          <tr>
+            <th>Assigned Illust ID</th>
+            <td>{{item.assignIllust}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div fxFlex></div>
+    <button (click)="levelUp(item.characterId, item.level)"
+            mat-button>
+      Level up
+    </button>
+  </mat-card-actions>
+</mat-card>
+<div class="pagination">
+  <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
+</div>

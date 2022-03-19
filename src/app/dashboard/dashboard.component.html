@@ -1,20 +1,33 @@
-<p>
-  Welcome to Aqua Viewer, the web interface for Aqua server<br>
-</p>
+<h1 class="mat-display-1">Dashboard</h1>
 
 <mat-card>
-  <mat-card-title>Data Info</mat-card-title>
   <mat-card-content>
-    Diva Music List : {{divaPv}}<br>
-    Diva Module List : {{divaPv}}<br>
-    Diva Customize List : {{divaPv}}<br>
-    Chunithm Music List : {{chuniMusic}}<br>
-    Chunithm Character List : {{chuniCharacter}}<br>
-    Chunithm Skill List : {{chuniSkill}}<br>
-    Ongeki Card List : {{ongekiCard}}<br>
-    Ongeki Character List : {{ongekiCharacter}}<br>
-    Ongeki Music List : {{ongekiMusic}}<br>
-    Ongeki Skill List : {{ongekiSkill}}
+    Welcome to Aqua Viewer, the web interface for Aqua server.<br>
+    This instance configured to {{enableImages ? 'use image assets.' : 'not to use image assets.'}}
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>Status</mat-card-title>
+  <mat-card-content>
+    Diva Music List: {{divaPv}}<br>
+    Diva Module List: {{divaPv}}<br>
+    Diva Customize List: {{divaPv}}<br>
+    Chunithm Music List: {{chuniMusic}}<br>
+    Chunithm Character List: {{chuniCharacter}}<br>
+    Chunithm Skill List: {{chuniSkill}}<br>
+    Ongeki Card List: {{ongekiCard}}<br>
+    Ongeki Character List: {{ongekiCharacter}}<br>
+    Ongeki Music List: {{ongekiMusic}}<br>
+    Ongeki Skill List: {{ongekiSkill}}<br>
+    Chunithm New Music List: {{chusanMusic}}<br>
+    Chunithm New Character List: {{chusanCharacter}}<br>
+    Chunithm New Trophy List: {{chusanTrophy}}<br>
+    Chunithm New Nameplate List: {{chusanNamePlate}}<br>
+    Chunithm New System Voice List: {{chusanSystemVoice}}<br>
+    Chunithm New Map Icon List: {{chusanMapIcon}}<br>
+    Chunithm New Frame List: {{chusanFrame}}<br>
+    Chunithm New Avatar Accessory List: {{chusanAvatarAcc}}<br>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="reload()">Clean Cache</button>

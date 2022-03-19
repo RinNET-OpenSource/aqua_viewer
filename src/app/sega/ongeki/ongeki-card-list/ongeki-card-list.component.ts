@@ -16,6 +16,7 @@ import {OngekiCharacter} from '../model/OngekiCharacter';
 export class OngekiCardListComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   cardList: OngekiCard[] = [];
 

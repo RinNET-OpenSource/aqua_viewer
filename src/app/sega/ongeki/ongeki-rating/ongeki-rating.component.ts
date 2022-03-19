@@ -19,6 +19,7 @@ import {DisplayOngekiProfile} from '../model/OngekiProfile';
 export class OngekiRatingComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   aimeId = '';
 

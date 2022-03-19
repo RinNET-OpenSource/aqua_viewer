@@ -1,0 +1,25 @@
+<h1 class="mat-display-1">User Box</h1>
+
+<div fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="1rem">
+  <div class="userbox-card" fxFlex="30" *ngFor="let item of customable">
+    <mat-card>
+      <mat-card-title>{{item.name}}</mat-card-title>
+      <mat-card-content *ngIf="profile">
+        {{item.value | async}}
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="item.click()" mat-button *ngIf="item.click">Change</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

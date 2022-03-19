@@ -31,6 +31,10 @@ export class ImporterComponent implements OnInit {
     this.uploadDocument(event.target.files[0], 'api/game/chuni/v1/import', 'SDBT');
   }
 
+  chusan(event) {
+    this.uploadDocument(event.target.files[0], 'api/game/chuni/v2/import', 'SDHD');
+  }
+
   ongeki(event) {
     this.uploadDocument(event.target.files[0], 'api/game/ongeki/import', 'SDDT');
   }

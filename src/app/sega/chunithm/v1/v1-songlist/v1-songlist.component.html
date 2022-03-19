@@ -1,9 +1,10 @@
+<h1 class="mat-display-1">Music List</h1>
 <mat-form-field>
   <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
 </mat-form-field>
 <table [dataSource]="dataSource" mat-table matSort>
   <ng-container matColumnDef="musicId">
-    <th *matHeaderCellDef mat-header-cell> Id.</th>
+    <th *matHeaderCellDef mat-header-cell> ID</th>
     <td *matCellDef="let element" mat-cell> {{element.musicId}} </td>
   </ng-container>
   <ng-container matColumnDef="name">

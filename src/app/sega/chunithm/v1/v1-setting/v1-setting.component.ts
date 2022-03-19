@@ -48,7 +48,7 @@ export class V1SettingComponent implements OnInit {
         this.api.put('api/game/chuni/v1/profile/userName', {aimeId: this.aimeId, userName}).subscribe(
           x => {
             this.profile = x;
-            this.messageService.notice('OK');
+            this.messageService.notice('Successfully changed');
           }, error => this.messageService.notice(error)
         );
       }

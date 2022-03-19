@@ -1,6 +1,4 @@
-<mat-card>
-  <mat-card-title>CHUNITHM Settings</mat-card-title>
-</mat-card>
+<h1 class="mat-display-1">Settings</h1>
 
 <mat-card>
   <mat-card-title>Username</mat-card-title>
@@ -8,16 +6,6 @@
     <div class="content">{{profile.userName}}</div>
     <div class="action">
       <button (click)="userName()" mat-button>Edit</button>
-    </div>
-  </mat-card-content>
-</mat-card>
-
-<mat-card>
-  <mat-card-title>Privacy</mat-card-title>
-  <mat-card-content *ngIf="profile">
-    <div class="content">Hide Rating Info:</div>
-    <div class="action">
-      <button (click)="null" mat-button>Edit</button>
     </div>
   </mat-card-content>
 </mat-card>

@@ -1,0 +1,70 @@
+<h1 class="mat-display-1">Play Record</h1>
+<div *ngIf="recent" class="record">
+  <mat-card
+    *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"
+    routerLink="/v2/song/{{item.musicId}}">
+    <mat-card-title>{{item.userPlayDate}}</mat-card-title>
+    <mat-card-content>
+      <div class="song-header">
+        <img *ngIf="enableImages == true" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.jpg">
+        <div class="song-info">
+          <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span><br>
+          <span
+            class="info">{{item.songInfo != null ? item.songInfo.artistName : ''}}</span>
+        </div>
+        <div class="level">
+          {{difficulty[item.level]}}
+        </div>
+      </div>
+
+      <div class="result-content">
+        <div class="left">
+          Rank:<br>
+          <span class="achievement-value">{{item.rank|toRank}}</span>
+          <br>
+          <br>Score:<br>
+          <span class="score-value">{{item.score}}</span>
+          <br>
+          <br>{{item.isNewRecord ? 'NEW RECORD' : ''}}<br>
+        </div>
+        <div class="right">
+          <table class="zebra">
+            <tr>
+              <th>JUSTICE C.</th>
+              <td>{{item.judgeCritical}}</td>
+              <td>TAP</td>
+              <td>{{item.rateTap / 100}}%</td>
+            </tr>
+            <tr>
+              <th>JUSTICE</th>
+              <td>{{item.judgeJustice}}</td>
+              <td>HOLD</td>
+              <td>{{item.rateHold / 100}}%</td>
+            </tr>
+            <tr>
+              <th>ATTACK</th>
+              <td>{{item.judgeAttack}}</td>
+              <td>SLIDE</td>
+              <td>{{item.rateSlide / 100}}%</td>
+            </tr>
+            <tr>
+              <th>MISS</th>
+              <td>{{item.judgeGuilty}}</td>
+              <td>AIR</td>
+              <td>{{item.rateAir / 100}}%</td>
+            </tr>
+            <tr>
+              <th>Combo</th>
+              <td>{{item.maxCombo}}</td>
+              <td>FLICK</td>
+              <td>{{item.rateFlick / 100}}%</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div class="pagination">
+    <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
+  </div>
+</div>

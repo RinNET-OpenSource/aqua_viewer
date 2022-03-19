@@ -13,6 +13,7 @@ import {environment} from '../../../../../environments/environment';
 export class V1RatingComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   topRating: RatingItem[] = [];
   recentRating: RatingItem[] = [];

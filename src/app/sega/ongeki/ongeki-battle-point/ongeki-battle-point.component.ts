@@ -20,6 +20,7 @@ import {DisplayOngekiProfile} from '../model/OngekiProfile';
 export class OngekiBattlePointComponent implements OnInit {
 
   host = environment.assetsHost;
+  enableImages = environment.enableImages;
 
   aimeId = '';
 
