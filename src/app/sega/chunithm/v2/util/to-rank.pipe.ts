@@ -34,13 +34,19 @@ export class ToRankPipe implements PipeTransform {
       return 'S';
     }
     if (value === 9) {
-      return 'SS';
+      return 'S+';
     }
     if (value === 10) {
+      return 'SS';
+    }
+    if (value === 11) {
+      return 'SS+';
+    }
+    if (value === 12) {
       return 'SSS';
     }
-    if (value > 10) {
-      return 'SSS';
+    if (value > 12) {
+      return 'SSS+';
     }
   }
 
