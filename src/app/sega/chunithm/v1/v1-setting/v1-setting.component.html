@@ -2,6 +2,7 @@
 
 <mat-card>
   <mat-card-title>Username</mat-card-title>
+  <mat-card-subtitle>Warning - use full-width character</mat-card-subtitle>
   <mat-card-content *ngIf="profile">
     <div class="content">{{profile.userName}}</div>
     <div class="action">
@@ -12,6 +13,7 @@
 
 <mat-card>
   <mat-card-title>Export data</mat-card-title>
+  <mat-card-subtitle>Warning - this data might unable to import</mat-card-subtitle>
   <mat-card-content>
     <div class="action">
       <a href="{{apiServer + '/api/game/chuni/v1/export?aimeId=' + aimeId}}" mat-button target="_blank">Download</a>
