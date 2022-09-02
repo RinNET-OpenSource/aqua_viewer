@@ -24,6 +24,7 @@ export interface V2PlayLog {
   judgeAttack: number;
   judgeJustice: number;
   judgeCritical: number;
+  judgeHeaven: number;
   playerRating: number;
   fullChainKind: number;
   characterId: number;
