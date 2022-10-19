@@ -1,10 +1,9 @@
 export enum Difficulty {
-  Basic,
-  Advanced,
-  Expert,
-  Master,
-  Lunatic,
-  Max,
+  Basic = 0,
+  Advanced = 1,
+  Expert = 2,
+  Master = 3,
+  Lunatic = 10, // Client sends 10 as id of Lunatic difficulty to server
 }
 
 export enum PlayResult {
