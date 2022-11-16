@@ -108,7 +108,6 @@ export class V2UserBoxComponent implements OnInit {
 
   namePlate() {
     const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      width: '250px',
       data: {itemKind: 1, itemId: this.profile.nameplateId}
     });
 
@@ -126,7 +125,6 @@ export class V2UserBoxComponent implements OnInit {
 
   frame() {
     const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      width: '250px',
       data: {itemKind: 2, itemId: this.profile.frameId}
     });
 
@@ -144,7 +142,6 @@ export class V2UserBoxComponent implements OnInit {
 
   trophy() {
     const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      width: '250px',
       data: {itemKind: 3, itemId: this.profile.trophyId}
     });
 
@@ -162,7 +159,6 @@ export class V2UserBoxComponent implements OnInit {
 
   mapIcon() {
     const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      width: '250px',
       data: {itemKind: 8, itemId: this.profile.mapIconId}
     });
 
@@ -180,7 +176,6 @@ export class V2UserBoxComponent implements OnInit {
 
   systemVoice() {
     const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      width: '250px',
       data: {itemKind: 9, itemId: this.profile.voiceId}
     });
 
@@ -198,7 +193,6 @@ export class V2UserBoxComponent implements OnInit {
 
   avatarAcc(category: number, accId: number) {
     const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      width: '250px',
       data: {itemKind: 11, itemId: accId, category: category}
     });
 

@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Change Item</h1>
 <mat-dialog-content>
-  <mat-form-field>
+  <mat-form-field style="min-width:20rem;">
     <mat-select [(ngModel)]="data.itemId">
-      <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.itemId}}</mat-option>
+      <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 </mat-dialog-content>

@@ -6,6 +6,10 @@ import {ApiService} from '../../../../../api.service';
 import {V2Item} from '../../model/V2Item';
 import {HttpParams} from '@angular/common/http';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
+import { ChusanTrophy } from '../../model/ChusanTrophy';
+import { ChusanNamePlate } from '../../model/ChusanNamePlate';
+import { ChusanSystemVoice } from '../../model/ChusanSystemVoice';
+import { ChusanMapIcon } from '../../model/ChusanMapIcon';
 import { ChusanAvatarAcc } from '../../model/ChusanAvatarAcc';
 
 @Component({
@@ -26,20 +30,91 @@ export class V2UserBoxSettingDialog {
     private dbService: NgxIndexedDBService) {
   }
 
+  getNamePlateName(nameplateId: number) {
+    return new Promise( resolve => {
+      this.dbService.getByID<ChusanNamePlate>('chusanNamePlate', nameplateId).subscribe(NamePlate => resolve(nameplateId + ': ' + (NamePlate.name ? NamePlate.name : "Unknown")));
+    })
+  }
+
+  getFrameName(frameId: number) {
+    return new Promise( resolve => {
+      this.dbService.getByID<ChusanTrophy>('chusanFrame', frameId).subscribe(frame => resolve(frameId + ': ' + (frame.name ? frame.name : "Unknown")));
+    })
+  }
+
+  getMapIconName(mapiconId: number) {
+    return new Promise( resolve => {
+      this.dbService.getByID<ChusanMapIcon>('chusanMapIcon', mapiconId).subscribe(mapicon => resolve(mapiconId + ': ' + (mapicon.name ? mapicon.name : "Unknown")));
+    })
+  }
+
+  getSystemVoiceName(sysvoiceId: number) {
+    return new Promise( resolve => {
+      this.dbService.getByID<ChusanSystemVoice>('chusanSystemVoice', sysvoiceId).subscribe(sysvoice => resolve(sysvoiceId + ': ' + (sysvoice.name ? sysvoice.name : "Unknown")));
+    })
+  }
+
+  getAvatarAccName(avatarAccId: number) {
+    return new Promise( resolve => {
+      this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', avatarAccId).subscribe(avatarAcc => resolve(avatarAccId + ': ' + (avatarAcc.name ? avatarAcc.name : "Unknown")));
+    })
+  }
+
+  getTrophyName(trophyId: number) {
+    return new Promise( resolve => {
+      this.dbService.getByID<ChusanTrophy>('chusanTrophy', trophyId).subscribe(trophy => resolve(trophyId + ': ' + (trophy.name ? trophy.name : "Unknown")));
+    })
+  }
+
   ngOnInit() {
     this.aimeId = String(this.auth.currentUserValue.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
       data => {
         data.forEach(x => {
-          if (this.data.itemKind == 11) {
-            this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', x.itemId).subscribe(avatarAcc => {
-              if (avatarAcc.category == this.data.category) {
+          switch (this.data.itemKind) {
+            case 1: // Nameplate
+              this.getNamePlateName(x.itemId).then(name => {
+                x.name = name;
                 this.iList.push(x);
-              }
-            });
-          } else {
-            this.iList.push(x);
+              });
+              break;
+            case 2: // Frame
+              this.getFrameName(x.itemId).then(name => {
+                x.name = name;
+                this.iList.push(x);
+              });
+              break;
+            case 3: // Trophy
+              this.getTrophyName(x.itemId).then(name => {
+                x.name = name;
+                this.iList.push(x);
+              });
+              break;
+            case 8: // Map Icon
+              this.getMapIconName(x.itemId).then(name => {
+                x.name = name;
+                this.iList.push(x);
+              });
+              break;
+            case 9: // System Voice
+              this.getSystemVoiceName(x.itemId).then(name => {
+                x.name = name;
+                this.iList.push(x);
+              });
+              break;
+            case 11: // Avatar
+              this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', x.itemId).subscribe(avatarAcc => {
+                if (avatarAcc.category == this.data.category) {
+                  this.getAvatarAccName(x.itemId).then(name => {
+                    x.name = name;
+                    this.iList.push(x);
+                  });
+                }
+              });
+              break;
+            default:
+              break;
           }
         });
       },
