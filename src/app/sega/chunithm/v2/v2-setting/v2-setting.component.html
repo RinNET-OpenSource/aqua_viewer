@@ -12,6 +12,28 @@
 </mat-card>
 
 <mat-card>
+  <mat-card-title>Last data version</mat-card-title>
+  <mat-card-subtitle>Change only if you have login problem due to <u>data</u> version</mat-card-subtitle>
+  <mat-card-content *ngIf="profile">
+    <div class="content">{{profile.lastDataVersion}}</div>
+    <div class="action">
+      <button (click)="dataVersion()" mat-button>Edit</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>Last rom version</mat-card-title>
+  <mat-card-subtitle>Change only if you have login problem due to <u>rom</u> version</mat-card-subtitle>
+  <mat-card-content *ngIf="profile">
+    <div class="content">{{profile.lastRomVersion}}</div>
+    <div class="action">
+      <button (click)="romVersion()" mat-button>Edit</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
   <mat-card-title>Export data</mat-card-title>
   <mat-card-subtitle>Warning - this data might unable to import</mat-card-subtitle>
   <mat-card-content>

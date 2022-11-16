@@ -30,7 +30,9 @@ export interface V2Profile {
   friendCount: number;
   firstGameId: string;
   firstRomVersion: string;
+  lastRomVersion: string;
   firstDataVersion: string;
+  lastDataVersion: string;
   firstPlayDate: Date;
   lastPlayDate: Date;
   courseClass: number;

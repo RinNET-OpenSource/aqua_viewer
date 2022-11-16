@@ -27,6 +27,7 @@ import {V2RecentComponent} from './v2-recent/v2-recent.component';
 import {ToRankPipe} from './util/to-rank.pipe';
 import {V2SettingComponent} from './v2-setting/v2-setting.component';
 import {V2NameSettingDialog} from './v2-setting/v2-name-setting/v2-name-setting.dialog';
+import {V2VersionSettingDialog} from './v2-setting/v2-version-setting/v2-version-setting.dialog';
 import {V2UserBoxSettingDialog} from './v2-userbox/v2-userbox-setting/v2-userbox-setting.dialog';
 import {V2CharacterComponent} from './v2-character/v2-character.component';
 import {V2SonglistComponent} from './v2-songlist/v2-songlist.component';
@@ -71,6 +72,7 @@ import {ToolsModule} from '../../../util/tools.module';
         ToRankPipe,
         V2SettingComponent,
         V2NameSettingDialog,
+        V2VersionSettingDialog,
         V2CharacterComponent,
         V2SonglistComponent,
         V2SongDetailComponent,

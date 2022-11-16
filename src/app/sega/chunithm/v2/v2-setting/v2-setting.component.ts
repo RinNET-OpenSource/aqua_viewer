@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {V2Profile} from '../model/V2Profile';
 import {HttpParams} from '@angular/common/http';
 import {V2NameSettingDialog} from './v2-name-setting/v2-name-setting.dialog';
+import {V2VersionSettingDialog} from './v2-version-setting/v2-version-setting.dialog';
 
 @Component({
   selector: 'app-v2-setting',
@@ -54,4 +55,41 @@ export class V2SettingComponent implements OnInit {
       }
     });
   }
+
+  dataVersion() {
+    const dialogRef = this.dialog.open(V2VersionSettingDialog, {
+      width: '250px',
+      data: {version: this.profile.lastDataVersion}
+    });
+
+    dialogRef.afterClosed().subscribe(version => {
+      if (version) {
+        this.api.put('api/game/chuni/v2/profile/dataversion', {aimeId: this.aimeId, dataVersion: version}).subscribe(
+          x => {
+            this.profile = x;
+            this.messageService.notice('Successfully changed');
+          }, error => this.messageService.notice(error)
+        );
+      }
+    });
+  }
+
+  romVersion() {
+    const dialogRef = this.dialog.open(V2VersionSettingDialog, {
+      width: '250px',
+      data: {version: this.profile.lastRomVersion}
+    });
+
+    dialogRef.afterClosed().subscribe(version => {
+      if (version) {
+        this.api.put('api/game/chuni/v2/profile/romversion', {aimeId: this.aimeId, romVersion: version}).subscribe(
+          x => {
+            this.profile = x;
+            this.messageService.notice('Successfully changed');
+          }, error => this.messageService.notice(error)
+        );
+      }
+    });
+  }
+
 }

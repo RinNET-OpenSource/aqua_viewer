@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Change version</h1>
+<div mat-dialog-content>
+  Version format is x.xx.xx
+  <mat-form-field>
+    <input [(ngModel)]="data.version" matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="data.version">Apply</button>
+</div>
