@@ -25,6 +25,7 @@ import {V2Module} from './sega/chunithm/v2/v2.module';
 import {DatabaseModule} from './database/database.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OngekiModule} from './sega/ongeki/ongeki.module';
+import { Maimai2Module } from './sega/maimai2/maimai2.module';
 import {ErrorInterceptorService} from './auth/error-interceptor.service';
 import {LoadingInterceptorService} from './auth/loading-interceptor.service';
 import {ChangelogComponent} from './changelog/changelog.component';
@@ -54,6 +55,7 @@ import {environment} from '../environments/environment';
     V1Module,
     V2Module,
     OngekiModule,
+    Maimai2Module,
 
     ReactiveFormsModule,
     MatButtonModule,

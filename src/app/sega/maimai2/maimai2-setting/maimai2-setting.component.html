@@ -1,0 +1,21 @@
+<h1 class="mat-display-1">Settings</h1>
+
+<mat-card>
+  <mat-card-title>Username</mat-card-title>
+  <mat-card-subtitle>Warning - use full-width character</mat-card-subtitle>
+  <mat-card-content *ngIf="profile">
+    <div class="content">{{profile.userName}}</div>
+    <div class="action">
+      <button (click)="userName()" mat-button>Edit</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>Export data</mat-card-title>
+  <mat-card-content>
+    <div class="action">
+      <a href="{{apiServer + '/api/game/maimai2/export?aimeId=' + aimeId}}" mat-button target="_blank">Download</a>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Change User Name</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input [(ngModel)]="data.userName" matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="data.userName">Apply</button>
+</div>

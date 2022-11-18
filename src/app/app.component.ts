@@ -129,6 +129,19 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     }
   ];
 
+  mai2Menus: Menu[] = [
+    {
+      id: 0,
+      name: 'Profile',
+      url: 'mai2/profile'
+    },
+    {
+      id: 1,
+      name: 'Setting',
+      url: 'mai2/setting'
+    }
+  ];
+
   divaMenus: Menu[] = [
     {
       id: 0,

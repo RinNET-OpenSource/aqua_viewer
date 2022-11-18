@@ -39,6 +39,10 @@ export class ImporterComponent implements OnInit {
     this.uploadDocument(event.target.files[0], 'api/game/ongeki/import', 'SDDT');
   }
 
+  maimai2(event) {
+    this.uploadDocument(event.target.files[0], 'api/game/maimai2/import', 'SDEZ');
+  }
+
   uploadDocument(file: File, path: string, type: string) {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
