@@ -62,7 +62,8 @@ export class OngekiRivalListComponent implements OnInit {
         this.rivalList = x;
         this.dataSource.data = this.rivalList;
 
-        this.messageService.notice('refresh rival list successfully.');
+        //this.messageService.notice('refresh rival list successfully.');
+        console.log('refresh rival list successfully.');
       }
     );
   }
