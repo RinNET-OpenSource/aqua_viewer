@@ -1,25 +1,28 @@
-import {Injectable} from '@angular/core';
-import {NgxIndexedDBService} from 'ngx-indexed-db';
-import {ReplaySubject} from 'rxjs';
-import {ApiService} from '../api.service';
-import {DivaPv} from '../sega/diva/model/DivaPv';
-import {ChuniMusic} from '../sega/chunithm/v1/model/ChuniMusic';
-import {DivaModule} from '../sega/diva/model/DivaModule';
-import {DivaCustomize} from '../sega/diva/model/DivaCustomize';
-import {OngekiCard} from '../sega/ongeki/model/OngekiCard';
-import {OngekiCharacter} from '../sega/ongeki/model/OngekiCharacter';
-import {OngekiMusic} from '../sega/ongeki/model/OngekiMusic';
-import {OngekiSkill} from '../sega/ongeki/model/OngekiSkill';
-import {ChuniCharacter} from '../sega/chunithm/v1/model/ChuniCharacter';
-import {ChuniSkill} from '../sega/chunithm/v1/model/ChuniSkill';
-import {ChusanMusic} from '../sega/chunithm/v2/model/ChusanMusic';
-import {ChusanCharacter} from '../sega/chunithm/v2/model/ChusanCharacter';
-import {ChusanTrophy} from '../sega/chunithm/v2/model/ChusanTrophy';
-import {ChusanNamePlate} from '../sega/chunithm/v2/model/ChusanNamePlate';
-import {ChusanSystemVoice} from '../sega/chunithm/v2/model/ChusanSystemVoice';
-import {ChusanMapIcon} from '../sega/chunithm/v2/model/ChusanMapIcon';
+import { Injectable } from '@angular/core';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { ReplaySubject } from 'rxjs';
+import { ApiService } from '../api.service';
+import { DivaPv } from '../sega/diva/model/DivaPv';
+import { ChuniMusic } from '../sega/chunithm/v1/model/ChuniMusic';
+import { DivaModule } from '../sega/diva/model/DivaModule';
+import { DivaCustomize } from '../sega/diva/model/DivaCustomize';
+import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
+import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
+import { OngekiMusic } from '../sega/ongeki/model/OngekiMusic';
+import { OngekiSkill } from '../sega/ongeki/model/OngekiSkill';
+import { ChuniCharacter } from '../sega/chunithm/v1/model/ChuniCharacter';
+import { ChuniSkill } from '../sega/chunithm/v1/model/ChuniSkill';
+import { ChusanMusic } from '../sega/chunithm/v2/model/ChusanMusic';
+import { ChusanCharacter } from '../sega/chunithm/v2/model/ChusanCharacter';
+import { ChusanTrophy } from '../sega/chunithm/v2/model/ChusanTrophy';
+import { ChusanNamePlate } from '../sega/chunithm/v2/model/ChusanNamePlate';
+import { ChusanSystemVoice } from '../sega/chunithm/v2/model/ChusanSystemVoice';
+import { ChusanMapIcon } from '../sega/chunithm/v2/model/ChusanMapIcon';
 import { ChusanFrame } from '../sega/chunithm/v2/model/ChusanFrame';
 import { ChusanAvatarAcc } from '../sega/chunithm/v2/model/ChusanAvatarAcc';
+import { OngekiRival } from '../sega/ongeki/model/OngekiRival';
+import { HttpParams } from '@angular/common/http';
+import { AuthenticationService } from '../auth/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +47,9 @@ export class PreloadService {
   ongekiMusicState = this.ongekiMusic.asObservable();
   private ongekiSkill = new ReplaySubject<string>();
   ongekiSkillState = this.ongekiSkill.asObservable();
+  private ongekiRival = new ReplaySubject<string>();
+  ongekiRivalState = this.ongekiRival.asObservable();
+
 
   private chuniCharacter = new ReplaySubject<string>();
   chuniCharacterState = this.chuniCharacter.asObservable();
@@ -69,11 +75,15 @@ export class PreloadService {
 
   constructor(
     private dbService: NgxIndexedDBService,
-    private api: ApiService
+    private api: ApiService,
+    private auth: AuthenticationService,
   ) {
   }
 
   load() {
+    const aimeId = String(this.auth.currentUserValue.extId);
+    const param = aimeId.trim().length != 0 ? new HttpParams().set('aimeId', aimeId) : undefined;
+
     this.loader<DivaPv>('divaPv', 'api/game/diva/data/musicList', this.divaPv);
     this.loader<DivaModule>('divaModule', 'api/game/diva/data/moduleList', this.divaModule);
     this.loader<DivaCustomize>('divaCustomize', 'api/game/diva/data/customizeList', this.divaCustomize);
@@ -81,6 +91,7 @@ export class PreloadService {
     this.loader<OngekiCard>('ongekiCard', 'api/game/ongeki/data/cardList', this.ongekiCard);
     this.loader<OngekiCharacter>('ongekiCharacter', 'api/game/ongeki/data/charaList', this.ongekiCharacter);
     this.loader<OngekiMusic>('ongekiMusic', 'api/game/ongeki/data/musicList', this.ongekiMusic);
+    this.loader<OngekiRival>('ongekiRival', 'api/game/ongeki/rival', this.ongekiRival, param);
     this.loader<OngekiSkill>('ongekiSkill', 'api/game/ongeki/data/skillList', this.ongekiSkill);
     this.loader<ChuniCharacter>('chuniCharacter', 'api/game/chuni/v1/data/character', this.chuniCharacter);
     this.loader<ChuniSkill>('chuniSkill', 'api/game/chuni/v1/data/skill', this.chuniSkill);
@@ -98,14 +109,14 @@ export class PreloadService {
 
   }
 
-  loader<T>(storeName: string, url: string, status: ReplaySubject<string>) {
+  loader<T>(storeName: string, url: string, status: ReplaySubject<string>, param?: HttpParams) {
     this.dbService.count(storeName).subscribe(
       pageCount => {
         if (pageCount > 0) {
           status.next('OK');
         } else {
           status.next('Downloading');
-          this.api.get(url).subscribe(
+          this.api.get(url, param).subscribe(
             data => {
               let errorFlag = false;
               data.forEach(x => {
