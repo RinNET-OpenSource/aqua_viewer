@@ -113,32 +113,25 @@ export class PreloadService {
     this.dbService.count(storeName).subscribe(
       pageCount => {
         if (pageCount > 0) {
+          //table is avaliable.
           status.next('OK');
         } else {
+          //test if table is avaliable.
+          let callback = (error?: any) => {
+            if (error != null) {
+              status.next('Error');
+              console.error(error);
+            } else
+              status.next('OK');
+
+            status.complete();
+          }
+
+          //fetch data and add into DB.
           status.next('Downloading');
           this.api.get(url, param).subscribe(
-            data => {
-              let errorFlag = false;
-              data.forEach(x => {
-                this.dbService.add<T>(storeName, x).subscribe(
-                  () => '', error => {
-                    console.error(error);
-                    errorFlag = true;
-                  }
-                );
-              });
-              if (errorFlag) {
-                status.next('Error');
-              } else {
-                status.next('OK');
-              }
-              status.complete();
-            },
-            error => {
-              console.error(error);
-              status.next('Error');
-              status.complete();
-            }
+            data => this.dbService.bulkAdd<T>(storeName, data).subscribe(() => callback(), error => callback(error)),
+            error => callback(error)
           );
         }
       });
