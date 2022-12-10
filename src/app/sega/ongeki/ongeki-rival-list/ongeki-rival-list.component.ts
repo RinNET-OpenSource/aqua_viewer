@@ -42,8 +42,8 @@ export class OngekiRivalListComponent implements OnInit {
     let param = new HttpParams().set('aimeId', this.aimeId);
 
     this.api.get('api/game/ongeki/rival', param).subscribe(
-      (data: ObjectMessageResponse<OngekiRival[]>) => {
-        this.rivalList = data.data;
+      (data: OngekiRival[]) => {
+        this.rivalList = data;
         this.dataSource.data = this.rivalList;
 
         this.dbService.bulkAdd<OngekiRival>(DBTable, this.rivalList).subscribe(
