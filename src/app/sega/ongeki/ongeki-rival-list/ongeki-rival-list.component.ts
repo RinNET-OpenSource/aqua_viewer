@@ -8,8 +8,8 @@ import { AuthenticationService } from '../../../auth/authentication.service';
 import { ApiService } from '../../../api.service';
 import { MessageService } from '../../../message.service';
 import { Key } from 'protractor';
+import { MatSort, MatSortable } from '@angular/material/sort';
 
-const DBTable = 'ongekiRival';
 type ObjectMessageResponse<T> = {
   data: T,
   message: string
@@ -42,30 +42,14 @@ export class OngekiRivalListComponent implements OnInit {
     let param = new HttpParams().set('aimeId', this.aimeId);
 
     this.api.get('api/game/ongeki/rival', param).subscribe(
-      (data: OngekiRival[]) => {
-        this.rivalList = data;
-        this.dataSource.data = this.rivalList;
-
-        this.dbService.bulkAdd<OngekiRival>(DBTable, this.rivalList).subscribe(
-          () => this.refreshFromDB(), error => {
-            console.error(error);
-          }
-        );
-      },
+      this.refreshFrom.bind(this),
       error => this.messageService.notice(`get rival list failed : ${error}`)
     );
   }
 
-  refreshFromDB() {
-    this.dbService.getAll<OngekiRival>(DBTable).subscribe(
-      x => {
-        this.rivalList = x;
-        this.dataSource.data = this.rivalList;
-
-        //this.messageService.notice('refresh rival list successfully.');
-        console.log('refresh rival list successfully.');
-      }
-    );
+  refreshFrom(rivalList: OngekiRival[]) {
+    this.rivalList = rivalList;
+    this.dataSource.data = this.rivalList;
   }
 
   applyFilter(filterValue: string) {
@@ -76,10 +60,9 @@ export class OngekiRivalListComponent implements OnInit {
     let param = new HttpParams().set('aimeId', this.aimeId).set('rivalAimeId', rivalUserId);
     this.api.delete(`api/game/ongeki/rival`, param).subscribe(
       () => {
-        this.dbService.deleteByKey(DBTable, rivalUserId).subscribe(isSuccess => {
-          this.messageService.notice(`(id:${rivalUserId}) delete ${isSuccess ? 'successfully' : 'failed'}.`);
-          this.refreshFromDB();
-        });
+        var newList = this.rivalList.filter(item => item.rivalUserId != rivalUserId);
+        this.messageService.notice(`(id:${rivalUserId}) delete successfully.`);
+        this.refreshFrom(newList);
       },
       error => this.messageService.notice(`remove rival failed : ${error}`)
     );
@@ -91,10 +74,13 @@ export class OngekiRivalListComponent implements OnInit {
       (data: ObjectMessageResponse<OngekiRival>) => {
         if (data != null) {
           if (data.data != null) {
-            this.dbService.add(DBTable, data.data).subscribe(() => {
-              this.messageService.notice(`add rival (id:${data.data.rivalUserId}) ${data.data != null ? 'successfully' : 'failed: ' + data.message}.`);
-              this.refreshFromDB();
-            });
+            if (this.rivalList.find(x => x.rivalUserId == data.data.rivalUserId) == null) {
+              this.rivalList.push(data.data);
+              this.refreshFrom(this.rivalList);
+              this.messageService.notice(`add rival (id:${data.data.rivalUserId}) successfully.`);
+            }else{
+              this.messageService.notice(`rival (id:${data.data.rivalUserId}) has been added.`);
+            }
           } else
             this.messageService.notice(`add rival (id:${this.inputAddRivalUserId}) failed: ${data.message}.`);
         }

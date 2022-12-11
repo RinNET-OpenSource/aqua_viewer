@@ -47,9 +47,6 @@ export class PreloadService {
   ongekiMusicState = this.ongekiMusic.asObservable();
   private ongekiSkill = new ReplaySubject<string>();
   ongekiSkillState = this.ongekiSkill.asObservable();
-  private ongekiRival = new ReplaySubject<string>();
-  ongekiRivalState = this.ongekiRival.asObservable();
-
 
   private chuniCharacter = new ReplaySubject<string>();
   chuniCharacterState = this.chuniCharacter.asObservable();
@@ -91,7 +88,6 @@ export class PreloadService {
     this.loader<OngekiCard>('ongekiCard', 'api/game/ongeki/data/cardList', this.ongekiCard);
     this.loader<OngekiCharacter>('ongekiCharacter', 'api/game/ongeki/data/charaList', this.ongekiCharacter);
     this.loader<OngekiMusic>('ongekiMusic', 'api/game/ongeki/data/musicList', this.ongekiMusic);
-    this.loader<OngekiRival>('ongekiRival', 'api/game/ongeki/rival', this.ongekiRival, param);
     this.loader<OngekiSkill>('ongekiSkill', 'api/game/ongeki/data/skillList', this.ongekiSkill);
     this.loader<ChuniCharacter>('chuniCharacter', 'api/game/chuni/v1/data/character', this.chuniCharacter);
     this.loader<ChuniSkill>('chuniSkill', 'api/game/chuni/v1/data/skill', this.chuniSkill);

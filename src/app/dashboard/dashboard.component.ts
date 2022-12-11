@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
   ongekiCard = 'Initialize';
   ongekiCharacter = 'Initialize';
   ongekiMusic = 'Initialize';
-  ongekiRival = 'Initialize';
   ongekiSkill = 'Initialize';
   chuniCharacter = 'Initialize';
   chuniSkill = 'Initialize';
@@ -45,7 +44,6 @@ export class DashboardComponent implements OnInit {
     this.preload.ongekiCardState.subscribe(data => this.ongekiCard = data);
     this.preload.ongekiCharacterState.subscribe(data => this.ongekiCharacter = data);
     this.preload.ongekiMusicState.subscribe(data => this.ongekiMusic = data);
-    this.preload.ongekiRivalState.subscribe(data => this.ongekiRival = data);
     this.preload.ongekiSkillState.subscribe(data => this.ongekiSkill = data);
     this.preload.chuniCharacterState.subscribe(data => this.chuniCharacter = data);
     this.preload.chuniSkillState.subscribe(data => this.chuniSkill = data);

@@ -91,12 +91,6 @@ const dbConfig: DBConfig = {
         {name: 'level4', keypath: 'level4', options: {unique: false}}
       ]
     }, {
-      store: 'ongekiRival',
-      storeConfig: {keyPath: 'rivalUserId', autoIncrement: false},
-      storeSchema: [
-        {name: 'rivalUserName', keypath: 'rivalUserName', options: {unique: false}},
-      ]
-    }, {
       store: 'ongekiSkill',
       storeConfig: {keyPath: 'id', autoIncrement: false},
       storeSchema: [
