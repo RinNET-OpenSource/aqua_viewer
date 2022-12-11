@@ -90,10 +90,13 @@ export class OngekiRivalListComponent implements OnInit {
     this.api.post(`api/game/ongeki/rival`, param).subscribe(
       (data: ObjectMessageResponse<OngekiRival>) => {
         if (data != null) {
-          this.dbService.add(DBTable, data.data).subscribe(() => {
-            this.messageService.notice(`add rival (id:${data.data.rivalUserId}) ${data.data != null ? 'successfully' : 'failed: ' + data.message}.`);
-            this.refreshFromDB();
-          });
+          if (data.data != null) {
+            this.dbService.add(DBTable, data.data).subscribe(() => {
+              this.messageService.notice(`add rival (id:${data.data.rivalUserId}) ${data.data != null ? 'successfully' : 'failed: ' + data.message}.`);
+              this.refreshFromDB();
+            });
+          } else
+            this.messageService.notice(`add rival (id:${this.inputAddRivalUserId}) failed: ${data.message}.`);
         }
       },
       error => this.messageService.notice(`add rival failed : ${error}`)
