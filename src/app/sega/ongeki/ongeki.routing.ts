@@ -20,8 +20,8 @@ const routes: Routes = [
   {path: 'card', component: OngekiCardComponent},
   {path: 'card/all', component: OngekiCardListComponent},
   {path: 'card/gacha', component: OngekiCardGachaComponent},
-  {path: 'setting', component: OngekiSettingComponent},
   {path: 'rival', component: OngekiRivalListComponent},
+  {path: 'setting', component: OngekiSettingComponent},
 ];
 
 export const OngekiRoutes = RouterModule.forChild(routes);
