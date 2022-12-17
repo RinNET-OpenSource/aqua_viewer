@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {HttpParams} from '@angular/common/http';
 import {DisplayMaimai2Profile} from '../model/Maimai2Profile';
 import { Maimai2NameSettingDialog } from './maimai2-name-setting/maimai2-name-setting.dialog';
+import { Maimai2UploadUserPortraitDialog } from './maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
 
 @Component({
   selector: 'app-maimai2-setting',
@@ -18,6 +19,7 @@ export class Maimai2SettingComponent implements OnInit {
 
   aimeId: number;
   apiServer: string;
+  divMaxLength: number;
 
   constructor(
     private api: ApiService,
@@ -37,17 +39,21 @@ export class Maimai2SettingComponent implements OnInit {
       },
       error => this.messageService.notice(error)
     );
+
+    this.api.get("api/game/maimai2/config/userPhoto/divMaxLength").subscribe(divMaxLength => {
+      this.divMaxLength = divMaxLength;
+    });
   }
 
   userName() {
     const dialogRef = this.dialog.open(Maimai2NameSettingDialog, {
       width: '250px',
-      data: {userName: this.profile.userName}
+      data: { userName: this.profile.userName }
     });
 
     dialogRef.afterClosed().subscribe(userName => {
       if (userName) {
-        this.api.post('api/game/maimai2/profile/username', {aimeId: this.aimeId, userName: userName}).subscribe(
+        this.api.post('api/game/maimai2/profile/username', { aimeId: this.aimeId, userName: userName }).subscribe(
           x => {
             this.profile = x;
             this.messageService.notice('Successfully changed');
@@ -57,4 +63,10 @@ export class Maimai2SettingComponent implements OnInit {
     });
   }
 
+  openUploadUserPortraitDialog() {
+    this.dialog.open(Maimai2UploadUserPortraitDialog, {
+      data: { aimeId: String(this.auth.currentUserValue.extId), divMaxLength: this.divMaxLength },
+      width: "500px",
+    });
+  }
 }

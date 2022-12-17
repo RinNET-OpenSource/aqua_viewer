@@ -12,6 +12,21 @@
 </mat-card>
 
 <mat-card>
+  <mat-card-title>User Portrait</mat-card-title>
+  <mat-card-content *ngIf="profile">
+    <div class="content">
+      You can upload image to server as your user portrait(a.k.a avatar) in game, but there are some limits:
+      <ul>
+        <li>(Cropped) Image file size &lt; <b>{{divMaxLength * 10}} kb</b>.</li>
+        <li>Square image.</li>
+      </ul>
+      Compress once before loading image into web if you want to crop big picture.
+    </div>
+    <button mat-button (click)="openUploadUserPortraitDialog()">Change</button>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
   <mat-card-title>Export data</mat-card-title>
   <mat-card-content>
     <div class="action">
