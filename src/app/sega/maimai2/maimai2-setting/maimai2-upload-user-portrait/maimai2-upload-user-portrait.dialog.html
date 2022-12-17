@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Change User Portrait</h1>
+<div mat-dialog-content>
+  <div hidden>
+    <input type="file" id="file-input"/>
+  </div>
+  <div>
+    <img id="image"/>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onComfirm()">Comfirm!</button>
+  <button mat-button (click)="onCancel()" cdkFocusInitial>Cancel</button>
+</div>

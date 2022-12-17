@@ -15,6 +15,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MessageModule} from './message/message.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {LoginModule} from './login/login.module';
@@ -32,11 +33,13 @@ import {ChangelogComponent} from './changelog/changelog.component';
 import {ImporterModule} from './importer/importer.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import { Maimai2UploadUserPortraitDialog } from './sega/maimai2/maimai2-setting/maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChangelogComponent
+    ChangelogComponent,
+    Maimai2UploadUserPortraitDialog
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ import {environment} from '../environments/environment';
     MatNativeDateModule,
     MatProgressBarModule,
     MatCardModule,
+    MatDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [
