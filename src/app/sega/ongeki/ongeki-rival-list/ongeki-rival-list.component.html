@@ -1,0 +1,50 @@
+<h1 class="mat-display-1">Rival List</h1>
+
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <div fxFlex="40" max>
+        <mat-form-field>
+          <input
+            [(ngModel)]="inputAddRivalUserId"
+            matInput
+            placeholder="User Aime Id"
+          />
+        </mat-form-field>
+      </div>
+      <div fxFlex="30px"></div>
+      <div fxFlex="40">
+        <button (click)="addRival()" mat-button>Add Rival</button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-form-field>
+  <input
+    (keyup)="applyFilter($event.target.value)"
+    matInput
+    placeholder="Filter"
+  />
+</mat-form-field>
+<table [dataSource]="dataSource" mat-table matSort>
+  <ng-container matColumnDef="rivalUserId">
+    <th *matHeaderCellDef mat-header-cell>ID</th>
+    <td *matCellDef="let element" mat-cell>{{ element.rivalUserId }}</td>
+  </ng-container>
+  <ng-container matColumnDef="rivalUserName">
+    <th *matHeaderCellDef mat-header-cell>User Name</th>
+    <td *matCellDef="let element" mat-cell>
+      {{ element.rivalUserName }}
+    </td> </ng-container
+  ><ng-container matColumnDef="opButton">
+    <th *matHeaderCellDef mat-header-cell></th>
+    <td *matCellDef="let element" mat-cell>
+      <button (click)="removeRival(element.rivalUserId)" mat-button>
+        Remove
+      </button>
+    </td>
+  </ng-container>
+  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+</table>

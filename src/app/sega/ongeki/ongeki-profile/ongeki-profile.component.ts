@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ApiService} from '../../../api.service';
-import {AuthenticationService} from '../../../auth/authentication.service';
-import {MessageService} from '../../../message.service';
-import {HttpParams} from '@angular/common/http';
-import {DisplayOngekiProfile} from '../model/OngekiProfile';
-import {NgxIndexedDBService} from 'ngx-indexed-db';
-import {OngekiCard} from '../model/OngekiCard';
-import {OngekiCharacter} from '../model/OngekiCharacter';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../api.service';
+import { AuthenticationService } from '../../../auth/authentication.service';
+import { MessageService } from '../../../message.service';
+import { HttpParams } from '@angular/common/http';
+import { DisplayOngekiProfile } from '../model/OngekiProfile';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { OngekiCard } from '../model/OngekiCard';
+import { OngekiCharacter } from '../model/OngekiCharacter';
 
 @Component({
   selector: 'app-ongeki-profile',
@@ -16,6 +16,7 @@ import {OngekiCharacter} from '../model/OngekiCharacter';
 export class OngekiProfileComponent implements OnInit {
 
   profile: DisplayOngekiProfile;
+  aimeId: string;
 
   constructor(
     private api: ApiService,
@@ -23,6 +24,7 @@ export class OngekiProfileComponent implements OnInit {
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
   ) {
+    this.aimeId = String(this.auth.currentUserValue.extId);
   }
 
   ngOnInit() {
