@@ -23,7 +23,7 @@ export class ImporterComponent implements OnInit {
     if (this.authenticationService.currentUserValue) {
       this.apiServer = this.authenticationService.currentUserValue.apiServer;
     } else {
-      this.apiServer = 'http://localhost:80';
+      this.apiServer = 'http://ea.naominet.live:80';
     }
   }
 

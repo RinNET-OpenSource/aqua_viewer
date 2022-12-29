@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.fb.group({
       accessCode: ['', Validators.required],
-      apiServer: ['http://localhost:80', Validators.required],
+      apiServer: ['http://ea.naominet.live:80', Validators.required],
     });
     if (this.authenticationService.currentUserValue) {
       this.router.navigateByUrl('/dashboard');
