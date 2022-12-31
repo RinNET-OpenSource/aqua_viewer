@@ -18,6 +18,7 @@ export class V2SongDetailComponent implements OnInit {
 
   host = environment.assetsHost;
   enableImages = environment.enableImages;
+  isfavorite = false;
 
   id: number;
   music: ChusanMusic;
@@ -53,13 +54,35 @@ export class V2SongDetailComponent implements OnInit {
     this.api.get('api/game/chuni/v2/song/' + this.id, param).subscribe(
       data => {
         console.log(data);
+        this.checkfavorite();
         data.forEach(x => {
           this.records[x.level] = x;
         });
       },
       error => this.messageService.notice(error)
     );
+  }
 
+  favorite() {
+    const aimeId = String(this.auth.currentUserValue.extId);
+    const param = new HttpParams().set('aimeId', String(aimeId));
+    this.api.put('api/game/chuni/v2/song/' + this.id + '/favorite', param).subscribe(
+      data => {
+        console.log(data);
+        this.checkfavorite();
+      },
+      error => this.messageService.notice(error)
+    );
+  }
+
+  checkfavorite() {
+    const aimeId = String(this.auth.currentUserValue.extId);
+    const param = new HttpParams().set('aimeId', String(aimeId));
+    this.api.get('api/game/chuni/v2/song/' + this.id + '/isfavorite', param).subscribe(
+      data => {
+        this.isfavorite = data;
+      }
+    )
   }
 
 }

@@ -11,7 +11,9 @@
           <span
             class="info">{{music != null ? 'Genre: ' + music.genre : ''}}</span><br>
           <span
-            class="info">{{music != null ? 'First released in  ' + music.releaseVersion : ''}}</span>
+            class="info">{{music != null ? 'First released in  ' + music.releaseVersion : ''}}</span><br><br>
+          <span
+            class="info" (click)="favorite()"><button mat-icon-button>{{isfavorite == false ? 'Add to favorites' : 'Remove from favorites'}}</button></span>
         </div>
 
       </div>
