@@ -1,25 +1,28 @@
-import {Injectable} from '@angular/core';
-import {NgxIndexedDBService} from 'ngx-indexed-db';
-import {ReplaySubject} from 'rxjs';
-import {ApiService} from '../api.service';
-import {DivaPv} from '../sega/diva/model/DivaPv';
-import {ChuniMusic} from '../sega/chunithm/v1/model/ChuniMusic';
-import {DivaModule} from '../sega/diva/model/DivaModule';
-import {DivaCustomize} from '../sega/diva/model/DivaCustomize';
-import {OngekiCard} from '../sega/ongeki/model/OngekiCard';
-import {OngekiCharacter} from '../sega/ongeki/model/OngekiCharacter';
-import {OngekiMusic} from '../sega/ongeki/model/OngekiMusic';
-import {OngekiSkill} from '../sega/ongeki/model/OngekiSkill';
-import {ChuniCharacter} from '../sega/chunithm/v1/model/ChuniCharacter';
-import {ChuniSkill} from '../sega/chunithm/v1/model/ChuniSkill';
-import {ChusanMusic} from '../sega/chunithm/v2/model/ChusanMusic';
-import {ChusanCharacter} from '../sega/chunithm/v2/model/ChusanCharacter';
-import {ChusanTrophy} from '../sega/chunithm/v2/model/ChusanTrophy';
-import {ChusanNamePlate} from '../sega/chunithm/v2/model/ChusanNamePlate';
-import {ChusanSystemVoice} from '../sega/chunithm/v2/model/ChusanSystemVoice';
-import {ChusanMapIcon} from '../sega/chunithm/v2/model/ChusanMapIcon';
+import { Injectable } from '@angular/core';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { ReplaySubject } from 'rxjs';
+import { ApiService } from '../api.service';
+import { DivaPv } from '../sega/diva/model/DivaPv';
+import { ChuniMusic } from '../sega/chunithm/v1/model/ChuniMusic';
+import { DivaModule } from '../sega/diva/model/DivaModule';
+import { DivaCustomize } from '../sega/diva/model/DivaCustomize';
+import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
+import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
+import { OngekiMusic } from '../sega/ongeki/model/OngekiMusic';
+import { OngekiSkill } from '../sega/ongeki/model/OngekiSkill';
+import { ChuniCharacter } from '../sega/chunithm/v1/model/ChuniCharacter';
+import { ChuniSkill } from '../sega/chunithm/v1/model/ChuniSkill';
+import { ChusanMusic } from '../sega/chunithm/v2/model/ChusanMusic';
+import { ChusanCharacter } from '../sega/chunithm/v2/model/ChusanCharacter';
+import { ChusanTrophy } from '../sega/chunithm/v2/model/ChusanTrophy';
+import { ChusanNamePlate } from '../sega/chunithm/v2/model/ChusanNamePlate';
+import { ChusanSystemVoice } from '../sega/chunithm/v2/model/ChusanSystemVoice';
+import { ChusanMapIcon } from '../sega/chunithm/v2/model/ChusanMapIcon';
 import { ChusanFrame } from '../sega/chunithm/v2/model/ChusanFrame';
 import { ChusanAvatarAcc } from '../sega/chunithm/v2/model/ChusanAvatarAcc';
+import { OngekiRival } from '../sega/ongeki/model/OngekiRival';
+import { HttpParams } from '@angular/common/http';
+import { AuthenticationService } from '../auth/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -69,11 +72,15 @@ export class PreloadService {
 
   constructor(
     private dbService: NgxIndexedDBService,
-    private api: ApiService
+    private api: ApiService,
+    private auth: AuthenticationService,
   ) {
   }
 
   load() {
+    const aimeId = String(this.auth.currentUserValue.extId);
+    const param = aimeId.trim().length != 0 ? new HttpParams().set('aimeId', aimeId) : undefined;
+
     this.loader<DivaPv>('divaPv', 'api/game/diva/data/musicList', this.divaPv);
     this.loader<DivaModule>('divaModule', 'api/game/diva/data/moduleList', this.divaModule);
     this.loader<DivaCustomize>('divaCustomize', 'api/game/diva/data/customizeList', this.divaCustomize);
@@ -98,36 +105,29 @@ export class PreloadService {
 
   }
 
-  loader<T>(storeName: string, url: string, status: ReplaySubject<string>) {
+  loader<T>(storeName: string, url: string, status: ReplaySubject<string>, param?: HttpParams) {
     this.dbService.count(storeName).subscribe(
       pageCount => {
         if (pageCount > 0) {
+          //table is avaliable.
           status.next('OK');
         } else {
-          status.next('Downloading');
-          this.api.get(url).subscribe(
-            data => {
-              let errorFlag = false;
-              data.forEach(x => {
-                this.dbService.add<T>(storeName, x).subscribe(
-                  () => '', error => {
-                    console.error(error);
-                    errorFlag = true;
-                  }
-                );
-              });
-              if (errorFlag) {
-                status.next('Error');
-              } else {
-                status.next('OK');
-              }
-              status.complete();
-            },
-            error => {
-              console.error(error);
+          //test if table is avaliable.
+          let callback = (error?: any) => {
+            if (error != null) {
               status.next('Error');
-              status.complete();
-            }
+              console.error(error);
+            } else
+              status.next('OK');
+
+            status.complete();
+          }
+
+          //fetch data and add into DB.
+          status.next('Downloading');
+          this.api.get(url, param).subscribe(
+            data => this.dbService.bulkAdd<T>(storeName, data).subscribe(() => callback(), error => callback(error)),
+            error => callback(error)
           );
         }
       });

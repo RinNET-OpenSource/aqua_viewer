@@ -1,7 +1,7 @@
 <h1 class="mat-display-1">Profile</h1>
 <mat-card>
   <mat-card-title>Overview</mat-card-title>
-  <mat-card-subtitle *ngIf="profile">{{profile.userName}}</mat-card-subtitle>
+  <mat-card-subtitle *ngIf="profile">{{profile.userName}} (aime Id : {{aimeId}})</mat-card-subtitle>
   <mat-card-content>
     <table *ngIf="profile" class="zebra">
       <tr>
