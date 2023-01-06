@@ -50,6 +50,11 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 6,
+      name: 'Rival List',
+      url: 'ongeki/rival'
+    },
+    {
+      id: 7,
       name: 'Setting',
       url: 'ongeki/setting'
     }
