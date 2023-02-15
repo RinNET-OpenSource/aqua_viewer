@@ -4,6 +4,7 @@ import {AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {environment} from '../../../../environments/environment';
+import {MatTableDataSource} from '@angular/material/table';
 import {OngekiCard} from '../model/OngekiCard';
 import {OngekiSkill} from '../model/OngekiSkill';
 import {OngekiCharacter} from '../model/OngekiCharacter';
@@ -18,6 +19,7 @@ export class OngekiCardListComponent implements OnInit {
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 
+  dataSource = new MatTableDataSource<OngekiCard>();
   cardList: OngekiCard[] = [];
 
   p = 1;
@@ -39,6 +41,7 @@ export class OngekiCardListComponent implements OnInit {
         this.cardList.push(y);
       })
     );
+    this.dataSource.data = this.cardList
   }
 
   insertCard(cardId: number) {
@@ -50,6 +53,10 @@ export class OngekiCardListComponent implements OnInit {
       data => this.messageService.notice('Successful, go to check your card list'),
       error => this.messageService.notice(error)
     );
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue
   }
 
 }
