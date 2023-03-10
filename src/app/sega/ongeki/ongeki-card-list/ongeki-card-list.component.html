@@ -1,6 +1,9 @@
 <h1 class="mat-display-1">All cards</h1>
 
-<mat-card *ngFor="let item of cardList | paginate: { id: 'card', itemsPerPage: 10, currentPage: p }">
+<mat-form-field class="filter">
+  <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
+</mat-form-field>
+<mat-card *ngFor="let item of dataSource.filteredData | paginate: { id: 'card', itemsPerPage: 10, currentPage: p }">
   <mat-card-title>
     {{item.name}}
   </mat-card-title>
