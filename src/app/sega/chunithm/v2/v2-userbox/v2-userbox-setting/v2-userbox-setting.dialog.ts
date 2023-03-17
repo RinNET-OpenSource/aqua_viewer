@@ -69,57 +69,61 @@ export class V2UserBoxSettingDialog {
   ngOnInit() {
     this.aimeId = String(this.auth.currentUserValue.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
-    this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
-      data => {
-        data.forEach(x => {
-          switch (this.data.itemKind) {
-            case 1: // Nameplate
-              this.getNamePlateName(x.itemId).then(name => {
-                x.name = name;
-                this.iList.push(x);
-              });
-              break;
-            case 2: // Frame
-              this.getFrameName(x.itemId).then(name => {
-                x.name = name;
-                this.iList.push(x);
-              });
-              break;
-            case 3: // Trophy
-              this.getTrophyName(x.itemId).then(name => {
-                x.name = name;
-                this.iList.push(x);
-              });
-              break;
-            case 8: // Map Icon
-              this.getMapIconName(x.itemId).then(name => {
-                x.name = name;
-                this.iList.push(x);
-              });
-              break;
-            case 9: // System Voice
-              this.getSystemVoiceName(x.itemId).then(name => {
-                x.name = name;
-                this.iList.push(x);
-              });
-              break;
-            case 11: // Avatar
-              this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', x.itemId).subscribe(avatarAcc => {
-                if (avatarAcc.category == this.data.category) {
-                  this.getAvatarAccName(x.itemId).then(name => {
-                    x.name = name;
-                    this.iList.push(x);
-                  });
-                }
-              });
-              break;
-            default:
-              break;
+
+    // Make all avatar accs available as there is no way to obtain them in game
+    if (this.data.itemKind == 11) {
+      this.dbService.getAll<ChusanAvatarAcc>('chusanAvatarAcc').subscribe(avatarAccList => {
+        avatarAccList.forEach(avatarAcc => {
+          console.log(avatarAcc)
+          if (avatarAcc.category == this.data.category) {
+            var acc: V2Item = {itemKind: 11, itemId: avatarAcc.id, stock: 1, name: avatarAcc.id + ': ' + (avatarAcc.name ? avatarAcc.name : "Unknown")};
+            this.iList.push(acc);
           }
-        });
-      },
-      error => this.messageService.notice(error)
-    );
+        })
+      });
+    } else {
+      this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
+        data => {
+          data.forEach(x => {
+            switch (this.data.itemKind) {
+              case 1: // Nameplate
+                this.getNamePlateName(x.itemId).then(name => {
+                  x.name = name;
+                  this.iList.push(x);
+                });
+                break;
+              case 2: // Frame
+                this.getFrameName(x.itemId).then(name => {
+                  x.name = name;
+                  this.iList.push(x);
+                });
+                break;
+              case 3: // Trophy
+                this.getTrophyName(x.itemId).then(name => {
+                  x.name = name;
+                  this.iList.push(x);
+                });
+                break;
+              case 8: // Map Icon
+                this.getMapIconName(x.itemId).then(name => {
+                  x.name = name;
+                  this.iList.push(x);
+                });
+                break;
+              case 9: // System Voice
+                this.getSystemVoiceName(x.itemId).then(name => {
+                  x.name = name;
+                  this.iList.push(x);
+                });
+                break;
+              default:
+                break;
+            }
+          });
+        },
+        error => this.messageService.notice(error)
+      );
+    }
   }
 
 }
