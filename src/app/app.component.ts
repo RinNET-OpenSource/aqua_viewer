@@ -55,6 +55,16 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 7,
+      name: 'MusicRanking',
+      url: 'ongeki/musicRanking'
+    },
+    {
+      id: 8,
+      name: 'UserRanking',
+      url: 'ongeki/userRanking'
+    },
+    {
+      id: 9,
       name: 'Setting',
       url: 'ongeki/setting'
     }

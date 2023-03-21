@@ -1,0 +1,41 @@
+<h1 class="mat-display-1">Music Ranking</h1>
+
+  <table [dataSource]="dataSource" mat-table matSort>
+    <ng-container matColumnDef="ranking">
+      <th *matHeaderCellDef mat-header-cell>Ranking</th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.ranking }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="music.name">
+      <th *matHeaderCellDef mat-header-cell>Music Name</th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.music.name }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="playCount">
+      <th *matHeaderCellDef mat-header-cell>Play Count</th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.playCount}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+    <th *matHeaderCellDef mat-header-cell>Ranking State</th>
+<!--    <td *matCellDef="let element" mat-cell>-->
+<!--      {{ element.state}}-->
+<!--    </td>-->
+    <td *matCellDef="let element" mat-cell [ngSwitch]="element.state">
+      <!-- use ngSwitchCase directive to match different values of state -->
+      <!-- use font-awesome icons for up, down and equal signs -->
+      <i *ngSwitchCase="1" style="color: deepskyblue; font-size: large">▲</i>
+      <i *ngSwitchCase="-1" style="color: red; font-size: large">▼</i>
+      <i *ngSwitchCase="0" style="color: #C0C0C0; font-size: large">◼︎</i>
+      <!-- use ngSwitchDefault directive to handle unexpected values of state -->
+      <!-- display a question mark icon for unknown state -->
+      <i *ngSwitchDefault style="color: #C0C0C0; font-size: large">◼︎</i>
+    </td>
+    </ng-container>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+  </table>
+

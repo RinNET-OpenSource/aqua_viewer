@@ -9,6 +9,8 @@ import {OngekiRatingComponent} from './ongeki-rating/ongeki-rating.component';
 import {OngekiCardGachaComponent} from './ongeki-card-gacha/ongeki-card-gacha.component';
 import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component';
 import {OngekiRivalListComponent} from './ongeki-rival-list/ongeki-rival-list.component';
+import {OngekiMusicRankingComponent} from './ongeki-music-ranking/ongeki-music-ranking.component';
+import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path: 'card/all', component: OngekiCardListComponent},
   {path: 'card/gacha', component: OngekiCardGachaComponent},
   {path: 'rival', component: OngekiRivalListComponent},
+  {path: 'musicRanking', component: OngekiMusicRankingComponent},
+  {path: 'userRanking', component: OngekiUserRankingComponent},
   {path: 'setting', component: OngekiSettingComponent},
 ];
 

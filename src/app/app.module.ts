@@ -34,6 +34,7 @@ import {ImporterModule} from './importer/importer.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import { Maimai2UploadUserPortraitDialog } from './sega/maimai2/maimai2-setting/maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
+import { ToTechRatingPipe } from './sega/ongeki/util/to-tech-rating.pipe';
 
 @NgModule({
   declarations: [

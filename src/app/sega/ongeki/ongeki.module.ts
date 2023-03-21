@@ -25,6 +25,10 @@ import {ToBattleSpritePipe} from './util/to-battle-sprite.pipe';
 import {ToTechSpritePipe} from './util/to-tech-sprite.pipe';
 import {OngekiCardGachaComponent} from './ongeki-card-gacha/ongeki-card-gacha.component';
 import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component';
+import {OngekiMusicRankingComponent} from './ongeki-music-ranking/ongeki-music-ranking.component';
+import {MatSortModule} from '@angular/material/sort';
+import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
+import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
 
 
 @NgModule({
@@ -38,9 +42,12 @@ import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component'
     OngekiBattlePointComponent,
     OngekiRatingComponent,
     OngekiRivalListComponent,
+    OngekiMusicRankingComponent,
+    OngekiUserRankingComponent,
     ToLevelDecimalPipe,
     ToBattleSpritePipe,
     ToTechSpritePipe,
+    ToTechRatingPipe,
     OngekiCardGachaComponent,
     OngekiSettingComponent
   ],
@@ -57,7 +64,8 @@ import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component'
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSortModule
   ]
 })
 export class OngekiModule {

@@ -1,101 +1,124 @@
-<h1 class="mat-display-1">Play Record</h1>
+<h1 class="mat-display-1" xmlns="http://www.w3.org/1999/html">Play Record</h1>
 <div *ngIf="recent" class="record">
   <mat-card
     *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
     <mat-card-title>{{item.userPlayDate}}</mat-card-title>
     <mat-card-content>
-      <div class="song-header">
-        <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
-        <div class="song-info">
-          <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span><br>
-          <span
-            class="info">{{item.songInfo != null ? item.songInfo.artistName : ''}}</span>
-        </div>
-        <div class="level">
-          {{difficulty[item.level]}}
-        </div>
-      </div>
-
       <div class="result-content">
         <div class="left">
-          <div class="score-area">
-            <div class="score-element">
-              <span class="score-label">BATTLE SCORE</span><br>
-              <span class="score-value">{{item.battleScore}}</span><br>
-              <span *ngIf="item.isBattleNewRecord">NEW RECORD<br></span>
-              <span class="score-label">OVER DAMAGE</span><br>
-              <span class="score-value">{{item.overDamage / 100}}%</span><br>
-              <span *ngIf="item.isOverDamageNewRecord">NEW RECORD<br></span>
-            </div>
-            <div class="score-element">
-              <div class="score-rank-icon">
-                {{battleRank[item.battleScoreRank]}}
+          <div class="title-area">
+            <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span>
+            <span class="info" style="font-size: small">{{item.songInfo != null ? item.songInfo.artistName : ''}}</span>
+          </div>
+          <div class="info-area">
+            <div class="song-header">
+              <div class="song-info">
+                <img *ngIf="enableImages == true" src = "{{host}}assets/ongeki/gameUi/UI_RES_Score_Diff_{{difficulty[item.level]}}.png" style="width: 40%; height: auto"><br>
+                <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.jpg" style="width: 100%; height: auto">
               </div>
             </div>
           </div>
           <div class="score-area">
+          <div class="battle-score-area">
             <div class="score-element">
-              <span class="score-label">TECHNICAL SCORE</span><br>
-              <span class="score-value">{{item.techScore}}</span><br>
-              <span *ngIf="item.isTechNewRecord">NEW RECORD<br></span>
+              <span class="score-label">BATTLE SCORE</span><br>
+              <span *ngIf="item.isBattleNewRecord" class="new">NEW RECORD!<br></span>
+              <span class="score-value">{{item.battleScore}}</span><br>
+              <span class="score-label">OVER DAMAGE</span><br>
+              <span *ngIf="item.isOverDamageNewRecord" class="new">NEW RECORD!<br></span>
+              <span class="score-value">{{item.overDamage / 100}}%</span><br>
             </div>
             <div class="score-element">
               <div class="score-rank-icon">
-                {{technicalRank[item.techScoreRank]}}
+                <img *ngIf="enableImages == true" src = "{{host}}assets/ongeki/gameUi/{{item.battleScoreRank | toBattleSprite}}" style="width: auto; height: auto">
               </div>
             </div>
+          </div>
+          <div class="tech-score-area">
+            <div class="score-element" [ngSwitch]="difficulty[item.level]" >
+              <span class="score-label">TECHNICAL SCORE</span><br>
+              <span *ngIf="item.isTechNewRecord" class="new">NEW RECORD!<br></span>
+              <span class="score-value">{{item.techScore}}</span><br>
+              <span class="score-label">RATING</span><br>
+              <span *ngSwitchCase="'Basic'" class="score-value">{{((item.songInfo.level0 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
+              <span *ngSwitchCase="'Advanced'" class="score-value">{{((item.songInfo.level1 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
+              <span *ngSwitchCase="'Expert'" class="score-value">{{((item.songInfo.level2 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
+              <span *ngSwitchCase="'Master'" class="score-value">{{((item.songInfo.level3 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
+              <span *ngSwitchCase="'Lunatic'" class="score-value">{{((item.songInfo.level4 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
+            </div>
+            <div class="score-element">
+              <div class="score-rank-icon">
+                <img *ngIf="enableImages == true" src = "{{host}}assets/ongeki/gameUi/{{item.techScoreRank | toTechSprite}}" style="width: auto; height: auto">
+              </div>
+            </div>
+          </div>
           </div>
         </div>
         <div class="right">
-          <table class="zebra">
+          <table class="zebra" style="width: 100%; height: 100%">
             <tr>
               <th>Combo</th>
               <td>{{item.maxCombo}}</td>
-              <td>TAP</td>
-              <td>{{item.rateTap}}%</td>
             </tr>
             <tr>
               <th>C. BREAK</th>
               <td>{{item.judgeCriticalBreak}}</td>
-              <td>HOLD</td>
-              <td>{{item.rateHold}}%</td>
             </tr>
             <tr>
               <th>BREAK</th>
               <td>{{item.judgeBreak}}</td>
-              <td>FLICK</td>
-              <td>{{item.rateFlick}}%</td>
             </tr>
             <tr>
               <th>HIT</th>
               <td>{{item.judgeHit}}</td>
-              <td>SLIDE TAP</td>
-              <td>{{item.rateSideTap}}%</td>
             </tr>
             <tr>
               <th>MISS</th>
               <td>{{item.judgeMiss}}</td>
-              <td>SLIDE HOLE</td>
-              <td>{{item.rateSideHold}}%</td>
             </tr>
             <tr>
               <th>BELL</th>
               <td>{{item.bellCount}} / {{item.totalBellCount}}</td>
-              <td>DAMAGE</td>
+            </tr>
+            <tr>
+              <th>TAP</th>
+              <td>{{item.rateTap}}%</td>
+            </tr>
+            <tr>
+              <th>HOLD</th>
+              <td>{{item.rateHold}}%</td>
+            </tr>
+            <tr>
+              <th>FLICK</th>
+              <td>{{item.rateFlick}}%</td>
+            </tr>
+            <tr>
+              <th>SLIDE TAP</th>
+              <td>{{item.rateSideTap}}%</td>
+            </tr>
+            <tr>
+              <th>SLIDE HOLE</th>
+              <td>{{item.rateSideHold}}%</td>
+            </tr>
+            <tr>
+              <th>DAMAGE</th>
               <td>{{item.damageCount}}</td>
             </tr>
           </table>
         </div>
         <div class="bottom">
           <div class="bottom-achievement-icon">
-            {{item.isFullBell ? 'Full Bell' : ''}}
+<!--            {{item.isFullBell ? 'Full Bell' : ''}}-->
+            <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_{{item.isFullBell ? 'Badge' : 'Base'}}.png" style="width: 100%; height: auto">
           </div>
           <div class="bottom-achievement-icon">
-            {{item.isFullCombo ? 'Full Combo' : ''}}
+<!--            {{item.isFullCombo ? 'Full Combo' : ''}}-->
+            <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/gameUi/UI_RES_Score_{{item.isAllBreak ? 'AB' : 'FC'}}_{{item.isFullCombo ? 'Badge' : 'Base'}}.png" style="width: 100%; height: auto">
           </div>
-          <div *ngIf="item.isAllBreak" class="bottom-achievement-icon">
-            {{item.isAllBreak ? 'All Break' : ''}}
-          </div>
+<!--          <div *ngIf="enableImages == true && item.isAllBreak" class="bottom-achievement-icon">-->
+<!--            {{item.isAllBreak ? 'All Break' : ''}}-->
+<!--            <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/gameUi/UI_RES_Score_AB_Badge.png" style="width: 100%;">-->
+<!--          </div>-->
         </div>
       </div>
       <div class="battle-info">
