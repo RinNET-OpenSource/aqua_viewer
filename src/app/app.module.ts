@@ -16,6 +16,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MessageModule} from './message/message.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {LoginModule} from './login/login.module';
@@ -72,6 +73,7 @@ import { Maimai2UploadUserPortraitDialog } from './sega/maimai2/maimai2-setting/
     MatProgressBarModule,
     MatCardModule,
     MatDialogModule,
+    MatGridListModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [

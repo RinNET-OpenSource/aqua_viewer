@@ -1,0 +1,103 @@
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.namePlate img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	margin-top: 10%;
+}
+
+.mapIcon img, .avatarIcon img {
+	width: 50%;
+	height: 50%;
+	object-fit: contain;
+}
+
+.systemVoice img {
+	width: 70%;
+	height: 70%;
+	object-fit: contain;
+	margin-top: 5%;
+}
+
+#avatarCard, #voiceCard {
+	height: 580px;
+}
+
+#assetDiv {
+	height: 640px;
+}
+
+.avatarPreview img {
+	position: absolute;
+	object-fit: none;
+}
+
+#avatarFeet {
+  clip-path: inset(405px 87px 0px 0px); 
+  z-index: 0;
+  left: 37%;
+  top: 18%;
+}
+
+#avatarBody {
+  clip-path: inset(0px 0px 107px 0px);
+  z-index: 1;
+  left: 30%;
+  top: 23%;
+}
+
+#avatarFace {
+  z-index: 2;
+  left: 30.5%;
+  top: 23%;
+}
+
+#avatarHead {
+  z-index: 3;
+  left: 18.5%;
+  top: 2%;
+}
+
+#avatarWear {
+  z-index: 4;
+  left: 8.5%;
+  top: 27%;
+}
+
+#avatarFaceWear {
+  z-index: 4;
+  left: 32%;
+  top: 25%;
+}
+
+#avatarArms {
+  z-index: 5;
+  left: 23.2%;
+  top: 52%;
+}
+
+#avatarItem {
+  z-index: 6;
+  left: 10%;
+  top: 15%;
+}
+
+#avatarBack {
+  z-index: 0;
+  left: 6%;
+  top: 0%;
+}
+
+.voiceButton {
+	background-color: #333;
+}
+
+.voiceButton:hover {
+	background-color: #999;
+	cursor: pointer;
+}

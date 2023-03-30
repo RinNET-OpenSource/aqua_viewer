@@ -1,0 +1,13 @@
+img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.selected {
+	background-color: #B0BEC5;
+}
+
+.mat-dialog-actions {
+    justify-content: flex-end;
+}

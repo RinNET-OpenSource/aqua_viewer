@@ -6,6 +6,7 @@ import {ApiService} from '../../../../../api.service';
 import {V2Item} from '../../model/V2Item';
 import {HttpParams} from '@angular/common/http';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
+import {environment} from '../../../../../../environments/environment';
 import { ChusanTrophy } from '../../model/ChusanTrophy';
 import { ChusanNamePlate } from '../../model/ChusanNamePlate';
 import { ChusanSystemVoice } from '../../model/ChusanSystemVoice';
@@ -15,9 +16,12 @@ import { ChusanAvatarAcc } from '../../model/ChusanAvatarAcc';
 @Component({
   selector: 'v2-userbox-setting-dialog',
   templateUrl: 'v2-userbox-setting.html',
+  styleUrls: ['v2-userbox.setting.css']
 })
 export class V2UserBoxSettingDialog {
 
+  host = environment.assetsHost;
+  enableImages = environment.enableImages;
   aimeId: string;
   iList: V2Item[] = [];
 
@@ -67,6 +71,7 @@ export class V2UserBoxSettingDialog {
   }
 
   ngOnInit() {
+    if (this.enableImages == true && this.data.itemKind != 2 && this.data.itemKind != 3) {this.dialogRef.updateSize('80%', '80%');}
     this.aimeId = String(this.auth.currentUserValue.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
 
@@ -78,6 +83,7 @@ export class V2UserBoxSettingDialog {
           if (avatarAcc.category == this.data.category) {
             var acc: V2Item = {itemKind: 11, itemId: avatarAcc.id, stock: 1, name: avatarAcc.id + ': ' + (avatarAcc.name ? avatarAcc.name : "Unknown")};
             this.iList.push(acc);
+            this.iList.sort((a, b) => a.itemId - b.itemId);
           }
         })
       });
@@ -90,30 +96,35 @@ export class V2UserBoxSettingDialog {
                 this.getNamePlateName(x.itemId).then(name => {
                   x.name = name;
                   this.iList.push(x);
+                  this.iList.sort((a, b) => a.itemId - b.itemId);
                 });
                 break;
               case 2: // Frame
                 this.getFrameName(x.itemId).then(name => {
                   x.name = name;
                   this.iList.push(x);
+                  this.iList.sort((a, b) => a.itemId - b.itemId);
                 });
                 break;
               case 3: // Trophy
                 this.getTrophyName(x.itemId).then(name => {
                   x.name = name;
                   this.iList.push(x);
+                  this.iList.sort((a, b) => a.itemId - b.itemId);
                 });
                 break;
               case 8: // Map Icon
                 this.getMapIconName(x.itemId).then(name => {
                   x.name = name;
                   this.iList.push(x);
+                  this.iList.sort((a, b) => a.itemId - b.itemId);
                 });
                 break;
               case 9: // System Voice
                 this.getSystemVoiceName(x.itemId).then(name => {
                   x.name = name;
                   this.iList.push(x);
+                  this.iList.sort((a, b) => a.itemId - b.itemId);
                 });
                 break;
               default:
@@ -125,7 +136,6 @@ export class V2UserBoxSettingDialog {
       );
     }
   }
-
 }
 
 export interface V2UserBoxSettingData {
