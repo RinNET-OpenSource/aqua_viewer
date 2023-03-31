@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {V2Routes} from './v2.routing';
 import {V2ProfileComponent} from './v2-profile/v2-profile.component';
 import {V2RatingComponent} from './v2-rating/v2-rating.component';
@@ -58,6 +59,7 @@ import {ToolsModule} from '../../../util/tools.module';
         MatSortModule,
         MatDialogModule,
         MatSnackBarModule,
+        MatGridListModule,
         FlexLayoutModule,
         NgxPaginationModule,
         ToolsModule
