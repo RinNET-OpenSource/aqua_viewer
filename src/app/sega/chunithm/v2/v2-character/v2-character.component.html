@@ -6,7 +6,7 @@
   </mat-card-subtitle>
   <mat-card-content *ngIf="equippedCharaId">
     <div class="image">
-      <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{equippedCharaId|formatNumber:4}}_00_00.png">
+      <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{math.floor(equippedCharaId/10)|formatNumber:4}}_{{equippedCharaId%10|formatNumber:2}}_00.png">
     </div>
   </mat-card-content>
 </mat-card>
@@ -18,7 +18,7 @@
   <mat-card-content>
     <div class="character-display">
       <div class="image">
-        <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|formatNumber:4}}_00_00.png">
+        <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{math.floor(item.characterId/10)|formatNumber:4}}_{{item.characterId%10|formatNumber:2}}_00.png">
       </div>
       <div class="content">
         <table class="zebra">
