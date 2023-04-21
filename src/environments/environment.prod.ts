@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  enableImages: false,
+  enableImages: true,
   assetsHost: ''
 };

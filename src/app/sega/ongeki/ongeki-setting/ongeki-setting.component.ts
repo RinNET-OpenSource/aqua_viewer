@@ -3,7 +3,7 @@ import {ApiService} from '../../../api.service';
 import {AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {MatDialog} from '@angular/material/dialog';
-import {HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {DisplayOngekiProfile} from '../model/OngekiProfile';
 
 @Component({

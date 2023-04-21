@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  enableImages: false,
+  enableImages: true,
   assetsHost: ''
 };
 

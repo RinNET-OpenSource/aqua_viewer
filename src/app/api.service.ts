@@ -35,7 +35,7 @@ export class ApiService {
     if (this.authenticationService.currentUserValue) {
       return this.authenticationService.currentUserValue.apiServer + '/';
     }
-    return 'http://ea.naominet.live:80' + '/';
+    return 'https://portal.naominet.live' + '/';
   }
 
   show() {

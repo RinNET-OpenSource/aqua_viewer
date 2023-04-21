@@ -28,6 +28,7 @@
     "@angular/service-worker": "~13.2.2",
     "@createjs/easeljs": "^2.0.0-beta.4",
     "@createjs/tweenjs": "^2.0.0-beta.4",
+    "aegis-web-sdk": "^1.36.11",
     "angular-cli-ghpages": "^1.0.0",
     "cropperjs": "^1.5.13",
     "minimist": "^1.2.5",

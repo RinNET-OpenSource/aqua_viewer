@@ -36,6 +36,16 @@ import {environment} from '../environments/environment';
 import { Maimai2UploadUserPortraitDialog } from './sega/maimai2/maimai2-setting/maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
 import { ToTechRatingPipe } from './sega/ongeki/util/to-tech-rating.pipe';
 
+import Aegis from 'aegis-web-sdk';
+
+const aegis = new Aegis({
+  id: 'j4KOYFL0VyajP4KjdG', // 上报 id
+  uin: 'xxx', // 用户唯一 ID（可选）
+  reportApiSpeed: true, // 接口测速
+  reportAssetSpeed: true, // 静态资源测速
+  spa: true // spa 应用页面跳转的时候开启 pv 计算
+});
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +83,7 @@ import { ToTechRatingPipe } from './sega/ongeki/util/to-tech-rating.pipe';
     MatProgressBarModule,
     MatCardModule,
     MatDialogModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},
