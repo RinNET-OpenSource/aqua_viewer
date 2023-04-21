@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {V2Profile} from '../model/V2Profile';
 import {HttpParams} from '@angular/common/http';
 import {V2UserBoxSettingDialog} from './v2-userbox-setting/v2-userbox-setting.dialog';
+import {environment} from '../../../../../environments/environment';
 import { ChusanTrophy } from '../model/ChusanTrophy';
 import { Observable, Subject } from 'rxjs';
 import { ChusanNamePlate } from '../model/ChusanNamePlate';
@@ -21,12 +22,19 @@ import { ChusanAvatarAcc } from '../model/ChusanAvatarAcc';
 })
 export class V2UserBoxComponent implements OnInit {
 
+  host = environment.assetsHost;
+  enableImages = environment.enableImages;
+
   profile: V2Profile;
   aimeId: string;
   apiServer: string;
 
   items: Observable<[]>;
   customable = [];
+
+  systemVoicelines = [];
+  volume: number;
+
 
   constructor(
     private api: ApiService,
@@ -43,8 +51,6 @@ export class V2UserBoxComponent implements OnInit {
   initCustomable() {
     this.customable = [
       { name: 'Nameplate', value: this.getNamePlateName(this.profile.nameplateId), click: () => this.namePlate() },
-      { name: 'Frame', value: this.getFrameName(this.profile.frameId), click: () => this.frame() },
-      { name: 'Trophy (Title)', value: this.getTrophyName(this.profile.trophyId), click: () => this.trophy() },
       { name: 'Map Icon', value: this.getMapIconName(this.profile.mapIconId), click: () => this.mapIcon() },
       { name: 'System Voice', value: this.getSystemVoiceName(this.profile.voiceId), click: () => this.systemVoice() },
       { name: 'Avatar Wear', value: this.getAvatarAccName(this.profile.avatarWear), click: () => this.avatarAcc(1, this.profile.avatarWear) },
@@ -54,7 +60,50 @@ export class V2UserBoxComponent implements OnInit {
       { name: 'Avatar Item', value: this.getAvatarAccName(this.profile.avatarItem), click: () => this.avatarAcc(5, this.profile.avatarItem) },
       { name: 'Avatar Front', value: this.getAvatarAccName(this.profile.avatarFront), click: () => this.avatarAcc(6, this.profile.avatarFront) },
       { name: 'Avatar Back', value: this.getAvatarAccName(this.profile.avatarBack), click: () => this.avatarAcc(7, this.profile.avatarBack) },
+      { name: 'Trophy (Title)', value: this.getTrophyName(this.profile.trophyId), click: () => this.trophy() },
+      { name: 'Frame', value: this.getFrameName(this.profile.frameId), click: () => this.frame() },
     ];
+  }
+
+  initSounds() {
+    this.systemVoicelines = [
+      { name: 'SEGA',       click: () => this.playAudio(34)},
+      { name: 'FULL COMBO', click: () => this.playAudio(0)},
+      { name: 'ALL JUSTICE',click: () => this.playAudio(1)},
+      { name: 'NEW RECORD', click: () => this.playAudio(8)},
+      { name: 'RANK D',     click: () => this.playAudio(10)},
+      { name: 'RANK C',     click: () => this.playAudio(11)},
+      { name: 'RANK B',     click: () => this.playAudio(12)},
+      { name: 'RANK BB',    click: () => this.playAudio(13)},
+      { name: 'RANK BBB',   click: () => this.playAudio(14)},
+      { name: 'RANK A',     click: () => this.playAudio(15)},
+      { name: 'RANK AA',    click: () => this.playAudio(16)},
+      { name: 'RANK AAA',   click: () => this.playAudio(17)},
+      { name: 'RANK S',     click: () => this.playAudio(18)},
+      { name: 'RANK S+',    click: () => this.playAudio(19)},
+      { name: 'RANK SS',    click: () => this.playAudio(20)},
+      { name: 'RANK SS+',   click: () => this.playAudio(21)},
+      { name: 'RANK SSS',   click: () => this.playAudio(22)},
+      { name: 'RANK SSS+',  click: () => this.playAudio(23)},
+      { name: 'DUEL INTRO', click: () => this.playAudio(24)},
+      { name: 'CONTINUE?',  click: () => this.playAudio(49)},
+      { name: 'CONTINUE!',  click: () => this.playAudio(50)},
+      { name: 'SEE YOU NEXT PLAY!', click: () => this.playAudio(51)},
+    ];
+  }
+
+  playAudio(id: number)
+  {
+    let audio = new Audio();
+    audio.src = this.host + "assets/chuni/systemVoice/systemvoice" + this.profile.voiceId.toString().padStart(4, '0') + "/000" + id.toString().padStart(2, '0') + ".wav"
+    audio.load();
+    if (this.volume)
+    {
+      audio.volume = (this.volume / 100)
+    }else{
+      audio.volume = 0.20;
+    }
+    audio.play();
   }
 
   refreshProfile() {
@@ -65,6 +114,7 @@ export class V2UserBoxComponent implements OnInit {
       data => {
         this.profile = data;
         this.initCustomable();
+        this.initSounds();
       },
       error => this.messageService.notice(error)
     );
@@ -159,7 +209,7 @@ export class V2UserBoxComponent implements OnInit {
 
   mapIcon() {
     const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      data: {itemKind: 8, itemId: this.profile.mapIconId}
+      data: {itemKind: 8, itemId: this.profile.mapIconId},
     });
 
     dialogRef.afterClosed().subscribe(mapIconId => {

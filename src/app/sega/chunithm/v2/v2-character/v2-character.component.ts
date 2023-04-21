@@ -29,6 +29,7 @@ export class V2CharacterComponent implements OnInit {
 
   currentPage = 1;
   totalElements = 0;
+  math = Math;
 
   constructor(
     private api: ApiService,
@@ -78,7 +79,6 @@ export class V2CharacterComponent implements OnInit {
       },
       error => this.messageService.notice(error)
     );
-    
   }
 
   levelUp(characterId: number, currentLevel: number) {

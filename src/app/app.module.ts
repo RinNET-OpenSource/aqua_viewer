@@ -16,6 +16,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MessageModule} from './message/message.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {LoginModule} from './login/login.module';
@@ -83,7 +84,8 @@ const aegis = new Aegis({
     MatProgressBarModule,
     MatCardModule,
     MatDialogModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    MatGridListModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},

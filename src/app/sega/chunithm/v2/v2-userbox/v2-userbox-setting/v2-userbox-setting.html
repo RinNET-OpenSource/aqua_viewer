@@ -1,10 +1,47 @@
 <h1 mat-dialog-title>Change Item</h1>
 <mat-dialog-content>
-  <mat-form-field style="min-width:20rem;">
+  <div *ngIf="enableImages == true">
+    <mat-grid-list *ngIf="data.itemKind == 1" cols="5" rowHeight="200px">
+        <mat-grid-tile *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
+          <img src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{item.itemId|formatNumber:8}}.png">
+          <mat-grid-tile-footer>{{item.name}}</mat-grid-tile-footer>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="data.itemKind == 8" cols="8" rowHeight="200px">
+        <mat-grid-tile *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
+          <img src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">
+          <mat-grid-tile-footer>{{item.name}}</mat-grid-tile-footer>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="data.itemKind == 9" cols="6" rowHeight="200px">
+        <mat-grid-tile *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
+          <img src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">
+          <mat-grid-tile-footer>{{item.name}}</mat-grid-tile-footer>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="data.itemKind == 11" cols="8" rowHeight="200px">
+        <mat-grid-tile *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
+          <img src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">
+          <mat-grid-tile-footer>{{item.name}}</mat-grid-tile-footer>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-form-field *ngIf="data.itemKind == 3 || data.itemKind == 2" style="min-width:20rem;">
+      <mat-select [(ngModel)]="data.itemId">
+        <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.name}}</mat-option>    
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field *ngIf="enableImages == false" style="min-width:20rem;">
     <mat-select [(ngModel)]="data.itemId">
-      <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.name}}</mat-option>
+      <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.name}}</mat-option>    
     </mat-select>
   </mat-form-field>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
