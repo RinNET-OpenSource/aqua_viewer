@@ -38,6 +38,7 @@ import { Maimai2UploadUserPortraitDialog } from './sega/maimai2/maimai2-setting/
 import { ToTechRatingPipe } from './sega/ongeki/util/to-tech-rating.pipe';
 
 import Aegis from 'aegis-web-sdk';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -85,7 +86,8 @@ const aegis = new Aegis({
     MatCardModule,
     MatDialogModule,
     MatGridListModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    NgbModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},

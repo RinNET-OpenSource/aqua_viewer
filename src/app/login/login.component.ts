@@ -52,17 +52,20 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.login(this.f.accessCode.value, server).pipe(first())
       .subscribe(
-        data => {
-          if (data != null) {
-            this.messageService.notice('Logging in');
-            location.reload();
-          } else {
-            this.messageService.notice('Card you entered does not exist');
+        {
+          next: (data) => {
+            if (data != null) {
+              this.messageService.notice('Logging in');
+              location.reload();
+            } else {
+              this.messageService.notice('Card you entered does not exist');
+            }
           }
-        },
-        error => {
-          this.messageService.notice(error.message);
-          console.warn('login fail', error);
+          ,
+          error: (error) => {
+            this.messageService.notice(error.message);
+            console.warn('login fail', error);
+          }
         }
       );
 

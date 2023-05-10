@@ -1,4 +1,4 @@
-.container {
+.app-container {
   display: flex;
   flex-direction: column;
   position: absolute;

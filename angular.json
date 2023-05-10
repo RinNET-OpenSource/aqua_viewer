@@ -24,6 +24,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css",
               "./node_modules/cropperjs/dist/cropper.min.css"
@@ -126,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "aqua-viewer"
+  "defaultProject": "aqua-viewer",
+  "cli": {
+    "analytics": "947c6d1e-782c-4286-b689-978e312612ae"
+  }
 }
