@@ -33,7 +33,8 @@ export class ToTechRatingPipe implements PipeTransform {
       [970000, 0],
       [990000, 100],
       [1000000, 150],
-      [1007500, 200]
+      [1007500, 200],
+      [1100000, 200]
     ];
     const level100 = Math.floor(diffNum * 100.0 + 0.5);
     let num = 0;
