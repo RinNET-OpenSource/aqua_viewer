@@ -5,27 +5,10 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class ToTechRatingPipe implements PipeTransform {
 
-  transform(diff: string, score: number): string {
+  // type: 1 for 13.00 + 2.00, 2 for 15.00
+  transform(diff: string, score: number, type: number): string {
     const diffNum = parseFloat(diff);
     let result: number;
-    // if (score < 850000) {
-    //   result = 0.0;
-    // } else if (score < 900000) {
-    //   result = ((score - 850000) / (500 / (diffNum - 4.0))) * 0.01;
-    // } else if (score < 940000) {
-    //   result = diffNum - 4.00 + ((score - 900000) / 175.0) * 0.01;
-    // } else if (score < 970000) {
-    //   result = diffNum - (12 / 7) + ((score - 940000) / 175.0) * 0.01;
-    // } else if (score < 990000) {
-    //   result = diffNum + ((score - 970000) / 200.0) * 0.01;
-    // } else if (score < 1000000) {
-    //   result = diffNum + 1.0 + ((score - 990000) / 200.0) * 0.01;
-    // } else if (score < 1007500) {
-    //   result = diffNum + 1.5 + ((score - 1000000) / 150.0) * 0.01;
-    // } else {
-    //   result = diffNum + 2.0;
-    // }
-
     const scoreZero = 500000;
     const rateTbls = [
       [800000, -600],
@@ -38,6 +21,7 @@ export class ToTechRatingPipe implements PipeTransform {
     ];
     const level100 = Math.floor(diffNum * 100.0 + 0.5);
     let num = 0;
+
     if (score <= rateTbls[0][0]){
       num = (level100 + rateTbls[0][1]) * (score - scoreZero) / (rateTbls[0][0] - scoreZero);
     } else {
@@ -56,7 +40,11 @@ export class ToTechRatingPipe implements PipeTransform {
     if (result === 0) {
       return '0.00';
     } else {
-      return diffNum.toFixed(2).toString() + (result >= diffNum ? '+' : '-') + Math.abs(result - diffNum).toFixed(2).toString();
+      if (type === 1) {
+        return diffNum.toFixed(2).toString() + (result >= diffNum ? '+' : '-') + Math.abs(result - diffNum).toFixed(2).toString();
+      } else {
+        return result.toFixed(2).toString();
+      }
     }
   }
 }

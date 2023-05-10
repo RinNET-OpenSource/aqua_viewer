@@ -40,11 +40,11 @@
               <span *ngIf="item.isTechNewRecord" class="new">NEW RECORD!<br></span>
               <span class="score-value">{{item.techScore}}</span><br>
               <span class="score-label">RATING</span><br>
-              <span *ngSwitchCase="'Basic'" class="score-value">{{((item.songInfo.level0 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
-              <span *ngSwitchCase="'Advanced'" class="score-value">{{((item.songInfo.level1 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
-              <span *ngSwitchCase="'Expert'" class="score-value">{{((item.songInfo.level2 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
-              <span *ngSwitchCase="'Master'" class="score-value">{{((item.songInfo.level3 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
-              <span *ngSwitchCase="'Lunatic'" class="score-value">{{((item.songInfo.level4 | toLevelDecimal) | toTechRating : item.techScore)}}</span>
+              <span *ngSwitchCase="'Basic'" class="score-value">{{((item.songInfo.level0 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
+              <span *ngSwitchCase="'Advanced'" class="score-value">{{((item.songInfo.level1 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
+              <span *ngSwitchCase="'Expert'" class="score-value">{{((item.songInfo.level2 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
+              <span *ngSwitchCase="'Master'" class="score-value">{{((item.songInfo.level3 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
+              <span *ngSwitchCase="'Lunatic'" class="score-value">{{((item.songInfo.level4 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
             </div>
             <div class="score-element">
               <div class="score-rank-icon">

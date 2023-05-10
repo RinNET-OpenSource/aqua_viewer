@@ -84,5 +84,4 @@ export class OngekiRatingComponent implements OnInit {
       }
     );
   }
-
 }

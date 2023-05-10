@@ -16,6 +16,7 @@
     <th>Music</th>
     <th>Level</th>
     <th>Score</th>
+    <th>Rating</th>
     </thead>
     <tbody>
     <ng-container *ngFor="let item of allArray[index]; index as i">
@@ -52,6 +53,15 @@
     </td>
     <td>
       {{item.value}}
+    </td>
+    <td>
+      <ng-container *ngIf="item.musicInfo" [ngSwitch]="item.level">
+        <span *ngSwitchCase="0" class="score-value">{{((item.musicInfo.level0 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="1" class="score-value">{{((item.musicInfo.level1 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="2" class="score-value">{{((item.musicInfo.level2 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="3" class="score-value">{{((item.musicInfo.level3 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="10" class="score-value">{{((item.musicInfo.level4 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+      </ng-container>
     </td>
   </tr>
 </ng-template>
