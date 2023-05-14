@@ -1,168 +1,295 @@
-<h1 class="mat-display-1" xmlns="http://www.w3.org/1999/html">Play Record</h1>
-<div *ngIf="recent" class="record">
-  <mat-card
-    *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
-    <mat-card-title>{{item.userPlayDate}}</mat-card-title>
-    <mat-card-content>
-      <div class="result-content">
-        <div class="left">
-          <div class="title-area">
-            <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span>
-            <span class="info" style="font-size: small">{{item.songInfo != null ? item.songInfo.artistName : ''}}</span>
-          </div>
-          <div class="info-area">
-            <div class="song-header">
-              <div class="song-info">
-                <img *ngIf="enableImages == true" src = "{{host}}assets/ongeki/gameUi/UI_RES_Score_Diff_{{difficulty[item.level]}}.png" style="width: 40%; height: auto"><br>
-                <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.jpg" style="width: 100%; height: auto">
+<h1 class="mat-display-1" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Play Record</h1>
+<div *ngIf="recent" class="list-group gap-3 ">
+  <!--  placeholder-->
+  <div *ngIf="loading" class="card placeholder-wave" aria-hidden="true">
+    <div class="card-header hstack gap-2" style="padding: 4px">
+      <div class="ratio ratio-1x1" style="width: 96px;min-width: 96px">
+        <span class="position-absolute placeholder"></span>
+      </div>
+      <div class="overflow-hidden">
+        <div class="text-truncate fw-bold">
+          <span class="placeholder" style="font-size: 18px;min-width: 192px"></span>
+        </div>
+        <div class="text-truncate ">
+          <span class="placeholder" style="font-size: 12px;min-width: 128px"></span>
+        </div>
+        <div>
+            <span class="align-middle placeholder"
+                  style="font-size: 18px;min-width:80px;color: darkgray"></span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="padding-bottom: 0px">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-5" style="margin-bottom: 5px">
+          <div class="row text-nowrap" style="text-shadow: 1px 1px 1px #888888">
+            <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+              <!--BATTLE SCORE-->
+              <div class="placeholder" style="width: 83px;height: 14px"></div>
+              <div style="height: 27px">
+                <span class="placeholder" style="font-size: 22px;min-width: 50px"></span>
+                <span class="placeholder align-bottom" style="font-size: 16px;min-width: 36px"></span>
+              </div>
+              <!--OVER DAMAGE-->
+              <div class="placeholder" style="width: 82px;height: 14px"></div>
+              <div>
+                <span class="placeholder" style="font-size: 22px;min-width: 37px"></span><span
+                class="placeholder align-bottom" style="font-size: 16px;min-width: 34px"></span>
               </div>
             </div>
-          </div>
-          <div class="score-area">
-          <div class="battle-score-area">
-            <div class="score-element">
-              <span class="score-label">BATTLE SCORE</span><br>
-              <span *ngIf="item.isBattleNewRecord" class="new">NEW RECORD!<br></span>
-              <span class="score-value">{{item.battleScore}}</span><br>
-              <span class="score-label">OVER DAMAGE</span><br>
-              <span *ngIf="item.isOverDamageNewRecord" class="new">NEW RECORD!<br></span>
-              <span class="score-value">{{item.overDamage / 100}}%</span><br>
+            <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex" style="">
+              <span class="placeholder" style="height: 64px;width: 64px;border-radius: 50%"></span>
             </div>
-            <div class="score-element">
-              <div class="score-rank-icon">
-                <img *ngIf="enableImages == true" src = "{{host}}assets/ongeki/gameUi/{{item.battleScoreRank | toBattleSprite}}" style="width: auto; height: auto">
+
+            <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+              <!--TECHNICAL SCORE-->
+              <div class="placeholder" style="width: 105px;height: 14px"></div>
+              <div>
+                <span class="placeholder" style="font-size: 22px;width: 37px"></span><span
+                class="placeholder align-bottom" style="font-size: 16px;width: 36px"></span>
+              </div>
+              <!--RATING-->
+              <div class="placeholder" style="width: 42px;height: 14px"></div>
+              <div>
+                <span class="placeholder" style="width: 56px;height: 27px"></span>
               </div>
             </div>
-          </div>
-          <div class="tech-score-area">
-            <div class="score-element" [ngSwitch]="difficulty[item.level]" >
-              <span class="score-label">TECHNICAL SCORE</span><br>
-              <span *ngIf="item.isTechNewRecord" class="new">NEW RECORD!<br></span>
-              <span class="score-value">{{item.techScore}}</span><br>
-              <span class="score-label">RATING</span><br>
-              <span *ngSwitchCase="'Basic'" class="score-value">{{((item.songInfo.level0 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
-              <span *ngSwitchCase="'Advanced'" class="score-value">{{((item.songInfo.level1 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
-              <span *ngSwitchCase="'Expert'" class="score-value">{{((item.songInfo.level2 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
-              <span *ngSwitchCase="'Master'" class="score-value">{{((item.songInfo.level3 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
-              <span *ngSwitchCase="'Lunatic'" class="score-value">{{((item.songInfo.level4 | toLevelDecimal) | toTechRating : item.techScore : 1)}}</span>
-            </div>
-            <div class="score-element">
-              <div class="score-rank-icon">
-                <img *ngIf="enableImages == true" src = "{{host}}assets/ongeki/gameUi/{{item.techScoreRank | toTechSprite}}" style="width: auto; height: auto">
-              </div>
+            <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
+              <span class="placeholder" style="height: 64px;width: 100%;max-width: 106px"></span>
             </div>
           </div>
+          <div class="row row-cols-2 align-items-center">
+            <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-end">
+              <!--            {{item.isFullBell ? 'Full Bell' : ''}}-->
+              <img src=""
+                   style="max-width: 128px">
+            </div>
+            <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-start">
+              <!--            {{item.isFullCombo ? 'Full Combo' : ''}}-->
+              <img
+                src=""
+                style="max-width: 128px">
+            </div>
           </div>
         </div>
-        <div class="right">
-          <table class="zebra" style="width: 100%; height: 100%">
+        <div class="col-12 col-md-6 col-lg-8 col-xl-6 col-xxl-7">
+          <table class="table table-sm table-striped table-borderless align-middle"
+                 style="min-width: 224px;text-shadow: 1px 1px 1px #222222;font-size: 14px;text-align: center;height: 100%">
+            <tbody>
             <tr>
-              <th>Combo</th>
-              <td>{{item.maxCombo}}</td>
+              <td style="color: palegoldenrod">COMBO</td>
+              <td style="color: gray">
+                <span class="placeholder" style="width: 40px"></span>
+              </td>
             </tr>
             <tr>
-              <th>C. BREAK</th>
-              <td>{{item.judgeCriticalBreak}}</td>
+              <td style="color: gold">C.BREAK</td>
+              <td style="color: gold">
+                <span class="placeholder" style="width: 40px"></span>
+              </td>
             </tr>
             <tr>
-              <th>BREAK</th>
-              <td>{{item.judgeBreak}}</td>
+              <td style="color: orange">BREAK</td>
+              <td style="color: orange">
+                <span class="placeholder" style="width: 20px"></span>
+              </td>
             </tr>
             <tr>
-              <th>HIT</th>
-              <td>{{item.judgeHit}}</td>
+              <td style="color: cyan">HIT</td>
+              <td style="color: cyan">
+                <span class="placeholder" style="width: 10px"></span>
+              </td>
             </tr>
             <tr>
-              <th>MISS</th>
-              <td>{{item.judgeMiss}}</td>
+              <td style="color: darkgray">MISS</td>
+              <td style="color: darkgray">
+                <span class="placeholder" style="width: 10px"></span>
+              </td>
             </tr>
             <tr>
-              <th>BELL</th>
-              <td>{{item.bellCount}} / {{item.totalBellCount}}</td>
+              <td style="color: gold">BELL</td>
+              <td style="color: gold">
+                <span class="placeholder" style="width: 60px"></span>
+              </td>
             </tr>
             <tr>
-              <th>TAP</th>
-              <td>{{item.rateTap}}%</td>
+              <td style="color: orangered">DAMAGE</td>
+              <td style="color: orangered">
+                <span class="placeholder" style="width: 10px"></span>
+              </td>
             </tr>
-            <tr>
-              <th>HOLD</th>
-              <td>{{item.rateHold}}%</td>
-            </tr>
-            <tr>
-              <th>FLICK</th>
-              <td>{{item.rateFlick}}%</td>
-            </tr>
-            <tr>
-              <th>SLIDE TAP</th>
-              <td>{{item.rateSideTap}}%</td>
-            </tr>
-            <tr>
-              <th>SLIDE HOLE</th>
-              <td>{{item.rateSideHold}}%</td>
-            </tr>
-            <tr>
-              <th>DAMAGE</th>
-              <td>{{item.damageCount}}</td>
-            </tr>
+            </tbody>
           </table>
         </div>
-        <div class="bottom">
-          <div class="bottom-achievement-icon">
-<!--            {{item.isFullBell ? 'Full Bell' : ''}}-->
-            <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_{{item.isFullBell ? 'Badge' : 'Base'}}.png" style="width: 100%; height: auto">
+      </div>
+
+    </div>
+    <div class="card-footer bg-transparent text-end fw-bold">
+      <span class="placeholder" style="width: 175px"></span>
+    </div>
+  </div>
+
+  <!--  recent list-->
+  <div
+    *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
+    <div class="card">
+      <div class="card-header hstack gap-2" style="padding: 4px">
+        <div class="ratio ratio-1x1" style="width: 96px;min-width: 96px">
+          <img class="position-absolute"
+               src="https://portal.naominet.live/assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.jpg"
+               alt="">
+        </div>
+        <div class="overflow-hidden">
+          <div class="text-truncate fw-bold">
+          <span style="font-size: 18px">
+            {{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}
+          </span>
           </div>
-          <div class="bottom-achievement-icon">
-<!--            {{item.isFullCombo ? 'Full Combo' : ''}}-->
-            <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/gameUi/UI_RES_Score_{{item.isAllBreak ? 'AB' : 'FC'}}_{{item.isFullCombo ? 'Badge' : 'Base'}}.png" style="width: 100%; height: auto">
+          <div class="text-truncate ">
+          <span style="font-size: 12px">
+            {{item.songInfo != null ? item.songInfo.artistName : ''}}
+          </span>
           </div>
-<!--          <div *ngIf="enableImages == true && item.isAllBreak" class="bottom-achievement-icon">-->
-<!--            {{item.isAllBreak ? 'All Break' : ''}}-->
-<!--            <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/gameUi/UI_RES_Score_AB_Badge.png" style="width: 100%;">-->
-<!--          </div>-->
+          <div [ngSwitch]="difficulty[item.level]">
+            <span *ngSwitchCase="'Basic'" class="badge rounded-pill align-middle"
+                  style="background: #51B540;font-size: 12px">
+              {{difficulty[item.level]}}
+              {{item.songInfo.level0 | toLevelDecimal}}
+            </span>
+            <span *ngSwitchCase="'Advanced'" class="badge rounded-pill align-middle"
+                  style="background: #B5A440;font-size: 12px">
+              {{difficulty[item.level]}}
+              {{item.songInfo.level1 | toLevelDecimal}}
+            </span>
+            <span *ngSwitchCase="'Expert'" class="badge rounded-pill align-middle"
+                  style="background: #B54051;font-size: 12px">
+              {{difficulty[item.level]}}
+              {{item.songInfo.level2 | toLevelDecimal}}
+            </span>
+            <span *ngSwitchCase="'Master'" class="badge rounded-pill align-middle"
+                  style="background: #6940B5;font-size: 12px">
+              {{difficulty[item.level]}}
+              {{item.songInfo.level3 | toLevelDecimal}}
+            </span>
+            <span *ngSwitchCase="'Lunatic'" class="badge rounded-pill align-middle border border-danger text-danger"
+                  style="background: #FFFFFF;font-size: 12px">
+              {{difficulty[item.level]}}
+              {{item.songInfo.level4 | toLevelDecimal}}
+            </span>
+          </div>
         </div>
       </div>
-      <div class="battle-info">
-        <div class="rival-info">
-          Rival: <span
-          class="{{item.bossAttribute | toAttributeClass}}">{{attributeType[item.bossAttribute]}}
-          █</span> {{item.bossCharaInfo ? item.bossCharaInfo.name : 'ID: ' + item.bossCharaId}}
-          Lv.{{item.bossLevel}}
+      <div class="card-body" style="padding-bottom: 0px">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-5" style="margin-bottom: 5px">
+            <div class="row text-nowrap" style="text-shadow: 1px 1px 1px #888888">
+              <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+                <div style="color: darkorange;font-size: 12px">
+                  <span>BATTLE SCORE</span>
+                </div>
+                <div style="color: gold">
+                  <span style="font-size: 22px">{{Math.floor(item.battleScore / 10000)}}</span><span
+                  style="font-size: 16px">{{item.battleScore % 10000|formatNumber:4}}</span>
+                </div>
+                <div style="color: darkorange;font-size: 12px">
+                  <span>OVER DAMAGE</span>
+                </div>
+                <div>
+                  <span style="font-size: 22px">{{Math.floor(item.overDamage / 100)}}</span><span
+                  style="font-size: 16px">.{{item.overDamage % 100|formatNumber:2}}%</span>
+                </div>
+              </div>
+              <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
+                <img style="object-fit: contain;max-height: 64px"
+                     src="{{host}}assets/ongeki/gameUi/{{item.battleScoreRank | toBattleSprite}}">
+              </div>
+
+              <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+                <div style="color: darkcyan;font-size: 12px">
+                  <span>TECHNICAL SCORE</span>
+                </div>
+                <div style="color: gold">
+                  <span style="font-size: 22px">{{Math.floor(item.techScore / 10000)}}</span><span
+                  style="font-size: 16px">{{item.techScore % 10000|formatNumber:4}}</span>
+                </div>
+                <div style="color: darkcyan;font-size: 12px">
+                  <span>RATING</span>
+                </div>
+                <div style="font-size: 22px" [ngSwitch]="difficulty[item.level]">
+                  <span
+                    *ngSwitchCase="'Basic'">{{((item.songInfo.level0 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
+                  <span
+                    *ngSwitchCase="'Advanced'">{{((item.songInfo.level1 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
+                  <span
+                    *ngSwitchCase="'Expert'">{{((item.songInfo.level2 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
+                  <span
+                    *ngSwitchCase="'Master'">{{((item.songInfo.level3 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
+                  <span
+                    *ngSwitchCase="'Lunatic'">{{((item.songInfo.level4 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
+                </div>
+              </div>
+              <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
+                <img style="object-fit: contain;max-height: 64px"
+                     src="{{host}}assets/ongeki/gameUi/{{item.techScoreRank | toTechSprite}}">
+              </div>
+            </div>
+            <div class="row row-cols-2 align-items-center">
+              <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-end">
+                <!--            {{item.isFullBell ? 'Full Bell' : ''}}-->
+                <img src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_{{item.isFullBell ? 'Badge' : 'Base'}}.png"
+                     style="max-width: 128px">
+              </div>
+              <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-start">
+                <!--            {{item.isFullCombo ? 'Full Combo' : ''}}-->
+                <img
+                  src="{{host}}assets/ongeki/gameUi/UI_RES_Score_{{item.isAllBreak ? 'AB' : 'FC'}}_{{item.isFullCombo ? 'Badge' : 'Base'}}.png"
+                  style="max-width: 128px">
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-8 col-xl-6 col-xxl-7">
+            <table class="table table-sm table-striped table-borderless align-middle"
+                   style="min-width: 224px;text-shadow: 1px 1px 1px #222222;font-size: 14px;text-align: center;height: 100%">
+              <tbody>
+              <tr>
+                <td style="color: palegoldenrod">COMBO</td>
+                <td style="color: palegoldenrod">{{item.maxCombo}}</td>
+              </tr>
+              <tr>
+                <td style="color: gold">C.BREAK</td>
+                <td style="color: gold">{{item.judgeCriticalBreak}}</td>
+              </tr>
+              <tr>
+                <td style="color: orange">BREAK</td>
+                <td style="color: orange">{{item.judgeBreak}}</td>
+              </tr>
+              <tr>
+                <td style="color: cyan">HIT</td>
+                <td style="color: cyan">{{item.judgeHit}}</td>
+              </tr>
+              <tr>
+                <td style="color: darkgray">MISS</td>
+                <td style="color: darkgray">{{item.judgeMiss}}</td>
+              </tr>
+              <tr>
+                <td style="color: gold">BELL</td>
+                <td style="color: gold">{{item.bellCount}}/{{item.totalBellCount}}</td>
+              </tr>
+              <tr>
+                <td style="color: orangered">DAMAGE</td>
+                <td style="color: orangered">{{item.damageCount}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="card-deck">
-          <div class="player-card">
-            <div class="player-card-header">
-              <div class="level">Lv.{{item.cardLevel1}}</div>
-              <div class="attack">ATK {{item.cardAttack1}}</div>
-            </div>
-            <div class="player-card-image">
-              <div *ngIf="item.cardInfo1 && enableImages == false">{{item.cardInfo1.name}}</div>
-              <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId1|formatNumber:6}}_S.jpg">
-            </div>
-          </div>
-          <div class="player-card">
-            <div class="player-card-header">
-              <div class="level">Lv.{{item.cardLevel2}}</div>
-              <div class="attack">ATK {{item.cardAttack2}}</div>
-            </div>
-            <div class="player-card-image">
-              <div *ngIf="item.cardInfo2 && enableImages == false">{{item.cardInfo2.name}}</div>
-              <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId2|formatNumber:6}}_S.jpg">
-            </div>
-          </div>
-          <div class="player-card">
-            <div class="player-card-header">
-              <div class="level">Lv.{{item.cardLevel3}}</div>
-              <div class="attack">ATK {{item.cardAttack3}}</div>
-            </div>
-            <div class="player-card-image">
-              <div *ngIf="item.cardInfo3 && enableImages == false">{{item.cardInfo3.name}}</div>
-              <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId3|formatNumber:6}}_S.jpg">
-            </div>
-          </div>
-        </div>
+
       </div>
-    </mat-card-content>
-  </mat-card>
+      <div class="card-footer bg-transparent text-end fw-bold">
+        <span>{{item.userPlayDate}}</span>
+      </div>
+    </div>
+  </div>
   <div class="pagination">
     <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
   </div>

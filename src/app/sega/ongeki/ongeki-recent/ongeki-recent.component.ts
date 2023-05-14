@@ -12,6 +12,7 @@ import {OngekiMusic} from '../model/OngekiMusic';
 import {AttributeType, BattleRank, Difficulty, TechnicalRank} from '../model/OngekiEnums';
 import {OngekiCard} from '../model/OngekiCard';
 import {OngekiCharacter} from '../model/OngekiCharacter';
+import {end} from '@popperjs/core';
 
 @Component({
   selector: 'app-ongeki-recent',
@@ -20,11 +21,13 @@ import {OngekiCharacter} from '../model/OngekiCharacter';
 })
 export class OngekiRecentComponent implements OnInit {
 
+  protected readonly Math = Math;
+
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 
   aimeId: string;
-
+  loading: boolean;
   recent: Observable<PlayerPlaylog[]>;
   difficulty = Difficulty;
   battleRank = BattleRank;
@@ -44,6 +47,7 @@ export class OngekiRecentComponent implements OnInit {
 
   ngOnInit() {
     this.aimeId = String(this.auth.currentUserValue.extId);
+    this.loading = true;
     this.load(this.currentPage);
   }
 
@@ -81,11 +85,11 @@ export class OngekiRecentComponent implements OnInit {
               m => x.cardInfo3 = m
             );
           });
+          this.loading = false;
           return data.content;
         },
         error => this.messageService.notice(error)
       )
     );
   }
-
 }
