@@ -1,7 +1,7 @@
 <h1 class="mat-display-1" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Play Record</h1>
 <div *ngIf="recent" class="list-group gap-3 ">
   <!--  placeholder-->
-  <div *ngIf="loading" class="card placeholder-wave" aria-hidden="true">
+  <div *ngIf="loading" class="card placeholder-wave text-bg-secondary" aria-hidden="true">
     <div class="card-header hstack gap-2" style="padding: 4px">
       <div class="ratio ratio-1x1" style="width: 96px;min-width: 96px">
         <span class="position-absolute placeholder"></span>
@@ -132,11 +132,11 @@
   <!--  recent list-->
   <div
     *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
-    <div class="card">
+    <div class="card text-bg-secondary">
       <div class="card-header hstack gap-2" style="padding: 4px">
         <div class="ratio ratio-1x1" style="width: 96px;min-width: 96px">
           <img class="position-absolute"
-               src="https://portal.naominet.live/assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.jpg"
+               src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.jpg"
                alt="">
         </div>
         <div class="overflow-hidden">
