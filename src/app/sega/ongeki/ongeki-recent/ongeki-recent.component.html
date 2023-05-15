@@ -1,7 +1,7 @@
-<h1 class="mat-display-1" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Play Record</h1>
+<h1 xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Play Record</h1>
 <div *ngIf="recent" class="list-group gap-3 ">
   <!--  placeholder-->
-  <div *ngIf="loading" class="card placeholder-wave text-bg-secondary" aria-hidden="true">
+  <div *ngIf="loading" class="card placeholder-wave user-select-none" aria-hidden="true">
     <div class="card-header hstack gap-2" style="padding: 4px">
       <div class="ratio ratio-1x1" style="width: 96px;min-width: 96px">
         <span class="position-absolute placeholder"></span>
@@ -22,7 +22,7 @@
     <div class="card-body" style="padding-bottom: 0px">
       <div class="row align-items-center">
         <div class="col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-5" style="margin-bottom: 5px">
-          <div class="row text-nowrap" style="text-shadow: 1px 1px 1px #888888">
+          <div class="row text-nowrap" style="text-shadow: 1px 1px 1px #888888;margin: 3px">
             <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
               <!--BATTLE SCORE-->
               <div class="placeholder" style="width: 83px;height: 14px"></div>
@@ -61,13 +61,13 @@
           <div class="row row-cols-2 align-items-center">
             <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-end">
               <!--            {{item.isFullBell ? 'Full Bell' : ''}}-->
-              <img src=""
+              <img src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_Base.png"
                    style="max-width: 128px">
             </div>
             <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-start">
               <!--            {{item.isFullCombo ? 'Full Combo' : ''}}-->
               <img
-                src=""
+                src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FC_Base.png"
                 style="max-width: 128px">
             </div>
           </div>
@@ -77,46 +77,32 @@
                  style="min-width: 224px;text-shadow: 1px 1px 1px #222222;font-size: 14px;text-align: center;height: 100%">
             <tbody>
             <tr>
-              <td style="color: palegoldenrod">COMBO</td>
-              <td style="color: gray">
-                <span class="placeholder" style="width: 40px"></span>
-              </td>
+              <td style="color: palegoldenrod">&nbsp;</td>
+              <td style="color: palegoldenrod">&nbsp;</td>
             </tr>
             <tr>
-              <td style="color: gold">C.BREAK</td>
-              <td style="color: gold">
-                <span class="placeholder" style="width: 40px"></span>
-              </td>
+              <td style="color: palegoldenrod">&nbsp;</td>
+              <td style="color: palegoldenrod">&nbsp;</td>
             </tr>
             <tr>
-              <td style="color: orange">BREAK</td>
-              <td style="color: orange">
-                <span class="placeholder" style="width: 20px"></span>
-              </td>
+              <td style="color: palegoldenrod">&nbsp;</td>
+              <td style="color: palegoldenrod">&nbsp;</td>
             </tr>
             <tr>
-              <td style="color: cyan">HIT</td>
-              <td style="color: cyan">
-                <span class="placeholder" style="width: 10px"></span>
-              </td>
+              <td style="color: palegoldenrod">&nbsp;</td>
+              <td style="color: palegoldenrod">&nbsp;</td>
             </tr>
             <tr>
-              <td style="color: darkgray">MISS</td>
-              <td style="color: darkgray">
-                <span class="placeholder" style="width: 10px"></span>
-              </td>
+              <td style="color: palegoldenrod">&nbsp;</td>
+              <td style="color: palegoldenrod">&nbsp;</td>
             </tr>
             <tr>
-              <td style="color: gold">BELL</td>
-              <td style="color: gold">
-                <span class="placeholder" style="width: 60px"></span>
-              </td>
+              <td style="color: palegoldenrod">&nbsp;</td>
+              <td style="color: palegoldenrod">&nbsp;</td>
             </tr>
             <tr>
-              <td style="color: orangered">DAMAGE</td>
-              <td style="color: orangered">
-                <span class="placeholder" style="width: 10px"></span>
-              </td>
+              <td style="color: palegoldenrod">&nbsp;</td>
+              <td style="color: palegoldenrod">&nbsp;</td>
             </tr>
             </tbody>
           </table>
@@ -132,7 +118,7 @@
   <!--  recent list-->
   <div
     *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
-    <div class="card text-bg-secondary">
+    <div class="card">
       <div class="card-header hstack gap-2" style="padding: 4px">
         <div class="ratio ratio-1x1" style="width: 96px;min-width: 96px">
           <img class="position-absolute"
@@ -290,8 +276,7 @@
       </div>
     </div>
   </div>
-
-  <pagination-template #p="paginationApi" id="server" maxSize="7" style="cursor: default"
+  <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7" style="cursor: default"
                        (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
     <ul class="pagination justify-content-center">
       <li class="page-item">
