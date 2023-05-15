@@ -290,7 +290,19 @@
       </div>
     </div>
   </div>
-  <div class="pagination">
-    <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
-  </div>
+
+  <pagination-template #p="paginationApi" id="server" maxSize="7" style="cursor: default"
+                       (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
 </div>
