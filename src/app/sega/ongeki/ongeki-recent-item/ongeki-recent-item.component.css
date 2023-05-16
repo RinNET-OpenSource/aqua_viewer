@@ -1,0 +1,118 @@
+.song-info {
+  padding: 4px;
+}
+
+.song-info .jacket-container {
+  width: 96px;
+  min-width: 96px;
+}
+
+.song-info .song-info-title {
+  font-size: 18px;
+}
+
+.song-info .song-info-artist {
+  font-size: 12px;
+}
+
+.song-info .song-info-difficulty {
+  font-size: 12px;
+}
+
+.song-info .song-info-difficulty-Basic {
+  background: #51B540;
+}
+
+.song-info .song-info-difficulty-Advanced {
+  background: #B5A440;
+}
+
+.song-info .song-info-difficulty-Expert {
+  background: #B54051;
+}
+
+.song-info .song-info-difficulty-Master {
+  background: #6940B5;
+}
+
+.song-info .song-info-difficulty-Lunatic {
+  background: #FFFFFF;
+}
+
+.play-result {
+  padding-bottom: 0px;
+}
+
+.play-result .score-area {
+  margin-bottom: 8px;
+  text-shadow: 1px 1px 1px #888888;
+}
+
+.play-result .score-area .item-header {
+  font-size: 12px;
+}
+
+.play-result .score-area .battle-item-header {
+  color: darkorange;
+}
+
+.play-result .score-area .technical-item-header {
+  color: darkcyan;
+}
+
+.play-result .score-area .score-font-large {
+  font-size: 22px;
+}
+
+.play-result .score-area .score-font-small {
+  font-size: 16px;
+}
+
+.play-result .score-area .score {
+  color: gold;
+}
+
+.play-result .score-area .score-stamp {
+  object-fit: contain;
+  max-height: 64px;
+}
+
+.play-result .score-area .score-honor {
+  max-width: 128px;
+}
+
+.play-result .judge-table {
+  min-width: 224px;
+  text-shadow: 1px 1px 1px #222222;
+  font-size: 14px;
+  text-align: center;
+  height: 100%;
+}
+
+.play-result .judge-table .combo{
+  color: palegoldenrod;
+}
+
+.play-result .judge-table .critical-break{
+  color: gold;
+}
+
+.play-result .judge-table .break{
+  color: orange;
+}
+
+.play-result .judge-table .hit{
+  color: orange;
+}
+
+.play-result .judge-table .miss{
+  color: darkgray;
+}
+
+.play-result .judge-table .bell{
+  color: gold;
+}
+
+.play-result .judge-table .damage{
+  color: orangered;
+}

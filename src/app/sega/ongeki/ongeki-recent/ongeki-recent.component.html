@@ -1,5 +1,6 @@
 <h1 xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Play Record</h1>
-<pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7" style="cursor: default"
+<pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                     style="cursor: default"
                      (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
   <ul class="pagination justify-content-center">
     <li class="page-item">
@@ -132,165 +133,11 @@
   <!--  recent list-->
   <div
     *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
-    <div class="card">
-      <div class="card-header hstack gap-2" style="padding: 4px">
-        <div class="ratio ratio-1x1" style="width: 96px;min-width: 96px">
-          <img class="position-absolute"
-               src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}.jpg"
-               alt="">
-        </div>
-        <div class="overflow-hidden">
-          <div class="text-truncate fw-bold">
-          <span style="font-size: 18px">
-            {{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}
-          </span>
-          </div>
-          <div class="text-truncate ">
-          <span style="font-size: 12px">
-            {{item.songInfo != null ? item.songInfo.artistName : ''}}
-          </span>
-          </div>
-          <div [ngSwitch]="difficulty[item.level]">
-            <span *ngSwitchCase="'Basic'" class="badge rounded-pill align-middle"
-                  style="background: #51B540;font-size: 12px">
-              {{difficulty[item.level]}}
-              {{item.songInfo.level0 | toLevelDecimal}}
-            </span>
-            <span *ngSwitchCase="'Advanced'" class="badge rounded-pill align-middle"
-                  style="background: #B5A440;font-size: 12px">
-              {{difficulty[item.level]}}
-              {{item.songInfo.level1 | toLevelDecimal}}
-            </span>
-            <span *ngSwitchCase="'Expert'" class="badge rounded-pill align-middle"
-                  style="background: #B54051;font-size: 12px">
-              {{difficulty[item.level]}}
-              {{item.songInfo.level2 | toLevelDecimal}}
-            </span>
-            <span *ngSwitchCase="'Master'" class="badge rounded-pill align-middle"
-                  style="background: #6940B5;font-size: 12px">
-              {{difficulty[item.level]}}
-              {{item.songInfo.level3 | toLevelDecimal}}
-            </span>
-            <span *ngSwitchCase="'Lunatic'" class="badge rounded-pill align-middle border border-danger text-danger"
-                  style="background: #FFFFFF;font-size: 12px">
-              {{difficulty[item.level]}}
-              {{item.songInfo.level4 | toLevelDecimal}}
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="card-body" style="padding-bottom: 0px">
-        <div class="row align-items-center">
-          <div class="col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-5" style="margin-bottom: 5px">
-            <div class="row text-nowrap" style="text-shadow: 1px 1px 1px #888888">
-              <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
-                <div style="color: darkorange;font-size: 12px">
-                  <span>BATTLE SCORE</span>
-                </div>
-                <div style="color: gold">
-                  <span style="font-size: 22px">{{Math.floor(item.battleScore / 10000)}}</span><span
-                  style="font-size: 16px">{{item.battleScore % 10000|formatNumber:4}}</span>
-                </div>
-                <div style="color: darkorange;font-size: 12px">
-                  <span>OVER DAMAGE</span>
-                </div>
-                <div>
-                  <span style="font-size: 22px">{{Math.floor(item.overDamage / 100)}}</span><span
-                  style="font-size: 16px">.{{item.overDamage % 100|formatNumber:2}}%</span>
-                </div>
-              </div>
-              <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
-                <img style="object-fit: contain;max-height: 64px"
-                     src="{{host}}assets/ongeki/gameUi/{{item.battleScoreRank | toBattleSprite}}">
-              </div>
+    <app-ongeki-recent-item [playLog]=item></app-ongeki-recent-item>
 
-              <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
-                <div style="color: darkcyan;font-size: 12px">
-                  <span>TECHNICAL SCORE</span>
-                </div>
-                <div style="color: gold">
-                  <span style="font-size: 22px">{{Math.floor(item.techScore / 10000)}}</span><span
-                  style="font-size: 16px">{{item.techScore % 10000|formatNumber:4}}</span>
-                </div>
-                <div style="color: darkcyan;font-size: 12px">
-                  <span>RATING</span>
-                </div>
-                <div style="font-size: 22px" [ngSwitch]="difficulty[item.level]">
-                  <span
-                    *ngSwitchCase="'Basic'">{{((item.songInfo.level0 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
-                  <span
-                    *ngSwitchCase="'Advanced'">{{((item.songInfo.level1 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
-                  <span
-                    *ngSwitchCase="'Expert'">{{((item.songInfo.level2 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
-                  <span
-                    *ngSwitchCase="'Master'">{{((item.songInfo.level3 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
-                  <span
-                    *ngSwitchCase="'Lunatic'">{{((item.songInfo.level4 | toLevelDecimal) | toTechRating : item.techScore : 2)}}</span>
-                </div>
-              </div>
-              <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
-                <img style="object-fit: contain;max-height: 64px"
-                     src="{{host}}assets/ongeki/gameUi/{{item.techScoreRank | toTechSprite}}">
-              </div>
-            </div>
-            <div class="row row-cols-2 align-items-center">
-              <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-end">
-                <!--            {{item.isFullBell ? 'Full Bell' : ''}}-->
-                <img src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_{{item.isFullBell ? 'Badge' : 'Base'}}.png"
-                     style="max-width: 128px">
-              </div>
-              <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-start">
-                <!--            {{item.isFullCombo ? 'Full Combo' : ''}}-->
-                <img
-                  src="{{host}}assets/ongeki/gameUi/UI_RES_Score_{{item.isAllBreak ? 'AB' : 'FC'}}_{{item.isFullCombo ? 'Badge' : 'Base'}}.png"
-                  style="max-width: 128px">
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-8 col-xl-6 col-xxl-7">
-            <table class="table table-sm table-striped table-borderless align-middle"
-                   style="min-width: 224px;text-shadow: 1px 1px 1px #222222;font-size: 14px;text-align: center;height: 100%">
-              <tbody>
-              <tr>
-                <td style="color: palegoldenrod">COMBO</td>
-                <td style="color: palegoldenrod">{{item.maxCombo}}</td>
-              </tr>
-              <tr>
-                <td style="color: gold">C.BREAK</td>
-                <td style="color: gold">{{item.judgeCriticalBreak}}</td>
-              </tr>
-              <tr>
-                <td style="color: orange">BREAK</td>
-                <td style="color: orange">{{item.judgeBreak}}</td>
-              </tr>
-              <tr>
-                <td style="color: cyan">HIT</td>
-                <td style="color: cyan">{{item.judgeHit}}</td>
-              </tr>
-              <tr>
-                <td style="color: darkgray">MISS</td>
-                <td style="color: darkgray">{{item.judgeMiss}}</td>
-              </tr>
-              <tr>
-                <td style="color: gold">BELL</td>
-                <td style="color: gold">{{item.bellCount}}/{{item.totalBellCount}}</td>
-              </tr>
-              <tr>
-                <td style="color: orangered">DAMAGE</td>
-                <td style="color: orangered">{{item.damageCount}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
-      <div class="card-footer bg-transparent text-end fw-bold">
-        <span>{{item.userPlayDate}}</span>
-      </div>
-    </div>
   </div>
-  <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7" style="cursor: default"
+  <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
                        (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
     <ul class="pagination justify-content-center">
       <li class="page-item">

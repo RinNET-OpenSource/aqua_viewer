@@ -1,0 +1,165 @@
+<div class="card">
+  <div class="song-info card-header hstack gap-2">
+    <div class="jacket-container ratio ratio-1x1">
+      <!--jacket-->
+      <img class="position-absolute"
+           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{playLog.musicId|formatNumber:4}}.jpg"
+           alt="">
+    </div>
+    <div class="overflow-hidden">
+      <!--title-->
+      <div class="song-info-title text-truncate fw-bold">
+          <span>
+            {{playLog.songInfo != null ? playLog.songInfo.name : 'musicId:' + playLog.musicId}}
+          </span>
+      </div>
+      <!--artist-->
+      <div class="song-info-artist text-truncate ">
+          <span>
+            {{playLog.songInfo != null ? playLog.songInfo.artistName : ''}}
+          </span>
+      </div>
+      <!--difficulty-->
+      <div [ngSwitch]="difficulty[playLog.level]">
+            <span *ngSwitchCase="'Basic'"
+                  class="song-info-difficulty song-info-difficulty-Basic badge rounded-pill">
+              {{difficulty[playLog.level]}}
+              {{playLog.songInfo.level0 | toLevelDecimal}}
+            </span>
+        <span *ngSwitchCase="'Advanced'"
+              class="song-info-difficulty song-info-difficulty-Advanced badge rounded-pill">
+              {{difficulty[playLog.level]}}
+          {{playLog.songInfo.level1 | toLevelDecimal}}
+            </span>
+        <span *ngSwitchCase="'Expert'"
+              class="song-info-difficulty song-info-difficulty-Expert badge rounded-pill">
+              {{difficulty[playLog.level]}}
+          {{playLog.songInfo.level2 | toLevelDecimal}}
+            </span>
+        <span *ngSwitchCase="'Master'"
+              class=" song-info-difficulty song-info-difficulty-Master badge rounded-pill">
+              {{difficulty[playLog.level]}}
+          {{playLog.songInfo.level3 | toLevelDecimal}}
+            </span>
+        <span *ngSwitchCase="'Lunatic'"
+              class="song-info-difficulty song-info-difficulty-Lunatic badge rounded-pill border border-danger text-danger">
+              {{difficulty[playLog.level]}}
+          {{playLog.songInfo.level4 | toLevelDecimal}}
+            </span>
+      </div>
+    </div>
+  </div>
+  <div class="play-result card-body ">
+    <div class="row align-items-center">
+      <div class="score-area col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-5">
+        <div class="row text-nowrap">
+          <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+            <!--battle score-->
+            <div class="item-header battle-item-header">
+              <span>BATTLE SCORE</span>
+            </div>
+            <div class="score">
+              <span class="score-font-large">{{Math.floor(playLog.battleScore / 10000)}}</span>
+              <span class="score-font-small">{{playLog.battleScore % 10000|formatNumber:4}}</span>
+            </div>
+            <!--over damage-->
+            <div class="item-header battle-item-header">
+              <span>OVER DAMAGE</span>
+            </div>
+            <div>
+              <span class="score-font-large">{{Math.floor(playLog.overDamage / 100)}}</span>
+              <span class="score-font-small">.{{playLog.overDamage % 100|formatNumber:2}}%</span>
+            </div>
+          </div>
+          <!--score stamp-->
+          <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
+            <img class="score-stamp" src="{{host}}assets/ongeki/gameUi/{{playLog.battleScoreRank | toBattleSprite}}"
+                 alt="{{battleRank[playLog.battleScoreRank]}}">
+          </div>
+          <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+            <!--technical score-->
+            <div class="item-header technical-item-header">
+              <span>TECHNICAL SCORE</span>
+            </div>
+            <div class="score">
+              <span class="score-font-large">{{Math.floor(playLog.techScore / 10000)}}</span>
+              <span class="score-font-small">{{playLog.techScore % 10000|formatNumber:4}}</span>
+            </div>
+            <!--rating-->
+            <div class="item-header technical-item-header">
+              <span>RATING</span>
+            </div>
+            <div class="score-font-large" [ngSwitch]="difficulty[playLog.level]">
+              <span
+                *ngSwitchCase="'Basic'">{{((playLog.songInfo.level0 | toLevelDecimal) | toTechRating : playLog.techScore : 2)}}</span>
+              <span
+                *ngSwitchCase="'Advanced'">{{((playLog.songInfo.level1 | toLevelDecimal) | toTechRating : playLog.techScore : 2)}}</span>
+              <span
+                *ngSwitchCase="'Expert'">{{((playLog.songInfo.level2 | toLevelDecimal) | toTechRating : playLog.techScore : 2)}}</span>
+              <span
+                *ngSwitchCase="'Master'">{{((playLog.songInfo.level3 | toLevelDecimal) | toTechRating : playLog.techScore : 2)}}</span>
+              <span
+                *ngSwitchCase="'Lunatic'">{{((playLog.songInfo.level4 | toLevelDecimal) | toTechRating : playLog.techScore : 2)}}</span>
+            </div>
+          </div>
+          <!--score rank-->
+          <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
+            <img class="score-stamp"
+                 src="{{host}}assets/ongeki/gameUi/{{playLog.techScoreRank | toTechSprite}}"
+                 alt="{{technicalRank[playLog.techScoreRank]}}">
+          </div>
+        </div>
+        <div class="row row-cols-2 align-items-center">
+          <!--full bell-->
+          <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-end">
+            <img class="score-honor"
+                 src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_{{playLog.isFullBell ? 'Badge' : 'Base'}}.png">
+          </div>
+          <!--all break-->
+          <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-start">
+            <img class="score-honor"
+                 src="{{host}}assets/ongeki/gameUi/UI_RES_Score_{{playLog.isAllBreak ? 'AB' : 'FC'}}_{{playLog.isFullCombo ? 'Badge' : 'Base'}}.png">
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-8 col-xl-6 col-xxl-7">
+        <table class="judge-table table table-sm table-striped table-borderless align-middle">
+          <tbody>
+          <tr>
+            <td class="combo">COMBO</td>
+            <td class="combo">{{playLog.maxCombo}}</td>
+          </tr>
+          <tr>
+            <td class="critical-break">C.BREAK</td>
+            <td class="critical-break">{{playLog.judgeCriticalBreak}}</td>
+          </tr>
+          <tr>
+            <td class="break">BREAK</td>
+            <td class="break">{{playLog.judgeBreak}}</td>
+          </tr>
+          <tr>
+            <td class="hit">HIT</td>
+            <td class="hit">{{playLog.judgeHit}}</td>
+          </tr>
+          <tr>
+            <td class="miss">MISS</td>
+            <td class="miss">{{playLog.judgeMiss}}</td>
+          </tr>
+          <tr>
+            <td class="bell">BELL</td>
+            <td class="bell">{{playLog.bellCount}}/{{playLog.totalBellCount}}</td>
+          </tr>
+          <tr>
+            <td class="damage">DAMAGE</td>
+            <td class="damage">{{playLog.damageCount}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-footer bg-transparent text-end fw-bold">
+    <span>{{playLog.userPlayDate}}</span>
+  </div>
+</div>

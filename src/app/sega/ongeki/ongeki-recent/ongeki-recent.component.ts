@@ -30,8 +30,6 @@ export class OngekiRecentComponent implements OnInit {
   loading: boolean;
   recent: Observable<PlayerPlaylog[]>;
   difficulty = Difficulty;
-  battleRank = BattleRank;
-  technicalRank = TechnicalRank;
   attributeType = AttributeType;
 
   currentPage = 1;
