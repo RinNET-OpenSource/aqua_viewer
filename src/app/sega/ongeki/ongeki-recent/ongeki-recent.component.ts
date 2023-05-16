@@ -9,10 +9,9 @@ import {PlayerPlaylog} from '../model/PlayerPlaylog';
 import {HttpParams} from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
 import {OngekiMusic} from '../model/OngekiMusic';
-import {AttributeType, BattleRank, Difficulty, TechnicalRank} from '../model/OngekiEnums';
+import {AttributeType, Difficulty} from '../model/OngekiEnums';
 import {OngekiCard} from '../model/OngekiCard';
 import {OngekiCharacter} from '../model/OngekiCharacter';
-import {end} from '@popperjs/core';
 
 @Component({
   selector: 'app-ongeki-recent',

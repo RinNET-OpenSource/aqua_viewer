@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PlayerPlaylog} from '../model/PlayerPlaylog';
 import {BattleRank, Difficulty, TechnicalRank} from '../model/OngekiEnums';
 import {environment} from '../../../../environments/environment';
@@ -7,20 +7,20 @@ import {environment} from '../../../../environments/environment';
   selector: 'app-ongeki-recent-item',
   templateUrl: './ongeki-recent-item.component.html',
   styleUrls: ['./ongeki-recent-item.component.css'],
-  inputs:['playLog']
+  inputs: ['playLog']
 })
 export class OngekiRecentItemComponent implements OnInit {
-  playLog:PlayerPlaylog;
+  playLog: PlayerPlaylog;
   host = environment.assetsHost;
   difficulty = Difficulty;
   battleRank = BattleRank;
   technicalRank = TechnicalRank;
+  protected readonly Difficulty = Difficulty;
+  protected readonly Math = Math;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  protected readonly Difficulty = Difficulty;
-  protected readonly Math = Math;
 }
