@@ -29,7 +29,9 @@ import {OngekiMusicRankingComponent} from './ongeki-music-ranking/ongeki-music-r
 import {MatSortModule} from '@angular/material/sort';
 import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
 import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
-import { OngekiRecentItemComponent } from './ongeki-recent-item/ongeki-recent-item.component';
+import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item.component';
+import {OngekiRecentItemCardComponent} from './ongeki-recent-item-card/ongeki-recent-item-card.component';
+import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { OngekiRecentItemComponent } from './ongeki-recent-item/ongeki-recent-it
     ToTechRatingPipe,
     OngekiCardGachaComponent,
     OngekiSettingComponent,
-    OngekiRecentItemComponent
+    OngekiRecentItemComponent,
+    OngekiRecentItemCardComponent,
+    ToRaritySpritePipe
   ],
   imports: [
     CommonModule,

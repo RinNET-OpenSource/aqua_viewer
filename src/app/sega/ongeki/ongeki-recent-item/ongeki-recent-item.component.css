@@ -75,6 +75,7 @@
 .play-result .score-area .score-stamp {
   object-fit: contain;
   max-height: 64px;
+  max-width: 100%;
 }
 
 .play-result .score-area .score-honor {

@@ -66,3 +66,8 @@ mat-toolbar {
     margin: auto;
   }
 }
+
+@font-face {
+  font-family: SEGA_Humming;
+  src: url(../assets/fonts/SEGA_Humming v2-B.ttf) format("truetype");
+}

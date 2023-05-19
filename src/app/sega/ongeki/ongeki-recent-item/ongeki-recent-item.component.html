@@ -103,7 +103,7 @@
             </div>
           </div>
           <!--score rank-->
-          <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
+          <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex" style="max-width: 150px">
             <img class="score-stamp"
                  src="{{host}}assets/ongeki/gameUi/{{playLog.techScoreRank | toTechSprite}}"
                  alt="{{technicalRank[playLog.techScoreRank]}}">
@@ -157,7 +157,13 @@
         </table>
       </div>
     </div>
-
+  </div>
+  <div class="card-footer" style="padding-inline: 0">
+    <div class="row">
+      <app-ongeki-recent-item-card class="col-lg-4" [info]="playLog.cardInfo1" [level]="playLog.cardLevel1"></app-ongeki-recent-item-card>
+      <app-ongeki-recent-item-card class="col-lg-4" [info]="playLog.cardInfo2" [level]="playLog.cardLevel2"></app-ongeki-recent-item-card>
+      <app-ongeki-recent-item-card class="col-lg-4" [info]="playLog.cardInfo3" [level]="playLog.cardLevel3"></app-ongeki-recent-item-card>
+    </div>
   </div>
   <div class="card-footer bg-transparent text-end fw-bold">
     <span>{{playLog.userPlayDate}}</span>
