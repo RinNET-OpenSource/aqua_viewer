@@ -4,7 +4,7 @@
                      (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
   <ul class="pagination justify-content-center">
     <li class="page-item">
-      <a class="page-link">&nbsp;<&nbsp;</a>
+      <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
     </li>
     <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
       <a (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
@@ -141,7 +141,7 @@
                        (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
     <ul class="pagination justify-content-center">
       <li class="page-item">
-        <a class="page-link">&nbsp;<&nbsp;</a>
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
       </li>
       <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
         <a (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
