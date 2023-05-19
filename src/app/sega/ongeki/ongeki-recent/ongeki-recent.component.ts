@@ -73,14 +73,26 @@ export class OngekiRecentComponent implements OnInit {
               m => x.bossCharaInfo = m
             );
             this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId1).subscribe(
-              m => x.cardInfo1 = m
-            );
+              m => {
+                x.cardInfo1 = m;
+                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', m.charaId).subscribe(
+                  n => x.cardInfo1.characterInfo = n
+                );
+              });
             this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId2).subscribe(
-              m => x.cardInfo2 = m
-            );
+              m => {
+                x.cardInfo2 = m;
+                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', m.charaId).subscribe(
+                  n => x.cardInfo2.characterInfo = n
+                );
+              });
             this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId3).subscribe(
-              m => x.cardInfo3 = m
-            );
+              m => {
+                x.cardInfo3 = m;
+                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', m.charaId).subscribe(
+                  n => x.cardInfo3.characterInfo = n
+                );
+              });
           });
           this.loading = false;
           return data.content;

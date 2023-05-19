@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {PlayerPlaylog} from '../model/PlayerPlaylog';
 import {environment} from '../../../../environments/environment';
 import {OngekiCard} from '../model/OngekiCard';
 
