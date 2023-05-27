@@ -39,6 +39,7 @@ export interface PlayerPlaylog {
   bossCharaId: number;
   bossLevel: number;
   bossAttribute: number;
+  bossCardInfo?: OngekiCard;
   bossCharaInfo?: OngekiCharacter;
   clearStatus: number;
   techScore: number;

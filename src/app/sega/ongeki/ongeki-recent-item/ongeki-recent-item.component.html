@@ -16,7 +16,7 @@
       <!--artist-->
       <div class="song-info-artist text-truncate ">
           <span>
-            {{playLog.songInfo != null ? playLog.songInfo.artistName : ''}}
+            {{playLog.songInfo != null ? playLog.songInfo.artistName : '&nbsp;'}}
           </span>
       </div>
       <!--difficulty-->
@@ -29,31 +29,31 @@
         <span *ngSwitchCase="'Advanced'"
               class="song-info-difficulty song-info-difficulty-Advanced badge rounded-pill">
               Advanced
-              {{playLog.songInfo.level1 | toLevelDecimal}}
+          {{playLog.songInfo.level1 | toLevelDecimal}}
             </span>
         <span *ngSwitchCase="'Expert'"
               class="song-info-difficulty song-info-difficulty-Expert badge rounded-pill">
               Expert
-              {{playLog.songInfo.level2 | toLevelDecimal}}
+          {{playLog.songInfo.level2 | toLevelDecimal}}
             </span>
         <span *ngSwitchCase="'Master'"
               class=" song-info-difficulty song-info-difficulty-Master badge rounded-pill">
               Master
-              {{playLog.songInfo.level3 | toLevelDecimal}}
+          {{playLog.songInfo.level3 | toLevelDecimal}}
             </span>
         <span *ngSwitchCase="'Lunatic'"
               class="song-info-difficulty song-info-difficulty-Lunatic badge rounded-pill border border-danger text-danger">
               Lunatic
-              {{playLog.songInfo.level4 | toLevelDecimal}}
+          {{playLog.songInfo.level4 | toLevelDecimal}}
             </span>
       </div>
     </div>
   </div>
   <div class="play-result card-body ">
     <div class="row align-items-center">
-      <div class="score-area col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-5">
+      <div class="score-area col-12 col-md-6">
         <div class="row text-nowrap">
-          <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+          <div class="col-6 col-sm-3 col-md-6 col-lg-3 text-end">
             <!--battle score-->
             <div class="item-header battle-item-header">
               <span>BATTLE SCORE</span>
@@ -72,11 +72,11 @@
             </div>
           </div>
           <!--score stamp-->
-          <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex">
+          <div class="col-6 col-sm-3 col-md-6 col-lg-3 align-items-center d-flex">
             <img class="score-stamp" src="{{host}}assets/ongeki/gameUi/{{playLog.battleScoreRank | toBattleSprite}}"
                  alt="{{battleRank[playLog.battleScoreRank]}}">
           </div>
-          <div class="col-6 col-sm-3 col-md-6 col-xl-3 text-end">
+          <div class="col-6 col-sm-3 col-md-6 col-lg-3 text-end">
             <!--technical score-->
             <div class="item-header technical-item-header">
               <span>TECHNICAL SCORE</span>
@@ -103,7 +103,7 @@
             </div>
           </div>
           <!--score rank-->
-          <div class="col-6 col-sm-3 col-md-6 col-xl-3 align-items-center d-flex" style="max-width: 150px">
+          <div class="col-6 col-sm-3 col-md-6 col-lg-3 align-items-center d-flex" style="max-width: 150px">
             <img class="score-stamp"
                  src="{{host}}assets/ongeki/gameUi/{{playLog.techScoreRank | toTechSprite}}"
                  alt="{{technicalRank[playLog.techScoreRank]}}">
@@ -122,50 +122,118 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-6 col-lg-8 col-xl-6 col-xxl-7">
-        <table class="judge-table table table-sm table-striped table-borderless align-middle">
-          <tbody>
-          <tr>
-            <td class="combo">COMBO</td>
-            <td class="combo">{{playLog.maxCombo}}</td>
-          </tr>
-          <tr>
-            <td class="critical-break">C.BREAK</td>
-            <td class="critical-break">{{playLog.judgeCriticalBreak}}</td>
-          </tr>
-          <tr>
-            <td class="break">BREAK</td>
-            <td class="break">{{playLog.judgeBreak}}</td>
-          </tr>
-          <tr>
-            <td class="hit">HIT</td>
-            <td class="hit">{{playLog.judgeHit}}</td>
-          </tr>
-          <tr>
-            <td class="miss">MISS</td>
-            <td class="miss">{{playLog.judgeMiss}}</td>
-          </tr>
-          <tr>
-            <td class="bell">BELL</td>
-            <td class="bell">{{playLog.bellCount}}/{{playLog.totalBellCount}}</td>
-          </tr>
-          <tr>
-            <td class="damage">DAMAGE</td>
-            <td class="damage">{{playLog.damageCount}}</td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="col-12 col-md-6">
+        <div class="row" style="margin-bottom: 10px">
+          <div class="col-6">
+            <div style="margin-inline: auto;max-width: 128px;min-width: 48px;aspect-ratio: 0.730038022813688">
+              <div class="position-relative" style="height: 50%">
+                <img class="position-absolute"
+                     style="right: 0;height: 100%;min-width: 0;aspect-ratio: 1;object-fit: cover"
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo2.id | formatNumber:6}}.png">
+                <app-ongeki-card-level class="position-absolute" style="width: 60%;left: 0;bottom: 0"
+                                       [level]="playLog.cardLevel2"
+                                       [attribute]="playLog.cardInfo2.attribute"></app-ongeki-card-level>
+              </div>
+              <div class="position-relative" style="height: 25%">
+                <!--            <div>LV.75</div>-->
+                <img class="position-absolute"
+                     style="right: 0;height: 100%;min-width: 0;aspect-ratio: 1.8;object-fit: cover"
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo1.id | formatNumber:6}}.png">
+                <app-ongeki-card-level class="position-absolute" style="width: 50%;left: 10%;bottom: 0"
+                                       [level]="playLog.cardLevel1"
+                                       [attribute]="playLog.cardInfo1.attribute"></app-ongeki-card-level>
+              </div>
+              <div class="position-relative" style="height: 25%">
+                <!--            <div>LV.75</div>-->
+                <img class="position-absolute"
+                     style="right: 0;height: 100%;min-width: 0;aspect-ratio: 1.8;object-fit: cover"
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo3.id | formatNumber:6}}.png">
+                <app-ongeki-card-level class="position-absolute" style="width: 50%;left: 10%;bottom: 0"
+                                       [level]="playLog.cardLevel3"
+                                       [attribute]="playLog.cardInfo3.attribute"></app-ongeki-card-level>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="position-relative" style="margin-inline: auto;max-width: 128px;min-width: 48px">
+              <img class="w-100" style="aspect-ratio: 0.730038022813688"
+                   src="{{host}}assets/ongeki/card/UI_Card_Chara_{{playLog.songInfo.bossCardId | formatNumber:6}}.png">
+              <app-ongeki-card-level class="position-absolute" style="width: 60%;left: 0;bottom: 0"
+                                     [level]="playLog.bossLevel"
+                                     [attribute]="attributeType[playLog.bossAttribute]"></app-ongeki-card-level>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="card-footer" style="padding-inline: 0">
-    <div class="row">
-      <app-ongeki-recent-item-card class="col-lg-4" [info]="playLog.cardInfo1" [level]="playLog.cardLevel1"></app-ongeki-recent-item-card>
-      <app-ongeki-recent-item-card class="col-lg-4" [info]="playLog.cardInfo2" [level]="playLog.cardLevel2"></app-ongeki-recent-item-card>
-      <app-ongeki-recent-item-card class="col-lg-4" [info]="playLog.cardInfo3" [level]="playLog.cardLevel3"></app-ongeki-recent-item-card>
+  <div class="card-footer fw-bold">
+    <div class="float-start">
+      <a type="button" class="text-primary" (click)="open(judgeContent)">Details</a>
+    </div>
+    <div class="float-end">
+      <span>{{playLog.userPlayDate}}</span>
     </div>
   </div>
-  <div class="card-footer bg-transparent text-end fw-bold">
-    <span>{{playLog.userPlayDate}}</span>
-  </div>
 </div>
+
+<ng-template #judgeContent let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Details</h5>
+      <button type="button" class="btn-close " style="--bs-btn-close-focus-shadow: 0" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <table class="judge-table table table-borderless table-sm table-striped align-middle">
+        <tbody>
+        <tr>
+          <td class="combo">COMBO</td>
+          <td class="combo">{{playLog.maxCombo}}</td>
+        </tr>
+        <tr>
+          <td class="critical-break">C.BREAK</td>
+          <td class="critical-break">{{playLog.judgeCriticalBreak}}</td>
+        </tr>
+        <tr>
+          <td class="break">BREAK</td>
+          <td class="break">{{playLog.judgeBreak}}</td>
+        </tr>
+        <tr>
+          <td class="hit">HIT</td>
+          <td class="hit">{{playLog.judgeHit}}</td>
+        </tr>
+        <tr>
+          <td class="miss">MISS</td>
+          <td class="miss">{{playLog.judgeMiss}}</td>
+        </tr>
+        <tr>
+          <td class="bell">BELL</td>
+          <td class="bell">{{playLog.bellCount}}/{{playLog.totalBellCount}}</td>
+        </tr>
+        <tr>
+          <td class="damage">DAMAGE</td>
+          <td class="damage">{{playLog.damageCount}}</td>
+        </tr>
+        <tr>
+          <td>TAP</td>
+          <td>{{playLog.rateTap}}%</td>
+        </tr>
+        <tr>
+          <td>HOLD</td>
+          <td>{{playLog.rateHold}}%</td>
+        </tr>
+        <tr>
+          <td>FLICK</td>
+          <td>{{playLog.rateFlick}}%</td>
+        </tr>
+        <tr>
+          <td>SIDE TAP</td>
+          <td>{{playLog.rateSideTap}}%</td>
+        </tr>
+        <tr>
+          <td>SIDE HOLD</td>
+          <td>{{playLog.rateSideHold}}%</td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+</ng-template>

@@ -1,13 +1,14 @@
 <h1 xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Play Record</h1>
 <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
                      style="cursor: default"
-                     (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
+                     (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+  <ul class="pagination pagination-sm justify-content-center">
+    <li class="page-item" [class.disabled]="p.isFirstPage()">
       <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
     </li>
     <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
-      <a (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
+      <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+      <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
     </li>
     <li class="page-item" [class.disabled]="p.isLastPage()">
       <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
@@ -138,13 +139,14 @@
   </div>
   <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
                        style="cursor: default"
-                       (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
         <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
       </li>
       <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
-        <a (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
       </li>
       <li class="page-item" [class.disabled]="p.isLastPage()">
         <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>

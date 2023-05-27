@@ -30,9 +30,11 @@ import {MatSortModule} from '@angular/material/sort';
 import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
 import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
 import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item.component';
-import {OngekiRecentItemCardComponent} from './ongeki-recent-item-card/ongeki-recent-item-card.component';
 import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
-
+import {NgbAccordionModule, NgbPopoverModule, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgIconsModule} from '@ng-icons/core';
+import {bootstrapChevronDown} from '@ng-icons/bootstrap-icons';
+import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.component';
 
 @NgModule({
   declarations: [
@@ -54,8 +56,8 @@ import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
     OngekiCardGachaComponent,
     OngekiSettingComponent,
     OngekiRecentItemComponent,
-    OngekiRecentItemCardComponent,
-    ToRaritySpritePipe
+    ToRaritySpritePipe,
+    OngekiCardLevelComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,11 @@ import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
     MatTableModule,
     MatPaginatorModule,
     FlexLayoutModule,
-    MatSortModule
+    MatSortModule,
+    NgbAccordionModule,
+    NgbCollapseModule,
+    NgbPopoverModule,
+    NgIconsModule.withIcons({bootstrapChevronDown})
   ]
 })
 export class OngekiModule {

@@ -12,6 +12,7 @@ import {OngekiMusic} from '../model/OngekiMusic';
 import {AttributeType, Difficulty} from '../model/OngekiEnums';
 import {OngekiCard} from '../model/OngekiCard';
 import {OngekiCharacter} from '../model/OngekiCharacter';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-ongeki-recent',
@@ -38,14 +39,21 @@ export class OngekiRecentComponent implements OnInit {
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    public route: ActivatedRoute,
+    public router: Router
   ) {
   }
 
   ngOnInit() {
     this.aimeId = String(this.auth.currentUserValue.extId);
     this.loading = true;
-    this.load(this.currentPage);
+    this.route.queryParams.subscribe((data) => {
+      if (data.page) {
+        this.currentPage = data.page;
+      }
+      this.load(this.currentPage);
+    });
   }
 
   load(page: number) {
@@ -67,7 +75,15 @@ export class OngekiRecentComponent implements OnInit {
             x.isAllBreak = x.allBreak ? x.allBreak : x.isAllBreak;
             x.isFullBell = x.fullBell ? x.fullBell : x.isFullBell;
             this.dbService.getByID<OngekiMusic>('ongekiMusic', x.musicId).subscribe(
-              m => x.songInfo = m
+              m =>
+              {
+                x.songInfo = m;
+                this.dbService.getByID<OngekiCard>('ongekiCard', x.songInfo.bossCardId).subscribe(
+                  n => {
+                    x.bossCardInfo = n;
+                  }
+                );
+              }
             );
             this.dbService.getByID<OngekiCharacter>('ongekiCharacter', x.bossCharaId).subscribe(
               m => x.bossCharaInfo = m
@@ -75,23 +91,14 @@ export class OngekiRecentComponent implements OnInit {
             this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId1).subscribe(
               m => {
                 x.cardInfo1 = m;
-                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', m.charaId).subscribe(
-                  n => x.cardInfo1.characterInfo = n
-                );
               });
             this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId2).subscribe(
               m => {
                 x.cardInfo2 = m;
-                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', m.charaId).subscribe(
-                  n => x.cardInfo2.characterInfo = n
-                );
               });
             this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId3).subscribe(
               m => {
                 x.cardInfo3 = m;
-                this.dbService.getByID<OngekiCharacter>('ongekiCharacter', m.charaId).subscribe(
-                  n => x.cardInfo3.characterInfo = n
-                );
               });
           });
           this.loading = false;
@@ -100,5 +107,9 @@ export class OngekiRecentComponent implements OnInit {
         error => this.messageService.notice(error)
       )
     );
+  }
+
+  pageChanged(page: number) {
+    this.router.navigate(['ongeki/recent'], {queryParams: {page}});
   }
 }

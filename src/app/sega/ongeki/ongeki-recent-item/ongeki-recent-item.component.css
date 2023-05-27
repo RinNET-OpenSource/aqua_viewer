@@ -45,6 +45,7 @@
 
 .play-result .score-area {
   margin-bottom: 8px;
+  margin-top: 16px;
   text-shadow: 1px 1px 1px #888888;
 }
 
@@ -82,7 +83,7 @@
   max-width: 128px;
 }
 
-.play-result .judge-table {
+.judge-table {
   min-width: 224px;
   text-shadow: 1px 1px 1px #222222;
   font-size: 14px;
@@ -90,30 +91,30 @@
   height: 100%;
 }
 
-.play-result .judge-table .combo{
+.judge-table .combo{
   color: palegoldenrod;
 }
 
-.play-result .judge-table .critical-break{
+.judge-table .critical-break{
   color: gold;
 }
 
-.play-result .judge-table .break{
+.judge-table .break{
   color: orange;
 }
 
-.play-result .judge-table .hit{
+.judge-table .hit{
   color: orange;
 }
 
-.play-result .judge-table .miss{
+.judge-table .miss{
   color: darkgray;
 }
 
-.play-result .judge-table .bell{
+.judge-table .bell{
   color: gold;
 }
 
-.play-result .judge-table .damage{
+.judge-table .damage{
   color: orangered;
 }
