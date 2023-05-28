@@ -123,42 +123,37 @@
         </div>
       </div>
       <div class="col-12 col-md-6">
-        <div class="row" style="margin-bottom: 10px">
+        <div class="battle-area row">
           <div class="col-6">
-            <div style="margin-inline: auto;max-width: 128px;min-width: 48px;aspect-ratio: 0.730038022813688">
-              <div class="position-relative" style="height: 50%">
-                <img class="position-absolute"
-                     style="right: 0;height: 100%;min-width: 0;aspect-ratio: 1;object-fit: cover"
+            <div class="chara-container">
+              <div class="chara-center position-relative">
+                <img class="chara-center-img position-absolute"
                      src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo2.id | formatNumber:6}}.png">
-                <app-ongeki-card-level class="position-absolute" style="width: 60%;left: 0;bottom: 0"
+                <app-ongeki-card-level class="chara-center-level position-absolute"
                                        [level]="playLog.cardLevel2"
                                        [attribute]="playLog.cardInfo2.attribute"></app-ongeki-card-level>
               </div>
-              <div class="position-relative" style="height: 25%">
-                <!--            <div>LV.75</div>-->
-                <img class="position-absolute"
-                     style="right: 0;height: 100%;min-width: 0;aspect-ratio: 1.8;object-fit: cover"
+              <div class="chara-side position-relative">
+                <img class="chara-side-img position-absolute"
                      src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo1.id | formatNumber:6}}.png">
-                <app-ongeki-card-level class="position-absolute" style="width: 50%;left: 10%;bottom: 0"
+                <app-ongeki-card-level class="chara-side-level position-absolute"
                                        [level]="playLog.cardLevel1"
                                        [attribute]="playLog.cardInfo1.attribute"></app-ongeki-card-level>
               </div>
-              <div class="position-relative" style="height: 25%">
-                <!--            <div>LV.75</div>-->
-                <img class="position-absolute"
-                     style="right: 0;height: 100%;min-width: 0;aspect-ratio: 1.8;object-fit: cover"
+              <div class="chara-side position-relative">
+                <img class="chara-side-img position-absolute"
                      src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo3.id | formatNumber:6}}.png">
-                <app-ongeki-card-level class="position-absolute" style="width: 50%;left: 10%;bottom: 0"
+                <app-ongeki-card-level class="chara-side-level position-absolute"
                                        [level]="playLog.cardLevel3"
                                        [attribute]="playLog.cardInfo3.attribute"></app-ongeki-card-level>
               </div>
             </div>
           </div>
           <div class="col-6">
-            <div class="position-relative" style="margin-inline: auto;max-width: 128px;min-width: 48px">
-              <img class="w-100" style="aspect-ratio: 0.730038022813688"
+            <div class="boss position-relative">
+              <img class="boss-img"
                    src="{{host}}assets/ongeki/card-chara/UI_Card_Chara_{{playLog.songInfo.bossCardId | formatNumber:6}}.png">
-              <app-ongeki-card-level class="position-absolute" style="width: 60%;left: 0;bottom: 0"
+              <app-ongeki-card-level class="boss-level position-absolute"
                                      [level]="playLog.bossLevel"
                                      [attribute]="attributeType[playLog.bossAttribute]"></app-ongeki-card-level>
             </div>
@@ -180,7 +175,7 @@
 <ng-template #judgeContent let-modal>
     <div class="modal-header">
       <h5 class="modal-title">Details</h5>
-      <button type="button" class="btn-close " style="--bs-btn-close-focus-shadow: 0" aria-label="Close" (click)="modal.dismiss()"></button>
+      <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
     </div>
     <div class="modal-body">
       <table class="judge-table table table-borderless table-sm table-striped align-middle">

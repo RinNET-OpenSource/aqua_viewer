@@ -118,3 +118,67 @@
 .judge-table .damage{
   color: orangered;
 }
+
+.battle-area{
+  margin-bottom: 10px;
+}
+
+.battle-area .chara-container{
+  margin-inline: auto;
+  max-width: 128px;
+  min-width: 48px;
+  aspect-ratio: 0.730038022813688;
+}
+
+.battle-area .chara-container .chara-center{
+  height: 50%;
+}
+
+.battle-area .chara-container .chara-center .chara-center-img{
+  right: 0;
+  height: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.battle-area .chara-container .chara-center .chara-center-level{
+  width: 60%;
+  left: 0;
+  bottom: 0;
+}
+
+.battle-area .chara-container .chara-side{
+  height: 25%;
+}
+
+.battle-area .chara-container .chara-side .chara-side-img{
+  right: 0;
+  height: 100%;
+  min-width: 0;
+  aspect-ratio: 1.8;
+  object-fit: cover;
+}
+
+.battle-area .chara-container .chara-side .chara-side-level{
+  width: 50%;
+  left: 10%;
+  bottom: 0;
+}
+
+.battle-area .boss{
+  margin-inline: auto;
+  max-width: 128px;
+  min-width: 48px;
+}
+
+.battle-area .boss .boss-img{
+  width: 100%;
+  aspect-ratio: 0.730038022813688;
+}
+
+.battle-area .boss .boss-level{
+  width: 60%;
+  left: 0;
+  bottom: 0;
+}
