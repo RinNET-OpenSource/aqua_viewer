@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apiServer: 'http://127.0.0.1/',
   production: false,
   enableImages: true,
   assetsHost: ''

@@ -37,7 +37,7 @@ export class V2CharacterComponent implements OnInit {
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
   ) {
-    this.aimeId = String(this.auth.currentUserValue.extId);
+    this.aimeId = String(this.auth.currentUserValue.currentCard);
     this.getEquippedCharaName();
   }
 

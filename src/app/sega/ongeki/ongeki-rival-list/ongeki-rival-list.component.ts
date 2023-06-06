@@ -35,11 +35,11 @@ export class OngekiRivalListComponent implements OnInit {
     private auth: AuthenticationService,
     private messageService: MessageService,
   ) {
-    this.aimeId = String(this.auth.currentUserValue.extId);
+    this.aimeId = String(this.auth.currentUserValue.currentCard);
   }
 
   ngOnInit() {
-    let param = new HttpParams().set('aimeId', this.aimeId);
+    const param = new HttpParams().set('aimeId', this.aimeId);
 
     this.api.get('api/game/ongeki/rival', param).subscribe(
       this.refreshFrom.bind(this),

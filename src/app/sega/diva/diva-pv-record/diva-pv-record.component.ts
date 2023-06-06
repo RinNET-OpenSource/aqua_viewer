@@ -36,7 +36,7 @@ export class DivaPvRecordComponent implements OnInit {
   }
 
   load() {
-    const pdId = String(this.auth.currentUserValue.extId);
+    const pdId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('pdId', pdId).set('page', String(this.currentPage));
     this.api.get('api/game/diva/pvRecord', param).subscribe(
       data => {

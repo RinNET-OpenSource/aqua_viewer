@@ -57,7 +57,7 @@ export class DivaRecordDetailComponent implements OnInit {
 
   ngOnInit() {
     this.pvId = Number(this.route.snapshot.paramMap.get('pvId'));
-    this.pdId = this.auth.currentUserValue.extId;
+    this.pdId = this.auth.currentUserValue.currentCard;
     const param = new HttpParams().set('pdId', String(this.pdId));
     this.api.get('api/game/diva/pvRecord/' + this.pvId, param).subscribe(
       data => {

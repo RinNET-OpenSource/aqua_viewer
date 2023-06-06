@@ -37,7 +37,7 @@ export class V1SongDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    const aimeId = String(this.auth.currentUserValue.extId);
+    const aimeId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('aimeId', String(aimeId));
     this.dbService.getByID<ChuniMusic>('chuniMusic', this.id).subscribe(x => {
       if (x) {

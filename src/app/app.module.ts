@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -39,6 +39,8 @@ import { ToTechRatingPipe } from './sega/ongeki/util/to-tech-rating.pipe';
 
 import Aegis from 'aegis-web-sdk';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import {TokenInterceptorService} from './auth/token-interceptor.service';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -52,7 +54,8 @@ const aegis = new Aegis({
   declarations: [
     AppComponent,
     ChangelogComponent,
-    Maimai2UploadUserPortraitDialog
+    Maimai2UploadUserPortraitDialog,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -87,11 +90,13 @@ const aegis = new Aegis({
     MatDialogModule,
     MatGridListModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true},
   ],
   bootstrap: [AppComponent]
 })

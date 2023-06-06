@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MessageService} from '../../message.service';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from '../../auth/authentication.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-importer',
@@ -20,11 +21,7 @@ export class ImporterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authenticationService.currentUserValue) {
-      this.apiServer = this.authenticationService.currentUserValue.apiServer;
-    } else {
-      this.apiServer = 'https://portal.naominet.live';
-    }
+      this.apiServer = environment.apiServer;
   }
 
   chunithm(event) {
@@ -49,7 +46,7 @@ export class ImporterComponent implements OnInit {
       const j = JSON.parse(fileReader.result.toString());
       console.log(j);
       if (j.gameId === type) {
-        this.http.post(this.apiServer + '/' + path, j).subscribe(
+        this.http.post(this.apiServer + path, j).subscribe(
           data => this.messageService.notice('OK'),
           error => this.messageService.notice(error)
         );

@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
-import {AuthenticationService, User} from './auth/authentication.service';
+import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {Router} from '@angular/router';
 import {PreloadService} from './database/preload.service';
@@ -14,7 +14,7 @@ import {ApiService} from './api.service';
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
   title = 'aqua-viewer';
 
-  user: User;
+  account: Account;
 
   loading = false;
   ongekiMenu: Menu[] = [
@@ -214,11 +214,11 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.user = authenticationService.currentUserValue;
+    this.account = authenticationService.currentUserValue;
   }
 
   ngOnInit(): void {
-    if (this.user !== null) {
+    if (this.account !== null) {
       this.preLoad.load();
     }
     this.subscription = this.api.loadingState.subscribe(
@@ -227,7 +227,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(): void {
-    this.user = this.authenticationService.currentUserValue;
+    this.account = this.authenticationService.currentUserValue;
   }
 
   ngOnDestroy(): void {

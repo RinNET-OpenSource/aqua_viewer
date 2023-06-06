@@ -5,6 +5,7 @@ import {MessageService} from '../../../message.service';
 import {MatDialog} from '@angular/material/dialog';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {DisplayOngekiProfile} from '../model/OngekiProfile';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-ongeki-setting',
@@ -27,8 +28,8 @@ export class OngekiSettingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.aimeId = String(this.auth.currentUserValue.extId);
-    this.apiServer = this.auth.currentUserValue.apiServer;
+    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/ongeki/profile', param).subscribe(
       data => {

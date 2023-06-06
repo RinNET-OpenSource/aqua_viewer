@@ -7,6 +7,7 @@ import {V2Profile} from '../model/V2Profile';
 import {HttpParams} from '@angular/common/http';
 import {V2NameSettingDialog} from './v2-name-setting/v2-name-setting.dialog';
 import {V2VersionSettingDialog} from './v2-version-setting/v2-version-setting.dialog';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-v2-setting',
@@ -27,8 +28,8 @@ export class V2SettingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentUserValue.extId);
-    this.apiServer = this.auth.currentUserValue.apiServer;
+    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/chuni/v2/profile', param).subscribe(
       data => {

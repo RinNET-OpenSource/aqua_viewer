@@ -37,7 +37,7 @@ export class V2SongPlaylogComponent implements OnInit {
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.level = Number(this.route.snapshot.paramMap.get('level'));
-    const aimeId = String(this.auth.currentUserValue.extId);
+    const aimeId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v2/song/' + this.id + '/' + this.level, param).subscribe(
       data => {

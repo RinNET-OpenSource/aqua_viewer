@@ -5,10 +5,12 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuardService} from './auth/auth-guard.service';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {ImporterComponent} from './importer/importer/importer.component';
+import {SignUpComponent} from './sign-up/sign-up.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignUpComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'changelog', component: ChangelogComponent},
   {path: 'import', component: ImporterComponent},

@@ -19,7 +19,7 @@ export class V2ProfileComponent implements OnInit {
     private auth: AuthenticationService,
     private messageService: MessageService,
   ) {
-    const aimeId = String(this.auth.currentUserValue.extId);
+    const aimeId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v2/profile', param).subscribe(
       data => {
@@ -30,7 +30,7 @@ export class V2ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   getRatingRank(s: number): number {

@@ -1,19 +1,29 @@
-<h1 class="mat-display-1">Welcome!</h1>
-<mat-card class="login-card">
-  <mat-card-content>
-    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-
-      <mat-form-field class="full-width">
-        <mat-label>Access Code</mat-label>
-        <mat-hint>20-digit number of your card</mat-hint>
-        <input formControlName="accessCode" matInput required type="text">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <mat-label>API Server endpoint</mat-label>
-        <input formControlName="apiServer" matInput required type="text">
-        
-      </mat-form-field>
-      <button [disabled]="!loginForm.valid" mat-raised-button type="submit">Login</button>
-    </form>
-  </mat-card-content>
-</mat-card>
+<div class="container mt-3" style="max-width: 512px">
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="mb-4">
+        <h3>RinNET</h3>
+        <h5> Some text</h5>
+      </div>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <div class="d-grid gap-2">
+          <div>
+            <label for="usernameOrEmail" class="form-label">User name</label>
+            <input type="text" class="form-control form-control-sm" id="usernameOrEmail" name="usernameOrEmail" placeholder="Username or Email"
+                   ngModel required>
+          </div>
+          <div>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control form-control-sm" id="password" name="password"
+                   placeholder="Password" ngModel required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm mt-3">Sign up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="text-center">
+    Don't have an account?
+    <a class="text-decoration-none" routerLink="/signup">Sign up</a>
+  </div>
+</div>

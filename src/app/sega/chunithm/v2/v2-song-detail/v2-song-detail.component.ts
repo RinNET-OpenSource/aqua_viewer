@@ -38,7 +38,7 @@ export class V2SongDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    const aimeId = String(this.auth.currentUserValue.extId);
+    const aimeId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('aimeId', String(aimeId));
     this.dbService.getByID<ChusanMusic>('chusanMusic', this.id).subscribe(x => {
       if (x) {
@@ -64,7 +64,7 @@ export class V2SongDetailComponent implements OnInit {
   }
 
   favorite() {
-    const aimeId = String(this.auth.currentUserValue.extId);
+    const aimeId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('aimeId', String(aimeId));
     this.api.put('api/game/chuni/v2/song/' + this.id + '/favorite', param).subscribe(
       data => {
@@ -76,7 +76,7 @@ export class V2SongDetailComponent implements OnInit {
   }
 
   checkfavorite() {
-    const aimeId = String(this.auth.currentUserValue.extId);
+    const aimeId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('aimeId', String(aimeId));
     this.api.get('api/game/chuni/v2/song/' + this.id + '/isfavorite', param).subscribe(
       data => {

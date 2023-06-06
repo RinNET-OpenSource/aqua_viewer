@@ -1,34 +1,67 @@
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, mergeMap} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
+import {Card} from '../model/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  public currentUser: Observable<User>;
-  private currentUserSubject: BehaviorSubject<User>;
+  private currentAccountSubject: BehaviorSubject<Account>;
 
-  constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+  constructor(
+    private http: HttpClient) {
+    this.currentAccountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('currentAccount')));
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  public get currentUserValue(): Account {
+    return this.currentAccountSubject.value;
   }
 
-  login(accessCode: string, server: string) {
-    return this.http.post<any>(server + '/' + 'api/sega/aime/getByAccessCode', {accessCode})
+  public set currentUserValue(account: Account) {
+    localStorage.setItem('currentAccount', JSON.stringify(account));
+    this.currentAccountSubject.next(account);
+  }
+
+  login(usernameOrEmail: string, password: string) {
+    return this.http.post<any>(environment.apiServer + 'api/auth/signin', {usernameOrEmail, password})
       .pipe(
         map(
           resp => {
-            if (resp && resp.extId) {
-              const user = new User(resp.extId, server);
-              localStorage.setItem('currentUser', JSON.stringify(user));
-              this.currentUserSubject.next(user);
-              return user;
+            if (resp && resp.tokenType && resp.accessToken) {
+              return new Account(resp.tokenType, resp.accessToken, null);
+            }
+          }
+        ),
+        mergeMap((account: Account) => {
+          const headers = {Authorization: `${account.tokenType} ${account.accessToken}`};
+          return this.http.get<any>(environment.apiServer + 'api/user/me', {headers})
+            .pipe(
+              map(
+                user => {
+                  for (const card of user.cards){
+                    if (card.default){
+                      account.currentCard = card.extId;
+                      break;
+                    }
+                  }
+                  this.currentUserValue = account;
+                  return account;
+                }
+              )
+            );
+        }));
+  }
+
+  signUp(name: string, username: string, email: string, password: string) {
+    return this.http.post<any>(environment.apiServer + 'api/auth/signup', {name, username, email, password})
+      .pipe(
+        map(
+          resp => {
+            if (resp) {
+              return resp;
             }
           }
         )
@@ -36,18 +69,20 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+    localStorage.removeItem('currentAccount');
+    this.currentAccountSubject.next(null);
   }
 
 }
 
-export class User {
-  extId: number;
-  apiServer: string;
+export class Account {
+  tokenType: string;
+  accessToken: string;
+  currentCard: number;
 
-  constructor(extId: number, apiServer: string) {
-    this.extId = extId;
-    this.apiServer = apiServer;
+  constructor(tokenType: string, accessToken: string, currentCard: number) {
+    this.tokenType = tokenType;
+    this.accessToken = accessToken;
+    this.currentCard = currentCard;
   }
 }

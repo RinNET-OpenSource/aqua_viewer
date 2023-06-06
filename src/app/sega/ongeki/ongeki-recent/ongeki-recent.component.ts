@@ -7,7 +7,7 @@ import {environment} from '../../../../environments/environment';
 import {Observable} from 'rxjs';
 import {PlayerPlaylog} from '../model/PlayerPlaylog';
 import {HttpParams} from '@angular/common/http';
-import {map, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {OngekiMusic} from '../model/OngekiMusic';
 import {AttributeType, Difficulty} from '../model/OngekiEnums';
 import {OngekiCard} from '../model/OngekiCard';
@@ -46,7 +46,7 @@ export class OngekiRecentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentUserValue.extId);
+    this.aimeId = String(this.auth.currentUserValue.currentCard);
     this.loading = true;
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
@@ -105,7 +105,11 @@ export class OngekiRecentComponent implements OnInit {
           return data.content;
         },
         error => this.messageService.notice(error)
-      )
+      ),
+      catchError(err => {
+        this.messageService.notice(err);
+        throw err;
+      })
     );
   }
 

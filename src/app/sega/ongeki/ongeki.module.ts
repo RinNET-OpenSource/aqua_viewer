@@ -37,48 +37,51 @@ import {bootstrapChevronDown} from '@ng-icons/bootstrap-icons';
 import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.component';
 
 @NgModule({
-  declarations: [
-    OngekiProfileComponent,
-    OngekiCardComponent,
-    OngekiCardListComponent,
-    OngekiRecentComponent,
-    ToAttributeClassPipe,
-    OngekiSongListComponent,
-    OngekiBattlePointComponent,
-    OngekiRatingComponent,
-    OngekiRivalListComponent,
-    OngekiMusicRankingComponent,
-    OngekiUserRankingComponent,
-    ToLevelDecimalPipe,
-    ToBattleSpritePipe,
-    ToTechSpritePipe,
-    ToTechRatingPipe,
-    OngekiCardGachaComponent,
-    OngekiSettingComponent,
-    OngekiRecentItemComponent,
-    ToRaritySpritePipe,
-    OngekiCardLevelComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    OngekiRoutes,
+    declarations: [
+        OngekiProfileComponent,
+        OngekiCardComponent,
+        OngekiCardListComponent,
+        OngekiRecentComponent,
+        ToAttributeClassPipe,
+        OngekiSongListComponent,
+        OngekiBattlePointComponent,
+        OngekiRatingComponent,
+        OngekiRivalListComponent,
+        OngekiMusicRankingComponent,
+        OngekiUserRankingComponent,
+        ToLevelDecimalPipe,
+        ToBattleSpritePipe,
+        ToTechSpritePipe,
+        ToTechRatingPipe,
+        OngekiCardGachaComponent,
+        OngekiSettingComponent,
+        OngekiRecentItemComponent,
+        ToRaritySpritePipe,
+        OngekiCardLevelComponent
+    ],
+    exports: [
+        OngekiCardComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        OngekiRoutes,
 
-    MatCardModule,
-    NgxPaginationModule,
-    MatButtonModule,
-    ToolsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatPaginatorModule,
-    FlexLayoutModule,
-    MatSortModule,
-    NgbAccordionModule,
-    NgbCollapseModule,
-    NgbPopoverModule,
-    NgIconsModule.withIcons({bootstrapChevronDown})
-  ]
+        MatCardModule,
+        NgxPaginationModule,
+        MatButtonModule,
+        ToolsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatTableModule,
+        MatPaginatorModule,
+        FlexLayoutModule,
+        MatSortModule,
+        NgbAccordionModule,
+        NgbCollapseModule,
+        NgbPopoverModule,
+        NgIconsModule.withIcons({bootstrapChevronDown})
+    ]
 })
 export class OngekiModule {
 }

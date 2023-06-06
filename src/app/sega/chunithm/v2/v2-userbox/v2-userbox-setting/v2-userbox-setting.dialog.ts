@@ -72,7 +72,7 @@ export class V2UserBoxSettingDialog {
 
   ngOnInit() {
     if (this.enableImages == true && this.data.itemKind != 2 && this.data.itemKind != 3) {this.dialogRef.updateSize('80%', '80%');}
-    this.aimeId = String(this.auth.currentUserValue.extId);
+    this.aimeId = String(this.auth.currentUserValue.currentCard);
     const param = new HttpParams().set('aimeId', this.aimeId);
 
     // Make all avatar accs available as there is no way to obtain them in game

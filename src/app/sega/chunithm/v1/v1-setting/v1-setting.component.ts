@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {V1Profile} from '../model/V1Profile';
 import {HttpParams} from '@angular/common/http';
 import {V1NameSettingDialog} from './v1-name-setting/v1-name-setting.dialog';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-v1-setting',
@@ -26,8 +27,8 @@ export class V1SettingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentUserValue.extId);
-    this.apiServer = this.auth.currentUserValue.apiServer;
+    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/chuni/v1/profile', param).subscribe(
       data => {
