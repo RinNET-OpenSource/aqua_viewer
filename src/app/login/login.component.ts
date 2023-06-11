@@ -1,7 +1,7 @@
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../auth/authentication.service';
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {first, map} from 'rxjs/operators';
 import {MessageService} from '../message.service';
 
@@ -22,26 +22,33 @@ export class LoginComponent implements OnInit {
   ) {
   }
 
-  get f() {
-    return this.loginForm.controls;
+  get usernameOrEmail() {
+    return this.loginForm.get('usernameOrEmail');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      accessCode: ['', Validators.required],
-      apiServer: ['https://portal.naominet.live', Validators.required],
+      usernameOrEmail: ['', Validators.required],
+      password: ['', Validators.required]
     });
     if (this.authenticationService.currentUserValue) {
       this.router.navigateByUrl('/dashboard');
     }
   }
 
-  onSubmit(form: NgForm) {
-    if (form.invalid) {
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
+    this.loginForm.disable();
+    const value = this.loginForm.value;
 
-    this.authenticationService.login(form.value.usernameOrEmail, form.value.password)
+    this.authenticationService.login(value.usernameOrEmail, value.password)
       .subscribe(
         {
           next: (data) => {
@@ -54,6 +61,7 @@ export class LoginComponent implements OnInit {
           },
           error: (error) => {
             this.messageService.notice(error);
+            this.loginForm.enable();
             console.warn('login fail', error);
           }
         }

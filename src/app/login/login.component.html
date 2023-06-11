@@ -5,19 +5,23 @@
         <h3>RinNET</h3>
         <h5> Some text</h5>
       </div>
-      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="d-grid gap-2">
           <div>
             <label for="usernameOrEmail" class="form-label">User name</label>
-            <input type="text" class="form-control form-control-sm" id="usernameOrEmail" name="usernameOrEmail" placeholder="Username or Email"
-                   ngModel required>
+            <input type="text" class="form-control form-control-sm" id="usernameOrEmail"
+                   formControlName="usernameOrEmail" placeholder="Username or Email"
+                   [class.is-invalid]="usernameOrEmail.touched && !usernameOrEmail.valid && usernameOrEmail.errors">
           </div>
           <div>
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control form-control-sm" id="password" name="password"
-                   placeholder="Password" ngModel required>
+            <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
+                   placeholder="Password"
+                   [class.is-invalid]="password.touched && !password.valid && password.errors">
           </div>
-          <button type="submit" class="btn btn-primary btn-sm mt-3">Sign up</button>
+          <button type="submit" class="btn btn-primary btn-sm mt-3" [class.disabled]="loginForm.disabled">
+            Sign up
+          </button>
         </div>
       </form>
     </div>
