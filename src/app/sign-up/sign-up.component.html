@@ -1,0 +1,47 @@
+<div class="container mt-3" style="max-width: 512px">
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="mb-4">
+        <h3>RinNET</h3>
+        <h5> Some text</h5>
+      </div>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="d-grid gap-2">
+          <div>
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control form-control-sm" id="name" formControlName="name" placeholder="Name"
+                   [class.is-invalid]="name.touched && !name.valid && name.errors">
+          </div>
+          <div>
+            <label for="username" class="form-label">User name</label>
+            <input type="text" class="form-control form-control-sm" id="userName" formControlName="username" placeholder="Username"
+                   [class.is-invalid]="username.touched && !username.valid && username.errors">
+          </div>
+          <div>
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control form-control-sm" id="email" formControlName="email"
+                   placeholder="name@example.com"
+                   [class.is-invalid]="email.touched && !email.valid && email.errors">
+          </div>
+          <div>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
+                   placeholder="Password"
+                   [class.is-invalid]="password.touched && !password.valid && password.errors">
+          </div>
+          <div>
+            <label for="confirmPassword" class="form-label">Confirm password</label>
+            <input type="password" class="form-control form-control-sm" id="confirmPassword" formControlName="confirmPassword"
+                   placeholder="Confirm password"
+                   [class.is-invalid]="confirmPassword.touched && signUpForm.hasError('notSame')">
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm mt-3" [class.disabled]="signUpForm.disabled">Sign up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="text-center">
+    Already have an account?
+    <a class="text-decoration-none" routerLink="/login">Sign in</a>
+  </div>
+</div>
