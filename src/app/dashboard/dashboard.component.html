@@ -1,67 +1,75 @@
-<h1 class="mat-display-1">Dashboard</h1>
+<h1>Dashboard</h1>
 
-<mat-card>
-  <mat-card-content>
-    Welcome to Aqua Viewer, the web interface for Aqua server.<br>
-    This instance configured to {{enableImages ? 'use image assets.' : 'not to use image assets.'}}
-  </mat-card-content>
-</mat-card>
-<div class="card">
+<!--<mat-card>-->
+<!--  <mat-card-content>-->
+<!--    Welcome to Aqua Viewer, the web interface for Aqua server.<br>-->
+<!--    This instance configured to {{enableImages ? 'use image assets.' : 'not to use image assets.'}}-->
+<!--  </mat-card-content>-->
+<!--</mat-card>-->
+<div class="card mt-3">
   <div class="card-body">
-    {{user.name}}
+    Hi {{user.name}}, welcome to Aqua Viewer
   </div>
-  <div *ngFor="let card of user.cards" class="card-body">
-    <div class="mb-3">
-      {{card.extId}}
-    </div>
-    <div class="mb-3">
-      {{card.luid}}
-    </div>
-    <div *ngFor="let cardExternal of card.cardExternalList" class="mb-3">
-      {{cardExternal.luid}}
-      <button class="btn btn-primary btn-sm" (click)="removeExternal(cardExternal)">Remove External</button>
-    </div>
-
-    <button class="btn btn-primary btn-sm" (click)="open(addAccessCode)">Add AccessCode</button>
-    <button class="btn btn-primary btn-sm"
-            [disabled]="card.default"
-            (click)="setDefault(card)">Set Default</button>
-    <ng-template #addAccessCode let-modal>
-      <div class="modal-header">
-        Add AccessCode
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="onAddAccessCode(card, modal)" [formGroup]="addAccessCodeForm">
-          <div class="d-grid">
-
-            <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
-            <button type="submit" class="btn btn-primary btn-sm">OK</button>
-          </div>
-        </form>
-      </div>
-    </ng-template>
-  </div>
-
-  <div class="card-body">
-    <button class="btn btn-primary btn-sm" (click)="open(addCard)">Add Card</button>
-  </div>
-  <ng-template #addCard let-modal>
-    <div class="modal-header">
-      AddCard
-    </div>
-    <div class="modal-body">
-      <form (ngSubmit)="onAddCard(modal)" [formGroup]="addCardForm">
-        <div class="d-grid">
-          <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
-          <button type="submit" class="btn btn-primary btn-sm">OK</button>
-        </div>
-      </form>
-    </div>
-  </ng-template>
 </div>
-<mat-card>
-  <mat-card-title>Status</mat-card-title>
-  <mat-card-content>
+<div>
+  <div *ngFor="let card of user.cards" class="card mt-3">
+    <div class="card-body">
+      <div class="mb-3">
+        {{card.extId}}
+      </div>
+      <div class="mb-3">
+        {{card.luid}}
+      </div>
+      <div *ngFor="let cardExternal of card.cardExternalList" class="mb-3">
+        {{cardExternal.luid}}
+        <button class="btn btn-primary btn-sm" (click)="removeExternal(cardExternal)">Remove External</button>
+      </div>
+
+      <button class="btn btn-primary btn-sm" (click)="open(addAccessCode)">Add AccessCode</button>
+      <button class="btn btn-primary btn-sm"
+              [disabled]="card.default"
+              (click)="setDefault(card)">Set Default
+      </button>
+      <ng-template #addAccessCode let-modal>
+        <div class="modal-header">
+          Add AccessCode
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onAddAccessCode(card, modal)" [formGroup]="addAccessCodeForm">
+            <div class="d-grid">
+
+              <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
+              <button type="submit" class="btn btn-primary btn-sm">OK</button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <button class="btn btn-primary btn-sm" (click)="open(addCard)">Add Card</button>
+</div>
+<ng-template #addCard let-modal>
+  <div class="modal-header">
+    AddCard
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onAddCard(modal)" [formGroup]="addCardForm">
+      <div class="d-grid">
+        <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
+        <button type="submit" class="btn btn-primary btn-sm">OK</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div class="card mt-3">
+  <div class="card-header">
+    Status
+  </div>
+  <div class="card-body">
     Diva Music List: {{divaPv}}<br>
     Diva Module List: {{divaPv}}<br>
     Diva Customize List: {{divaPv}}<br>
@@ -80,8 +88,6 @@
     Chunithm New Map Icon List: {{chusanMapIcon}}<br>
     Chunithm New Frame List: {{chusanFrame}}<br>
     Chunithm New Avatar Accessory List: {{chusanAvatarAcc}}<br>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="reload()">Clean Cache</button>
-  </mat-card-actions>
-</mat-card>
+  </div>
+  <button mat-button class="btn btn-danger btn-sm mt-1" (click)="reload()">Clean Cache</button>
+</div>
