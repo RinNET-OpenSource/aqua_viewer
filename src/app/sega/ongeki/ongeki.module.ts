@@ -32,8 +32,6 @@ import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
 import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item.component';
 import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
 import {NgbAccordionModule, NgbPopoverModule, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
-import {NgIconsModule} from '@ng-icons/core';
-import {bootstrapChevronDown} from '@ng-icons/bootstrap-icons';
 import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.component';
 
 @NgModule({
@@ -79,8 +77,7 @@ import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.co
         MatSortModule,
         NgbAccordionModule,
         NgbCollapseModule,
-        NgbPopoverModule,
-        NgIconsModule.withIcons({bootstrapChevronDown})
+        NgbPopoverModule
     ]
 })
 export class OngekiModule {

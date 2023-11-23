@@ -19,7 +19,7 @@ export class AuthGuardService implements CanLoad, CanActivate {
       return true;
     }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
     return false;
   }
 
@@ -29,7 +29,7 @@ export class AuthGuardService implements CanLoad, CanActivate {
       return true;
     }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
     return false;
   }
 

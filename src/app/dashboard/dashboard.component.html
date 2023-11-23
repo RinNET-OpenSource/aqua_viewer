@@ -8,62 +8,9 @@
 <!--</mat-card>-->
 <div class="card mt-3">
   <div class="card-body">
-    Hi {{user.name}}, welcome to Aqua Viewer
+    Welcome to Aqua Viewer
   </div>
 </div>
-<div>
-  <div *ngFor="let card of user.cards" class="card mt-3">
-    <div class="card-body">
-      <div class="mb-3">
-        {{card.extId}}
-      </div>
-      <div class="mb-3">
-        {{card.luid}}
-      </div>
-      <div *ngFor="let cardExternal of card.cardExternalList" class="mb-3">
-        {{cardExternal.luid}}
-        <button class="btn btn-primary btn-sm" (click)="removeExternal(cardExternal)">Remove External</button>
-      </div>
-
-      <button class="btn btn-primary btn-sm" (click)="open(addAccessCode)">Add AccessCode</button>
-      <button class="btn btn-primary btn-sm"
-              [disabled]="card.default"
-              (click)="setDefault(card)">Set Default
-      </button>
-      <ng-template #addAccessCode let-modal>
-        <div class="modal-header">
-          Add AccessCode
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="onAddAccessCode(card, modal)" [formGroup]="addAccessCodeForm">
-            <div class="d-grid">
-
-              <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
-              <button type="submit" class="btn btn-primary btn-sm">OK</button>
-            </div>
-          </form>
-        </div>
-      </ng-template>
-    </div>
-  </div>
-</div>
-
-<div class="card mt-3">
-  <button class="btn btn-primary btn-sm" (click)="open(addCard)">Add Card</button>
-</div>
-<ng-template #addCard let-modal>
-  <div class="modal-header">
-    AddCard
-  </div>
-  <div class="modal-body">
-    <form (ngSubmit)="onAddCard(modal)" [formGroup]="addCardForm">
-      <div class="d-grid">
-        <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
-        <button type="submit" class="btn btn-primary btn-sm">OK</button>
-      </div>
-    </form>
-  </div>
-</ng-template>
 
 <div class="card mt-3">
   <div class="card-header">

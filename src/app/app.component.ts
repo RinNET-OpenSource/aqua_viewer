@@ -1,10 +1,13 @@
 import {ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {PreloadService} from './database/preload.service';
 import {Subscription} from 'rxjs';
 import {ApiService} from './api.service';
+import {NgbDropdownModule, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {ToastsContainer } from './toasts-container.component';
+import {ToastService} from "./toast-service";
 
 @Component({
   selector: 'app-root',
@@ -207,9 +210,11 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private authenticationService: AuthenticationService,
-    private route: Router,
+    private router: Router,
     private api: ApiService,
-    private preLoad: PreloadService
+    private preLoad: PreloadService,
+    public offcanvasService: NgbOffcanvas,
+    public toastService: ToastService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -232,12 +237,23 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.toastService.clear();
   }
 
   logout() {
     this.authenticationService.logout();
-    location.reload();
+    location.assign('');
   }
+
+  isActive(currentRoute: any[]): boolean {
+    return this.router.isActive(this.router.createUrlTree(currentRoute), {
+      paths: 'subset',
+      queryParams: 'subset',
+      fragment: 'ignored',
+      matrixParams: 'ignored',
+    });
+  }
+  isMenuCollapsed = true;
 }
 
 export class Menu {
