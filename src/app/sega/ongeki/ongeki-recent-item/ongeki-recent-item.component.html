@@ -128,34 +128,34 @@
             <div class="chara-container">
               <div class="chara-center position-relative">
                 <img class="chara-center-img position-absolute"
-                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo2.id | formatNumber:6}}.png">
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo2?.id??0 | formatNumber:6}}.png">
                 <app-ongeki-card-level class="chara-center-level position-absolute"
                                        [level]="playLog.cardLevel2"
-                                       [attribute]="playLog.cardInfo2.attribute"></app-ongeki-card-level>
+                                       [attribute]="playLog.cardInfo2?.attribute??'Fire'"></app-ongeki-card-level>
               </div>
               <div class="chara-side position-relative">
                 <img class="chara-side-img position-absolute"
-                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo1.id | formatNumber:6}}.png">
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo1?.id??0 | formatNumber:6}}.png">
                 <app-ongeki-card-level class="chara-side-level position-absolute"
                                        [level]="playLog.cardLevel1"
-                                       [attribute]="playLog.cardInfo1.attribute"></app-ongeki-card-level>
+                                       [attribute]="playLog.cardInfo1?.attribute??'Fire'"></app-ongeki-card-level>
               </div>
               <div class="chara-side position-relative">
                 <img class="chara-side-img position-absolute"
-                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo3.id | formatNumber:6}}.png">
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo3?.id??0 | formatNumber:6}}.png">
                 <app-ongeki-card-level class="chara-side-level position-absolute"
                                        [level]="playLog.cardLevel3"
-                                       [attribute]="playLog.cardInfo3.attribute"></app-ongeki-card-level>
+                                       [attribute]="playLog.cardInfo3?.attribute??'Fire'"></app-ongeki-card-level>
               </div>
             </div>
           </div>
           <div class="col-6">
             <div class="boss position-relative">
               <img class="boss-img"
-                   src="{{host}}assets/ongeki/card-chara/UI_Card_Chara_{{playLog.songInfo.bossCardId | formatNumber:6}}.png">
+                   src="{{host}}assets/ongeki/card-chara/UI_Card_Chara_{{playLog.songInfo?.bossCardId??0 | formatNumber:6}}.png">
               <app-ongeki-card-level class="boss-level position-absolute"
                                      [level]="playLog.bossLevel"
-                                     [attribute]="attributeType[playLog.bossAttribute]"></app-ongeki-card-level>
+                                     [attribute]="attributeType[playLog?.bossAttribute]"></app-ongeki-card-level>
             </div>
           </div>
         </div>
