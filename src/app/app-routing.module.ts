@@ -5,7 +5,7 @@ import {AuthGuardService} from './auth/auth-guard.service';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {ImporterComponent} from './importer/importer/importer.component';
 import {SignUpComponent} from './home/sign-up/sign-up.component';
-import {HomeComponent} from "./home/home.component";
+import {HomeComponent} from './home/home.component';
 import {CardsComponent} from './cards/cards.component';
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'top'})],
   exports: [RouterModule]
 })
 

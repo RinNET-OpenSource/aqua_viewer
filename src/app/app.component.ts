@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {Router, RouterLink} from '@angular/router';
@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {ApiService} from './api.service';
 import {NgbDropdownConfig, NgbDropdownModule, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {ToastsContainer } from './toasts-container.component';
-import {ToastService} from "./toast-service";
+import {ToastService} from './toast-service';
 import {inject} from '@angular/core/testing';
 import * as bootstrap from 'bootstrap';
 
@@ -19,6 +19,8 @@ import * as bootstrap from 'bootstrap';
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
   title = 'aqua-viewer';
 
+  sidebarOffcanvas: bootstrap.Offcanvas;
+  sidebarOffcanvasOpened = false;
   account: Account;
 
   loading = false;
@@ -205,7 +207,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
   ];
   private subscription: Subscription;
-  private _mobileQueryListener: () => void;
+  private mobileQueryListener: () => void;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -218,8 +220,8 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     public toastService: ToastService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
     this.account = authenticationService.currentUserValue;
   }
 
@@ -237,7 +239,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeListener(this.mobileQueryListener);
     this.toastService.clear();
   }
 
@@ -254,20 +256,31 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       matrixParams: 'ignored',
     });
   }
-  sidebarOffcanvas: bootstrap.Offcanvas;
   hideSidebar(){
-    this.sidebarOffcanvas.hide();
+    this.sidebarOffcanvas?.hide();
   }
   showSidebar(){
     if (!this.sidebarOffcanvas){
       const offcanvasElement = document.getElementById('sidebar');
       this.sidebarOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+      offcanvasElement.addEventListener('show.bs.offcanvas', () => {
+        this.sidebarOffcanvasOpened = true;
+      });
+      offcanvasElement.addEventListener('hide.bs.offcanvas', () => {
+        this.sidebarOffcanvasOpened = false;
+      });
     }
     this.sidebarOffcanvas.show();
   }
   navigateTo(routerLink: string){
     this.router.navigateByUrl(routerLink);
     this.hideSidebar();
+  }
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: any) {
+    if (this.sidebarOffcanvasOpened) {
+      this.hideSidebar();
+    }
   }
 }
 
