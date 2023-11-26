@@ -170,11 +170,12 @@
   margin-inline: auto;
   max-width: 128px;
   min-width: 48px;
+  aspect-ratio: 0.730038022813688;
+  overflow: hidden;
 }
 
 .battle-area .boss .boss-img{
-  width: 100%;
-  aspect-ratio: 0.730038022813688;
+  height: 100%;
 }
 
 .battle-area .boss .boss-level{
