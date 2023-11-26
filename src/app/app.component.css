@@ -68,6 +68,10 @@ mat-toolbar {
   background-color: var(--bs-primary);
 }
 
+.sidebar-item-link.active {
+  font-weight: bold;
+}
+
 @media only screen and (max-width: 599px) {
   .content {
     background-origin: content-box;

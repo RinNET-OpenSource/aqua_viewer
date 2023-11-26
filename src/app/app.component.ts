@@ -248,8 +248,8 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     location.assign('');
   }
 
-  isActive(currentRoute: any[]): boolean {
-    return this.router.isActive(this.router.createUrlTree(currentRoute), {
+  isActive(url: string): boolean {
+    return this.router.isActive(url, {
       paths: 'subset',
       queryParams: 'subset',
       fragment: 'ignored',
