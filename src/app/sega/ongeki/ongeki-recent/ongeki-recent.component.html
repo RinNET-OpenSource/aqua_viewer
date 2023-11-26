@@ -146,7 +146,8 @@
       </li>
       <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
         <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
-        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
       </li>
       <li class="page-item" [class.disabled]="p.isLastPage()">
         <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>

@@ -1,16 +1,15 @@
 <div class="app-container">
-  <nav ngbNav #nav="ngbNav" class="navbar navbar-expand-sm bg-body-tertiary">
-    <div class="container">
-      <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler"
+  <nav ngbNav #nav="ngbNav" class="navbar navbar-expand-lg bg-body-tertiary position-fixed w-100 shadow-sm" style="height: 3.6rem;z-index: 999">
+    <div class="container-xxl">
+      <button *ngIf="account" (click)="showSidebar()" class="navbar-toggler"
               style="--bs-navbar-toggler-focus-width: 0; --bs-navbar-toggler-border-color: transparent;font-size: 1.6rem;"
-              type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              type="button">
 
         <ng-icon name="bootstrap-list"></ng-icon>
       </button>
       <a class="navbar-brand sm-center" routerLink="">
-        <img src="/assets/turtle.svg" alt="turtle" width="30" height="24" class="d-inline-block align-text-top"/>
-        <!--        <img src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">-->
+        <img src="/assets/turtle.svg" alt="turtle" width="30" height="24"
+             class="d-inline-block align-text-top"/>
         RinNET
       </a>
       <ng-template #userPopContent>
@@ -32,86 +31,86 @@
           <ng-icon name="bootstrap-person"></ng-icon>
         </button>
       </ng-template>
-      <div class="d-block d-sm-none">
-        <ng-container *ngTemplateOutlet="userIcon;"></ng-container>
-      </div>
-      <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-          </li>
-          <li ngbDropdown class="nav-item dropdown">
-            <div class="btn-group">
-              <button type="button" class="btn nav-link pe-0">Games</button>
-              <button ngbDropdownToggle type="button" class="nav-link btn dropdown-toggle ps-0"
-                      data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-                <span class="visually-hidden">Toggle Dropdown</span>
-              </button>
-              <ul ngbDropdownMenu class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">O.N.G.E.K.I.</a></li>
-                <li><a class="dropdown-item" href="#">Chunithm</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" target="_blank" href="https://status.naominet.live/status/aquaserver">Status</a>
-          </li>
-        </ul>
-      </div>
-      <div class="d-none d-sm-block">
+      <div>
         <ng-container *ngTemplateOutlet="userIcon;"></ng-container>
       </div>
     </div>
   </nav>
-  <!--  <mat-toolbar class="toolbar mat-elevation-z6" color="primary">-->
-  <!--    <button (click)="drawer.toggle()" mat-icon-button>-->
-  <!--      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>-->
-  <!--    </button>-->
-  <!--    <span>Aqua Viewer</span>-->
-  <!--    <span class="spacer-util"></span>-->
-
-  <!--    <button *ngIf="account" [matMenuTriggerFor]="userMenu" mat-icon-button>-->
-  <!--      <mat-icon aria-hidden="false" aria-label="User menu">face</mat-icon>-->
-  <!--    </button>-->
-  <!--    <mat-menu #userMenu="matMenu">-->
-  <!--      <button (click)="logout()" mat-menu-item>Logout</button>-->
-  <!--    </mat-menu>-->
-
-  <!--  </mat-toolbar>-->
   <div class="position-relative">
     <mat-progress-bar class="position-absolute" [class.hide]="!loading" mode="indeterminate"></mat-progress-bar>
-    <div class="container my-3">
-      <router-outlet></router-outlet>
+    <div class="d-lg-grid container-xxl" style="grid-template-areas: 'sidebar main'; grid-template-columns: auto 1fr">
+      <aside #sidebar *ngIf="account" class="sidebar d-block overflow-y-auto position-sticky" style="">
+        <div id="sidebar" class="offcanvas-lg offcanvas-start" tabindex="-1">
+          <div class="offcanvas-header" style="height: 3.6rem">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Navigation</h5>
+            <button type="button" class="btn-close" aria-label="Close"
+                    (click)="hideSidebar()"></button>
+          </div>
+          <div class="offcanvas-body user-select-none">
+            <nav>
+              <ul class="list-unstyled mt-2">
+                <li>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li class="pb-2">
+                      <a class="sidebar-item-link rounded" (click)="navigateTo('/dashboard')">Dashboard</a>
+                    </li>
+                    <li class="pb-2">
+                      <a class="sidebar-item-link rounded" target="_blank"
+                         href="https://status.naominet.live/status/aquaserver">Status</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong class="d-flex w-100 fw-semibold mb-2">O.N.G.E.K.I.</strong>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li *ngFor="let item of ongekiMenu" class="pb-2">
+                      <a class="sidebar-item-link rounded" (click)="navigateTo(item.url)">{{item.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong class="d-flex w-100 fw-semibold mb-2">CHUNITHM</strong>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li *ngFor="let item of v1Menus" class="pb-2">
+                      <a class="sidebar-item-link rounded" (click)="navigateTo(item.url)">{{item.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong class="d-flex w-100 fw-semibold mb-2">CHUNITHM NEW</strong>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li *ngFor="let item of v2Menus" class="pb-2">
+                      <a class="sidebar-item-link rounded" (click)="navigateTo(item.url)">{{item.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong class="d-flex w-100 fw-semibold mb-2">Maimai DX</strong>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li *ngFor="let item of mai2Menus" class="pb-2">
+                      <a class="sidebar-item-link rounded" (click)="navigateTo(item.url)">{{item.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong class="d-flex w-100 fw-semibold mb-2">Project DIVA AFT</strong>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li *ngFor="let item of divaMenus" class="pb-2">
+                      <a class="sidebar-item-link rounded" (click)="navigateTo(item.url)">{{item.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </aside>
+      <main class="order-1 ms-0 ms-lg-2 ms-xxl-4" style="grid-area: main;min-height: 100vh;margin-top: 3.6rem">
+        <div>
+          <router-outlet></router-outlet>
+        </div>
+      </main>
     </div>
-    <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
+    <app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 3.6rem"></app-toasts>
   </div>
-  <!--  <mat-sidenav-container class="sidenav">-->
-  <!--    <mat-sidenav #drawer [fixedInViewport]="true" [mode]="mobileQuery.matches ? 'over' : 'side'"-->
-  <!--                 fixedTopGap="56">-->
-  <!--      <mat-nav-list>-->
-  <!--        <a mat-list-item routerLink="/dashboard">Dashboard</a>-->
-  <!--        <a mat-list-item routerLink="/import">Import</a>-->
-  <!--        <mat-divider></mat-divider>-->
-  <!--        <mat-toolbar>O.N.G.E.K.I</mat-toolbar>-->
-  <!--        <a *ngFor="let item of ongekiMenu" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>-->
-  <!--        <mat-divider></mat-divider>-->
-  <!--        <mat-toolbar>CHUNITHM</mat-toolbar>-->
-  <!--        <a *ngFor="let item of v1Menus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>-->
-  <!--        <mat-divider></mat-divider>-->
-  <!--        <mat-toolbar>CHUNITHM NEW</mat-toolbar>-->
-  <!--        <a *ngFor="let item of v2Menus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>-->
-  <!--        <mat-divider></mat-divider>-->
-  <!--        <mat-toolbar>Maimai DX</mat-toolbar>-->
-  <!--        <a *ngFor="let item of mai2Menus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>-->
-  <!--        <mat-divider></mat-divider>-->
-  <!--        <mat-toolbar>Project DIVA AFT</mat-toolbar>-->
-  <!--        <a *ngFor="let item of divaMenus" mat-list-item routerLink="/{{item.url}}">{{item.name}}</a>-->
-  <!--      </mat-nav-list>-->
-  <!--    </mat-sidenav>-->
-
-  <!--    <mat-sidenav-content>-->
-
-  <!--    </mat-sidenav-content>-->
-  <!--  </mat-sidenav-container>-->
 </div>

@@ -32,6 +32,7 @@
     "@ng-icons/bootstrap-icons": "^22.0.0",
     "@ng-icons/core": "^22.0.0",
     "@popperjs/core": "^2.10.2",
+    "@types/bootstrap": "^5.2.10",
     "aegis-web-sdk": "^1.37.1",
     "angular-cli-ghpages": "^1.0.6",
     "bootstrap": "^5.2.3",

@@ -55,6 +55,19 @@ mat-toolbar {
   display: none;
 }
 
+.sidebar-item-link {
+  padding: .3rem .5rem;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sidebar-item-link:hover,
+.sidebar-item-link.active {
+  color: #FFF;
+  background-color: var(--bs-primary);
+}
+
 @media only screen and (max-width: 599px) {
   .content {
     background-origin: content-box;
@@ -64,6 +77,21 @@ mat-toolbar {
     box-sizing: border-box;
     padding: 15px;
     margin: auto;
+  }
+}
+
+.sidebar {
+  grid-area: sidebar;
+  min-width: 15rem;
+  top: 3.6rem;
+  z-index: 1000
+}
+
+@media (min-width: 992px) {
+  .sidebar {
+    min-width: 15rem;
+    top: 4.1rem;
+    height: calc(100vh - 3.6rem - 1rem);
   }
 }
 

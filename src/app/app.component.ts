@@ -5,9 +5,11 @@ import {Router, RouterLink} from '@angular/router';
 import {PreloadService} from './database/preload.service';
 import {Subscription} from 'rxjs';
 import {ApiService} from './api.service';
-import {NgbDropdownModule, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownConfig, NgbDropdownModule, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {ToastsContainer } from './toasts-container.component';
 import {ToastService} from "./toast-service";
+import {inject} from '@angular/core/testing';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -58,12 +60,12 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 7,
-      name: 'MusicRanking',
+      name: 'Music Ranking',
       url: 'ongeki/musicRanking'
     },
     {
       id: 8,
-      name: 'UserRanking',
+      name: 'User Ranking',
       url: 'ongeki/userRanking'
     },
     {
@@ -203,7 +205,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
   ];
   private subscription: Subscription;
-
   private _mobileQueryListener: () => void;
 
   constructor(
@@ -253,7 +254,21 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       matrixParams: 'ignored',
     });
   }
-  isMenuCollapsed = true;
+  sidebarOffcanvas: bootstrap.Offcanvas;
+  hideSidebar(){
+    this.sidebarOffcanvas.hide();
+  }
+  showSidebar(){
+    if (!this.sidebarOffcanvas){
+      const offcanvasElement = document.getElementById('sidebar');
+      this.sidebarOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+    }
+    this.sidebarOffcanvas.show();
+  }
+  navigateTo(routerLink: string){
+    this.router.navigateByUrl(routerLink);
+    this.hideSidebar();
+  }
 }
 
 export class Menu {
