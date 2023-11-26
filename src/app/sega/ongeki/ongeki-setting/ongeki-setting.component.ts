@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../api.service';
-import {AuthenticationService} from '../../../auth/authentication.service';
+import {Account, AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {MatDialog} from '@angular/material/dialog';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
@@ -23,7 +23,9 @@ export class OngekiSettingComponent implements OnInit {
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private http: HttpClient,
+    private  authenticationService: AuthenticationService
   ) {
   }
 
@@ -37,6 +39,22 @@ export class OngekiSettingComponent implements OnInit {
       },
       error => this.messageService.notice(error)
     );
+  }
+  downloadFile(): void {
+    const url = this.apiServer + 'api/game/ongeki/export?aimeId=' + this.aimeId;
+    const headers = { Authorization: `Bearer ${this.authenticationService.currentUserValue.accessToken}` };
+    this.http.get(url, { headers, responseType: 'blob' }).subscribe(blob => {
+      const objectUrl = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = objectUrl;
+      a.download = 'ongeki_' + this.aimeId + '_exported.json';
+      a.click();
+      document.body.appendChild(a);
+      document.body.removeChild(a);
+
+      window.URL.revokeObjectURL(objectUrl);
+    });
   }
 
 }
