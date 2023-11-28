@@ -1,31 +1,18 @@
-<h1 class="mat-display-1">Music Ranking</h1>
+<h1>User Ranking</h1>
 
-<table [dataSource]="dataSource" mat-table matSort>
-  <ng-container matColumnDef="ranking">
-    <th *matHeaderCellDef mat-header-cell>Ranking</th>
-    <td *matCellDef="let element" mat-cell>
-      {{ element.ranking }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="userName">
-    <th *matHeaderCellDef mat-header-cell>User Name</th>
-    <td *matCellDef="let element" mat-cell>
-      {{ element.userName }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="nowRating">
-    <th *matHeaderCellDef mat-header-cell>Now Rating</th>
-    <td *matCellDef="let element" mat-cell>
-      {{ element.nowRating}}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="highestRating">
-    <th *matHeaderCellDef mat-header-cell>Highest Rating</th>
-        <td *matCellDef="let element" mat-cell>
-          {{ element.highestRating}}
-        </td>
-  </ng-container>
-  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-  <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+<table class="table table-borderless table-striped align-middle mt-3">
+  <thead>
+  <th>Ranking</th>
+  <th>User Name</th>
+  <th>Now Rating</th>
+  <th>Highest Rating</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of ongekiUserRankings">
+    <td>{{ item.ranking }}</td>
+    <td>{{ item.userName }}</td>
+    <td>{{ item.nowRating }}</td>
+    <td>{{ item.highestRating }}</td>
+  </tr>
+  </tbody>
 </table>
-

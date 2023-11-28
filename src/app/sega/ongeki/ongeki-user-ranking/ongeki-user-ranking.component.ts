@@ -9,10 +9,7 @@ import {ApiService} from '../../../api.service';
   styleUrls: ['./ongeki-user-ranking.component.css']
 })
 export class OngekiUserRankingComponent implements OnInit {
-  dataSource = new MatTableDataSource();
   ongekiUserRankings: OngekiUserRanking[] = [];
-
-  displayedColumns: string[] = ['ranking', 'userName', 'nowRating', 'highestRating'];
 
   constructor(private api: ApiService) { }
 
@@ -24,7 +21,6 @@ export class OngekiUserRankingComponent implements OnInit {
     this.api.get('api/game/ongeki/data/userRatingRanking')
       .subscribe(data => {
         this.ongekiUserRankings = data;
-        this.dataSource.data = this.ongekiUserRankings;
       });
   }
 }

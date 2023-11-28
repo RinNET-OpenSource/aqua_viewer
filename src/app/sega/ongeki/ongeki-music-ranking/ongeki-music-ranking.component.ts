@@ -9,7 +9,6 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./ongeki-music-ranking.component.css']
 })
 export class OngekiMusicRankingComponent implements OnInit {
-  dataSource = new MatTableDataSource();
   ongekiGameRankings: OngekiGameRanking[] = [];
 
   displayedColumns: string[] = ['ranking', 'music.name', 'playCount', 'state'];
@@ -24,7 +23,6 @@ export class OngekiMusicRankingComponent implements OnInit {
     this.api.get('api/game/ongeki/data/musicRanking')
       .subscribe(data => {
         this.ongekiGameRankings = data;
-        this.dataSource.data = this.ongekiGameRankings;
       });
   }
 }

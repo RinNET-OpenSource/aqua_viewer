@@ -1,43 +1,48 @@
-<h1 class="mat-display-1">Rating</h1>
+<h1>Rating</h1>
 
-<mat-card>
-  <mat-card-content>
+<div class="card">
+  <div class="card-body">
     <div class="rating-info">
       Current Rating: {{profile ? (profile.playerRating / 100 | number: '1.2-2') : ''}}<br>
       Highest Rating: {{profile ? (profile.highestRating / 100 | number: '1.2-2') : ''}}
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
-<mat-card *ngFor="let index of [0,2,4]">
-  <h3>{{index == 0 ? 'Total Best 30' : index == 2 ? 'New Song Best 15' : 'Recent Best 10' }}</h3>
-  <table class="zebra battle-point-table">
-    <thead>
-    <th>Music</th>
-    <th>Level</th>
-    <th>Score</th>
-    <th>Rating</th>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let item of allArray[index]; index as i">
-      <ng-container *ngTemplateOutlet="recordRow; context: {item: item, i: i}"></ng-container>
-    </ng-container>
-    <tr>
-      <td colspan="4">
-        ===== Next 10 =====
-      </td>
-    </tr>
-    <ng-container *ngFor="let item of allArray[index + 1]; index as i">
-      <ng-container *ngTemplateOutlet="recordRow; context: {item: item, i: i}"></ng-container>
-    </ng-container>
-    </tbody>
-  </table>
-</mat-card>
+<div class="card mt-3" *ngFor="let index of [0,2,4]">
+  <div class="card-body">
+    <h5 class="card-title mb-3">{{index == 0 ? 'Total Best 30' : index == 2 ? 'New Song Best 15' : 'Recent Best 10' }}</h5>
+    <table class="table table-borderless table-striped align-middle">
+      <thead>
+      <th colspan="2">Music</th>
+      <th>Level</th>
+      <th>Score</th>
+      <th>Rating</th>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let item of allArray[index]; index as i">
+        <ng-container *ngTemplateOutlet="recordRow; context: {item: item, i: i}"></ng-container>
+      </ng-container>
+      <tr>
+        <td colspan="4">
+          ===== Next 10 =====
+        </td>
+      </tr>
+      <ng-container *ngFor="let item of allArray[index + 1]; index as i">
+        <ng-container *ngTemplateOutlet="recordRow; context: {item: item, i: i}"></ng-container>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <ng-template #recordRow let-i="i" let-item="item">
   <tr *ngIf="item.musicId > 0">
+    <td class="music-img">
+      <img *ngIf="enableImages == true"
+           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
+    </td>
     <td class="music-title">
-      <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
       {{i + 1}}: {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}
     </td>
     <td>
@@ -56,11 +61,16 @@
     </td>
     <td>
       <ng-container *ngIf="item.musicInfo" [ngSwitch]="item.level">
-        <span *ngSwitchCase="0" class="score-value">{{((item.musicInfo.level0 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-        <span *ngSwitchCase="1" class="score-value">{{((item.musicInfo.level1 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-        <span *ngSwitchCase="2" class="score-value">{{((item.musicInfo.level2 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-        <span *ngSwitchCase="3" class="score-value">{{((item.musicInfo.level3 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-        <span *ngSwitchCase="10" class="score-value">{{((item.musicInfo.level4 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="0"
+              class="score-value">{{((item.musicInfo.level0 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="1"
+              class="score-value">{{((item.musicInfo.level1 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="2"
+              class="score-value">{{((item.musicInfo.level2 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="3"
+              class="score-value">{{((item.musicInfo.level3 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+        <span *ngSwitchCase="10"
+              class="score-value">{{((item.musicInfo.level4 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
       </ng-container>
     </td>
   </tr>

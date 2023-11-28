@@ -1,0 +1,27 @@
+<div class="container pt-2 pt-sm-4 px-3 px-sm-5">
+  <div class="my-3">
+    <h4 class="fw-semibold">Sign in to your account</h4>
+  </div>
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <div class="d-grid gap-2">
+      <div class="position-relative">
+        <label for="usernameOrEmail" class="form-label small">Username or Email</label>
+        <input type="text" class="form-control form-control-sm" id="usernameOrEmail"
+               formControlName="usernameOrEmail" placeholder=""
+               [class.is-invalid]="signInSubmitTouched && !usernameOrEmail.valid && usernameOrEmail.errors">
+      </div>
+      <div class="position-relative">
+        <label for="password" class="form-label small">Password</label>
+        <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
+               placeholder=""
+               [class.is-invalid]="signInSubmitTouched && !password.valid && password.errors">
+      </div>
+      <div class="text-end">
+        <button type="button" class="btn btn-link text-decoration-none btn-sm" (click)="onForgotPassword.emit()">Forgot password?</button>
+      </div>
+      <button type="submit" class="btn btn-primary btn-sm" [class.disabled]="signInForm.disabled">
+        Sign in
+      </button>
+    </div>
+  </form>
+</div>

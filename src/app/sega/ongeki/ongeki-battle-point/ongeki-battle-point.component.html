@@ -1,36 +1,41 @@
-<h1 class="mat-display-1">Battle Point</h1>
+<h1>Battle Point</h1>
 
-<mat-card>
-  <mat-card-content>
+<div class="card">
+  <div class="card-body">
     Current Battle Point: {{profile ? profile.battlePoint : ''}}
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
-<mat-card>
-  <h3>Best Battle Points</h3>
-  <table class="zebra battle-point-table">
-    <thead>
-    <th>Music</th>
-    <th>Level</th>
-    <th>Point</th>
-    <th>Attr.</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of bPList; index as i">
-      <td class="music-title">
-        <img *ngIf="enableImages == true" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
-        {{i + 1}}: {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}
-      </td>
-      <td>
-        {{difficulty[item.level]}}
-      </td>
-      <td>
-        {{item.value}}
-      </td>
-      <td>
-        {{item.bossCardInfo ? item.bossCardInfo.attribute : 'Unknown' }}
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</mat-card>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Best Battle Points</h5>
+    <table class="table table-borderless table-striped align-middle">
+      <thead>
+      <th colspan="2">Music</th>
+      <th>Level</th>
+      <th>Point</th>
+      <th>Attr.</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of bPList; index as i">
+        <td class="music-img">
+            <img *ngIf="enableImages == true"
+                 src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
+        </td>
+        <td class="music-title">
+            {{i + 1}}: {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}
+        </td>
+        <td>
+          {{difficulty[item.level]}}
+        </td>
+        <td>
+          {{item.value}}
+        </td>
+        <td>
+          {{item.bossCardInfo ? item.bossCardInfo.attribute : 'Unknown' }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

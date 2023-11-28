@@ -1,0 +1,72 @@
+<div>
+  <div class="container">
+    <div class="row justify-content-center pt-5">
+      <img class="col-12 col-md-4 mb-3" style="max-width: 15rem; max-height: 25rem" src="/assets/turtle.svg"
+           alt="turtle"/>
+      <div class="col-12 col-md-8 px-0 px-md-4">
+        <div class="text-center mb-0">
+          <h1 class="display-1 fw-semibold">RinNET</h1>
+        </div>
+        <div class="text-center mb-3">
+          <h2 class="lead text-secondary">Multipurpose online service for ALL.Net based games</h2>
+        </div>
+        <div class="mb-3 text-center">
+          <button *ngIf="authenticationService.currentUserValue" class="btn btn-primary w-100" routerLink="/dashboard">
+            Dashboard
+          </button>
+          <button *ngIf="!authenticationService.currentUserValue" class="btn btn-primary w-100"
+                  (click)="popupStatus=0;showPopup(content)">Sign in
+          </button>
+        </div>
+        <hr>
+        <div class="mb-3 ps-0 fw-semibold h3">
+          Connect to RinNET
+        </div>
+        <p class="mb-3 ps-0 text-secondary h4 lead">
+          Edit <code>segatools.ini</code> with the following text
+        </p>
+        <div class="card align-middle bg-body-tertiary mb-3">
+          <div class="card-body">
+      <pre class="m-0 " style="text-wrap: inherit"><code data-lang="ini">[DNS]
+default = aqua.naominet.live</code></pre>
+          </div>
+        </div>
+        <div class="mb-3 ps-0 fw-semibold h3">
+          Supported Games
+        </div>
+        <ul>
+          <li>O.N.G.E.K.I. Bright Memory (and below)</li>
+          <li>CHUNITHM SUN (and below)</li>
+          <li>CHUNITHM Paradise Lost (and below)</li>
+          <li>Maimai DX Festival (and below)</li>
+          <li>Card Maker (1.34)</li>
+          <li>Project DIVA Arcade Future Tone</li>
+        </ul>
+      </div>
+    </div>
+    <ng-template #content let-modal>
+      <button type="button" class="btn-close shadow-none position-absolute end-0 top-0 m-4" aria-label="Close"
+              (click)="modal.dismiss()"></button>
+      <div *ngIf="popupStatus == 0">
+        <app-login (onForgotPassword)="popupStatus = 2"></app-login>
+        <div class="text-center my-3 small">
+          Don't have an account?
+          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 1">Sign up</button>
+        </div>
+      </div>
+      <div *ngIf="popupStatus == 1">
+        <app-sign-up></app-sign-up>
+        <div class="text-center my-3 small">
+          Already have an account?
+          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">Sign in</button>
+        </div>
+      </div>
+      <div *ngIf="popupStatus == 2">
+        <app-password-reset></app-password-reset>
+        <div class="text-center my-3 small">
+          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">Back</button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

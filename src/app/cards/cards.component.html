@@ -1,0 +1,74 @@
+<h1>Cards</h1>
+<div>
+  <div *ngFor="let card of user.cards.sort(compareCard)" class="card mt-3">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <div class="float-start">
+          No.{{card.id}}
+      </div>
+      <div class="float-end">
+        <button class="btn btn-close"
+                (click)="setDefault(card)">
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="mb-2 fw-bold">
+        AccessCode:
+      </div>
+      <div class="mb-3">
+        {{card.luid}}
+      </div>
+      <div class="mb-2 fw-bold">
+        Aliases:
+      </div>
+      <div *ngIf="card.cardExternalList.length == 0" class="mb-2">
+        None
+      </div>
+      <div *ngFor="let item of card.cardExternalList" class="mb-2">
+        {{item.luid}}
+        <a class="card-link" (click)="removeExternal(item)">Remove</a>
+      </div>
+      <div>
+        <a class="card-link" (click)="open(addAccessCode)">Add alias</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-link p-0"
+              [class.disabled]="card.extId == authenticationService.currentUserValue.currentCard"
+              [class.link-secondary]="card.extId == authenticationService.currentUserValue.currentCard"
+              (click)="setDefault(card)">Set Default
+      </button>
+    </div>
+    <ng-template #addAccessCode let-modal>
+      <div class="modal-header">
+        Add Alias
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onAddAccessCode(card, modal)" [formGroup]="addAccessCodeForm">
+          <div class="d-grid">
+
+            <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
+            <button type="submit" class="btn btn-primary btn-sm">OK</button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <button class="btn btn-primary btn-sm" (click)="open(addCard)">Bind Card</button>
+</div>
+<ng-template #addCard let-modal>
+  <div class="modal-header">
+    Bind Card
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onAddCard(modal)" [formGroup]="addCardForm">
+      <div class="d-grid">
+        <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
+        <button type="submit" class="btn btn-primary btn-sm">OK</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
