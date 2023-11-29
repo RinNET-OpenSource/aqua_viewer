@@ -10,7 +10,6 @@ import {CardsComponent} from './cards/cards.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'signup', component: SignUpComponent},
   {path: 'cards', component: CardsComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'changelog', component: ChangelogComponent},

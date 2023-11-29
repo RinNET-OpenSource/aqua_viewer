@@ -55,8 +55,21 @@ export class AuthenticationService {
         }));
   }
 
-  signUp(name: string, username: string, email: string, password: string) {
-    return this.http.post<any>(environment.apiServer + 'api/auth/signup', {name, username, email, password})
+  signUp(name: string, username: string, email: string, verifyCode: string, password: string) {
+    return this.http.post<any>(environment.apiServer + 'api/auth/signup', {name, username, email, verifyCode, password})
+      .pipe(
+        map(
+          resp => {
+            if (resp) {
+              return resp;
+            }
+          }
+        )
+      );
+  }
+
+  getVerifyCode(email: string){
+    return this.http.post<any>(environment.apiServer + 'api/auth/getVerifyCode', {emailAddress: email})
       .pipe(
         map(
           resp => {

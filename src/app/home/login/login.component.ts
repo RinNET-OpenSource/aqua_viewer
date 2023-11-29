@@ -12,7 +12,7 @@ import {MessageService} from '../../message.service';
 })
 export class LoginComponent implements OnInit {
   signInForm: FormGroup;
-  signInSubmitTouched: boolean = false;
+  signInSubmitTouched = false;
   @Output() onForgotPassword = new EventEmitter<any>();
 
   constructor(

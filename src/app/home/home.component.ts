@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {MessageService} from "../message.service";
-import {AuthenticationService} from "../auth/authentication.service";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MessageService} from '../message.service';
+import {AuthenticationService} from '../auth/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ import {AuthenticationService} from "../auth/authentication.service";
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  popupStatus: number = 0;
+  popupStatus = 0;
   constructor(private modalService: NgbModal,
               public messageService: MessageService,
               public authenticationService: AuthenticationService) {
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   showPopup(content) {
-    this.modalService.open(content,{ centered: true, size: 'md'});
+    this.modalService.open(content, { centered: true, size: 'md'});
   }
 
   forgotPassword() {

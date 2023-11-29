@@ -2,7 +2,7 @@
   <div class="my-3">
     <h4 class="fw-semibold">Sign up to RinNET</h4>
   </div>
-  <form  [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <form  [formGroup]="signUpForm">
     <div class="d-grid gap-2">
       <div class="position-relative">
         <label for="name" class="form-label small">Name</label>
@@ -22,6 +22,16 @@
                [class.is-invalid]="email.touched && !email.valid && email.errors">
       </div>
       <div>
+        <label for="verifyCode" class="form-label small">Verify code</label>
+
+        <div class="input-group input-group-sm">
+          <input type="verifyCode" class="form-control form-control-sm" id="verifyCode" formControlName="verifyCode"
+                 placeholder=""
+                 [class.is-invalid]="verifyCode.touched && !verifyCode.valid && verifyCode.errors">
+          <button class="btn btn-outline-secondary" type="submit" (click)="getVerifyCode()">Get</button>
+        </div>
+      </div>
+      <div>
         <label for="password" class="form-label small">Password</label>
         <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
                placeholder=""
@@ -34,7 +44,7 @@
                placeholder=""
                [class.is-invalid]="confirmPassword.touched && signUpForm.hasError('notSame')">
       </div>
-      <button type="submit" class="btn btn-primary btn-sm mt-4" [class.disabled]="signUpForm.disabled">Sign up</button>
+      <button type="submit" class="btn btn-primary btn-sm mt-4" [class.disabled]="signUpForm.disabled" (click)="onSubmit()">Sign up</button>
     </div>
   </form>
 </div>
