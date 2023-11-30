@@ -18,8 +18,8 @@
 }
 
 .app-navbar {
-  backdrop-filter: blur(30px) brightness(50%) saturate(160%);
-  background: rgba(var(--bs-tertiary-bg-rgb), 0.5) !important;
+  backdrop-filter: blur(25px) brightness(100%) saturate(160%);
+  background: rgba(var(--bs-tertiary-bg-rgb), 0.9) !important;
   height: 3.6rem;
   z-index: 999;
 }
