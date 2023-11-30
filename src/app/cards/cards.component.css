@@ -1,9 +1,3 @@
 a{
   cursor: pointer;
 }
-.btn-close{
-  --bs-btn-close-focus-shadow: 0;
-}
-.btn-close:active {
-  scale: 90%;
-}
