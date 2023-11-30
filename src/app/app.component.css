@@ -17,6 +17,13 @@
   z-index: 2;
 }
 
+.app-navbar {
+  backdrop-filter: blur(30px) brightness(50%) saturate(160%);
+  background: rgba(var(--bs-tertiary-bg-rgb), 0.5) !important;
+  height: 3.6rem;
+  z-index: 999;
+}
+
 .sidenav {
   flex: 1;
   height: auto;
