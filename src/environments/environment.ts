@@ -3,12 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  // apiServer: "http://sanhei.icu:22344/",
-  apiServer: "http://127.0.0.1/",
-  // apiServer: "https://portal.naominet.live",
+  apiServer: 'http://127.0.0.1/',
   production: false,
   enableImages: true,
-  assetsHost: "",
+  assetsHost: ''
 };
 
 /*

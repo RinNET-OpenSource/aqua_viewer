@@ -2,10 +2,10 @@
 /*@import '@angular/material/prebuilt-themes/indigo-pink.css';*/
 @import "themes/bluegrey-teal.scss";
 @import "../node_modules/bootstrap/scss/bootstrap";
-@import "themes/scrollbar.css";
 
-html,
-body {
+
+
+html, body {
   height: 100%;
 }
 
@@ -30,6 +30,7 @@ mat-card {
 .full-width {
   width: 100%;
 }
+
 
 table {
   width: 100%;
@@ -81,56 +82,54 @@ pagination-template {
   background: #424242 !important;
 }
 
-.ngx-pagination a,
-.ngx-pagination button {
+.ngx-pagination a, .ngx-pagination button {
   color: #fff !important;
 }
 
-.ngx-pagination a:hover,
-.ngx-pagination button:hover {
+.ngx-pagination a:hover, .ngx-pagination button:hover {
   background: #606060 !important;
 }
 
+
 /* color style from http://gsv.fun/ */
-.lv0,
-.lv1 {
-  background: -webkit-linear-gradient(#ffffff, #ffffff);
+.lv0, .lv1 {
+  background: -webkit-linear-gradient(#FFFFFF, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv2 {
-  background: -webkit-linear-gradient(#ff6600, #ff6600);
+  background: -webkit-linear-gradient(#FF6600, #FF6600);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv3 {
-  background: -webkit-linear-gradient(#ff6600, #ffffff);
+  background: -webkit-linear-gradient(#FF6600, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv4 {
-  background: -webkit-linear-gradient(#ffff00, #ffff00);
+  background: -webkit-linear-gradient(#FFFF00, #FFFF00);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv5 {
-  background: -webkit-linear-gradient(#ffff00, #ffffff);
+  background: -webkit-linear-gradient(#FFFF00, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv6 {
-  background: -webkit-linear-gradient(#33ff00, #33ff00);
+  background: -webkit-linear-gradient(#33FF00, #33FF00);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv7 {
-  background: -webkit-linear-gradient(#33ff00, #ffffff);
+  background: -webkit-linear-gradient(#33FF00, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -142,76 +141,63 @@ pagination-template {
 }
 
 .lv9 {
-  background: -webkit-linear-gradient(#217cff, #ffffff);
+  background: -webkit-linear-gradient(#217cff, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv10 {
-  background: -webkit-linear-gradient(#ff00ff, #ff00ff);
+  background: -webkit-linear-gradient(#FF00FF, #FF00FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv11 {
-  background: -webkit-linear-gradient(#ff00ff, #ffffff);
+  background: -webkit-linear-gradient(#FF00FF, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv12 {
-  background: -webkit-linear-gradient(#ff0000, #ff0000);
+  background: -webkit-linear-gradient(#FF0000, #FF0000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv13 {
-  background: -webkit-linear-gradient(#ff0000, #ffffff);
+  background: -webkit-linear-gradient(#FF0000, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv14 {
-  background: -webkit-linear-gradient(#dd8844, #dd8844);
+  background: -webkit-linear-gradient(#DD8844, #DD8844);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv15 {
-  background: -webkit-linear-gradient(#c0c0c0, #c0c0c0);
+  background: -webkit-linear-gradient(#C0C0C0, #C0C0C0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .lv16 {
-  background: -webkit-linear-gradient(#ffd700, #ffd700);
+  background: -webkit-linear-gradient(#FFD700, #FFD700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.lv17,
-.lv18,
-.lv19,
-.lv20 {
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right bottom,
-    color-stop(0.1, #f22),
-    color-stop(0.2, #f2f),
-    color-stop(0.35, #22f),
-    color-stop(0.5, #2ff),
-    color-stop(0.65, #2f2),
-    color-stop(0.8, #ff2)
-  );
+.lv17, .lv18, .lv19, .lv20 {
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.1, #f22), color-stop(0.2, #f2f), color-stop(0.35, #22f), color-stop(0.5, #2ff), color-stop(0.65, #2f2), color-stop(0.8, #ff2));
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 
-.lv17 > a,
-.lv18 > a,
-.lv19 > a,
-.lv20 > a {
+.lv17 > a, .lv18 > a, .lv19 > a, .lv20 > a {
   color: unset;
 }
+
+
+
