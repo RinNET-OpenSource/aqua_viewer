@@ -1,95 +1,50 @@
 <div class="app-container">
-  <nav
-    ngbNav
-    #nav="ngbNav"
-    class="navbar navbar-expand-lg bg-body-tertiary position-fixed w-100 shadow-sm"
-    style="height: 3.6rem; z-index: 999"
-  >
+  <nav ngbNav #nav="ngbNav" class="navbar navbar-expand-lg bg-body-tertiary position-fixed w-100 shadow-sm" style="height: 3.6rem;z-index: 999">
     <div class="container-xxl">
-      <button
-        *ngIf="account"
-        (click)="showSidebar()"
-        class="navbar-toggler"
-        style="
-          --bs-navbar-toggler-focus-width: 0;
-          --bs-navbar-toggler-border-color: transparent;
-          font-size: 1.6rem;
-        "
-        type="button"
-      >
+      <button *ngIf="account" (click)="showSidebar()" class="navbar-toggler"
+              style="--bs-navbar-toggler-focus-width: 0; --bs-navbar-toggler-border-color: transparent;font-size: 1.6rem;"
+              type="button">
+
         <ng-icon name="bootstrap-list"></ng-icon>
       </button>
       <a class="navbar-brand sm-center" routerLink="">
-        <img
-          src="/assets/turtle.svg"
-          alt="turtle"
-          width="30"
-          height="24"
-          class="d-inline-block align-text-top"
-        />
+        <img src="/assets/turtle.svg" alt="turtle" width="30" height="24"
+             class="d-inline-block align-text-top"/>
         RinNET
       </a>
       <ng-template #userPopContent>
         <div class="vstack" style="min-width: 10rem">
           <label class="text-start mx-2 h5">Sanhei</label>
-          <hr class="my-2 border" />
-          <button class="btn btn-sm text-start" routerLink="/cards">
-            Cards
-          </button>
-          <div class="btn btn-sm text-start text-danger" (click)="logout()">
-            Sign out
-          </div>
+          <hr class="my-2 border">
+          <button class="btn btn-sm text-start" routerLink="/cards">Cards</button>
+          <div class="btn btn-sm text-start text-danger" (click)="logout()">Sign out</div>
         </div>
       </ng-template>
       <ng-template #userIcon>
-        <button
-          *ngIf="account"
-          class="btn py-0"
-          style="font-size: 1.6rem"
-          container="body"
-          placement="bottom-right"
-          [ngbPopover]="userPopContent"
-          type="button"
-        >
+        <button *ngIf="account"
+                class="btn py-0"
+                style="font-size: 1.6rem;"
+                container="body"
+                placement="bottom-right"
+                [ngbPopover]="userPopContent"
+                type="button">
           <ng-icon name="bootstrap-person"></ng-icon>
         </button>
       </ng-template>
       <div>
-        <ng-container *ngTemplateOutlet="userIcon"></ng-container>
+        <ng-container *ngTemplateOutlet="userIcon;"></ng-container>
       </div>
     </div>
   </nav>
   <div class="position-relative">
-    <mat-progress-bar
-      *ngIf="loading"
-      class="position-absolute"
-      style="margin-top: 3.6rem"
-      mode="indeterminate"
-    ></mat-progress-bar>
-    <div
-      class="d-lg-grid container-xxl"
-      style="
-        grid-template-areas: 'sidebar main';
-        grid-template-columns: auto 1fr;
-      "
-    >
-      <aside
-        #sidebar
-        *ngIf="account"
-        class="sidebar d-block overflow-y-auto position-sticky"
-        style=""
-      >
+    <mat-progress-bar *ngIf="loading" class="position-absolute" style="margin-top: 3.6rem" mode="indeterminate"></mat-progress-bar>
+    <div class="d-lg-grid container-xxl" style="grid-template-areas: 'sidebar main'; grid-template-columns: auto 1fr">
+      <aside #sidebar *ngIf="account" class="sidebar d-block overflow-y-auto position-sticky" style="">
         <div id="sidebar" class="offcanvas-lg offcanvas-start" tabindex="-1">
           <div class="offcanvas-header" style="height: 3.6rem">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-              Navigation
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              aria-label="Close"
-              (click)="hideSidebar()"
-            ></button>
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Navigation</h5>
+            <button type="button" class="btn-close" aria-label="Close"
+                    (click)="hideSidebar()"></button>
           </div>
           <div class="offcanvas-body user-select-none">
             <nav>
@@ -97,73 +52,54 @@
                 <li>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li class="pb-2">
-                      <a
-                        class="sidebar-item-link rounded"
-                        [class.active]="isActive('/dashboard')"
-                        (click)="navigateTo('/dashboard')"
-                        >Dashboard</a
-                      >
+                      <a class="sidebar-item-link rounded" [class.active]="isActive('/dashboard')" (click)="navigateTo('/dashboard')">Dashboard</a>
                     </li>
                     <li class="pb-2">
-                      <a
-                        class="sidebar-item-link rounded"
-                        [class.active]="isActive('/import')"
-                        (click)="navigateTo('/import')"
-                        >Import</a
-                      >
+                      <a class="sidebar-item-link rounded" [class.active]="isActive('/import')" (click)="navigateTo('/import')">Import</a>
                     </li>
                     <li class="pb-2">
-                      <a
-                        class="sidebar-item-link rounded"
-                        target="_blank"
-                        href="https://status.naominet.live/status/aquaserver"
-                        >Status</a
-                      >
+                      <a class="sidebar-item-link rounded" target="_blank"
+                         href="https://status.naominet.live/status/aquaserver">Status</a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <strong class="d-flex w-100 fw-semibold mb-2"
-                    >O.N.G.E.K.I.</strong
-                  >
+                  <strong class="d-flex w-100 fw-semibold mb-2">O.N.G.E.K.I.</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of ongekiMenu" class="pb-2">
-                      <a
-                        class="sidebar-item-link rounded"
-                        [class.active]="isActive(item.url)"
-                        (click)="navigateTo(item.url)"
-                        >{{ item.name }}</a
-                      >
+                      <a class="sidebar-item-link rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <strong class="d-flex w-100 fw-semibold mb-2"
-                    >Maimai DX</strong
-                  >
+                  <strong class="d-flex w-100 fw-semibold mb-2">CHUNITHM</strong>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li *ngFor="let item of v1Menus" class="pb-2">
+                      <a class="sidebar-item-link rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong class="d-flex w-100 fw-semibold mb-2">CHUNITHM NEW</strong>
+                  <ul class="list-unstyled fw-normal pb-2 small">
+                    <li *ngFor="let item of v2Menus" class="pb-2">
+                      <a class="sidebar-item-link rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong class="d-flex w-100 fw-semibold mb-2">Maimai DX</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of mai2Menus" class="pb-2">
-                      <a
-                        class="sidebar-item-link rounded"
-                        [class.active]="isActive(item.url)"
-                        (click)="navigateTo(item.url)"
-                        >{{ item.name }}</a
-                      >
+                      <a class="sidebar-item-link rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <strong class="d-flex w-100 fw-semibold mb-2"
-                    >Project DIVA AFT</strong
-                  >
+                  <strong class="d-flex w-100 fw-semibold mb-2">Project DIVA AFT</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of divaMenus" class="pb-2">
-                      <a
-                        class="sidebar-item-link rounded"
-                        [class.active]="isActive(item.url)"
-                        (click)="navigateTo(item.url)"
-                        >{{ item.name }}</a
-                      >
+                      <a class="sidebar-item-link rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
                     </li>
                   </ul>
                 </li>
@@ -172,19 +108,12 @@
           </div>
         </div>
       </aside>
-      <main
-        class="order-1 ms-0 ms-lg-2 ms-xxl-4"
-        style="grid-area: main; min-height: 100vh; margin-top: 4.6rem"
-      >
+      <main class="order-1 ms-0 ms-lg-2 ms-xxl-4" style="grid-area: main;min-height: 100vh;margin-top: 4.6rem">
         <div>
           <router-outlet></router-outlet>
         </div>
       </main>
     </div>
-    <app-toasts
-      aria-live="polite"
-      aria-atomic="true"
-      style="margin-top: 3.6rem"
-    ></app-toasts>
+    <app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 3.6rem"></app-toasts>
   </div>
 </div>

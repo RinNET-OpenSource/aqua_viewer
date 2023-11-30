@@ -26,7 +26,6 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@angular/service-worker": "^16.2.0",
-    "@angular/animations": "^4.0.1",
     "@createjs/easeljs": "^2.0.0-beta.4",
     "@createjs/tweenjs": "^2.0.0-beta.4",
     "@ng-bootstrap/ng-bootstrap": "15.1.1",
