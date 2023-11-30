@@ -13,7 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class CardsComponent implements OnInit {
   user: User;
-  addCardForm: FormGroup;
+  bindCardForm: FormGroup;
   addAccessCodeForm: FormGroup;
 
   constructor(
@@ -26,7 +26,7 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.addCardForm = this.fb.group({
+    this.bindCardForm = this.fb.group({
       accessCode: ['', Validators.required]
     });
 
@@ -73,22 +73,22 @@ export class CardsComponent implements OnInit {
       });
   }
 
+
   open(content) {
     this.modalService.open(content, {centered: true});
   }
 
   onAddCard(modal) {
-    if (this.addCardForm.invalid) {
+    if (this.bindCardForm.invalid) {
       return;
     }
-    const accessCode = this.addCardForm.value.accessCode;
+    const accessCode = this.bindCardForm.value.accessCode;
     const params = {accessCode};
     this.api.post('api/user/bindCard/', params).subscribe(
       data => {
         if (data.success) {
           this.loadUser();
-        }
-        if (data.message) {
+        } else if (data.message) {
           this.messageService.notice(data.message);
         }
       },
@@ -105,6 +105,24 @@ export class CardsComponent implements OnInit {
     const accessCode = this.addAccessCodeForm.value.accessCode;
     const params = {accessCode, card};
     this.api.post('api/user/addAccessCode/', params).subscribe(
+      data => {
+        if (data.success) {
+          this.loadUser();
+        }
+        if (data.message) {
+          this.messageService.notice(data.message);
+        }
+      },
+      error => {
+        this.messageService.notice(error);
+      });
+    modal.dismiss();
+  }
+
+  onUnbindCard(card: Card, modal) {
+    const accessCode = card.luid;
+    const params = {accessCode};
+    this.api.post('api/user/unbindCard/', params).subscribe(
       data => {
         if (data.success) {
           this.loadUser();

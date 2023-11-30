@@ -7,8 +7,23 @@
       </div>
       <div class="float-end">
         <button class="btn btn-close"
-                (click)="setDefault(card)">
+                (click)="open(unbindCard)">
         </button>
+        <ng-template #unbindCard let-modal>
+          <div class="modal-header">
+            Unbind Card
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="d-grid">
+                <p class="mb-3 ms-1">
+                  Are you sure to unbind this card?
+                </p>
+                <button class="btn btn-danger btn-sm" (click)="onUnbindCard(card, modal)">OK</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
       </div>
     </div>
     <div class="card-body">
@@ -57,14 +72,14 @@
 </div>
 
 <div class="card mt-3">
-  <button class="btn btn-primary btn-sm" (click)="open(addCard)">Bind Card</button>
+  <button class="btn btn-primary btn-sm" (click)="open(bindCard)">Bind Card</button>
 </div>
-<ng-template #addCard let-modal>
+<ng-template #bindCard let-modal>
   <div class="modal-header">
     Bind Card
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onAddCard(modal)" [formGroup]="addCardForm">
+    <form (ngSubmit)="onAddCard(modal)" [formGroup]="bindCardForm">
       <div class="d-grid">
         <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
         <button type="submit" class="btn btn-primary btn-sm">OK</button>
