@@ -1,21 +1,26 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {environment} from '../../../../environments/environment';
-import {OngekiCard} from '../model/OngekiCard';
-import {ApiService} from '../../../api.service';
-import {AuthenticationService} from '../../../auth/authentication.service';
-import {MessageService} from '../../../message.service';
-import {NgxIndexedDBService} from 'ngx-indexed-db';
-import {animate, style, transition, trigger} from '@angular/animations';
-import {Bitmap, Shadow, Shape, Stage, Ticker} from '@createjs/easeljs';
-import {Ease, Timeline, Tween} from '@createjs/tweenjs';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { environment } from "../../../../environments/environment";
+import { OngekiCard } from "../model/OngekiCard";
+import { ApiService } from "../../../api.service";
+import { AuthenticationService } from "../../../auth/authentication.service";
+import { MessageService } from "../../../message.service";
+import { NgxIndexedDBService } from "ngx-indexed-db";
+import { animate, style, transition, trigger } from "@angular/animations";
+import { Bitmap, Shadow, Shape, Stage, Ticker } from "@createjs/easeljs";
+import { Ease, Timeline, Tween } from "@createjs/tweenjs";
 
 @Component({
-  selector: 'app-ongeki-card-gacha',
-  templateUrl: './ongeki-card-gacha.component.html',
-  styleUrls: ['./ongeki-card-gacha.component.css']
+  selector: "app-ongeki-card-gacha",
+  templateUrl: "./ongeki-card-gacha.component.html",
+  styleUrls: ["./ongeki-card-gacha.component.css"],
 })
 export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
-
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 
@@ -37,30 +42,27 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
     private auth: AuthenticationService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.rarity = Array(70).fill(1);
     this.rarity = this.rarity.concat(Array(25).fill(2));
     this.rarity = this.rarity.concat(Array(5).fill(3));
-    this.dbService.getAll<OngekiCard>('ongekiCard').subscribe(
-      x => {
-        x.forEach(y => {
-          switch (y.rarity) {
-            case 'R':
-              this.rList.push(y);
-              break;
-            case 'SR':
-              this.srList.push(y);
-              break;
-            case 'SSR':
-              this.ssrList.push(y);
-              break;
-          }
-        });
-      }
-    );
+    this.dbService.getAll<OngekiCard>("ongekiCard").subscribe((x) => {
+      x.forEach((y) => {
+        switch (y.rarity) {
+          case "R":
+            this.rList.push(y);
+            break;
+          case "SR":
+            this.srList.push(y);
+            break;
+          case "SSR":
+            this.ssrList.push(y);
+            break;
+        }
+      });
+    });
   }
 
   ngAfterViewInit() {
@@ -91,7 +93,7 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
       //console.log('card: ' + JSON.stringify(card));
       this.cardResultList.push({
         show: false,
-        card
+        card,
       });
     }
     this.submitCardData();
@@ -100,17 +102,19 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
 
   submitCardData() {
     const aimeId = this.auth.currentUserValue.currentCard;
-    this.cardResultList.forEach(x => {
-      this.api.post('api/game/ongeki/card', {
-        aimeId,
-        cardId: x.card.id
-      }).subscribe(
-        data => {
-          this.submitSuccessful = this.submitSuccessful + 1;
-          return;
-        },
-        error => this.messageService.notice(error)
-      );
+    this.cardResultList.forEach((x) => {
+      this.api
+        .post("api/game/ongeki/card", {
+          aimeId,
+          cardId: x.card.id,
+        })
+        .subscribe(
+          (data) => {
+            this.submitSuccessful = this.submitSuccessful + 1;
+            return;
+          },
+          (error) => this.messageService.notice(error)
+        );
     });
   }
 
@@ -121,11 +125,10 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
   formatNumber(value: number, length?: number): string {
     let str = value.toString();
     while (str.length < length) {
-      str = '0' + str;
+      str = "0" + str;
     }
     return str;
   }
-
 }
 
 interface CardResult {

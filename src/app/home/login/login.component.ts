@@ -1,14 +1,20 @@
-import {Router} from '@angular/router';
-import {AuthenticationService} from '../../auth/authentication.service';
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {first, map} from 'rxjs/operators';
-import {MessageService} from '../../message.service';
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../../auth/authentication.service";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgForm,
+  Validators,
+} from "@angular/forms";
+import { first, map } from "rxjs/operators";
+import { MessageService } from "../../message.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
   signInForm: FormGroup;
@@ -20,24 +26,23 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     public messageService: MessageService
-  ) {
-  }
+  ) {}
 
   get usernameOrEmail() {
-    return this.signInForm.get('usernameOrEmail');
+    return this.signInForm.get("usernameOrEmail");
   }
 
   get password() {
-    return this.signInForm.get('password');
+    return this.signInForm.get("password");
   }
 
   ngOnInit() {
     this.signInForm = this.fb.group({
-      usernameOrEmail: ['', Validators.required],
-      password: ['', Validators.required]
+      usernameOrEmail: ["", Validators.required],
+      password: ["", Validators.required],
     });
     if (this.authenticationService.currentUserValue) {
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl("/dashboard");
     }
   }
 
@@ -50,24 +55,23 @@ export class LoginComponent implements OnInit {
     this.signInForm.disable();
     const value = this.signInForm.value;
 
-    this.authenticationService.login(value.usernameOrEmail, value.password)
-      .subscribe(
-        {
-          next: (data) => {
-            if (data != null) {
-              this.messageService.notice('Logging in');
-              location.reload();
-            } else {
-              this.messageService.notice('Card you entered does not exist');
-            }
-          },
-          error: (error) => {
-            this.messageService.notice(error);
-            this.signInForm.enable();
-            console.warn('login fail', error);
+    this.authenticationService
+      .login(value.usernameOrEmail, value.password)
+      .subscribe({
+        next: (data) => {
+          if (data != null) {
+            this.messageService.notice("Logging in");
+            location.reload();
+          } else {
+            this.messageService.notice("Card you entered does not exist");
           }
-        }
-      );
+        },
+        error: (error) => {
+          this.messageService.notice(error);
+          this.signInForm.enable();
+          console.warn("login fail", error);
+        },
+      });
   }
 
   // onSubmit() {
