@@ -1,3 +1,5 @@
+@import "../themes/scrollbar.css";
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,10 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.navbar-brand {
+  user-select: none;
 }
 
 .is-mobile .toolbar {
@@ -42,7 +48,7 @@ mat-toolbar {
 }
 
 .bg {
-  transition-duration: .218s;
+  transition-duration: 0.218s;
   transition-property: background;
   transition-timing-function: ease-in;
 }
@@ -56,15 +62,16 @@ mat-toolbar {
 }
 
 .sidebar-item-link {
-  padding: .3rem .5rem;
+  padding: 0.3rem 0.5rem;
   color: var(--bs-body-color);
   text-decoration: none;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .sidebar-item-link:hover,
 .sidebar-item-link.active {
-  color: #FFF;
+  color: #fff;
   background-color: var(--bs-primary);
 }
 
@@ -88,7 +95,7 @@ mat-toolbar {
   grid-area: sidebar;
   min-width: 15rem;
   top: 3.6rem;
-  z-index: 1000
+  z-index: 1000;
 }
 
 @media (min-width: 992px) {
