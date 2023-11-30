@@ -8,6 +8,10 @@
   right: 0;
 }
 
+.navbar-brand {
+  user-select: none;
+}
+
 .is-mobile .toolbar {
   position: fixed;
   z-index: 2;
