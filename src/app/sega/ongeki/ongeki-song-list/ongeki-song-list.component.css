@@ -6,3 +6,11 @@ table {
   font-size: 14px;
   width: 100%;
 }
+
+.mat-mdc-table {
+  background: transparent;
+}
+
+.page-link {
+  color: white;
+}

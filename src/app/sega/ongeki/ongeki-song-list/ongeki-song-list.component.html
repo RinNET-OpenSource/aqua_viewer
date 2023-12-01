@@ -1,23 +1,40 @@
-<h1 class="mat-display-1">Music List</h1>
+<h1 class="mat-display-1 card-title">Music List</h1>
 
-<mat-form-field>
-  <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
-</mat-form-field>
-<table [dataSource]="dataSource" mat-table matSort>
-  <ng-container matColumnDef="id">
-    <th *matHeaderCellDef mat-header-cell> Id.</th>
-    <td *matCellDef="let element" mat-cell> {{element.id}} </td>
-  </ng-container>
-  <ng-container matColumnDef="name">
-    <th *matHeaderCellDef mat-header-cell> Name</th>
-    <td *matCellDef="let element" mat-cell> {{element.name}} </td>
-  </ng-container>
-  <ng-container matColumnDef="artistName">
-    <th *matHeaderCellDef mat-header-cell> Artist</th>
-    <td *matCellDef="let element" mat-cell> {{element.artistName}} </td>
-  </ng-container>
-  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-  <tr *matRowDef="let row; columns: displayedColumns;" mat-row routerLink="/ongeki/song/{{row.musicId}}"></tr>
+<div class="card">
+  <div class="card-body">
+    <input class="input-group mb-3" (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
 
-</table>
-<mat-paginator [pageSizeOptions]="[15, 50, 100]"></mat-paginator>
+    <table class="table table-borderless table-striped align-middle fw-bold" [dataSource]="dataSource" mat-table matSort>
+      <ng-container matColumnDef="id">
+        <th class="fw-bold" *matHeaderCellDef mat-header-cell> Id.</th>
+        <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th class="fw-bold" *matHeaderCellDef mat-header-cell> Name</th>
+        <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="artistName">
+        <th class="fw-bold" *matHeaderCellDef mat-header-cell> Artist</th>
+        <td *matCellDef="let element" mat-cell> {{element.artistName}} </td>
+      </ng-container>
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row routerLink="/ongeki/song/{{row.musicId}}"></tr>
+
+    </table>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-end">
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+

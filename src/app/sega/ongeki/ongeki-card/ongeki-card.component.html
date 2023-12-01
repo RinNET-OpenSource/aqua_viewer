@@ -1,6 +1,6 @@
 <h1 class="mat-display-1">Card</h1>
-<mat-card>
-  <mat-card-content>
+<div class="card">
+  <div class="card-body">
     <p class="hint">
       Every card has base Lv.10 Max. After Kaika, max level will plus 40. (= 10 + 40)<br>
       Every star larger than 1 will add 5 levels to max level. R, SR, SSR card can get max 5 stars, N card can get max
@@ -8,12 +8,12 @@
       Means max level for N card is 100, for R, SR, SSR card is 70.<br>
       Star level can be increase by getting the same card or using item.
     </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button routerLink="all">Show All Cards</button>
-    <button mat-button routerLink="gacha">Gacha</button>
-  </mat-card-actions>
-</mat-card>
+    <mat-card-actions>
+      <button type="button" class="btn btn-secondary" mat-button routerLink="all">Show All Cards</button>
+      <button type="button" class="btn btn-secondary" mat-button routerLink="gacha">Gacha</button>
+    </mat-card-actions>
+  </div>
+</div>
 
 <mat-card
   *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
