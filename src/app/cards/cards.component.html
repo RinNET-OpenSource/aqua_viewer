@@ -1,6 +1,6 @@
 <h1>Cards</h1>
 <div>
-  <div *ngFor="let card of user.cards.sort(compareCard)" class="card mt-3">
+  <div *ngFor="let card of this.cards.sort(compareCard)" class="card mt-3">
     <div class="card-header d-flex align-items-center justify-content-between">
       <div class="float-start">
           No.{{card.id}}
@@ -49,8 +49,8 @@
     </div>
     <div class="card-footer">
       <button class="btn btn-link p-0"
-              [class.disabled]="card.extId == authenticationService.currentUserValue.currentCard"
-              [class.link-secondary]="card.extId == authenticationService.currentUserValue.currentCard"
+              [class.disabled]="card.extId == authenticationService.currentAccountValue.currentCard"
+              [class.link-secondary]="card.extId == authenticationService.currentAccountValue.currentCard"
               (click)="setDefault(card)">Set Default
       </button>
     </div>
@@ -79,7 +79,7 @@
     Bind Card
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onAddCard(modal)" [formGroup]="bindCardForm">
+    <form (ngSubmit)="onBindCard(modal)" [formGroup]="bindCardForm">
       <div class="d-grid">
         <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
         <button type="submit" class="btn btn-primary btn-sm">OK</button>

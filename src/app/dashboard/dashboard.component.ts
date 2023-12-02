@@ -6,7 +6,6 @@ import {map} from 'rxjs/operators';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs';
 import {MessageService} from '../message.service';
-import {Card, CardExternal, User} from '../model/User';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Account, AuthenticationService} from '../auth/authentication.service';

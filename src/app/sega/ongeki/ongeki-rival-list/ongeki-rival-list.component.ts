@@ -35,7 +35,7 @@ export class OngekiRivalListComponent implements OnInit {
     private auth: AuthenticationService,
     private messageService: MessageService,
   ) {
-    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard);
   }
 
   ngOnInit() {

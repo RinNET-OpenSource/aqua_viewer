@@ -30,7 +30,7 @@ export class OngekiSettingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard);
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/ongeki/profile', param).subscribe(
@@ -42,7 +42,7 @@ export class OngekiSettingComponent implements OnInit {
   }
   downloadFile(): void {
     const url = this.apiServer + 'api/game/ongeki/export?aimeId=' + this.aimeId;
-    const headers = { Authorization: `Bearer ${this.authenticationService.currentUserValue.accessToken}` };
+    const headers = { Authorization: `Bearer ${this.authenticationService.currentAccountValue.accessToken}` };
     this.http.get(url, { headers, responseType: 'blob' }).subscribe(blob => {
       const objectUrl = window.URL.createObjectURL(blob);
 

@@ -28,7 +28,7 @@ export class V1RatingComponent implements OnInit {
   }
 
   ngOnInit() {
-    const aimeId = String(this.auth.currentUserValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v1/rating', param).subscribe(
       data => {

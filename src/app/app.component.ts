@@ -10,6 +10,7 @@ import {ToastsContainer } from './toasts-container.component';
 import {ToastService} from './toast-service';
 import {inject} from '@angular/core/testing';
 import * as bootstrap from 'bootstrap';
+import {MessageService} from './message.service';
 
 @Component({
   selector: 'app-root',
@@ -212,30 +213,48 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private authenticationService: AuthenticationService,
+    public authenticationService: AuthenticationService,
     private router: Router,
     private api: ApiService,
     private preLoad: PreloadService,
-    public offcanvasService: NgbOffcanvas,
+    private messageService: MessageService,
     public toastService: ToastService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
-    this.account = authenticationService.currentUserValue;
+    this.account = authenticationService.currentAccountValue;
   }
 
   ngOnInit(): void {
     if (this.account !== null) {
       this.preLoad.load();
+      this.loadUser();
     }
     this.subscription = this.api.loadingState.subscribe(
       state => this.loading = state.show
     );
   }
 
+  loadUser() {
+    this.api.get('api/user/me').subscribe(
+      data => {
+        this.authenticationService.currentAccountValue.name = data.name;
+        const cards = data.cards;
+        for (const card of cards) {
+          if (card.default){
+            this.authenticationService.currentAccountValue.currentCard = card.extId;
+          }
+        }
+        this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
+      },
+      error => {
+        this.messageService.notice(error);
+      });
+  }
+
   ngOnChanges(): void {
-    this.account = this.authenticationService.currentUserValue;
+    this.account = this.authenticationService.currentAccountValue;
   }
 
   ngOnDestroy(): void {

@@ -16,7 +16,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
       console.log(err);
       const error = err.error.message ? err.error.message : `${err.status} ${err.statusText}`;
-      if (err.status === 401 && this.authenticationService.currentUserValue)
+      if (err.status === 401 && this.authenticationService.currentAccountValue)
       {
         this.authenticationService.logout();
         location.reload();

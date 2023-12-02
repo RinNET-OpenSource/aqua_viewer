@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
-import {Card} from '../model/User';
+import {Time} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,11 @@ export class AuthenticationService {
     this.currentAccountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('currentAccount')));
   }
 
-  public get currentUserValue(): Account {
+  public get currentAccountValue(): Account {
     return this.currentAccountSubject.value;
   }
 
-  public set currentUserValue(account: Account) {
+  public set currentAccountValue(account: Account) {
     localStorage.setItem('currentAccount', JSON.stringify(account));
     this.currentAccountSubject.next(account);
   }
@@ -31,7 +31,7 @@ export class AuthenticationService {
         map(
           resp => {
             if (resp && resp.tokenType && resp.accessToken) {
-              return new Account(resp.tokenType, resp.accessToken, null);
+              return {tokenType: resp.tokenType, accessToken: resp.accessToken};
             }
           }
         ),
@@ -41,13 +41,14 @@ export class AuthenticationService {
             .pipe(
               map(
                 user => {
-                  for (const card of user.cards){
-                    if (card.default){
+                  for (const card of user.cards) {
+                    account.name = user.name;
+                    if (card.default) {
                       account.currentCard = card.extId;
                       break;
                     }
                   }
-                  this.currentUserValue = account;
+                  this.currentAccountValue = account;
                   return account;
                 }
               )
@@ -68,7 +69,7 @@ export class AuthenticationService {
       );
   }
 
-  getVerifyCode(email: string){
+  getVerifyCode(email: string) {
     return this.http.post<any>(environment.apiServer + 'api/auth/getVerifyCode', {emailAddress: email})
       .pipe(
         map(
@@ -89,13 +90,8 @@ export class AuthenticationService {
 }
 
 export class Account {
+  name: string;
   tokenType: string;
   accessToken: string;
   currentCard: number;
-
-  constructor(tokenType: string, accessToken: string, currentCard: number) {
-    this.tokenType = tokenType;
-    this.accessToken = accessToken;
-    this.currentCard = currentCard;
-  }
 }

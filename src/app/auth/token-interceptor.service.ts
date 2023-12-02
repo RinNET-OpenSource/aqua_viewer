@@ -11,10 +11,10 @@ import {AuthenticationService} from './authentication.service';
 export class TokenInterceptorService implements HttpInterceptor {
   constructor(public auth: AuthenticationService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.auth.currentUserValue && this.auth.currentUserValue.tokenType && this.auth.currentUserValue.accessToken){
+    if (this.auth.currentAccountValue && this.auth.currentAccountValue.tokenType && this.auth.currentAccountValue.accessToken){
       request = request.clone({
         setHeaders: {
-          Authorization: `${this.auth.currentUserValue.tokenType} ${this.auth.currentUserValue.accessToken}`
+          Authorization: `${this.auth.currentAccountValue.tokenType} ${this.auth.currentAccountValue.accessToken}`
         }
       });
     }

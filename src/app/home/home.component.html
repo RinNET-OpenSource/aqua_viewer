@@ -11,10 +11,10 @@
           <h2 class="lead text-secondary">Multipurpose online service for ALL.Net based games</h2>
         </div>
         <div class="mb-3 text-center">
-          <button *ngIf="authenticationService.currentUserValue" class="btn btn-primary w-100" routerLink="/dashboard">
+          <button *ngIf="authenticationService.currentAccountValue" class="btn btn-primary w-100" routerLink="/dashboard">
             Dashboard
           </button>
-          <button *ngIf="!authenticationService.currentUserValue" class="btn btn-primary w-100"
+          <button *ngIf="!authenticationService.currentAccountValue" class="btn btn-primary w-100"
                   (click)="popupStatus=0;showPopup(content)">Sign in
           </button>
         </div>

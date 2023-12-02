@@ -78,7 +78,7 @@ export class PreloadService {
   }
 
   load() {
-    const aimeId = String(this.auth.currentUserValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard);
     const param = aimeId.trim().length != 0 ? new HttpParams().set('aimeId', aimeId) : undefined;
 
     this.loader<DivaPv>('divaPv', 'api/game/diva/data/musicList', this.divaPv);

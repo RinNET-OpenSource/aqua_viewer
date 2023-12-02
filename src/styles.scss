@@ -225,6 +225,19 @@ pagination-template {
   scale: 90%;
 }
 
+.btn-icon{
+  --bs-btn-border-width: 0;
+}
+
+.btn-icon:hover{
+  opacity: 0.75;
+}
+
+.btn-icon:active {
+  scale: 90%;
+}
+
+
 
 
 

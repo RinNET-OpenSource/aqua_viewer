@@ -37,7 +37,7 @@ export class V1RecentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard);
     this.load(this.currentPage);
   }
 

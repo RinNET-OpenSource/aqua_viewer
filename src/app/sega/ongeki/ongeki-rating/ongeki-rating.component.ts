@@ -46,7 +46,7 @@ export class OngekiRatingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard);
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/ongeki/profile', param).subscribe(
       data => this.profile = data,

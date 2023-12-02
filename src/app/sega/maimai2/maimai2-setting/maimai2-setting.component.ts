@@ -31,7 +31,7 @@ export class Maimai2SettingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.aimeId = this.auth.currentUserValue.currentCard;
+    this.aimeId = this.auth.currentAccountValue.currentCard;
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/maimai2/profile', param).subscribe(
@@ -66,7 +66,7 @@ export class Maimai2SettingComponent implements OnInit {
 
   openUploadUserPortraitDialog() {
     this.dialog.open(Maimai2UploadUserPortraitDialog, {
-      data: { aimeId: String(this.auth.currentUserValue.currentCard), divMaxLength: this.divMaxLength },
+      data: { aimeId: String(this.auth.currentAccountValue.currentCard), divMaxLength: this.divMaxLength },
       width: "500px",
     });
   }

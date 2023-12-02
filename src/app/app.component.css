@@ -66,21 +66,35 @@ mat-toolbar {
   display: none;
 }
 
-.sidebar-item-link {
+.link-btn {
   padding: .3rem .5rem;
   color: var(--bs-body-color);
   text-decoration: none;
   cursor: pointer;
 }
 
-.sidebar-item-link:hover,
-.sidebar-item-link.active {
+.link-btn:hover,
+.link-btn.active {
   color: #FFF;
   background-color: var(--bs-primary);
 }
 
-.sidebar-item-link.active {
+.link-btn.active {
   font-weight: bold;
+}
+
+.user-popover{
+  min-width: 10rem;
+}
+
+.link-btn-danger{
+  color: var(--bs-danger);
+}
+
+.link-btn-danger:hover,
+.link-btn-danger.active{
+  color: #FFF;
+  background-color: var(--bs-danger);
 }
 
 @media only screen and (max-width: 599px) {

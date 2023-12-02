@@ -27,7 +27,7 @@ export class V1SettingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard);
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/chuni/v1/profile', param).subscribe(

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       usernameOrEmail: ['', Validators.required],
       password: ['', Validators.required]
     });
-    if (this.authenticationService.currentUserValue) {
+    if (this.authenticationService.currentAccountValue) {
       this.router.navigateByUrl('/dashboard');
     }
   }

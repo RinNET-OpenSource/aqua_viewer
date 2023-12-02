@@ -19,7 +19,7 @@ export class DivaMylistService {
   }
 
   getProfile() {
-    const pdId = String(this.auth.currentUserValue.extId);
+    const pdId = String(this.auth.currentAccountValue.extId);
     const param = new HttpParams().set('pdId', pdId);
     return this.api.get('api/game/diva/playerInfo', param);
   }

@@ -26,7 +26,7 @@
             </div>
             Volume :
             <input type="range" [(ngModel)]="volume">
-        </div> 
+        </div>
     </mat-card>
   </div>
 </div>
@@ -43,7 +43,7 @@
         <img *ngIf="item.name == 'Map Icon'" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{profile.mapIconId|formatNumber:8}}.png">
 
         <img *ngIf="item.name == 'System Voice'" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{profile.voiceId|formatNumber:8}}.png">
-       
+
 
         <img *ngIf="item.name == 'Avatar Wear'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarWear|formatNumber:8}}.png">
         <img *ngIf="item.name == 'Avatar Head'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarHead|formatNumber:8}}.png">

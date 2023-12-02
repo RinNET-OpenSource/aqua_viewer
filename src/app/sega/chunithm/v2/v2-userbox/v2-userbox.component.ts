@@ -107,7 +107,7 @@ export class V2UserBoxComponent implements OnInit {
   }
 
   refreshProfile() {
-    this.aimeId = String(this.auth.currentUserValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard);
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/chuni/v2/profile', param).subscribe(
