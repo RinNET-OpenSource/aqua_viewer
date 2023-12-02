@@ -15,6 +15,7 @@ export class CardsComponent implements OnInit {
   bindCardForm: FormGroup;
   addAccessCodeForm: FormGroup;
   cards: Card[];
+  loaded = false;
 
   constructor(
     private fb: FormBuilder,
@@ -47,6 +48,7 @@ export class CardsComponent implements OnInit {
           }
         }
         this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
+        this.loaded = true;
       },
       error => {
         this.messageService.notice(error);

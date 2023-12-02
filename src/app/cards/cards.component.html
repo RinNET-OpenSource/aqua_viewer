@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<div class="card mt-3">
+<div *ngIf="loaded" class="card my-3">
   <button class="btn btn-primary btn-sm" (click)="open(bindCard)">Bind Card</button>
 </div>
 <ng-template #bindCard let-modal>
