@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MessageService} from '../message.service';
 import {AuthenticationService} from '../auth/authentication.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import {AuthenticationService} from '../auth/authentication.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-
+  host = environment.assetsHost;
   popupStatus = 0;
   constructor(private modalService: NgbModal,
               public messageService: MessageService,

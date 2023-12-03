@@ -1,16 +1,14 @@
 import {ChangeDetectorRef, Component, HostListener, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {PreloadService} from './database/preload.service';
 import {Subscription} from 'rxjs';
 import {ApiService} from './api.service';
-import {NgbDropdownConfig, NgbDropdownModule, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
-import {ToastsContainer } from './toasts-container.component';
 import {ToastService} from './toast-service';
-import {inject} from '@angular/core/testing';
 import * as bootstrap from 'bootstrap';
 import {MessageService} from './message.service';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +17,7 @@ import {MessageService} from './message.service';
 })
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
   title = 'aqua-viewer';
+  host = environment.assetsHost;
 
   sidebarOffcanvas: bootstrap.Offcanvas;
   sidebarOffcanvasOpened = false;
