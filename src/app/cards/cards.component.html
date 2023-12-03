@@ -30,8 +30,30 @@
       <div class="mb-2 fw-bold">
         AccessCode:
       </div>
-      <div class="mb-3">
-        {{card.luid}}
+      <div class="mb-3 hstack">
+        <div class="font-monospace align-middle">
+          {{card.luid.displayValue}}
+        </div>
+        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="toggleLuidVisibility(card.luid)">
+          <ng-icon *ngIf="card.luid.hidden" name="bootstrap-eye"></ng-icon>
+          <ng-icon *ngIf="!card.luid.hidden" name="bootstrap-eye-slash"></ng-icon>
+        </div>
+        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="open(changeAccesscode)">
+          <ng-icon name="bootstrap-pencil-square"></ng-icon>
+        </div>
+        <ng-template #changeAccesscode let-modal>
+          <div class="modal-header">
+            Change AccessCode
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="onChangeAccesscode(card.extId, modal)" [formGroup]="changeAccessCodeForm">
+              <div class="d-grid">
+                <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
+                <button type="submit" class="btn btn-primary btn-sm">OK</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
       </div>
       <div class="mb-2 fw-bold">
         Aliases:
@@ -39,9 +61,33 @@
       <div *ngIf="card.cardExternalList.length == 0" class="mb-2">
         None
       </div>
-      <div *ngFor="let item of card.cardExternalList" class="mb-2">
-        {{item.luid}}
-        <a class="card-link" (click)="removeExternal(item)">Remove</a>
+
+      <div *ngFor="let item of card.cardExternalList" class="mb-3 hstack">
+        <div class="font-monospace align-middle">
+          {{item.luid.displayValue}}
+        </div>
+        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="toggleLuidVisibility(item.luid)">
+          <ng-icon *ngIf="item.luid.hidden" name="bootstrap-eye"></ng-icon>
+          <ng-icon *ngIf="!item.luid.hidden" name="bootstrap-eye-slash"></ng-icon>
+        </div>
+        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="open(removeExternal)">
+          <ng-icon name="bootstrap-trash"></ng-icon>
+        </div>
+        <ng-template #removeExternal let-modal>
+          <div class="modal-header">
+            Remove Alias
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="d-grid">
+                <p class="mb-3 ms-1">
+                  Are you sure to remove this alias?
+                </p>
+                <button class="btn btn-danger btn-sm" (click)="onRemoveExternal(item, modal)">OK</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
       </div>
       <div>
         <a class="card-link" (click)="open(addAccessCode)">Add alias</a>
@@ -59,9 +105,8 @@
         Add Alias
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="onAddAccessCode(card, modal)" [formGroup]="addAccessCodeForm">
+        <form (ngSubmit)="onAddAccessCode(card.extId, modal)" [formGroup]="addAccessCodeForm">
           <div class="d-grid">
-
             <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="AccessCode">
             <button type="submit" class="btn btn-primary btn-sm">OK</button>
           </div>

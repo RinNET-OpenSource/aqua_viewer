@@ -42,7 +42,7 @@ import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SignUpComponent } from './home/sign-up/sign-up.component';
 import {TokenInterceptorService} from './auth/token-interceptor.service';
 import {NgIconsModule} from "@ng-icons/core";
-import {bootstrapChevronDown, bootstrapPerson, bootstrapList} from "@ng-icons/bootstrap-icons";
+import {bootstrapChevronDown, bootstrapPerson, bootstrapList, bootstrapEye, bootstrapEyeSlash, bootstrapTrash, bootstrapPencilSquare} from "@ng-icons/bootstrap-icons";
 import {HomeComponent } from './home/home.component';
 import {ToastsContainer} from "./toasts-container.component";
 import { PasswordResetComponent } from './home/password-reset/password-reset.component';
@@ -101,7 +101,7 @@ const aegis = new Aegis({
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     NgbModule,
     FormsModule,
-    NgIconsModule.withIcons({bootstrapChevronDown, bootstrapPerson, bootstrapList}),
+    NgIconsModule.withIcons({bootstrapChevronDown, bootstrapPerson, bootstrapList, bootstrapEye, bootstrapEyeSlash, bootstrapTrash, bootstrapPencilSquare}),
     ToastsContainer
   ],
   providers: [

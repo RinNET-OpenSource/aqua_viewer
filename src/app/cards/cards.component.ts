@@ -14,6 +14,7 @@ import {Time} from '@angular/common';
 export class CardsComponent implements OnInit {
   bindCardForm: FormGroup;
   addAccessCodeForm: FormGroup;
+  changeAccessCodeForm: FormGroup;
   cards: Card[];
   loaded = false;
 
@@ -34,6 +35,10 @@ export class CardsComponent implements OnInit {
     this.addAccessCodeForm = this.fb.group({
       accessCode: ['', Validators.required]
     });
+
+    this.changeAccessCodeForm = this.fb.group({
+      accessCode: ['', Validators.required]
+    });
     this.loadCards();
   }
 
@@ -41,18 +46,28 @@ export class CardsComponent implements OnInit {
     this.api.get('api/user/me').subscribe(
       data => {
         this.authenticationService.currentAccountValue.name = data.name;
-        this.cards = data.cards;
-        for (const card of this.cards) {
-          if (card.default){
+        this.cards = data.cards.map(card => {
+          card.luid = new Luid(card.luid);
+          card.cardExternalList = card.cardExternalList.map(cardExt => {
+            cardExt.luid = new Luid(cardExt.luid);
+            return cardExt;
+          });
+          if (card.default) {
             this.authenticationService.currentAccountValue.currentCard = card.extId;
           }
-        }
+          return card;
+        });
         this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
         this.loaded = true;
       },
       error => {
         this.messageService.notice(error);
-      });
+      }
+    );
+  }
+
+  toggleLuidVisibility(luid: Luid) {
+    luid.hidden = !luid.hidden;
   }
 
   compareCard(a: Card, b: Card) {
@@ -76,8 +91,8 @@ export class CardsComponent implements OnInit {
       });
   }
 
-  removeExternal(external: CardExternal) {
-    const accessCode = external.luid;
+  onRemoveExternal(external: CardExternal, modal) {
+    const accessCode = external.luid.full;
     const body = {accessCode};
     this.api.delete('api/sega/aime/removeCardExternal', null, body).subscribe(
       data => {
@@ -91,6 +106,7 @@ export class CardsComponent implements OnInit {
       error => {
         this.messageService.notice(error);
       });
+    modal.dismiss();
   }
 
 
@@ -118,12 +134,12 @@ export class CardsComponent implements OnInit {
     modal.dismiss();
   }
 
-  onAddAccessCode(card: Card, modal) {
+  onAddAccessCode(extId: number, modal) {
     if (this.addAccessCodeForm.invalid) {
       return;
     }
     const accessCode = this.addAccessCodeForm.value.accessCode;
-    const params = {accessCode, card};
+    const params = {accessCode, extId};
     this.api.post('api/user/addAccessCode/', params).subscribe(
       data => {
         if (data.success) {
@@ -131,6 +147,29 @@ export class CardsComponent implements OnInit {
         }
         if (data.message) {
           this.messageService.notice(data.message);
+          this.addAccessCodeForm.reset();
+        }
+      },
+      error => {
+        this.messageService.notice(error);
+      });
+    modal.dismiss();
+  }
+
+  onChangeAccesscode(extId: number, modal){
+    if (this.changeAccessCodeForm.invalid) {
+      return;
+    }
+    const accessCode = this.changeAccessCodeForm.value.accessCode;
+    const params = {accessCode, extId};
+    this.api.post('api/user/changeProfileAccessCode/', params).subscribe(
+      data => {
+        if (data.success) {
+          this.loadCards();
+        }
+        if (data.message) {
+          this.messageService.notice(data.message);
+          this.addAccessCodeForm.reset();
         }
       },
       error => {
@@ -140,7 +179,7 @@ export class CardsComponent implements OnInit {
   }
 
   onUnbindCard(card: Card, modal) {
-    const accessCode = card.luid;
+    const accessCode = card.luid.full;
     const params = {accessCode};
     this.api.post('api/user/unbindCard/', params).subscribe(
       data => {
@@ -160,7 +199,7 @@ export class CardsComponent implements OnInit {
 export interface Card {
   id: number;
   extId: number;
-  luid: string;
+  luid: Luid;
   registerTime: Time;
   accessTime: Time;
   cardExternalList: CardExternal[];
@@ -169,5 +208,23 @@ export interface Card {
 
 export interface CardExternal {
   id: number;
-  luid: string;
+  luid: Luid;
+}
+
+export class Luid {
+  public full: string;
+  public hidden: boolean;
+
+  get displayValue() {
+    if (this.hidden) {
+      return this.full.substring(0, 4) + '************' + this.full.substring(16);
+    } else {
+      return this.full;
+    }
+  }
+
+  constructor(value: string) {
+    this.full = value;
+    this.hidden = true;
+  }
 }

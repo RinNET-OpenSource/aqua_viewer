@@ -16,11 +16,11 @@
         <div class="user-popover vstack">
           <label class="text-start mx-2 h5">{{authenticationService.currentAccountValue.name}}</label>
           <hr class="my-2 border">
-          <a class="link-btn rounded mb-2" routerLink="/cards">My cards</a>
+          <a class="link-btn rounded mb-2" [class.active]="isActive('/cards')" routerLink="/cards">My cards</a>
           <a class="link-btn link-btn-danger rounded" (click)="logout()">Sign out</a>
         </div>
       </ng-template>
-      <ng-template #userIcon>
+      <div>
         <button *ngIf="account"
                 class="btn btn-icon py-0"
                 style="font-size: 1.6rem;"
@@ -30,9 +30,6 @@
                 type="button">
           <ng-icon name="bootstrap-person"></ng-icon>
         </button>
-      </ng-template>
-      <div>
-        <ng-container *ngTemplateOutlet="userIcon;"></ng-container>
       </div>
     </div>
   </nav>
