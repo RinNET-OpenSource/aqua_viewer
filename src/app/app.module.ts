@@ -27,26 +27,36 @@ import {V2Module} from './sega/chunithm/v2/v2.module';
 import {DatabaseModule} from './database/database.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OngekiModule} from './sega/ongeki/ongeki.module';
-import {Maimai2Module } from './sega/maimai2/maimai2.module';
+import {Maimai2Module} from './sega/maimai2/maimai2.module';
 import {ErrorInterceptorService} from './auth/error-interceptor.service';
 import {LoadingInterceptorService} from './auth/loading-interceptor.service';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {ImporterModule} from './importer/importer.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
-import {Maimai2UploadUserPortraitDialog } from './sega/maimai2/maimai2-setting/maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
-import {ToTechRatingPipe } from './sega/ongeki/util/to-tech-rating.pipe';
+import {
+  Maimai2UploadUserPortraitDialog
+} from './sega/maimai2/maimai2-setting/maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
+import {ToTechRatingPipe} from './sega/ongeki/util/to-tech-rating.pipe';
 
 import Aegis from 'aegis-web-sdk';
-import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {SignUpComponent } from './home/sign-up/sign-up.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {SignUpComponent} from './home/sign-up/sign-up.component';
 import {TokenInterceptorService} from './auth/token-interceptor.service';
-import {NgIconsModule} from "@ng-icons/core";
-import {bootstrapChevronDown, bootstrapPerson, bootstrapList, bootstrapEye, bootstrapEyeSlash, bootstrapTrash, bootstrapPencilSquare} from "@ng-icons/bootstrap-icons";
-import {HomeComponent } from './home/home.component';
-import {ToastsContainer} from "./toasts-container.component";
-import { PasswordResetComponent } from './home/password-reset/password-reset.component';
-import { CardsComponent } from './cards/cards.component';
+import {NgIconsModule} from '@ng-icons/core';
+import {HomeComponent} from './home/home.component';
+import {ToastsContainer} from './toasts-container.component';
+import {PasswordResetComponent} from './home/password-reset/password-reset.component';
+import {CardsComponent} from './cards/cards.component';
+import {
+  bootstrapChevronDown,
+  bootstrapPerson,
+  bootstrapList,
+  bootstrapEye,
+  bootstrapEyeSlash,
+  bootstrapTrash,
+  bootstrapPencilSquare
+} from '@ng-icons/bootstrap-icons';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -101,8 +111,16 @@ const aegis = new Aegis({
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     NgbModule,
     FormsModule,
-    NgIconsModule.withIcons({bootstrapChevronDown, bootstrapPerson, bootstrapList, bootstrapEye, bootstrapEyeSlash, bootstrapTrash, bootstrapPencilSquare}),
-    ToastsContainer
+    ToastsContainer,
+    NgIconsModule.withIcons({
+      bootstrapChevronDown,
+      bootstrapPerson,
+      bootstrapList,
+      bootstrapEye,
+      bootstrapEyeSlash,
+      bootstrapTrash,
+      bootstrapPencilSquare
+    })
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},
