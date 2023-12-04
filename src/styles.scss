@@ -222,7 +222,7 @@ pagination-template {
   --bs-btn-close-focus-shadow: 0;
 }
 .btn-close:active {
-  scale: 90%;
+  opacity: .5;
 }
 
 .btn-icon{
@@ -230,11 +230,11 @@ pagination-template {
 }
 
 .btn-icon:hover{
-  opacity: 0.75;
+  opacity: .75;
 }
 
 .btn-icon:active {
-  scale: 90%;
+  opacity: .5;
 }
 
 .cursor-pointer{
