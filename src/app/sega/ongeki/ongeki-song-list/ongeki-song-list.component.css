@@ -14,3 +14,44 @@ table {
 .page-link {
   color: white;
 }
+
+.song-info {
+  padding: 4px;
+}
+
+.song-info .jacket-container {
+  width: 96px;
+  min-width: 96px;
+}
+
+.song-info .song-info-title {
+  font-size: 18px;
+}
+
+.song-info .song-info-artist {
+  font-size: 12px;
+}
+
+.song-info .song-info-difficulty {
+  font-size: 12px;
+}
+
+.song-info .song-info-difficulty-Basic {
+  background: #51B540;
+}
+
+.song-info .song-info-difficulty-Advanced {
+  background: #B5A440;
+}
+
+.song-info .song-info-difficulty-Expert {
+  background: #B54051;
+}
+
+.song-info .song-info-difficulty-Master {
+  background: #6940B5;
+}
+
+.song-info .song-info-difficulty-Lunatic {
+  background: #FFFFFF;
+}

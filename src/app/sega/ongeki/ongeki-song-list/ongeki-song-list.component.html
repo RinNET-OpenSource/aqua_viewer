@@ -21,23 +21,78 @@
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
 <input type="text" class="form-control mb-2" placeholder="Filter" [(ngModel)]="searchTerm" (input)="filterSongs()">
-<div class="card mb-3">
-  <div class="card-body">
-    <table class="table table-borderless table-striped align-middle">
-      <thead>
-      <th>Id.</th>
-      <th>Name</th>
-      <th>Artist</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
-        <td>{{ item.id }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.artistName }}</td>
-      </tr>
-      </tbody>
-    </table>
+
+<div class="card mb-1"
+     *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
+  <div class="song-info card-body hstack gap-2">
+    <div class="jacket-container ratio ratio-1x1">
+      <!--jacket-->
+      <img class="position-absolute"
+           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.id|formatNumber:4}}.jpg"
+           alt="">
+    </div>
+    <div class="overflow-hidden">
+      <!--title-->
+      <div class="song-info-title text-truncate fw-bold">
+          <span>
+            {{item.name}}
+          </span>
+      </div>
+      <!--artist-->
+      <div class="song-info-artist text-truncate ">
+          <span>
+            {{item.artistName}}
+          </span>
+      </div>
+      <!--difficulty-->
+      <div>
+        <span *ngIf="!(parseFloat(item.level0) == 0)"
+          class="song-info-difficulty song-info-difficulty-Basic badge rounded-pill me-2">
+              Basic
+          {{(item.level0 | toLevelDecimal)}}
+            </span>
+        <span *ngIf="!(parseFloat(item.level1) == 0)"
+          class="song-info-difficulty song-info-difficulty-Advanced badge rounded-pill me-2">
+              Advanced
+          {{(item.level1 | toLevelDecimal)}}
+            </span>
+        <span *ngIf="!(parseFloat(item.level2) == 0)"
+          class="song-info-difficulty song-info-difficulty-Expert badge rounded-pill me-2">
+              Expert
+          {{(item.level2 | toLevelDecimal)}}
+            </span>
+        <span *ngIf="!(parseFloat(item.level3) == 0)"
+          class=" song-info-difficulty song-info-difficulty-Master badge rounded-pill me-2">
+              Master
+          {{(item.level3 | toLevelDecimal)}}
+            </span>
+        <span *ngIf="parseFloat(item.level3) == 0"
+          class="song-info-difficulty song-info-difficulty-Lunatic badge rounded-pill border border-danger text-danger me-2">
+              Lunatic
+          {{(item.level4 | toLevelDecimal)}}
+            </span>
+      </div>
+    </div>
   </div>
 </div>
+
+<!--<div class="card mb-3">-->
+<!--  <div class="card-body">-->
+<!--    <table class="table table-borderless table-striped align-middle">-->
+<!--      <thead>-->
+<!--      <th>Id.</th>-->
+<!--      <th>Name</th>-->
+<!--      <th>Artist</th>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">-->
+<!--        <td style="min-width: 4em">{{ item.id }}</td>-->
+<!--        <td class="text-nowrap">{{ item.name }}</td>-->
+<!--        <td class="text-nowrap">{{ item.artistName }}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
 

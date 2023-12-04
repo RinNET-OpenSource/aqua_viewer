@@ -3,6 +3,8 @@ import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {MatPaginator} from '@angular/material/paginator';
 import {OngekiMusic} from '../model/OngekiMusic';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Difficulty} from '../model/OngekiEnums';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-ongeki-song-list',
@@ -15,6 +17,8 @@ export class OngekiSongListComponent implements OnInit {
   currentPage = 1;
   totalElements = 0;
   searchTerm = '';
+  host = environment.assetsHost;
+  protected readonly parseFloat = parseFloat;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -28,8 +32,8 @@ export class OngekiSongListComponent implements OnInit {
   ngOnInit() {
     this.dbService.getAll<OngekiMusic>('ongekiMusic').subscribe(
       x => {
-        this.songList = x;
-        this.filteredSongList = [...x];
+        this.songList = x.filter(item => item.id !== 1);
+        this.filteredSongList = [...this.songList];
       }
     );
     this.route.queryParams.subscribe((data) => {
@@ -57,5 +61,4 @@ export class OngekiSongListComponent implements OnInit {
       this.filteredSongList = [...this.songList];
     }
   }
-
 }
