@@ -7,6 +7,7 @@ export class ToTechRatingPipe implements PipeTransform {
 
   // type: 1 for 13.00 + 2.00, 2 for 15.00
   transform(diff: string, score: number, type: number): string {
+    if (diff === null) { return null; }
     const diffNum = parseFloat(diff);
     let result: number;
     const scoreZero = 500000;

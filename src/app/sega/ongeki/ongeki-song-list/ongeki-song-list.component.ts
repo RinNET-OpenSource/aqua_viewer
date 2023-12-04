@@ -2,8 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {MatPaginator} from '@angular/material/paginator';
 import {OngekiMusic} from '../model/OngekiMusic';
-import {ApiService} from '../../../api.service';
-import {MessageService} from '../../../message.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -14,7 +12,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class OngekiSongListComponent implements OnInit {
   songList: OngekiMusic[] = [];
   filteredSongList: OngekiMusic[];
-  displayedColumns: string[] = ['id', 'name', 'artistName'];
   currentPage = 1;
   totalElements = 0;
   searchTerm = '';
@@ -50,7 +47,7 @@ export class OngekiSongListComponent implements OnInit {
       this.filteredSongList = this.songList.filter(song =>
       {
         const lowerSearchTerm = this.searchTerm.toLowerCase();
-        const sameId = song.id.toString() === this.searchTerm;
+        const sameId = song.id === Number(this.searchTerm);
         const includesName = song.name.toLowerCase().includes(lowerSearchTerm);
         const includesSortName = song.sortName.toLowerCase().includes(lowerSearchTerm);
         const includesArtist = song.artistName.toLowerCase().includes(lowerSearchTerm);
