@@ -61,4 +61,7 @@ export class OngekiSongListComponent implements OnInit {
       this.filteredSongList = [...this.songList];
     }
   }
+  showDetail(music: OngekiMusic){
+
+  }
 }
