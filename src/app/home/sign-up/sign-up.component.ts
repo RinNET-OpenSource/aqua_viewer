@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, NgForm, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {MessageService} from '../../message.service';
 import {AuthenticationService} from '../../auth/authentication.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,24 +25,34 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(40)]],
       username: ['', [
         Validators.required,
-        Validators.pattern('^((?![a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*).)*$')]],
+        Validators.pattern('^((?![a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*).)*$'),
+        Validators.minLength(3),
+        Validators.maxLength(15)]],
       email: ['', [
         Validators.required,
-        Validators.email]],
+        Validators.email,
+        Validators.maxLength(40)]],
       verifyCode: ['', [
-        Validators.required]],
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(8)]],
       password: ['', [
         Validators.required,
-        Validators.minLength(8)]],
+        Validators.minLength(8),
+        Validators.maxLength(100)]],
       confirmPassword: ['']
     }, { validators: this.checkPasswords });
     this.getVerifyCodeForm = this.fb.group({
       email: ['', [
         Validators.required,
-        Validators.email]]
+        Validators.email,
+        Validators.maxLength(40)]]
     });
   }
 
