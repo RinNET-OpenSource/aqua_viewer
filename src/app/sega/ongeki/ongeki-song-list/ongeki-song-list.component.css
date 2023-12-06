@@ -28,8 +28,12 @@ table {
   min-width: 64px;
 }
 
+.song-info .song-info-id {
+  font-size: 20px;
+}
+
 .song-info .song-info-title {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .song-info .song-info-artist {
