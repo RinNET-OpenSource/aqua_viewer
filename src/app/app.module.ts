@@ -19,7 +19,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MessageModule} from './message/message.module';
 import {DashboardModule} from './dashboard/dashboard.module';
-import {LoginModule} from './home/login/login.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {DivaModule} from './sega/diva/diva.module';
 import {V1Module} from './sega/chunithm/v1/v1.module';
@@ -42,6 +41,7 @@ import {ToTechRatingPipe} from './sega/ongeki/util/to-tech-rating.pipe';
 import Aegis from 'aegis-web-sdk';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SignUpComponent} from './home/sign-up/sign-up.component';
+import {LoginComponent} from './home/login/login.component';
 import {TokenInterceptorService} from './auth/token-interceptor.service';
 import {NgIconsModule} from '@ng-icons/core';
 import {HomeComponent} from './home/home.component';
@@ -72,6 +72,7 @@ const aegis = new Aegis({
     ChangelogComponent,
     Maimai2UploadUserPortraitDialog,
     SignUpComponent,
+    LoginComponent,
     HomeComponent,
     PasswordResetComponent,
     CardsComponent
@@ -87,7 +88,6 @@ const aegis = new Aegis({
     MessageModule,
     AppRoutingModule,
     DashboardModule,
-    LoginModule,
     ImporterModule,
     DivaModule,
     V1Module,

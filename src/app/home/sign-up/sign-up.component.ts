@@ -108,7 +108,7 @@ export class SignUpComponent implements OnInit {
               this.messageService.notice(error);
             }
             this.getVerifyCodeForm.enable();
-            console.warn('login fail', error);
+            console.warn('get verify code fail', error);
           }
         }
       );
@@ -140,7 +140,7 @@ export class SignUpComponent implements OnInit {
               this.messageService.notice(error);
             }
             this.signUpForm.enable();
-            console.warn('login fail', error);
+            console.warn('sign up fail', error);
           }
         }
       );

@@ -69,8 +69,34 @@ export class AuthenticationService {
       );
   }
 
+  resetPassword(emailAddress: string, verifyCode: string, password: string) {
+    return this.http.post<any>(environment.apiServer + 'api/auth/resetPassword', {emailAddress, verifyCode, password})
+      .pipe(
+        map(
+          resp => {
+            if (resp) {
+              return resp;
+            }
+          }
+        )
+      );
+  }
+
   getVerifyCode(email: string) {
     return this.http.post<any>(environment.apiServer + 'api/auth/getVerifyCode', {emailAddress: email})
+      .pipe(
+        map(
+          resp => {
+            if (resp) {
+              return resp;
+            }
+          }
+        )
+      );
+  }
+
+  getResetPasswordCode(email: string) {
+    return this.http.post<any>(environment.apiServer + 'api/auth/getResetPasswordCode', {emailAddress: email})
       .pipe(
         map(
           resp => {

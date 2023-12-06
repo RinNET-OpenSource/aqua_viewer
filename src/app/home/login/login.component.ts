@@ -12,7 +12,6 @@ import {MessageService} from '../../message.service';
 })
 export class LoginComponent implements OnInit {
   signInForm: FormGroup;
-  signInSubmitTouched = false;
   @Output() onForgotPassword = new EventEmitter<any>();
 
   constructor(
@@ -43,7 +42,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.signInForm.invalid) {
-      this.signInSubmitTouched = true;
       this.signInForm.markAllAsTouched();
       return;
     }

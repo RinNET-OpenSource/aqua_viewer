@@ -25,7 +25,7 @@
         <label for="verifyCode" class="form-label small">Verify code</label>
 
         <div class="input-group input-group-sm">
-          <input type="verifyCode" class="form-control form-control-sm" id="verifyCode" formControlName="verifyCode"
+          <input type="text" class="form-control form-control-sm" id="verifyCode" formControlName="verifyCode"
                  placeholder=""
                  [class.is-invalid]="verifyCode.touched && !verifyCode.valid && verifyCode.errors">
           <button class="btn btn-outline-secondary" type="submit" (click)="getVerifyCode()">Get</button>
