@@ -6,8 +6,12 @@
   transition: all 0.1s ease 0s;
 }
 
+.card-container:hover {
+  box-shadow: 0 0 4px 2px rgba(128, 128, 128, 64);
+}
+
 .card-container:active {
-  box-shadow: 0 0 8px 4px rgb(128, 128, 128);
+  box-shadow: 0 0 8px 4px rgba(128, 128, 128, 128);
 }
 
 .card-image {
@@ -28,19 +32,47 @@
 }
 
 .card-skill-bg {
-  width: 90%;
-  top: 85%;
+  width: 85%;
+  top: 80%;
   left: 47%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0);
   position: absolute;
 }
 
 .card-info-footer {
   width: 100%;
-  bottom: 0%;
+  bottom: 0;
   left: 0;
   color: white;
   font-size: 50%;
   background: rgba(0, 0, 0, .5);
   position: absolute;
+}
+
+.card-star-container {
+  width: 70%;
+  height: 4.7%;
+  top: 78%;
+  left: 20%;
+  transform: translate(0, -50%);
+  position: absolute;
+}
+
+.card-star-container .card-star {
+  text-align: left;
+  height: 100%;
+  margin: 0 -1.2%;
+  float: left;
+}
+
+.card-qr-code-container {
+  width: 20%;
+  top: 80.5%;
+  right: 5%;
+  background: white;
+  position: absolute;
+}
+
+.card-qr-code {
+  width: 100%;
 }

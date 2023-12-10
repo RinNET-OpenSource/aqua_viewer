@@ -46,6 +46,13 @@
             <img *ngSwitchCase="'DangerBoost'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.png">
           </div>
         </div>
+        <div *ngIf="item.cardInfo" class="card-star-container">
+          <img *ngFor="let _ of getArrayFromNumber(getStarCount(item))" class="card-star" src="{{host}}assets/ongeki/gameUi/UI_Card_star_00.png">
+          <img *ngFor="let _ of getArrayFromNumber((item.cardInfo.rarity == 'N'?11:5) - getStarCount(item))" class="card-star" src="{{host}}assets/ongeki/gameUi/UI_Card_star_01.png">
+        </div>
+<!--        <div class="card-qr-code-container">-->
+<!--          <img class="card-qr-code" src="{{host}}assets/ongeki/gameUi/UI_Card_qr_dummy_00.png">-->
+<!--        </div>-->
         <div class="card-info-footer">
             <span>
               {{item.cardId}}

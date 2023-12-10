@@ -97,4 +97,14 @@ export class OngekiCardComponent implements OnInit {
     this.router.navigate(['ongeki/card'], {queryParams: {page}});
   }
 
+  getArrayFromNumber(n: number): any[] {
+    return new Array(n);
+  }
+
+  getStarCount(item: PlayerCard){
+    return (item.maxLevel - (item.kaikaDate === '0000-00-00 00:00:00.0' ? 5 : 45)) / 5;
+  }
+
+
+
 }
