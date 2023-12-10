@@ -71,6 +71,7 @@ mat-toolbar {
   color: var(--bs-body-color);
   text-decoration: none;
   cursor: pointer;
+  transition: all 0.1s ease 0s;
 }
 
 .link-btn:hover,
