@@ -36,7 +36,6 @@ import {environment} from '../environments/environment';
 import {
   Maimai2UploadUserPortraitDialog
 } from './sega/maimai2/maimai2-setting/maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
-import {ToTechRatingPipe} from './sega/ongeki/util/to-tech-rating.pipe';
 
 import Aegis from 'aegis-web-sdk';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';

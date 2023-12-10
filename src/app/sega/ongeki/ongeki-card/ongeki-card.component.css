@@ -1,28 +1,46 @@
-.hint {
-  color: #cfcfcf;
+.card-container {
+  aspect-ratio: 0.701754385964912;
+  max-width: 280px;
+  width: 100%;
+  position: relative;
+  transition: all 0.1s ease 0s;
 }
 
-.action {
-  text-align: right;
+.card-container:active {
+  box-shadow: 0 0 8px 4px rgb(128, 128, 128);
 }
 
-.card-display {
-  display: flex;
-}
-
-.card-display .image {
-  max-width: 30%;
-}
-
-.card-display .image img {
+.card-image {
+  aspect-ratio: 0.701754385964912;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
 }
 
-.card-display .content {
-  margin: 0 auto;
-  width: 65%;
+.card-kaika-state {
+  width: 24%;
+  top: 21%;
+  left: 14%;
+  transform: translate(-50%, -50%);
+  position: absolute;
 }
 
-.btn {
-  margin-right: 3px;
+.card-skill-bg {
+  width: 90%;
+  top: 85%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.card-info-footer {
+  width: 100%;
+  bottom: 0%;
+  left: 0;
+  color: white;
+  font-size: 50%;
+  background: rgba(0, 0, 0, .5);
+  position: absolute;
 }

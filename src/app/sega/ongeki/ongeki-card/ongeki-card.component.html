@@ -1,76 +1,110 @@
-<h1 class="mat-display-1">Card</h1>
-<div class="card">
-  <div class="card-body">
-    <p class="hint">
-      Every card has base Lv.10 Max. After Kaika, max level will plus 40. (= 10 + 40)<br>
-      Every star larger than 1 will add 5 levels to max level. R, SR, SSR card can get max 5 stars, N card can get max
-      10 stars.<br>
-      Means max level for N card is 100, for R, SR, SSR card is 70.<br>
-      Star level can be increase by getting the same card or using item.
-    </p>
-    <mat-card-actions>
-      <button type="button" class="btn btn-secondary" mat-button routerLink="all">Show All Cards</button>
-      <button type="button" class="btn btn-secondary" mat-button routerLink="gacha">Gacha</button>
-    </mat-card-actions>
+<h1>Card</h1>
+
+<ng-template #pagination>
+  <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<div>
+  <button type="button" class="btn btn-link" routerLink="all">Show All Cards</button>
+  <button type="button" class="btn btn-link" routerLink="gacha">Gacha</button>
+</div>
+
+<div *ngIf="cardList" class="text-center px-2">
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
+    <div class="col d-flex p-2"
+         *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
+      <div class="card-container">
+        <img class="card-image" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId|formatNumber:6}}.jpg">
+        <img *ngIf="item.kaikaDate != '0000-00-00 00:00:00.0'" class="card-kaika-state" src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.png">
+        <div *ngIf="item.skillInfo">
+          <div [ngSwitch]="item.skillInfo.category">
+            <img *ngSwitchCase="'Attack'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.png">
+            <img *ngSwitchCase="'DangerAttack'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.png">
+            <img *ngSwitchCase="'Assist'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.png">
+            <img *ngSwitchCase="'DangerAssist'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.png">
+            <img *ngSwitchCase="'Guard'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.png">
+            <img *ngSwitchCase="'DangerGuard'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard_Danger.png">
+            <img *ngSwitchCase="'Boost'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost.png">
+            <img *ngSwitchCase="'DangerBoost'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.png">
+          </div>
+          <div class="card-info-footer">{{item.cardInfo.id}}　{{item.cardInfo.cardNumber}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<mat-card
-  *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
-  <mat-card-title>
-    {{item.cardInfo ? item.cardInfo.name : 'ID:' + item.cardId}}
-  </mat-card-title>
-  <mat-card-content>
-    <div class="card-display">
-      <div class="image">
-        <img *ngIf="enableImages" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId|formatNumber:6}}_S.jpg">
-        <div *ngIf="item.characterInfo">
-          {{item.characterInfo.name}}<br>
-          {{item.characterInfo.cv ? '(CV: ' + item.characterInfo.cv + ')' : ''}}
-        </div>
-      </div>
-      <div class="content">
-        <table class="zebra">
-          <tr>
-            <th>Level</th>
-            <td>{{item.level}}</td>
-          </tr>
-          <tr>
-            <th>Current Max Level</th>
-            <td>{{item.maxLevel}}</td>
-          </tr>
-          <tr>
-            <th>Star</th>
-            <td>{{item.digitalStock}}</td>
-          </tr>
-          <tr>
-            <th>Skill</th>
-            <td>{{item.skillInfo ? item.skillInfo.name : 'ID:' + item.skillId}}</td>
-          </tr>
-          <tr>
-            <th>Kaika</th>
-            <td>{{item.kaikaDate == '0000-00-00 00:00:00.0' ? 'No' : 'Yes'}}</td>
-          </tr>
-          <tr>
-            <th>ChoKaika</th>
-            <td>{{item.choKaikaDate == '0000-00-00 00:00:00.0' ? 'No' : 'Yes'}}</td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <div fxFlex></div>
-    <button (click)="kaika(item.cardId, 'kaika')" [disabled]="item.kaikaDate != '0000-00-00 00:00:00.0'"
-            mat-button>
-      Kaika
-    </button>
-    <button (click)="kaika(item.cardId, 'choKaika')" [disabled]="item.choKaikaDate != '0000-00-00 00:00:00.0'"
-            mat-button>
-      ChoKaika
-    </button>
-  </mat-card-actions>
-</mat-card>
-<div class="pagination">
-  <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
-</div>
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<!--<mat-card-->
+<!--  *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">-->
+<!--  <mat-card-title>-->
+<!--    {{item.cardInfo ? item.cardInfo.name : 'ID:' + item.cardId}}-->
+<!--  </mat-card-title>-->
+<!--  <mat-card-content>-->
+<!--    <div class="card-display">-->
+<!--      <div class="image">-->
+<!--        <img *ngIf="enableImages" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId|formatNumber:6}}_S.jpg">-->
+<!--        <div *ngIf="item.characterInfo">-->
+<!--          {{item.characterInfo.name}}<br>-->
+<!--          {{item.characterInfo.cv ? '(CV: ' + item.characterInfo.cv + ')' : ''}}-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <table class="zebra">-->
+<!--          <tr>-->
+<!--            <th>Level</th>-->
+<!--            <td>{{item.level}}</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th>Current Max Level</th>-->
+<!--            <td>{{item.maxLevel}}</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th>Star</th>-->
+<!--            <td>{{item.digitalStock}}</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th>Skill</th>-->
+<!--            <td>{{item.skillInfo ? item.skillInfo.name : 'ID:' + item.skillId}}</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th>Kaika</th>-->
+<!--            <td>{{item.kaikaDate == '0000-00-00 00:00:00.0' ? 'No' : 'Yes'}}</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th>ChoKaika</th>-->
+<!--            <td>{{item.choKaikaDate == '0000-00-00 00:00:00.0' ? 'No' : 'Yes'}}</td>-->
+<!--          </tr>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </mat-card-content>-->
+<!--  <mat-card-actions>-->
+<!--    <div fxFlex></div>-->
+<!--    <button (click)="kaika(item.cardId, 'kaika')" [disabled]="item.kaikaDate != '0000-00-00 00:00:00.0'"-->
+<!--            mat-button>-->
+<!--      Kaika-->
+<!--    </button>-->
+<!--    <button (click)="kaika(item.cardId, 'choKaika')" [disabled]="item.choKaikaDate != '0000-00-00 00:00:00.0'"-->
+<!--            mat-button>-->
+<!--      ChoKaika-->
+<!--    </button>-->
+<!--  </mat-card-actions>-->
+<!--</mat-card>-->

@@ -11,6 +11,7 @@ import {map, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {OngekiSkill} from '../model/OngekiSkill';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-ongeki-card',
@@ -23,25 +24,33 @@ export class OngekiCardComponent implements OnInit {
   enableImages = environment.enableImages;
 
   cardList: Observable<PlayerCard[]>;
+  loading: boolean;
 
   currentPage = 1;
   totalElements = 0;
 
   constructor(
     private api: ApiService,
+    public route: ActivatedRoute,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    public router: Router
   ) {
   }
-
   ngOnInit() {
-    this.load(this.currentPage);
+    this.loading = true;
+    this.route.queryParams.subscribe((data) => {
+      if (data.page) {
+        this.currentPage = data.page;
+      }
+      this.load(this.currentPage);
+    });
   }
 
   load(page: number) {
     const aimeId = String(this.auth.currentAccountValue.currentCard);
-    const param = new HttpParams().set('aimeId', aimeId).set('page', String(page - 1));
+    const param = new HttpParams().set('aimeId', aimeId).set('page', String(page - 1)).set('size', 12);
     this.cardList = this.api.get('api/game/ongeki/card', param).pipe(
       tap(
         data => {
@@ -64,6 +73,7 @@ export class OngekiCardComponent implements OnInit {
               }
             );
           });
+          this.loading = false;
           return data.content;
         },
         error => this.messageService.notice(error)
@@ -81,6 +91,10 @@ export class OngekiCardComponent implements OnInit {
       },
       error => this.messageService.notice(error)
     );
+  }
+
+  pageChanged(page: number) {
+    this.router.navigate(['ongeki/card'], {queryParams: {page}});
   }
 
 }

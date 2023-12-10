@@ -1,8 +1,7 @@
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../auth/authentication.service';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {first, map} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../message.service';
 
 @Component({
