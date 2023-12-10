@@ -30,21 +30,29 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col d-flex p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
-      <div class="card-container">
-        <img class="card-image" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId|formatNumber:6}}.jpg">
-        <img *ngIf="item.kaikaDate != '0000-00-00 00:00:00.0'" class="card-kaika-state" src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.png">
+      <div class="card-container user-select-none">
+        <img class="card-image" draggable="false" src="{{host}}assets/ongeki/card/UI_Card_{{item.cardId|formatNumber:6}}.jpg">
+        <img *ngIf="item.kaikaDate != '0000-00-00 00:00:00.0'" class="card-kaika-state" draggable="false"
+             src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.png">
         <div *ngIf="item.skillInfo">
           <div [ngSwitch]="item.skillInfo.category">
-            <img *ngSwitchCase="'Attack'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.png">
-            <img *ngSwitchCase="'DangerAttack'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.png">
-            <img *ngSwitchCase="'Assist'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.png">
-            <img *ngSwitchCase="'DangerAssist'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.png">
-            <img *ngSwitchCase="'Guard'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.png">
-            <img *ngSwitchCase="'DangerGuard'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard_Danger.png">
-            <img *ngSwitchCase="'Boost'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost.png">
-            <img *ngSwitchCase="'DangerBoost'" class="card-skill-bg" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.png">
+            <img *ngSwitchCase="'Attack'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.png">
+            <img *ngSwitchCase="'DangerAttack'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.png">
+            <img *ngSwitchCase="'Assist'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.png">
+            <img *ngSwitchCase="'DangerAssist'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.png">
+            <img *ngSwitchCase="'Guard'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.png">
+            <img *ngSwitchCase="'DangerGuard'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard_Danger.png">
+            <img *ngSwitchCase="'Boost'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost.png">
+            <img *ngSwitchCase="'DangerBoost'" class="card-skill-bg" draggable="false" src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.png">
           </div>
-          <div class="card-info-footer">{{item.cardInfo.id}}　{{item.cardInfo.cardNumber}}</div>
+        </div>
+        <div class="card-info-footer">
+            <span>
+              {{item.cardId}}
+            </span>
+          <span *ngIf="item.cardInfo">
+              {{item.cardInfo.cardNumber}}
+            </span>
         </div>
       </div>
     </div>
