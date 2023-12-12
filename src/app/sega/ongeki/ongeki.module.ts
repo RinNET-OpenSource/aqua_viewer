@@ -35,28 +35,28 @@ import {NgbAccordionModule, NgbPopoverModule, NgbCollapseModule} from '@ng-boots
 import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.component';
 
 @NgModule({
-    declarations: [
-        OngekiProfileComponent,
-        OngekiCardComponent,
-        OngekiCardListComponent,
-        OngekiRecentComponent,
-        ToAttributeClassPipe,
-        OngekiSongListComponent,
-        OngekiBattlePointComponent,
-        OngekiRatingComponent,
-        OngekiRivalListComponent,
-        OngekiMusicRankingComponent,
-        OngekiUserRankingComponent,
-        ToLevelDecimalPipe,
-        ToBattleSpritePipe,
-        ToTechSpritePipe,
-        ToTechRatingPipe,
-        OngekiCardGachaComponent,
-        OngekiSettingComponent,
-        OngekiRecentItemComponent,
-        ToRaritySpritePipe,
-        OngekiCardLevelComponent
-    ],
+  declarations: [
+    OngekiProfileComponent,
+    OngekiCardComponent,
+    OngekiCardListComponent,
+    OngekiRecentComponent,
+    ToAttributeClassPipe,
+    OngekiSongListComponent,
+    OngekiBattlePointComponent,
+    OngekiRatingComponent,
+    OngekiRivalListComponent,
+    OngekiMusicRankingComponent,
+    OngekiUserRankingComponent,
+    ToLevelDecimalPipe,
+    ToBattleSpritePipe,
+    ToTechSpritePipe,
+    ToTechRatingPipe,
+    OngekiCardGachaComponent,
+    OngekiSettingComponent,
+    OngekiRecentItemComponent,
+    ToRaritySpritePipe,
+    OngekiCardLevelComponent
+  ],
     exports: [
         OngekiCardComponent
     ],

@@ -6,7 +6,7 @@
 }
 
 .cards-col:hover .card-rotator{
-  transition: transform 0.05s;
+  transition: all 0s;
 }
 
 .cards-col .card-rotator{
@@ -18,11 +18,13 @@
   transform-origin: center center 60px;
   transform-style: preserve-3d;
   overflow: hidden;
-  transition: transform .5s;
+  border-radius: 3%;
+  image-rendering: smooth;
+  transition: all .6s;
 }
 
 .cards-col:hover .card-rotator::after{
-  transition: opacity .05s, transform .05s;
+  transition: all 0s;
 }
 
 .card-rotator::after {
@@ -34,27 +36,17 @@
   width: 200%;
   background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.6), transparent);
   pointer-events: none;
-  transition: opacity .5s, transform .5s;
+  transition: all .6s;
   transform: translate(-50%, -50%);
   opacity: var(--pseudo-opacity);
 }
-
-
 
 .card-container {
   width: 100%;
   height: 100%;
   position: relative;
-  transition: all 0.1s ease 0s;
   background-size: cover;
-}
-
-.cards-col:hover .card-container {
-  box-shadow: 0 0 4px 2px rgba(128, 128, 128, 64);
-}
-
-.cards-col:active .card-container {
-  box-shadow: 0 0 8px 4px rgba(128, 128, 128, 128);
+  container: card-container / inline-size;
 }
 
 .card-kaika-state {
@@ -78,7 +70,8 @@
   bottom: 0;
   left: 0;
   color: white;
-  font-size: 50%;
+  font-family: SEGA_Humming;
+  font-size: 3cqw;
   background: rgba(0, 0, 0, .5);
   position: absolute;
 }
@@ -135,4 +128,39 @@
   vertical-align: top;
   height: 100%;
   margin: 0 -8.2%;
+}
+
+.card-name {
+  color: #FFFFFF;
+  width: 100%;
+  height: 10%;
+  text-align: right;
+  top: 67%;
+  right: 6%;
+  position: absolute;
+  font-family: "SEGA_Humming";
+  rotate: -6deg;
+}
+
+.card-name .card-name-shadow{
+  position: absolute;
+  top: calc(50% + 0.05em) ;
+  right: -0.05em;
+  -webkit-text-stroke: 0.2em #2592C1;
+  transform: translate(0, -50%);
+}
+
+.card-name .card-name-text{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+}
+
+.card-name .card-name-nick{
+  font-size: 3cqw;
+}
+
+.card-name .card-name-chara{
+  font-size: 5.6cqw;
 }

@@ -42,7 +42,7 @@ export class OngekiCardComponent implements OnInit {
     const rotateX = (centerY - y) / 10;
     const rotateY = (x - centerX) / 10;
 
-    cardRotator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateY(0) translateZ(60px)`;
+    cardRotator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(60px)`;
 
 
     // 计算伪元素的位置
@@ -60,9 +60,10 @@ export class OngekiCardComponent implements OnInit {
   }
 
   onMouseLeave(cardRotator: HTMLDivElement): void {
-    cardRotator.style.transform = 'rotateX(0) rotateY(0) rotateY(0)';
+    cardRotator.style.transform = 'rotateX(0) rotateY(0.001deg) translateZ(0)';
 
-    cardRotator.style.setProperty('--pseudo-translate', 'translate(-50%, -50%) translateZ(0px)');
+    cardRotator.style.setProperty('--pseudo-left', '50%');
+    cardRotator.style.setProperty('--pseudo-top', '50%');
     cardRotator.style.setProperty('--pseudo-opacity', '0');
   }
 
@@ -105,7 +106,8 @@ export class OngekiCardComponent implements OnInit {
               y => {
                 x.cardInfo = y;
                 this.dbService.getByID<OngekiCharacter>('ongekiCharacter', y.charaId).subscribe(
-                  z => x.characterInfo = z
+                  z =>
+                    x.characterInfo = z
                 );
                 this.dbService.getByID<OngekiSkill>('ongekiSkill', y.skillId).subscribe(
                   z => x.skillInfo = z
@@ -177,6 +179,9 @@ export class OngekiCardComponent implements OnInit {
     }
     return input.split(',').map(str => parseFloat(str.trim()));
   }
+  getCardName(str: string, rarity: string, nickName: string): string {
+    return str.replace('【SR+】', '【SRPlus】').replace(`【${rarity}】`, '').replace(`[${nickName}]`, '');
+  }
 
   getCardBackground(card: PlayerCard) {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
@@ -186,21 +191,39 @@ export class OngekiCardComponent implements OnInit {
     const charaP = this.host + 'assets/ongeki/card-chara-p/UI_Card_Chara_' + cardIdStr + '_P.png';
     const chara = this.host + 'assets/ongeki/card-chara-p/UI_Card_Chara_' + cardIdStr + '.png';
     const charaUrl = 'url(' + charaP + ')';
-    let bg: string;
-    if (card.cardInfo.rarity === 'N' || card.cardInfo.rarity === 'R') {
-      if (card.cardInfo.attribute === 'Fire') {
-        bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_00.png';
-      } else if (card.cardInfo.attribute === 'Aqua') {
-        bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_01.png';
-      } else if (card.cardInfo.attribute === 'Leaf') {
-        bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_02.png';
-      }
+    let bgUrl: string;
+    let attrCode;
+
+    if (card.cardInfo.attribute === 'Fire') {
+      attrCode = '00';
+    } else if (card.cardInfo.attribute === 'Aqua') {
+      attrCode = '01';
+    } else if (card.cardInfo.attribute === 'Leaf') {
+      attrCode = '02';
     }
-    if (bg != null) {
-      const bgUrl = 'url(' + bg + ')';
-      return charaUrl + ',' + bgUrl;
+
+    if (card.cardInfo.rarity === 'N' || card.cardInfo.rarity === 'R') {
+      const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_' + attrCode + '.png';
+      bgUrl = 'url(' + bg + ')';
+    }
+    let frame: string;
+    if (card.cardInfo.rarity === 'SSR'){
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.png';
+    }
+    else if (card.cardInfo.rarity === 'SR'){
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_Frame_Horo_SR_' + attrCode + '.png';
+    }
+    else if (card.cardInfo.rarity === 'SRPlus'){
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.png';
+    }
+    else{
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + card.cardInfo.rarity + '_' + attrCode + '.png';
+    }
+    const frameUrl = 'url(' + frame + ')';
+    if (bgUrl != null) {
+      return charaUrl + ',' + frameUrl + ',' + bgUrl;
     } else {
-      return charaUrl;
+      return frameUrl + ',' + charaUrl;
     }
   }
 }

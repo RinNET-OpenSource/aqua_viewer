@@ -82,6 +82,24 @@
               <img class="card-max-atk-value-number"
                    src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{maxAtk%10}}.png">
             </div>
+            <div *ngIf="item.cardInfo" class="card-name">
+              <div class="card-name-shadow">
+                <div class="card-name-nick">
+                  {{item.cardInfo.nickName}}
+                </div>
+                <div class="card-name-chara">
+                  {{getCardName(item.cardInfo.name, item.cardInfo.rarity,item.cardInfo.nickName)}}
+                </div>
+              </div>
+              <div class="card-name-text">
+                <div class="card-name-nick card-text-shadow">
+                  {{item.cardInfo.nickName}}
+                </div>
+                <div class="card-name-chara card-text-shadow">
+                  {{getCardName(item.cardInfo.name, item.cardInfo.rarity,item.cardInfo.nickName)}}
+                </div>
+              </div>
+            </div>
             <div class="card-info-footer">
             <span>
               {{item.cardId}}
