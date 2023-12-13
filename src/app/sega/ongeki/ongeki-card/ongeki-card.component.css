@@ -19,39 +19,124 @@
   transform-style: preserve-3d;
   overflow: hidden;
   border-radius: 3%;
-  image-rendering: smooth;
   transition: all .6s;
 }
 
-.cards-col:hover .card-rotator::after{
+.cards-col:hover .card-highlight{
   transition: all 0s;
 }
 
-.card-rotator::after {
-  content: '';
+.cards-col:hover .card-holo{
+  transition: all 0s;
+}
+
+.cards-col .card-holo::after{
+  --space: 4%;
   position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  background-position: var(--cosmosbg, center center), calc(20% + var(--pseudo-left) * 0.6) calc(20% + var(--pseudo-top) * 0.6), center center;
+  background-size: cover, 300%, 600%, cover;
+  background-image: url("https://poke-holo.simey.me/img/cosmos-top-trans.png"), repeating-linear-gradient( 82deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-blend-mode: multiply, multiply;
+  filter: brightness(1.25) contrast(1.75) saturate(.8);
+  mix-blend-mode: multiply;
+  transition: all .6s;
+}
+
+.cards-col .card-holo::before{
+  --space: 4%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  background-position: var(--cosmosbg, center center), calc(15% + var(--pseudo-left) * 0.7) calc(15% + var(--pseudo-top) * 0.7), center center;
+  background-size: cover, 300%, 600%, cover;
+  background-image: url("https://poke-holo.simey.me/img/cosmos-middle-trans.png"), repeating-linear-gradient( 82deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-blend-mode: lighten, multiply;
+  filter: brightness(1.25) contrast(1.75) saturate(.8);
+  mix-blend-mode: overlay;
+  transition: all .6s;
+}
+
+.cards-col .card-holo{
+  --space: 4%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  background-position: var(--cosmosbg, center center), calc(10% + var(--pseudo-left) * 0.8) calc(10% + var(--pseudo-top) * 0.8), center center;
+  background-size: cover, 300%, 600%, cover;
+  background-image: url("https://poke-holo.simey.me/img/cosmos-bottom.png"),  repeating-linear-gradient( 82deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-blend-mode: color-burn, multiply;
+  filter: brightness(1.25) contrast(1.75) saturate(.8);
+  mix-blend-mode: color-dodge;
+  transition: all .6s;
+  mask-size: cover;
+  mask-position: center center;
+  overflow: hidden;
+}
+
+.card-highlight {
+  position: absolute;
+  transform: translate(-50%, -50%);
   left: var(--pseudo-left);
   top: var(--pseudo-top);
-  aspect-ratio: 1;
-  width: 200%;
-  background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.6), transparent);
+  width: 250%;
+  height: 250%;
+  background: radial-gradient( farthest-corner circle at 50% 50%, hsl(280, 100%, 96%) 5%, hsl(0, 0%, 10%) 60% );
   pointer-events: none;
   transition: all .6s;
-  transform: translate(-50%, -50%);
   opacity: var(--pseudo-opacity);
+  filter: brightness(.75) contrast(2) saturate(2);
+  mix-blend-mode: soft-light;
 }
 
 .card-container {
-  width: 100%;
-  height: 100%;
+  aspect-ratio: 0.701754385964912;
+  width: 102%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   position: relative;
   background-size: cover;
   container: card-container / inline-size;
 }
 
+.card-attribute {
+  width: 17%;
+  top: 8%;
+  left: 12%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.card-rare {
+  width: 26%;
+  top: 8%;
+  left: 29%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.card-gakunen {
+  width: 12%;
+  top: 0;
+  right: 3%;
+  transform: translate(0%, 0%);
+  position: absolute;
+}
+
 .card-kaika-state {
-  width: 24%;
-  top: 21%;
+  width: 22%;
+  top: 22%;
   left: 14%;
   transform: translate(-50%, -50%);
   position: absolute;
@@ -69,6 +154,7 @@
   width: 100%;
   bottom: 0;
   left: 0;
+  padding-bottom: 2%;
   color: white;
   font-family: SEGA_Humming;
   font-size: 3cqw;
@@ -136,7 +222,7 @@
   height: 10%;
   text-align: right;
   top: 67%;
-  right: 6%;
+  right: 7%;
   position: absolute;
   font-family: "SEGA_Humming";
   rotate: -6deg;
@@ -158,9 +244,9 @@
 }
 
 .card-name .card-name-nick{
-  font-size: 3cqw;
+  font-size: 2.8cqw;
 }
 
 .card-name .card-name-chara{
-  font-size: 5.6cqw;
+  font-size: 5.4cqw;
 }

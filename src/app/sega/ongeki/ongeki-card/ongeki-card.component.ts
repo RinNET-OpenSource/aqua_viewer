@@ -183,6 +183,10 @@ export class OngekiCardComponent implements OnInit {
     return str.replace('【SR+】', '【SRPlus】').replace(`【${rarity}】`, '').replace(`[${nickName}]`, '');
   }
 
+  getHoloMask(){
+    return 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_SSR_00.png' + ')';
+  }
+
   getCardBackground(card: PlayerCard) {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     if (!card.cardInfo) {
@@ -203,7 +207,7 @@ export class OngekiCardComponent implements OnInit {
     }
 
     if (card.cardInfo.rarity === 'N' || card.cardInfo.rarity === 'R') {
-      const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_' + attrCode + '.png';
+      const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_Horo_' + card.cardInfo.rarity + '_' + attrCode + '.png';
       bgUrl = 'url(' + bg + ')';
     }
     let frame: string;

@@ -30,12 +30,32 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col d-flex p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
-      <div class="cards-col holo-card lightning" data-number="swsh012" data-set="swshp" data-subtypes="basic"
-           data-supertype="pokémon" data-rarity="rare holo cosmos" data-trainer-gallery="false"
+      <div class="cards-col"
            (mousemove)="!isTouchDevice && onMouseMove($event, cardRotator)"
            (mouseleave)="!isTouchDevice && onMouseLeave(cardRotator)">
         <div #cardRotator class="card-rotator w-100">
           <div class="card-container user-select-none" style="background-image: {{getCardBackground(item)}}">
+            <div class="card-holo" style="-webkit-mask-image: {{getHoloMask()}}"></div>
+            <div *ngIf="item.cardInfo" [ngSwitch]="item.cardInfo.attribute">
+              <img *ngSwitchCase="'Fire'" class="card-attribute" src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_00_Red.png">
+              <img *ngSwitchCase="'Aqua'" class="card-attribute" src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_01_Bule.png">
+              <img *ngSwitchCase="'Leaf'" class="card-attribute" src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_02_Green.png">
+            </div>
+            <div *ngIf="item.cardInfo" [ngSwitch]="item.cardInfo.rarity">
+              <img *ngSwitchCase="'N'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.png">
+              <img *ngSwitchCase="'R'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.png">
+              <img *ngSwitchCase="'SR'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
+              <img *ngSwitchCase="'SSR'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_03_SSR.png">
+              <img *ngSwitchCase="'SRPlus'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_05_SRPlus.png">
+            </div>
+            <div *ngIf="item.cardInfo" [ngSwitch]="item.cardInfo.gakunen">
+              <img *ngSwitchCase="'高校1年生'" class="card-gakunen" src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00001.png">
+              <img *ngSwitchCase="'高校2年生'" class="card-gakunen" src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00002.png">
+              <img *ngSwitchCase="'高校3年生'" class="card-gakunen" src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00003.png">
+              <img *ngSwitchCase="'中学1年生'" class="card-gakunen" src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00004.png">
+              <img *ngSwitchCase="'中学2年生'" class="card-gakunen" src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00005.png">
+              <img *ngSwitchCase="'中学3年生'" class="card-gakunen" src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00006.png">
+            </div>
             <img *ngIf="item.kaikaDate != '0000-00-00 00:00:00.0'" class="card-kaika-state" draggable="false"
                  src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.png">
             <div *ngIf="item.skillInfo">
@@ -108,6 +128,7 @@
               {{item.cardInfo.cardNumber}}
             </span>
             </div>
+            <div class="card-highlight"></div>
           </div>
         </div>
       </div>
