@@ -1,44 +1,52 @@
-<h1 class="mat-display-1">Settings</h1>
+<h1>Settings</h1>
 
-<mat-card>
-  <mat-card-title>Username</mat-card-title>
-  <mat-card-subtitle>Warning - use full-width character</mat-card-subtitle>
-  <mat-card-content *ngIf="profile">
-    <div class="content">{{profile.userName}}</div>
-    <div class="action">
-      <button (click)="userName()" mat-button>Edit</button>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Username</h5>
+    <p class="mat-display-2">Warning - use full-width character</p>
+    <div *ngIf="profile">
+      <div class="content">{{profile.userName}}</div>
+      <div class="action">
+        <button (click)="userName()" mat-button>Edit</button>
+      </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
-<mat-card>
-  <mat-card-title>Last data version</mat-card-title>
-  <mat-card-subtitle>Change only if you have login problem due to <u>data</u> version</mat-card-subtitle>
-  <mat-card-content *ngIf="profile">
-    <div class="content">{{profile.lastDataVersion}}</div>
-    <div class="action">
-      <button (click)="dataVersion()" mat-button>Edit</button>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Last data version</h5>
+    <p class="mat-display-2">Change only if you have login problem due to <u>data</u> version</p>
+    <div *ngIf="profile">
+      <div class="content">{{profile.lastDataVersion}}</div>
+      <div class="action">
+        <button (click)="dataVersion()" mat-button>Edit</button>
+      </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
-<mat-card>
-  <mat-card-title>Last rom version</mat-card-title>
-  <mat-card-subtitle>Change only if you have login problem due to <u>rom</u> version</mat-card-subtitle>
-  <mat-card-content *ngIf="profile">
-    <div class="content">{{profile.lastRomVersion}}</div>
-    <div class="action">
-      <button (click)="romVersion()" mat-button>Edit</button>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Last rom version</h5>
+    <p class="mat-display-2">Change only if you have login problem due to <u>rom</u> version</p>
+    <div *ngIf="profile">
+      <div class="content">{{profile.lastRomVersion}}</div>
+      <div class="action">
+        <button (click)="romVersion()" mat-button>Edit</button>
+      </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
-<mat-card>
-  <mat-card-title>Export data</mat-card-title>
-  <mat-card-subtitle>Warning - this data might unable to import</mat-card-subtitle>
-  <mat-card-content>
-    <div class="action">
-      <a href="{{apiServer + '/api/game/chuni/v2/export?aimeId=' + aimeId}}" mat-button target="_blank">Download</a>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Export data</h5>
+    <p class="mat-display-2">Warning - this data might unable to import</p>
+    <div>
+      <div class="action">
+        <a href="{{apiServer + '/api/game/chuni/v2/export?aimeId=' + aimeId}}" mat-button target="_blank">Download</a>
+      </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
