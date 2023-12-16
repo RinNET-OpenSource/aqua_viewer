@@ -2,6 +2,7 @@
   aspect-ratio: 0.701754385964912;
   max-width: 280px;
   width: 100%;
+  image-rendering: high-quality;
   perspective: 1500px;
 }
 
@@ -39,8 +40,8 @@
   height: 100%;
   width: 100%;
   background-position: var(--cosmosbg, center center), calc(20% + var(--pseudo-left) * 0.6) calc(20% + var(--pseudo-top) * 0.6), center center;
-  background-size: cover, 300%, 600%, cover;
-  background-image: url("https://poke-holo.simey.me/img/cosmos-top-trans.png"), repeating-linear-gradient( 82deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-size: cover, 400%, 900%, cover;
+  background-image: url("/assets/holo-sheet/top.png"), repeating-linear-gradient( 75deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
   background-blend-mode: multiply, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: multiply;
@@ -56,8 +57,8 @@
   height: 100%;
   width: 100%;
   background-position: var(--cosmosbg, center center), calc(15% + var(--pseudo-left) * 0.7) calc(15% + var(--pseudo-top) * 0.7), center center;
-  background-size: cover, 300%, 600%, cover;
-  background-image: url("https://poke-holo.simey.me/img/cosmos-middle-trans.png"), repeating-linear-gradient( 82deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-size: cover, 400%, 900%, cover;
+  background-image: url("/assets/holo-sheet/middle.png"), repeating-linear-gradient( 75deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
   background-blend-mode: lighten, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: overlay;
@@ -73,15 +74,53 @@
   height: 100%;
   width: 100%;
   background-position: var(--cosmosbg, center center), calc(10% + var(--pseudo-left) * 0.8) calc(10% + var(--pseudo-top) * 0.8), center center;
-  background-size: cover, 300%, 600%, cover;
-  background-image: url("https://poke-holo.simey.me/img/cosmos-bottom.png"),  repeating-linear-gradient( 82deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-size: cover, 400%, 900%, cover;
+  background-image: url("/assets/holo-sheet/bottom.png"),  repeating-linear-gradient( 75deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
   background-blend-mode: color-burn, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: color-dodge;
   transition: all .6s;
-  mask-size: cover;
-  mask-position: center center;
+  -webkit-mask-size: cover;
+  mask-composite: intersect, subtract;
+  -webkit-mask-composite: source-in, source-out;
   overflow: hidden;
+}
+
+.card-holo-bg {
+  background-color: rgb(168, 168, 168);
+  opacity: 0.8;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-size: cover;
+  mask-mode: alpha, alpha;
+  mask-composite: intersect, subtract;
+  -webkit-mask-composite: source-in, source-out;
+}
+
+.card-frame {
+  position: absolute;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.card-chara {
+  position: absolute;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.card-holo-frame-bg {
+  background-color: rgb(192, 192, 192);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  -webkit-mask-size: cover;
+  mask-mode: alpha;
 }
 
 .card-highlight {
@@ -102,9 +141,8 @@
 .card-container {
   aspect-ratio: 0.701754385964912;
   width: 102%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   position: relative;
   background-size: cover;
   container: card-container / inline-size;
