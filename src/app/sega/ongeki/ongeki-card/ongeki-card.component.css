@@ -2,7 +2,6 @@
   aspect-ratio: 0.701754385964912;
   max-width: 280px;
   width: 100%;
-  image-rendering: high-quality;
   perspective: 1500px;
 }
 
@@ -17,7 +16,6 @@
   width: 100%;
   height: 100%;
   transform-origin: center center 60px;
-  transform-style: preserve-3d;
   overflow: hidden;
   border-radius: 3%;
   transition: all .6s;
@@ -113,7 +111,7 @@
 }
 
 .card-holo-frame-bg {
-  background-color: rgb(192, 192, 192);
+  background-color: rgb(168, 168, 168);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -141,8 +139,9 @@
 .card-container {
   aspect-ratio: 0.701754385964912;
   width: 102%;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   position: relative;
   background-size: cover;
   container: card-container / inline-size;

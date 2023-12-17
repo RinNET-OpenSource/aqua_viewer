@@ -19,6 +19,14 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./ongeki-card.component.css']
 })
 export class OngekiCardComponent implements OnInit {
+  private specialHoloIDs = [
+    100009, 100018, 100027, 100201, 100202, 100203, 100204, 100205, 100206, 100288, 100289, 100290, 100291, 100292, 100293, 100294, 100295,
+    100296, 100297, 100298, 100458, 100459, 100460, 100489, 100572, 100613, 100614, 100615, 100616, 100617, 100618, 100729, 100730, 100806,
+    100887, 101047, 101048, 101312, 101313, 101314, 101322, 101323, 101324, 101325, 101326, 101327, 101328, 101329, 101330, 101331, 101332,
+    101333, 101334, 101335, 101336, 101337, 101338, 101339, 101502];
+  private signHoloIDs = [
+    100009, 100018, 100027, 100288, 100289, 100290, 100458, 100459, 100460, 100729, 100730, 101047, 101048, 101312, 101313, 101314, 101322,
+    101323, 101324, 101325, 101326, 101327, 101328, 101329, 101330, 101331, 101332, 101333, 101334, 101335, 101336, 101337, 101338, 101339];
   protected readonly Math = Math;
 
   host = environment.assetsHost;
@@ -29,6 +37,9 @@ export class OngekiCardComponent implements OnInit {
 
   currentPage = 1;
   totalElements = 0;
+
+  showHolo = false;
+  showElements = false;
 
   isTouchDevice: boolean;
 
@@ -60,7 +71,7 @@ export class OngekiCardComponent implements OnInit {
   }
 
   onMouseLeave(cardRotator: HTMLDivElement): void {
-    cardRotator.style.transform = 'rotateX(0) rotateY(0.001deg) translateZ(0)';
+    cardRotator.style.transform = 'none';
 
     cardRotator.style.setProperty('--pseudo-left', '50%');
     cardRotator.style.setProperty('--pseudo-top', '50%');
@@ -187,11 +198,17 @@ export class OngekiCardComponent implements OnInit {
     return 'url(' + this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + card.cardId + '.png' + ')';
   }
 
-  getHoloFrameMask(card: PlayerCard){
+  getHoloFrameMask(card: PlayerCard, showElements: boolean){
+    const cardIdStr = card.cardId.toString().padStart(6, '0');
     let frameUrl: string;
     if (card.cardInfo){
-      if (card.cardId === 100729){
-        frameUrl = 'url(' + this.host + 'assets/ongeki/card-holo/UI_Card_Holo_Sign_100729.png' + ')';
+      if (this.isSignHolo(card.cardId)){
+        if (showElements){
+          frameUrl = 'linear-gradient(transparent, transparent)';
+        }
+        else{
+          frameUrl = 'url(' + this.host + 'assets/ongeki/card-holo-sign/UI_Card_Holo_Sign_' + cardIdStr + '.png' + ')';
+        }
       }
       else if (card.cardInfo.rarity === 'SSR')
       {
@@ -212,7 +229,6 @@ export class OngekiCardComponent implements OnInit {
     }
     if (card.cardInfo.rarity === 'R' || card.cardInfo.rarity === 'N')
     {
-      const cardIdStr = card.cardId.toString().padStart(6, '0');
       const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.png';
       const charaMaskUrl = 'url(' + charaMask + ')';
       return frameUrl + ',' + charaMaskUrl;
@@ -221,15 +237,22 @@ export class OngekiCardComponent implements OnInit {
       return frameUrl;
     }
   }
+  isSpecialHolo(id: number){
+    return this.specialHoloIDs.includes(id);
+  }
+  isSignHolo(id: number){
+    return this.signHoloIDs.includes(id);
+  }
 
-  getHoloBGMask(card: PlayerCard){
+  getHoloBGMask(card: PlayerCard, showElements: boolean){
+    const isSpecialHolo = this.isSpecialHolo(card.cardId);
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.png';
     const charaMaskUrl = 'url(' + charaMask + ')';
     let bgUrl: string;
     if (card.cardInfo){
-      if (card.cardId === 100729){
-        bgUrl = 'url(' + this.host + 'assets/ongeki/card-holo/UI_Card_Holo_100729.png' + ')';
+      if (isSpecialHolo){
+        bgUrl = 'url(' + this.host + 'assets/ongeki/card-holo/UI_Card_Holo_' + cardIdStr + '.png' + ')';
       }
       else if (card.cardInfo.rarity === 'SSR')
       {
@@ -248,15 +271,19 @@ export class OngekiCardComponent implements OnInit {
     else{
       bgUrl = 'linear-gradient(transparent, transparent)';
     }
-    return bgUrl + ',' + charaMaskUrl + ',' + this.getFrame(card);
-    // return bgUrl + ',' + charaMaskUrl + ',' + this.getFrame(card);
+
+    if (isSpecialHolo){
+      return bgUrl;
+    }
+    else if (showElements){
+      return bgUrl + ',' + charaMaskUrl + ',' + this.getFrame(card);
+    }
+    else{
+      return bgUrl + ',' + charaMaskUrl;
+    }
   }
 
-  getHoloMask(card: PlayerCard){
-    return this.getHoloBGMask(card) + ',' + this.getHoloFrameMask(card);
-  }
-
-  getCardBackground(card: PlayerCard) {
+  getCardBackground(card: PlayerCard, showHolo: boolean) {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     if (!card.cardInfo) {
       return ''; // 'url(' + this.host + 'assets/ongeki/card/UI_Card_' + cardIdStr + '.jpg)';
@@ -274,8 +301,14 @@ export class OngekiCardComponent implements OnInit {
     }
 
     if (card.cardInfo.rarity === 'N' || card.cardInfo.rarity === 'R') {
-      const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_Horo_' + card.cardInfo.rarity + '_' + attrCode + '.png';
-      bgUrl = 'url(' + bg + ')';
+      if (showHolo){
+        const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_Horo_' + card.cardInfo.rarity + '_' + attrCode + '.png';
+        bgUrl = 'url(' + bg + ')';
+      }
+      else{
+        const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_' + attrCode + '.png';
+        bgUrl = 'url(' + bg + ')';
+      }
     }
     return bgUrl;
   }
@@ -291,12 +324,42 @@ export class OngekiCardComponent implements OnInit {
     }
     const frameUrl = this.getFrameByRarity(card.cardInfo.rarity, attrCode);
 
+    return frameUrl;
+  }
+  getHoloFrame(card: PlayerCard){
+    let attrCode;
+
+    if (card.cardInfo.attribute === 'Fire') {
+      attrCode = '00';
+    } else if (card.cardInfo.attribute === 'Aqua') {
+      attrCode = '01';
+    } else if (card.cardInfo.attribute === 'Leaf') {
+      attrCode = '02';
+    }
+    const frameUrl = this.getHoloFrameByRarity(card.cardInfo.rarity, attrCode);
+
     if (card.cardInfo.rarity === 'SRPlus'){
-      return this.getFrameByRarity('SR', attrCode) + ',' + frameUrl;
+      return this.getHoloFrameByRarity('SR', attrCode) + ',' + frameUrl;
     }
     return frameUrl;
   }
   getFrameByRarity(rarity: string, attrCode: number){
+    let frame: string;
+    if (rarity === 'SSR'){
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.png';
+    }
+    else if (rarity === 'SR'){
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SR_' + attrCode + '.png';
+    }
+    else if (rarity === 'SRPlus'){
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.png';
+    }
+    else{
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + rarity + '_' + attrCode + '.png';
+    }
+    return 'url(' + frame + ')';
+  }
+  getHoloFrameByRarity(rarity: string, attrCode: number){
     let frame: string;
     if (rarity === 'SSR'){
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.png';
