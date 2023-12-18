@@ -39,9 +39,17 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col d-flex p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
-      <div class="cards-col"
-           (mousemove)="onMouseMove($event, cardRotator)"
-           (mouseleave)="onMouseLeave(cardRotator)">
+      <div #cardCol class="cards-col"
+           [@cardAnimation]="{
+           value: pickedCardId === item.cardId?'expanded':'normal',
+           params: { top: pickCardParams.top, left: pickCardParams.left, width: pickCardParams.width, height: pickCardParams.height,
+            expandedWidth: pickCardParams.expandedWidth, expandedHeight: pickCardParams.expandedHeight} }"
+           (mousemove)="onMouseMoveRotator($event, cardRotator)"
+           (mouseleave)="onMouseLeaveRotator(cardRotator)"
+           (click)="pickCard(item.cardId, cardCol, cardRotator)"
+           (touchmove)="onTouchMoveRotator($event, cardRotator)"
+           (touchend)="onMouseLeaveRotator(cardRotator)"
+           (touchcancel)="onMouseLeaveRotator(cardRotator)">
         <div #cardRotator class="card-rotator w-100">
           <div *ngIf="item.cardInfo" class="card-container user-select-none"
                style="background-image: {{getCardBackground(item, showHolo)}}">
@@ -172,6 +180,9 @@
       </div>
     </div>
   </div>
+  <div class="card-backdrop"
+       [ngClass]="{'hidden': !pickedCardId}"
+       (click)="unpickCard()"></div>
 </div>
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>

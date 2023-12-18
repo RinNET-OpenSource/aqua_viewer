@@ -1,83 +1,81 @@
 .cards-col {
   aspect-ratio: 0.701754385964912;
-  max-width: 280px;
   width: 100%;
   perspective: 1500px;
+  --expanded-width: 182.233px;
 }
 
-.cards-col:hover .card-rotator{
-  transition: all 0s;
+.cards-col:hover .card-rotator {
+  --rotator-transition: all 0.02s ease;
 }
 
-.cards-col .card-rotator{
+.cards-col .card-rotator {
+  --rotator-transition: all .6s;
   --pseudo-opacity: 0;
   --pseudo-left: 50%;
   --pseudo-top: 50%;
   width: 100%;
   height: 100%;
-  transform-origin: center center 60px;
   overflow: hidden;
   border-radius: 3%;
-  transition: all .6s;
+  transition:var(--rotator-transition);
+  appearance: none;
 }
 
-.cards-col:hover .card-highlight{
-  transition: all 0s;
+.cards-col:hover .card-highlight {
+  transition:var(--rotator-transition);
 }
 
-.cards-col:hover .card-holo{
-  transition: all 0s;
+.cards-col:hover .card-holo {
+  transition:var(--rotator-transition);
 }
 
-.cards-col .card-holo::after{
+.cards-col .card-holo::after {
   --space: 4%;
   position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
   height: 100%;
   width: 100%;
   background-position: var(--cosmosbg, center center), calc(20% + var(--pseudo-left) * 0.6) calc(20% + var(--pseudo-top) * 0.6), center center;
   background-size: cover, 400%, 900%, cover;
-  background-image: url("/assets/holo-sheet/top.png"), repeating-linear-gradient( 75deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-image: url("/assets/holo-sheet/top.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: multiply, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: multiply;
-  transition: all .6s;
+  transition:var(--rotator-transition);
 }
 
-.cards-col .card-holo::before{
+.cards-col .card-holo::before {
   --space: 4%;
   position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
   height: 100%;
   width: 100%;
   background-position: var(--cosmosbg, center center), calc(15% + var(--pseudo-left) * 0.7) calc(15% + var(--pseudo-top) * 0.7), center center;
   background-size: cover, 400%, 900%, cover;
-  background-image: url("/assets/holo-sheet/middle.png"), repeating-linear-gradient( 75deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-image: url("/assets/holo-sheet/middle.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: lighten, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: overlay;
-  transition: all .6s;
+  transition:var(--rotator-transition);
 }
 
-.cards-col .card-holo{
+.cards-col .card-holo {
   --space: 4%;
   position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
   height: 100%;
   width: 100%;
   background-position: var(--cosmosbg, center center), calc(10% + var(--pseudo-left) * 0.8) calc(10% + var(--pseudo-top) * 0.8), center center;
   background-size: cover, 400%, 900%, cover;
-  background-image: url("/assets/holo-sheet/bottom.png"),  repeating-linear-gradient( 75deg, hsl(53, 65%, 60%) calc(var(--space)*1), hsl(93, 56%, 50%) calc(var(--space)*2), hsl(176, 54%, 49%) calc(var(--space)*3), hsl(228, 59%, 55%) calc(var(--space)*4), hsl(283, 60%, 55%) calc(var(--space)*5), hsl(326, 59%, 51%) calc(var(--space)*6), hsl(326, 59%, 51%) calc(var(--space)*7), hsl(283, 60%, 55%) calc(var(--space)*8), hsl(228, 59%, 55%) calc(var(--space)*9), hsl(176, 54%, 49%) calc(var(--space)*10), hsl(93, 56%, 50%) calc(var(--space)*11), hsl(53, 65%, 60%) calc(var(--space)*12) );
+  background-image: url("/assets/holo-sheet/bottom.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: color-burn, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: color-dodge;
-  transition: all .6s;
+  transition:var(--rotator-transition);
   -webkit-mask-size: cover;
   mask-composite: intersect, subtract;
   -webkit-mask-composite: source-in, source-out;
@@ -128,9 +126,9 @@
   top: var(--pseudo-top);
   width: 250%;
   height: 250%;
-  background: radial-gradient( farthest-corner circle at 50% 50%, hsl(280, 100%, 96%) 5%, hsl(0, 0%, 10%) 60% );
+  background: radial-gradient(farthest-corner circle at 50% 50%, hsl(280, 100%, 96%) 5%, hsl(0, 0%, 10%) 60%);
   pointer-events: none;
-  transition: all .6s;
+  transition:var(--rotator-transition);
   opacity: var(--pseudo-opacity);
   filter: brightness(.75) contrast(2) saturate(2);
   mix-blend-mode: soft-light;
@@ -139,9 +137,8 @@
 .card-container {
   aspect-ratio: 0.701754385964912;
   width: 102%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   position: relative;
   background-size: cover;
   container: card-container / inline-size;
@@ -157,9 +154,8 @@
 
 .card-rare {
   width: 26%;
-  top: 8%;
-  left: 29%;
-  transform: translate(-50%, -50%);
+  top: 4%;
+  left: 18%;
   position: absolute;
 }
 
@@ -167,23 +163,20 @@
   width: 12%;
   top: 0;
   right: 3%;
-  transform: translate(0%, 0%);
   position: absolute;
 }
 
 .card-kaika-state {
   width: 22%;
-  top: 22%;
-  left: 14%;
-  transform: translate(-50%, -50%);
+  top: 15%;
+  left: 3%;
   position: absolute;
 }
 
 .card-skill-bg {
   width: 85%;
   top: 80%;
-  left: 47%;
-  transform: translate(-50%, 0);
+  left: 4%;
   position: absolute;
 }
 
@@ -202,9 +195,8 @@
 .card-star-container {
   width: 70%;
   height: 4.7%;
-  top: 78%;
+  top: 75%;
   left: 21%;
-  transform: translate(0, -50%);
   position: absolute;
 }
 
@@ -265,25 +257,42 @@
   rotate: -6deg;
 }
 
-.card-name .card-name-shadow{
+.card-name .card-name-shadow {
   position: absolute;
-  top: calc(50% + 0.05em) ;
+  top: calc(50% + 0.05em);
   right: -0.05em;
   -webkit-text-stroke: 0.2em #2592C1;
   transform: translate(0, -50%);
 }
 
-.card-name .card-name-text{
+.card-name .card-name-text {
   position: absolute;
   top: 50%;
   right: 0;
   transform: translate(0, -50%);
 }
 
-.card-name .card-name-nick{
+.card-name .card-name-nick {
   font-size: 2.8cqw;
 }
 
-.card-name .card-name-chara{
+.card-name .card-name-chara {
   font-size: 5.4cqw;
+}
+
+.card-backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: .8;
+  top: 0;
+  left: 0;
+  z-index: 1099;
+  transition: opacity 300ms linear
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: .0;
 }

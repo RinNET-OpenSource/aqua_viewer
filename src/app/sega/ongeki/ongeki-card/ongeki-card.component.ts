@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChildren} from '@angular/core';
 import {HttpParams} from '@angular/common/http';
 import {ApiService} from '../../../api.service';
 import {AuthenticationService} from '../../../auth/authentication.service';
@@ -12,13 +12,58 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {OngekiSkill} from '../model/OngekiSkill';
 import {ActivatedRoute, Router} from '@angular/router';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-ongeki-card',
   templateUrl: './ongeki-card.component.html',
-  styleUrls: ['./ongeki-card.component.css']
+  styleUrls: ['./ongeki-card.component.css'],
+  animations: [
+    trigger('cardAnimation', [
+      state('normal', style({
+        transform: 'scale(1)',
+        position: 'static',
+        zIndex: 'auto',
+        width: '*',
+        height: '*',
+        top: '*',
+        left: '*'
+      })),
+      state('expanded', style({
+        transform: 'translate(-50%, -50%)',
+        position: 'fixed',
+        width: '{{expandedWidth}}px',
+        height: '{{expandedHeight}}px',
+        top: '50%',
+        left: '50%',
+        zIndex: 1100
+      }), {params: {expandedWidth: '182.233', expandedHeight: '259.683'}}),
+      transition('* => expanded', [
+        style({
+          transform: 'translate(-50%, -50%)',
+          position: 'fixed',
+          width: '{{width}}px',
+          height: '{{height}}px',
+          top: '{{top}}px',
+          left: '{{left}}px',
+          zIndex: 1100
+        }),
+        animate('300ms ease-out')
+      ]),
+      transition('expanded => normal', [
+        animate('300ms ease-out', style({
+          position: 'fixed',
+          width: '{{width}}px',
+          height: '{{height}}px',
+          top: '{{top}}px',
+          left: '{{left}}px',
+          zIndex: 1100
+        }))
+      ])
+    ])
+  ]
 })
-export class OngekiCardComponent implements OnInit {
+export class OngekiCardComponent implements OnInit, OnDestroy {
   private specialHoloIDs = [
     100009, 100018, 100027, 100201, 100202, 100203, 100204, 100205, 100206, 100288, 100289, 100290, 100291, 100292, 100293, 100294, 100295,
     100296, 100297, 100298, 100458, 100459, 100460, 100489, 100572, 100613, 100614, 100615, 100616, 100617, 100618, 100729, 100730, 100806,
@@ -39,40 +84,110 @@ export class OngekiCardComponent implements OnInit {
   totalElements = 0;
 
   showHolo = false;
-  showElements = false;
+  showElements = true;
+  pickedCardId: number = null;
+  pickedRotator: HTMLDivElement;
+  pickCardParams: {
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+    expandedWidth: number;
+    expandedHeight: number;
+  } = {
+    left: null,
+    top: null,
+    width: null,
+    height: null,
+    expandedWidth: null,
+    expandedHeight: null
+  };
 
-  isTouchDevice: boolean;
+  pickCard(cardId: number, cardCol: HTMLDivElement, cardRotator: HTMLDivElement): void {
+    const rect = cardCol.getBoundingClientRect();
+    this.pickCardParams.width = rect.width;
+    this.pickCardParams.height = rect.height;
+    this.pickCardParams.left = (rect.right + rect.left) / 2;
+    this.pickCardParams.top = (rect.bottom + rect.top) / 2;
 
-  onMouseMove(event: MouseEvent, cardRotator: HTMLDivElement): void {
+    let maxWidth = this.Math.min(window.innerHeight * 0.701754385964912, window.innerWidth);
+    maxWidth *= 0.9;
+    maxWidth = this.Math.min(maxWidth, 768);
+    const maxHeight = maxWidth / 0.701754385964912;
+    this.pickCardParams.expandedWidth = maxWidth;
+    this.pickCardParams.expandedHeight = maxHeight;
+
+    if (this.pickedCardId) {
+      this.unpickCard();
+    } else {
+      this.pickedCardId = cardId;
+      this.pickedRotator = cardRotator;
+      this.onMouseLeaveRotator(cardRotator);
+      document.querySelector('body').classList.add('overflow-hidden');
+    }
+  }
+
+  unpickCard(){
+    this.pickedCardId = null;
+    this.pickedRotator = null;
+    document.querySelector('body').classList.remove('overflow-hidden');
+  }
+
+  onMoveRotator(clientX: number, clientY: number, cardRotator: HTMLDivElement){
     const rect = cardRotator.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = (centerY - y) / 10;
-    const rotateY = (x - centerX) / 10;
+    const rotateX = (centerY - y) / (rect.width / 32);
+    const rotateY = (x - centerX) / (rect.height / 32);
 
-    cardRotator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(60px)`;
+    cardRotator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-
-    // 计算伪元素的位置
     const max = Math.sqrt(centerX * centerX + centerY * centerY);
     const dx = (x - centerX) / max;
     const dy = (y - centerY) / max;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // 更新伪元素样式
     const pseudoLeft = (x / rect.width) * 100 + '%';
     const pseudoTop = (y / rect.height) * 100 + '%';
+    cardRotator.style.setProperty('--rotator-transition', 'all 0.02s ease');
     cardRotator.style.setProperty('--pseudo-left', pseudoLeft.toString());
     cardRotator.style.setProperty('--pseudo-top', pseudoTop.toString());
     cardRotator.style.setProperty('--pseudo-opacity', Math.min(1, distance).toString());
   }
 
-  onMouseLeave(cardRotator: HTMLDivElement): void {
+  onTouchMoveRotator(event: TouchEvent, cardRotator: HTMLDivElement){
+    if (!this.pickedCardId) { return; }
+    const touch = event.touches[0];
+    let clientX = touch.clientX;
+    let clientY = touch.clientY;
+    const rect = cardRotator.getBoundingClientRect();
+    if (clientX < rect.left){
+      clientX = rect.left;
+    }
+    else if (clientX > rect.right){
+      clientX = rect.right;
+    }
+    else if (clientY < rect.top){
+      clientY = rect.top;
+    }
+    else if (clientY > rect.bottom){
+      clientY = rect.bottom;
+    }
+    this.onMoveRotator(clientX, clientY, cardRotator);
+    event.preventDefault();
+  }
+
+  onMouseMoveRotator(event: MouseEvent, cardRotator: HTMLDivElement): void {
+    this.onMoveRotator(event.clientX, event.clientY, cardRotator);
+  }
+
+  onMouseLeaveRotator(cardRotator: HTMLDivElement): void {
     cardRotator.style.transform = 'none';
 
+    cardRotator.style.setProperty('--rotator-transition', 'all .6s');
     cardRotator.style.setProperty('--pseudo-left', '50%');
     cardRotator.style.setProperty('--pseudo-top', '50%');
     cardRotator.style.setProperty('--pseudo-opacity', '0');
@@ -85,19 +200,21 @@ export class OngekiCardComponent implements OnInit {
     private auth: AuthenticationService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
-    public router: Router,
-    private renderer: Renderer2
+    public router: Router
   ) {
   }
 
   ngOnInit() {
-    this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
         this.currentPage = data.page;
       }
       this.load(this.currentPage);
     });
+  }
+
+  ngOnDestroy() {
+
   }
 
   load(page: number) {
@@ -190,95 +307,81 @@ export class OngekiCardComponent implements OnInit {
     }
     return input.split(',').map(str => parseFloat(str.trim()));
   }
+
   getCardName(str: string, rarity: string, nickName: string): string {
     return str.replace('【SR+】', '【SRPlus】').replace(`【${rarity}】`, '').replace(`[${nickName}]`, '');
   }
 
-  getCharaMask(card: PlayerCard){
+  getCharaMask(card: PlayerCard) {
     return 'url(' + this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + card.cardId + '.png' + ')';
   }
 
-  getHoloFrameMask(card: PlayerCard, showElements: boolean){
+  getHoloFrameMask(card: PlayerCard, showElements: boolean) {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     let frameUrl: string;
-    if (card.cardInfo){
-      if (this.isSignHolo(card.cardId)){
-        if (showElements){
+    if (card.cardInfo) {
+      if (this.isSignHolo(card.cardId)) {
+        if (showElements) {
           frameUrl = 'linear-gradient(transparent, transparent)';
-        }
-        else{
+        } else {
           frameUrl = 'url(' + this.host + 'assets/ongeki/card-holo-sign/UI_Card_Holo_Sign_' + cardIdStr + '.png' + ')';
         }
-      }
-      else if (card.cardInfo.rarity === 'SSR')
-      {
+      } else if (card.cardInfo.rarity === 'SSR') {
         frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_SSR_00.png' + ')';
-      }
-      else if (card.cardInfo.rarity === 'SR' || card.cardInfo.rarity === 'SRPlus'){
+      } else if (card.cardInfo.rarity === 'SR' || card.cardInfo.rarity === 'SRPlus') {
         frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_SR_01.png' + ')';
-      }
-      else if (card.cardInfo.rarity === 'R'){
+      } else if (card.cardInfo.rarity === 'R') {
         frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_R_00.png' + ')';
-      }
-      else if (card.cardInfo.rarity === 'N'){
+      } else if (card.cardInfo.rarity === 'N') {
         frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_N_00.png' + ')';
-      }
-      else {
+      } else {
         frameUrl = 'linear-gradient(transparent, transparent)';
       }
     }
-    if (card.cardInfo.rarity === 'R' || card.cardInfo.rarity === 'N')
-    {
+    if (card.cardInfo.rarity === 'R' || card.cardInfo.rarity === 'N') {
       const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.png';
       const charaMaskUrl = 'url(' + charaMask + ')';
       return frameUrl + ',' + charaMaskUrl;
-    }
-    else{
+    } else {
       return frameUrl;
     }
   }
-  isSpecialHolo(id: number){
+
+  isSpecialHolo(id: number) {
     return this.specialHoloIDs.includes(id);
   }
-  isSignHolo(id: number){
+
+  isSignHolo(id: number) {
     return this.signHoloIDs.includes(id);
   }
 
-  getHoloBGMask(card: PlayerCard, showElements: boolean){
+  getHoloBGMask(card: PlayerCard, showElements: boolean) {
     const isSpecialHolo = this.isSpecialHolo(card.cardId);
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.png';
     const charaMaskUrl = 'url(' + charaMask + ')';
     let bgUrl: string;
-    if (card.cardInfo){
-      if (isSpecialHolo){
+    if (card.cardInfo) {
+      if (isSpecialHolo) {
         bgUrl = 'url(' + this.host + 'assets/ongeki/card-holo/UI_Card_Holo_' + cardIdStr + '.png' + ')';
-      }
-      else if (card.cardInfo.rarity === 'SSR')
-      {
+      } else if (card.cardInfo.rarity === 'SSR') {
         bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_SSR_00.png' + ')';
-      }
-      else if (card.cardInfo.rarity === 'SR' || card.cardInfo.rarity === 'SRPlus' ){
+      } else if (card.cardInfo.rarity === 'SR' || card.cardInfo.rarity === 'SRPlus') {
         bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_SR_00.png' + ')';
-      }
-      else if (card.cardInfo.rarity === 'R'){
+      } else if (card.cardInfo.rarity === 'R') {
         bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_R_00.png' + ')';
-      }
-      else if (card.cardInfo.rarity === 'N'){
+      } else if (card.cardInfo.rarity === 'N') {
         bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_N_00.png' + ')';
       }
-    }
-    else{
+    } else {
       bgUrl = 'linear-gradient(transparent, transparent)';
     }
 
-    if (isSpecialHolo){
+    if (isSpecialHolo) {
       return bgUrl;
-    }
-    else if (showElements){
+    } else if (showElements) {
       return bgUrl + ',' + charaMaskUrl + ',' + this.getFrame(card);
-    }
-    else{
+    } else {
       return bgUrl + ',' + charaMaskUrl;
     }
   }
@@ -301,18 +404,18 @@ export class OngekiCardComponent implements OnInit {
     }
 
     if (card.cardInfo.rarity === 'N' || card.cardInfo.rarity === 'R') {
-      if (showHolo){
+      if (showHolo) {
         const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_Horo_' + card.cardInfo.rarity + '_' + attrCode + '.png';
         bgUrl = 'url(' + bg + ')';
-      }
-      else{
+      } else {
         const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_' + attrCode + '.png';
         bgUrl = 'url(' + bg + ')';
       }
     }
     return bgUrl;
   }
-  getFrame(card: PlayerCard){
+
+  getFrame(card: PlayerCard) {
     let attrCode;
 
     if (card.cardInfo.attribute === 'Fire') {
@@ -326,7 +429,8 @@ export class OngekiCardComponent implements OnInit {
 
     return frameUrl;
   }
-  getHoloFrame(card: PlayerCard){
+
+  getHoloFrame(card: PlayerCard) {
     let attrCode;
 
     if (card.cardInfo.attribute === 'Fire') {
@@ -338,46 +442,43 @@ export class OngekiCardComponent implements OnInit {
     }
     const frameUrl = this.getHoloFrameByRarity(card.cardInfo.rarity, attrCode);
 
-    if (card.cardInfo.rarity === 'SRPlus'){
+    if (card.cardInfo.rarity === 'SRPlus') {
       return this.getHoloFrameByRarity('SR', attrCode) + ',' + frameUrl;
     }
     return frameUrl;
   }
-  getFrameByRarity(rarity: string, attrCode: number){
+
+  getFrameByRarity(rarity: string, attrCode: number) {
     let frame: string;
-    if (rarity === 'SSR'){
+    if (rarity === 'SSR') {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.png';
-    }
-    else if (rarity === 'SR'){
+    } else if (rarity === 'SR') {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SR_' + attrCode + '.png';
-    }
-    else if (rarity === 'SRPlus'){
+    } else if (rarity === 'SRPlus') {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.png';
-    }
-    else{
+    } else {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + rarity + '_' + attrCode + '.png';
     }
     return 'url(' + frame + ')';
   }
-  getHoloFrameByRarity(rarity: string, attrCode: number){
+
+  getHoloFrameByRarity(rarity: string, attrCode: number) {
     let frame: string;
-    if (rarity === 'SSR'){
+    if (rarity === 'SSR') {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.png';
-    }
-    else if (rarity === 'SR'){
+    } else if (rarity === 'SR') {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_Frame_Horo_SR_' + attrCode + '.png';
-    }
-    else if (rarity === 'SRPlus'){
+    } else if (rarity === 'SRPlus') {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.png';
-    }
-    else{
+    } else {
       frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + rarity + '_' + attrCode + '.png';
     }
     return 'url(' + frame + ')';
   }
-  getChara(card: PlayerCard){
+
+  getChara(card: PlayerCard) {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     const charaP = this.host + 'assets/ongeki/card-chara-p/UI_Card_Chara_' + cardIdStr + '_P.png';
-    return  'url(' + charaP + ')';
+    return 'url(' + charaP + ')';
   }
 }
