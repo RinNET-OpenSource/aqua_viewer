@@ -21,7 +21,7 @@
 .logo-img {
   position: absolute;
   z-index: 99;
-  top: 1%;
+  top: -1%;
 }
 
 .logo-bottom {
@@ -54,7 +54,7 @@
 
 @media only screen and (max-width: 766px) {
   .logo-container {
-    height: 23vh !important;
+    height: 13rem !important;
   }
   .logo {
     top: 0 !important;

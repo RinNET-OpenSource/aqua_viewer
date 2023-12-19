@@ -5,6 +5,7 @@ import {ChusanMusic} from '../model/ChusanMusic';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {ApiService} from '../../../../api.service';
 import {MessageService} from '../../../../message.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class V2SonglistComponent implements OnInit {
   constructor(
     private dbService: NgxIndexedDBService,
     private api: ApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public router: Router
   ) {
   }
 
@@ -55,5 +57,4 @@ export class V2SonglistComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 }
