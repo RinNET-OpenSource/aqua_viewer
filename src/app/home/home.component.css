@@ -1,0 +1,62 @@
+.logo-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  height: 53vh;
+}
+
+.logo {
+  position: absolute;
+  width: 219px;
+  height: 216px;
+  max-width: 15rem;
+  max-height: 25rem;
+  background: url('src/assets/turtle.svg') no-repeat center center / 100%;
+  z-index: 999;
+  top: 21%;
+  right: 3%;
+}
+
+.logo-img {
+  position: absolute;
+  z-index: 99;
+  top: 1%;
+}
+
+.logo-bottom {
+  z-index: 10 !important;
+}
+
+.logo-img_fault {
+  background-blend-mode: screen;
+}
+
+.logo-img_fault::after,.logo-img_fault::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  mask: url('src/assets/turtle.svg') center/cover;
+}
+
+.logo-img_fault::after {
+  transform: translateX(-2%);
+  background-color: #f00;
+}
+
+.logo-img_fault::before{
+  transform: translateX(2%);
+  background-color: #00f;
+}
+
+@media only screen and (max-width: 766px) {
+  .logo-container {
+    height: 23vh !important;
+  }
+  .logo {
+    top: 0 !important;
+  }
+}

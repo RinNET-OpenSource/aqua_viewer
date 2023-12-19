@@ -1,3 +1,6 @@
+.rating-info {
+  font-size: 1.2em;
+}
 
 .skill-card table {
   width: 100%;
@@ -20,12 +23,21 @@ td {
 }
 
 thead th {
-  text-align: center;
+  text-align: left;
 }
 
 tr * {
   padding: 10px 0;
 }
+
+.music-img {
+  width: 3rem;
+}
+
+.music-title {
+  text-align: left;
+}
+
 
 @media only screen and (max-width: 599px) {
   .skill-card table {

@@ -1,8 +1,16 @@
 <div>
   <div class="container">
     <div class="row justify-content-center pt-5">
-      <img class="col-12 col-md-4 mb-3" style="max-width: 15rem; max-height: 25rem" src="{{host}}assets/turtle.svg"
-           alt="turtle"/>
+      <div class="logo-container col-12 col-md-4 mb-3" style="max-width: 15rem; max-height: 25rem">
+        <div #faultLogo class="logo" (mouseenter)="fault($event)" (mouseleave)="faultStop($event)">
+          <img class="logo-img" src="{{host}}assets/turtle.svg" alt="turtle"/>
+        </div>
+        <div #faultLogo class="logo logo-bottom">
+          <img class="logo-img" src="{{host}}assets/turtle.svg" alt="turtle"/>
+        </div>
+      </div>
+<!--      <img class="col-12 col-md-4 mb-3" style="max-width: 15rem; max-height: 25rem" src="{{host}}assets/turtle.svg"-->
+<!--           alt="turtle"/>-->
       <div class="col-12 col-md-8 px-0 px-md-4">
         <div class="text-center mb-0">
           <h1 class="display-1 fw-semibold">RinNET</h1>
