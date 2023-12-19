@@ -104,6 +104,9 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
   };
 
   pickCard(cardId: number, cardCol: HTMLDivElement, cardRotator: HTMLDivElement): void {
+    if (this.pickedCardId) {
+      this.unpickCard();
+    }
     const rect = cardCol.getBoundingClientRect();
     this.pickCardParams.width = rect.width;
     this.pickCardParams.height = rect.height;
@@ -117,23 +120,20 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     this.pickCardParams.expandedWidth = maxWidth;
     this.pickCardParams.expandedHeight = maxHeight;
 
-    if (this.pickedCardId) {
-      this.unpickCard();
-    } else {
-      this.pickedCardId = cardId;
-      this.pickedRotator = cardRotator;
-      this.onMouseLeaveRotator(cardRotator);
-      document.querySelector('body').classList.add('overflow-hidden');
-    }
+
+    this.pickedCardId = cardId;
+    this.pickedRotator = cardRotator;
+    this.onMouseLeaveRotator(cardRotator);
+    document.querySelector('body').classList.add('overflow-hidden');
   }
 
-  unpickCard(){
+  unpickCard() {
     this.pickedCardId = null;
     this.pickedRotator = null;
     document.querySelector('body').classList.remove('overflow-hidden');
   }
 
-  onMoveRotator(clientX: number, clientY: number, cardRotator: HTMLDivElement){
+  onMoveRotator(clientX: number, clientY: number, cardRotator: HTMLDivElement) {
     const rect = cardRotator.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
@@ -158,22 +158,21 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     cardRotator.style.setProperty('--pseudo-opacity', Math.min(1, distance).toString());
   }
 
-  onTouchMoveRotator(event: TouchEvent, cardRotator: HTMLDivElement){
-    if (!this.pickedCardId) { return; }
+  onTouchMoveRotator(event: TouchEvent, cardRotator: HTMLDivElement) {
+    if (!this.pickedCardId) {
+      return;
+    }
     const touch = event.touches[0];
     let clientX = touch.clientX;
     let clientY = touch.clientY;
     const rect = cardRotator.getBoundingClientRect();
-    if (clientX < rect.left){
+    if (clientX < rect.left) {
       clientX = rect.left;
-    }
-    else if (clientX > rect.right){
+    } else if (clientX > rect.right) {
       clientX = rect.right;
-    }
-    else if (clientY < rect.top){
+    } else if (clientY < rect.top) {
       clientY = rect.top;
-    }
-    else if (clientY > rect.bottom){
+    } else if (clientY > rect.bottom) {
       clientY = rect.bottom;
     }
     this.onMoveRotator(clientX, clientY, cardRotator);
