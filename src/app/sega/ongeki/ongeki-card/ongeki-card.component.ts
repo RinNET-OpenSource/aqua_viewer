@@ -48,10 +48,11 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
           left: '{{left}}px',
           zIndex: 1100
         }),
-        animate('300ms ease-out')
+        animate('1s ease-in-out')
       ]),
       transition('expanded => normal', [
-        animate('300ms ease-out', style({
+        animate('1s ease-in-out', style({
+          transform: 'translate(-50%, -50%)',
           position: 'fixed',
           width: '{{width}}px',
           height: '{{height}}px',
@@ -85,8 +86,8 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
   showHolo = false;
   showElements = true;
+  pickingCard = false;
   pickedCardId: number = null;
-  pickedRotator: HTMLDivElement;
   pickCardParams: {
     left: number;
     top: number;
@@ -102,10 +103,15 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     expandedWidth: null,
     expandedHeight: null
   };
+  private pickedCardParent: HTMLElement;
 
-  pickCard(cardId: number, cardCol: HTMLDivElement, cardRotator: HTMLDivElement): void {
+  pickCard(cardId: number, cardCol: HTMLDivElement): void {
+    if (this.pickingCard){
+      return;
+    }
     if (this.pickedCardId) {
-      this.unpickCard();
+      this.onMouseLeaveCard(cardCol);
+      return this.unpickCard();
     }
     const rect = cardCol.getBoundingClientRect();
     this.pickCardParams.width = rect.width;
@@ -121,20 +127,38 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     this.pickCardParams.expandedHeight = maxHeight;
 
 
+    this.onMouseLeaveCard(cardCol);
+    cardCol.classList.add('card-picking');
     this.pickedCardId = cardId;
-    this.pickedRotator = cardRotator;
-    this.onMouseLeaveRotator(cardRotator);
+    this.pickedCardParent = cardCol.parentElement;
     document.querySelector('body').classList.add('overflow-hidden');
   }
 
   unpickCard() {
+    const rect = this.pickedCardParent.getBoundingClientRect();
+    this.pickCardParams.width = rect.width;
+    this.pickCardParams.height = rect.height;
+    this.pickCardParams.left = (rect.right + rect.left) / 2;
+    this.pickCardParams.top = (rect.bottom + rect.top) / 2;
+
     this.pickedCardId = null;
-    this.pickedRotator = null;
-    document.querySelector('body').classList.remove('overflow-hidden');
   }
 
-  onMoveRotator(clientX: number, clientY: number, cardRotator: HTMLDivElement) {
-    const rect = cardRotator.getBoundingClientRect();
+  onPickAnimationStart(cardCol: HTMLDivElement){
+    this.pickingCard = true;
+    cardCol.style.setProperty('--rotator-transition', 'all 1s ease-out');
+  }
+
+  onPickAnimationEnd(cardCol: HTMLDivElement){
+    this.pickingCard = false;
+    cardCol.style.removeProperty('--rotator-transition');
+    if (!this.pickedCardId){
+      document.querySelector('body').classList.remove('overflow-hidden');
+    }
+  }
+
+  onMoveRotator(clientX: number, clientY: number, cardCol: HTMLDivElement) {
+    const rect = cardCol.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
     const centerX = rect.width / 2;
@@ -143,7 +167,8 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     const rotateX = (centerY - y) / (rect.width / 32);
     const rotateY = (x - centerX) / (rect.height / 32);
 
-    cardRotator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    cardCol.style.setProperty('--rotator-rotate-x', `${rotateX}deg`);
+    cardCol.style.setProperty('--rotator-rotate-y', `${rotateY}deg`);
 
     const max = Math.sqrt(centerX * centerX + centerY * centerY);
     const dx = (x - centerX) / max;
@@ -152,20 +177,20 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
     const pseudoLeft = (x / rect.width) * 100 + '%';
     const pseudoTop = (y / rect.height) * 100 + '%';
-    cardRotator.style.setProperty('--rotator-transition', 'all 0.02s ease');
-    cardRotator.style.setProperty('--pseudo-left', pseudoLeft.toString());
-    cardRotator.style.setProperty('--pseudo-top', pseudoTop.toString());
-    cardRotator.style.setProperty('--pseudo-opacity', Math.min(1, distance).toString());
+    cardCol.style.setProperty('--rotator-transition', 'all .1s ease-out');
+    cardCol.style.setProperty('--pseudo-left', pseudoLeft.toString());
+    cardCol.style.setProperty('--pseudo-top', pseudoTop.toString());
+    cardCol.style.setProperty('--pseudo-opacity', Math.min(1, distance).toString());
   }
 
-  onTouchMoveRotator(event: TouchEvent, cardRotator: HTMLDivElement) {
-    if (!this.pickedCardId) {
+  onTouchMoveRotator(event: TouchEvent, cardCol: HTMLDivElement) {
+    if (!this.pickedCardId || this.pickingCard) {
       return;
     }
     const touch = event.touches[0];
     let clientX = touch.clientX;
     let clientY = touch.clientY;
-    const rect = cardRotator.getBoundingClientRect();
+    const rect = cardCol.getBoundingClientRect();
     if (clientX < rect.left) {
       clientX = rect.left;
     } else if (clientX > rect.right) {
@@ -175,21 +200,26 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     } else if (clientY > rect.bottom) {
       clientY = rect.bottom;
     }
-    this.onMoveRotator(clientX, clientY, cardRotator);
+    this.onMoveRotator(clientX, clientY, cardCol);
     event.preventDefault();
   }
 
   onMouseMoveRotator(event: MouseEvent, cardRotator: HTMLDivElement): void {
+    if (this.pickingCard) {
+      return;
+    }
     this.onMoveRotator(event.clientX, event.clientY, cardRotator);
   }
 
-  onMouseLeaveRotator(cardRotator: HTMLDivElement): void {
-    cardRotator.style.transform = 'none';
+  onMouseLeaveCard(cardCol: HTMLDivElement): void {
 
-    cardRotator.style.setProperty('--rotator-transition', 'all .6s');
-    cardRotator.style.setProperty('--pseudo-left', '50%');
-    cardRotator.style.setProperty('--pseudo-top', '50%');
-    cardRotator.style.setProperty('--pseudo-opacity', '0');
+    cardCol.style.removeProperty('--rotator-rotate-x');
+    cardCol.style.removeProperty('--rotator-rotate-y');
+
+    cardCol.style.removeProperty('--rotator-transition');
+    cardCol.style.setProperty('--pseudo-left', '50%');
+    cardCol.style.setProperty('--pseudo-top', '50%');
+    cardCol.style.setProperty('--pseudo-opacity', '0');
   }
 
 
@@ -479,5 +509,10 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     const charaP = this.host + 'assets/ongeki/card-chara-p/UI_Card_Chara_' + cardIdStr + '_P.png';
     return 'url(' + charaP + ')';
+  }
+
+  getCardBack() {
+    const backImg = this.host + 'assets/ongeki/gameUi/UI_CMN_CardBackSide.png';
+    return 'url(' + backImg + ')';
   }
 }

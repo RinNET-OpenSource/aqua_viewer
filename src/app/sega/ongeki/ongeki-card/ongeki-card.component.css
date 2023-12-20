@@ -2,32 +2,30 @@
   aspect-ratio: 0.701754385964912;
   width: 100%;
   perspective: 1500px;
-  --expanded-width: 182.233px;
-}
+  transform-style: preserve-3d;
+  --rotator-transition: all .6s ease-out;
 
-.cards-col:hover .card-rotator {
-  --rotator-transition: all 0.02s ease;
-}
-
-.cards-col .card-rotator {
-  --rotator-transition: all .6s;
+  --rotator-global-rotate-y: 0deg;
+  --rotator-rotate-x: 0deg;
+  --rotator-rotate-y: 0deg;
   --pseudo-opacity: 0;
   --pseudo-left: 50%;
   --pseudo-top: 50%;
+}
+
+.card-picking{
+  --rotator-global-rotate-y: 360deg;
+}
+
+.cards-col .card-rotator {
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  border-radius: 3%;
   transition:var(--rotator-transition);
   appearance: none;
-}
-
-.cards-col:hover .card-highlight {
-  transition:var(--rotator-transition);
-}
-
-.cards-col:hover .card-holo {
-  transition:var(--rotator-transition);
+  transform: rotateX(var(--rotator-rotate-x)) rotateY(calc(var(--rotator-global-rotate-y) + var(--rotator-rotate-y)));
+  transform-style: preserve-3d;
+  border-radius: 3%;
+  box-shadow: 0px 0px 20px -5px rgb(128, 128, 128), 0 0px 15px -5px rgb(128, 128, 128);
 }
 
 .cards-col .card-holo::after {
@@ -37,8 +35,8 @@
   top: 0;
   height: 100%;
   width: 100%;
-  background-position: var(--cosmosbg, center center), calc(20% + var(--pseudo-left) * 0.6) calc(20% + var(--pseudo-top) * 0.6), center center;
-  background-size: cover, 400%, 900%, cover;
+  background-position: center center, calc(20% + var(--pseudo-left) * 0.6) calc(20% + var(--pseudo-top) * 0.6), center center;
+  background-size: cover, 400% 900%, cover;
   background-image: url("/assets/holo-sheet/top.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: multiply, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
@@ -53,8 +51,8 @@
   top: 0;
   height: 100%;
   width: 100%;
-  background-position: var(--cosmosbg, center center), calc(15% + var(--pseudo-left) * 0.7) calc(15% + var(--pseudo-top) * 0.7), center center;
-  background-size: cover, 400%, 900%, cover;
+  background-position: center center, calc(15% + var(--pseudo-left) * 0.7) calc(15% + var(--pseudo-top) * 0.7), center center;
+  background-size: cover, 400% 900%, cover;
   background-image: url("/assets/holo-sheet/middle.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: lighten, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
@@ -69,8 +67,8 @@
   top: 0;
   height: 100%;
   width: 100%;
-  background-position: var(--cosmosbg, center center), calc(10% + var(--pseudo-left) * 0.8) calc(10% + var(--pseudo-top) * 0.8), center center;
-  background-size: cover, 400%, 900%, cover;
+  background-position: center center, calc(10% + var(--pseudo-left) * 0.8) calc(10% + var(--pseudo-top) * 0.8), center center;
+  background-size: cover, 400% 900%, cover;
   background-image: url("/assets/holo-sheet/bottom.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: color-burn, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
@@ -136,9 +134,11 @@
 
 .card-container {
   aspect-ratio: 0.701754385964912;
-  width: 102%;
+  width: 100%;
   top: 0;
   left: 0;
+  border-radius: 3%;
+  overflow: hidden;
   position: relative;
   background-size: cover;
   container: card-container / inline-size;
@@ -184,7 +184,6 @@
   width: 100%;
   bottom: 0;
   left: 0;
-  padding-bottom: 2%;
   color: white;
   font-family: SEGA_Humming;
   font-size: 3cqw;
@@ -259,11 +258,25 @@
 
 .card-name .card-name-shadow {
   position: absolute;
-  top: calc(50% + 0.05em);
-  right: -0.05em;
-  -webkit-text-stroke: 0.2em #2592C1;
+  top: calc(50% + .3cqw);
+  right: -.3cqw;
+  color: #2592C1;
+  -webkit-text-stroke: .9cqw #2592C1;
   transform: translate(0, -50%);
 }
+
+.card-name .card-name-shadow .card-name-text {
+  top: calc(50% + .2cqw);
+  right: -.2cqw;
+  -webkit-text-stroke: .9cqw #2592C1;
+}
+
+.card-name .card-name-shadow .card-name-chara {
+  top: calc(50% + .5cqw);
+  right: -.5cqw;
+  -webkit-text-stroke: 1.2cqw #2592C1;
+}
+
 
 .card-name .card-name-text {
   position: absolute;
@@ -282,17 +295,31 @@
 
 .card-backdrop {
   position: fixed;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: black;
   opacity: .8;
   top: 0;
   left: 0;
   z-index: 1099;
-  transition: opacity 300ms linear
+  transition: opacity 1s linear;
+  visibility: visible;
 }
 
 .hidden {
   visibility: hidden;
   opacity: .0;
+  transition: opacity 1s linear, visibility 0s linear 1s;
+}
+
+.card-back{
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 3%;
+  background-size: cover;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  background-position: center;
 }
