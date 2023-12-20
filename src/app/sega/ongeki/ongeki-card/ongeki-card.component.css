@@ -1,6 +1,6 @@
 .cards-col {
-  aspect-ratio: 0.701754385964912;
   width: 100%;
+  display: inline-block;
   perspective: 1500px;
   transform-style: preserve-3d;
   --rotator-transition: all .6s ease-out;
@@ -22,6 +22,7 @@
   height: 100%;
   transition:var(--rotator-transition);
   appearance: none;
+  will-change: transform;
   transform: rotateX(var(--rotator-rotate-x)) rotateY(calc(var(--rotator-global-rotate-y) + var(--rotator-rotate-y)));
   transform-style: preserve-3d;
   border-radius: 3%;
@@ -37,6 +38,7 @@
   width: 100%;
   background-position: center center, calc(20% + var(--pseudo-left) * 0.6) calc(20% + var(--pseudo-top) * 0.6), center center;
   background-size: cover, 400% 900%, cover;
+  will-change: background-image;
   background-image: url("/assets/holo-sheet/top.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: multiply, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
@@ -53,6 +55,7 @@
   width: 100%;
   background-position: center center, calc(15% + var(--pseudo-left) * 0.7) calc(15% + var(--pseudo-top) * 0.7), center center;
   background-size: cover, 400% 900%, cover;
+  will-change: background-image;
   background-image: url("/assets/holo-sheet/middle.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: lighten, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
@@ -69,6 +72,7 @@
   width: 100%;
   background-position: center center, calc(10% + var(--pseudo-left) * 0.8) calc(10% + var(--pseudo-top) * 0.8), center center;
   background-size: cover, 400% 900%, cover;
+  will-change: background-image;
   background-image: url("/assets/holo-sheet/bottom.png"), repeating-linear-gradient(75deg, hsl(53, 65%, 60%) calc(var(--space) * 1), hsl(93, 56%, 50%) calc(var(--space) * 2), hsl(176, 54%, 49%) calc(var(--space) * 3), hsl(228, 59%, 55%) calc(var(--space) * 4), hsl(283, 60%, 55%) calc(var(--space) * 5), hsl(326, 59%, 51%) calc(var(--space) * 6), hsl(326, 59%, 51%) calc(var(--space) * 7), hsl(283, 60%, 55%) calc(var(--space) * 8), hsl(228, 59%, 55%) calc(var(--space) * 9), hsl(176, 54%, 49%) calc(var(--space) * 10), hsl(93, 56%, 50%) calc(var(--space) * 11), hsl(53, 65%, 60%) calc(var(--space) * 12));
   background-blend-mode: color-burn, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
@@ -133,7 +137,7 @@
 }
 
 .card-container {
-  aspect-ratio: 0.701754385964912;
+  aspect-ratio: 0.730038022813688;
   width: 100%;
   top: 0;
   left: 0;

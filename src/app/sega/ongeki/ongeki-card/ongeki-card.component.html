@@ -40,148 +40,150 @@
     <div class="col d-flex p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
       <div class="w-100 h-100">
-      <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}"
-           [@cardAnimation]="{
+        <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}"
+             [@cardAnimation]="{
            value: pickedCardId === item.cardId?'expanded':'normal',
            params: { top: pickCardParams.top, left: pickCardParams.left, width: pickCardParams.width, height: pickCardParams.height,
             expandedWidth: pickCardParams.expandedWidth, expandedHeight: pickCardParams.expandedHeight} }"
-           (@cardAnimation.start)="onPickAnimationStart(cardCol)"
-           (@cardAnimation.done)="onPickAnimationEnd(cardCol)"
-           (mousemove)="onMouseMoveRotator($event, cardCol)"
-           (mouseleave)="onMouseLeaveCard(cardCol)"
-           (click)="pickCard(item.cardId, cardCol)"
-           (touchmove)="onTouchMoveRotator($event, cardCol)"
-           (touchend)="onMouseLeaveCard(cardCol)"
-           (touchcancel)="onMouseLeaveCard(cardCol)">
-        <div class="card-rotator w-100">
-          <div *ngIf="item.cardInfo" class="card-container user-select-none"
-               style="background-image: {{getCardBackground(item, showHolo)}}">
-            <div *ngIf="showElements && (item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')" class="card-frame"
-                 style="background-image: {{getFrame(item)}}"></div>
-            <div class="card-chara" style="background-image: {{getChara(item)}}"></div>
-            <div *ngIf="showHolo" class="position-absolute w-100 h-100">
-              <div class="card-holo-bg" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
-              <div class="card-holo" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
-            </div>
-            <div *ngIf="showElements && !showHolo && !(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
-                 class="card-frame" style="background-image: {{getFrame(item)}}"></div>
-            <div *ngIf="showHolo" class="position-absolute w-100 h-100">
-              <div *ngIf="!(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')" class="card-frame"
-                   style="background-image: {{getHoloFrame(item)}}"></div>
-              <div class="card-holo-frame-bg"
-                   style="-webkit-mask-image: {{getHoloFrameMask(item, showElements)}}"></div>
-              <div class="card-holo" style="-webkit-mask-image: {{getHoloFrameMask(item, showElements)}}"></div>
-            </div>
-            <div *ngIf="showElements" class="position-absolute w-100 h-100">
-              <div [ngSwitch]="item.cardInfo.attribute">
-                <img *ngSwitchCase="'Fire'" class="card-attribute"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_00_Red.png">
-                <img *ngSwitchCase="'Aqua'" class="card-attribute"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_01_Bule.png">
-                <img *ngSwitchCase="'Leaf'" class="card-attribute"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_02_Green.png">
+             (@cardAnimation.start)="onPickAnimationStart(cardCol)"
+             (@cardAnimation.done)="onPickAnimationEnd(cardCol)"
+             (mousemove)="onMouseMoveRotator($event, cardCol)"
+             (mouseleave)="onMouseLeaveCard(cardCol)"
+             (click)="pickCard(item.cardId, cardCol)"
+             (touchmove)="onTouchMoveRotator($event, cardCol)"
+             (touchend)="onMouseLeaveCard(cardCol)"
+             (touchcancel)="onMouseLeaveCard(cardCol)">
+          <div class="card-rotator w-100">
+            <div *ngIf="item.cardInfo" class="card-container user-select-none"
+                 style="background-image: {{getCardBackground(item, showHolo)}}">
+              <div *ngIf="showElements && (item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
+                   class="card-frame"
+                   style="background-image: {{getFrame(item)}}"></div>
+              <div class="card-chara" style="background-image: {{getChara(item)}}"></div>
+              <div *ngIf="showHolo" class="position-absolute w-100 h-100">
+                <div class="card-holo-bg" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
+                <div class="card-holo" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
               </div>
-              <div [ngSwitch]="item.cardInfo.rarity">
-                <img *ngSwitchCase="'N'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.png">
-                <img *ngSwitchCase="'R'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.png">
-                <img *ngSwitchCase="'SR'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
-                <img *ngSwitchCase="'SSR'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_03_SSR.png">
-                <img *ngSwitchCase="'SRPlus'" class="card-rare"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_05_SRPlus.png">
+              <div *ngIf="showElements && !showHolo && !(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
+                   class="card-frame" style="background-image: {{getFrame(item)}}"></div>
+              <div *ngIf="showHolo" class="position-absolute w-100 h-100">
+                <div *ngIf="!(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')" class="card-frame"
+                     style="background-image: {{getHoloFrame(item)}}"></div>
+                <div class="card-holo-frame-bg"
+                     style="-webkit-mask-image: {{getHoloFrameMask(item, showElements)}}"></div>
+                <div class="card-holo" style="-webkit-mask-image: {{getHoloFrameMask(item, showElements)}}"></div>
               </div>
-              <div [ngSwitch]="item.cardInfo.gakunen">
-                <img *ngSwitchCase="'高校1年生'" class="card-gakunen"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00001.png">
-                <img *ngSwitchCase="'高校2年生'" class="card-gakunen"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00002.png">
-                <img *ngSwitchCase="'高校3年生'" class="card-gakunen"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00003.png">
-                <img *ngSwitchCase="'中学1年生'" class="card-gakunen"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00004.png">
-                <img *ngSwitchCase="'中学2年生'" class="card-gakunen"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00005.png">
-                <img *ngSwitchCase="'中学3年生'" class="card-gakunen"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00006.png">
-              </div>
-              <img *ngIf="(item.kaikaDate != '0000-00-00 00:00:00.0')" class="card-kaika-state"
-                   draggable="false"
-                   src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.png">
-              <div *ngIf="item.skillInfo">
-                <div [ngSwitch]="item.skillInfo.category">
-                  <img *ngSwitchCase="'Attack'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.png">
-                  <img *ngSwitchCase="'DangerAttack'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.png">
-                  <img *ngSwitchCase="'Assist'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.png">
-                  <img *ngSwitchCase="'DangerAssist'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.png">
-                  <img *ngSwitchCase="'Guard'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.png">
-                  <img *ngSwitchCase="'DangerGuard'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard_Danger.png">
-                  <img *ngSwitchCase="'Boost'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost.png">
-                  <img *ngSwitchCase="'DangerBoost'" class="card-skill-bg" draggable="false"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.png">
+              <div *ngIf="showElements" class="position-absolute w-100 h-100">
+                <div [ngSwitch]="item.cardInfo.attribute">
+                  <img *ngSwitchCase="'Fire'" class="card-attribute"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_00_Red.png">
+                  <img *ngSwitchCase="'Aqua'" class="card-attribute"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_01_Bule.png">
+                  <img *ngSwitchCase="'Leaf'" class="card-attribute"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_02_Green.png">
                 </div>
-              </div>
-              <div class="card-star-container">
-                <img *ngFor="let _ of getArrayFromNumber(getStarCount(item))" class="card-star"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_star_00.png">
-                <img *ngFor="let _ of getArrayFromNumber((item.cardInfo.rarity == 'N'?11:5) - getStarCount(item))"
-                     class="card-star" src="{{host}}assets/ongeki/gameUi/UI_Card_star_01.png">
-              </div>
-              <!--        <div class="card-qr-code-container">-->
-              <!--          <img class="card-qr-code" src="{{host}}assets/ongeki/gameUi/UI_Card_qr_dummy_00.png">-->
-              <!--        </div>-->
+                <div [ngSwitch]="item.cardInfo.rarity">
+                  <img *ngSwitchCase="'N'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.png">
+                  <img *ngSwitchCase="'R'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.png">
+                  <img *ngSwitchCase="'SR'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
+                  <img *ngSwitchCase="'SSR'" class="card-rare"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_03_SSR.png">
+                  <img *ngSwitchCase="'SRPlus'" class="card-rare"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_05_SRPlus.png">
+                </div>
+                <div [ngSwitch]="item.cardInfo.gakunen">
+                  <img *ngSwitchCase="'高校1年生'" class="card-gakunen"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00001.png">
+                  <img *ngSwitchCase="'高校2年生'" class="card-gakunen"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00002.png">
+                  <img *ngSwitchCase="'高校3年生'" class="card-gakunen"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00003.png">
+                  <img *ngSwitchCase="'中学1年生'" class="card-gakunen"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00004.png">
+                  <img *ngSwitchCase="'中学2年生'" class="card-gakunen"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00005.png">
+                  <img *ngSwitchCase="'中学3年生'" class="card-gakunen"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00006.png">
+                </div>
+                <img *ngIf="(item.kaikaDate != '0000-00-00 00:00:00.0')" class="card-kaika-state"
+                     draggable="false"
+                     src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.png">
+                <div *ngIf="item.skillInfo">
+                  <div [ngSwitch]="item.skillInfo.category">
+                    <img *ngSwitchCase="'Attack'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.png">
+                    <img *ngSwitchCase="'DangerAttack'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.png">
+                    <img *ngSwitchCase="'Assist'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.png">
+                    <img *ngSwitchCase="'DangerAssist'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.png">
+                    <img *ngSwitchCase="'Guard'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.png">
+                    <img *ngSwitchCase="'DangerGuard'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard_Danger.png">
+                    <img *ngSwitchCase="'Boost'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost.png">
+                    <img *ngSwitchCase="'DangerBoost'" class="card-skill-bg" draggable="false"
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.png">
+                  </div>
+                </div>
+                <div class="card-star-container">
+                  <img *ngFor="let _ of getArrayFromNumber(getStarCount(item))" class="card-star"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_star_00.png">
+                  <img *ngFor="let _ of getArrayFromNumber((item.cardInfo.rarity == 'N'?11:5) - getStarCount(item))"
+                       class="card-star" src="{{host}}assets/ongeki/gameUi/UI_Card_star_01.png">
+                </div>
+                <!--        <div class="card-qr-code-container">-->
+                <!--          <img class="card-qr-code" src="{{host}}assets/ongeki/gameUi/UI_Card_qr_dummy_00.png">-->
+                <!--        </div>-->
 
-              <img class="card-max-atk-title" draggable="false"
-                   src="{{host}}assets/ongeki/gameUi/UI_Card_max_00.png">
-              <div
-                *ngIf="calculateAtk(item.maxLevel, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0'); let maxAtk"
-                class="card-max-atk-value-container">
-                <img *ngIf="maxAtk>=100"
-                     class="card-max-atk-value-number"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor(maxAtk/100)}}.png">
-                <img *ngIf="maxAtk>=10"
-                     class="card-max-atk-value-number"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor((maxAtk%100)/10)}}.png">
-                <img class="card-max-atk-value-number"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{maxAtk%10}}.png">
-              </div>
-              <div class="card-name">
-                <div class="card-name-shadow">
-                  <div class="card-name-nick">
-                    {{item.cardInfo.nickName}}
+                <img class="card-max-atk-title" draggable="false"
+                     src="{{host}}assets/ongeki/gameUi/UI_Card_max_00.png">
+                <div
+                  *ngIf="calculateAtk(item.maxLevel, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0'); let maxAtk"
+                  class="card-max-atk-value-container">
+                  <img *ngIf="maxAtk>=100"
+                       class="card-max-atk-value-number"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor(maxAtk/100)}}.png">
+                  <img *ngIf="maxAtk>=10"
+                       class="card-max-atk-value-number"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor((maxAtk%100)/10)}}.png">
+                  <img class="card-max-atk-value-number"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{maxAtk%10}}.png">
+                </div>
+                <div class="card-name">
+                  <div class="card-name-shadow">
+                    <div class="card-name-nick">
+                      {{item.cardInfo.nickName}}
+                    </div>
+                    <div class="card-name-chara">
+                      {{getCardName(item.cardInfo.name, item.cardInfo.rarity, item.cardInfo.nickName)}}
+                    </div>
                   </div>
-                  <div class="card-name-chara">
-                    {{getCardName(item.cardInfo.name, item.cardInfo.rarity, item.cardInfo.nickName)}}
+                  <div class="card-name-text">
+                    <div class="card-name-nick card-text-shadow">
+                      {{item.cardInfo.nickName}}
+                    </div>
+                    <div class="card-name-chara card-text-shadow">
+                      {{getCardName(item.cardInfo.name, item.cardInfo.rarity, item.cardInfo.nickName)}}
+                    </div>
                   </div>
                 </div>
-                <div class="card-name-text">
-                  <div class="card-name-nick card-text-shadow">
-                    {{item.cardInfo.nickName}}
-                  </div>
-                  <div class="card-name-chara card-text-shadow">
-                    {{getCardName(item.cardInfo.name, item.cardInfo.rarity, item.cardInfo.nickName)}}
-                  </div>
+                <div class="card-info-footer">
+                  <span>
+                    {{item.cardId}}
+                  </span>
+                  <span *ngIf="item.cardInfo">
+                    {{item.cardInfo.cardNumber}}
+                  </span>
                 </div>
               </div>
-              <div class="card-info-footer">
-            <span>
-              {{item.cardId}}
-            </span>
-                <span *ngIf="item.cardInfo">
-              {{item.cardInfo.cardNumber}}
-            </span>
-              </div>
+              <div class="card-highlight"></div>
             </div>
-            <div class="card-highlight"></div>
+            <div class="card-back" style="background-image: {{getCardBack()}}"></div>
           </div>
-          <div class="card-back" style="background-image: {{getCardBack()}}"></div>
         </div>
-      </div>
       </div>
     </div>
   </div>

@@ -30,7 +30,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         left: '*'
       })),
       state('expanded', style({
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -50%) translateZ(10000px)',
         position: 'fixed',
         width: '{{expandedWidth}}px',
         height: '{{expandedHeight}}px',
@@ -80,7 +80,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
   cardList: Observable<PlayerCard[]>;
   loading = true;
-
+  isSafari = false;
   currentPage = 1;
   totalElements = 0;
 
@@ -106,7 +106,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
   private pickedCardParent: HTMLElement;
 
   pickCard(cardId: number, cardCol: HTMLDivElement): void {
-    if (this.pickingCard){
+    if (this.pickingCard || this.isSafari) {
       return;
     }
     if (this.pickedCardId) {
@@ -119,10 +119,10 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     this.pickCardParams.left = (rect.right + rect.left) / 2;
     this.pickCardParams.top = (rect.bottom + rect.top) / 2;
 
-    let maxWidth = this.Math.min(window.innerHeight * 0.701754385964912, window.innerWidth);
+    let maxWidth = this.Math.min(window.innerHeight * 0.730038022813688, window.innerWidth);
     maxWidth *= 0.9;
     maxWidth = this.Math.min(maxWidth, 768);
-    const maxHeight = maxWidth / 0.701754385964912;
+    const maxHeight = maxWidth / 0.730038022813688;
     this.pickCardParams.expandedWidth = maxWidth;
     this.pickCardParams.expandedHeight = maxHeight;
 
@@ -144,20 +144,23 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     this.pickedCardId = null;
   }
 
-  onPickAnimationStart(cardCol: HTMLDivElement){
+  onPickAnimationStart(cardCol: HTMLDivElement) {
     this.pickingCard = true;
     cardCol.style.setProperty('--rotator-transition', 'all 1s ease-out');
   }
 
-  onPickAnimationEnd(cardCol: HTMLDivElement){
+  onPickAnimationEnd(cardCol: HTMLDivElement) {
     this.pickingCard = false;
     cardCol.style.removeProperty('--rotator-transition');
-    if (!this.pickedCardId){
+    if (!this.pickedCardId) {
       document.querySelector('body').classList.remove('overflow-hidden');
     }
   }
 
   onMoveRotator(clientX: number, clientY: number, cardCol: HTMLDivElement) {
+    if (this.isSafari){
+      return;
+    }
     const rect = cardCol.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
@@ -212,6 +215,9 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
   }
 
   onMouseLeaveCard(cardCol: HTMLDivElement): void {
+    if (this.isSafari){
+      return;
+    }
 
     cardCol.style.removeProperty('--rotator-rotate-x');
     cardCol.style.removeProperty('--rotator-rotate-y');
@@ -231,6 +237,10 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     private dbService: NgxIndexedDBService,
     public router: Router
   ) {
+    const userAgent = window.navigator.userAgent;
+    const safari = userAgent.indexOf('Safari') > -1;
+    const chrome = userAgent.indexOf('Chrome') > -1;
+    this.isSafari = safari && !chrome;
   }
 
   ngOnInit() {
@@ -240,6 +250,9 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
       }
       this.load(this.currentPage);
     });
+    if (this.isSafari){
+      this.messageService.notice('Warning: Some features of this page are not Safari compatible!');
+    }
   }
 
   ngOnDestroy() {
