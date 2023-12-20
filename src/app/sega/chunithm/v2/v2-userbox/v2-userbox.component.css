@@ -28,17 +28,13 @@ img {
 	height: 580px;
 }
 
-#assetDiv {
-	height: 640px;
-}
-
 .avatarPreview img {
 	position: absolute;
 	object-fit: none;
 }
 
 #avatarFeet {
-  clip-path: inset(405px 87px 0px 0px); 
+  clip-path: inset(405px 87px 0px 0px);
   z-index: 0;
   left: 37%;
   top: 18%;
