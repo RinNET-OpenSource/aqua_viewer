@@ -39,18 +39,21 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col d-flex p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
-      <div #cardCol class="cards-col"
+      <div class="w-100 h-100">
+      <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}"
            [@cardAnimation]="{
            value: pickedCardId === item.cardId?'expanded':'normal',
            params: { top: pickCardParams.top, left: pickCardParams.left, width: pickCardParams.width, height: pickCardParams.height,
             expandedWidth: pickCardParams.expandedWidth, expandedHeight: pickCardParams.expandedHeight} }"
-           (mousemove)="onMouseMoveRotator($event, cardRotator)"
-           (mouseleave)="onMouseLeaveRotator(cardRotator)"
-           (click)="pickCard(item.cardId, cardCol, cardRotator)"
-           (touchmove)="onTouchMoveRotator($event, cardRotator)"
-           (touchend)="onMouseLeaveRotator(cardRotator)"
-           (touchcancel)="onMouseLeaveRotator(cardRotator)">
-        <div #cardRotator class="card-rotator w-100">
+           (@cardAnimation.start)="onPickAnimationStart(cardCol)"
+           (@cardAnimation.done)="onPickAnimationEnd(cardCol)"
+           (mousemove)="onMouseMoveRotator($event, cardCol)"
+           (mouseleave)="onMouseLeaveCard(cardCol)"
+           (click)="pickCard(item.cardId, cardCol)"
+           (touchmove)="onTouchMoveRotator($event, cardCol)"
+           (touchend)="onMouseLeaveCard(cardCol)"
+           (touchcancel)="onMouseLeaveCard(cardCol)">
+        <div class="card-rotator w-100">
           <div *ngIf="item.cardInfo" class="card-container user-select-none"
                style="background-image: {{getCardBackground(item, showHolo)}}">
             <div *ngIf="showElements && (item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')" class="card-frame"
@@ -176,7 +179,9 @@
             </div>
             <div class="card-highlight"></div>
           </div>
+          <div class="card-back" style="background-image: {{getCardBack()}}"></div>
         </div>
+      </div>
       </div>
     </div>
   </div>
