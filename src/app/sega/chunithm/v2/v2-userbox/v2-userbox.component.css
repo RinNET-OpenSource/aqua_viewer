@@ -9,12 +9,14 @@ img {
 	height: 100%;
 	object-fit: contain;
 	margin-top: 10%;
+  margin-bottom: 7%;
 }
 
 .mapIcon img, .avatarIcon img {
 	width: 50%;
 	height: 50%;
 	object-fit: contain;
+  margin-bottom: 10%;
 }
 
 .systemVoice img {
@@ -31,19 +33,20 @@ img {
 .avatarPreview img {
 	position: absolute;
 	object-fit: none;
+  transform: translateX(-50%);
 }
 
 #avatarFeet {
   clip-path: inset(405px 87px 0px 0px);
   z-index: 0;
-  left: 37%;
-  top: 18%;
+  left: 58.8%;
+  top: 16.7%;
 }
 
 #avatarBody {
   clip-path: inset(0px 0px 107px 0px);
   z-index: 1;
-  left: 30%;
+  left: 50%;
   top: 23%;
 }
 
@@ -55,13 +58,13 @@ img {
 
 #avatarHead {
   z-index: 3;
-  left: 18.5%;
+  left: 50%;
   top: 2%;
 }
 
 #avatarWear {
   z-index: 4;
-  left: 8.5%;
+  left: 50%;
   top: 27%;
 }
 
