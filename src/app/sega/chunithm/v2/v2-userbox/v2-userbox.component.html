@@ -4,7 +4,7 @@
   <div *ngIf="enableImages == true" fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="1rem" class="assetPreview">
     <div class="container">
       <div class="row">
-        <section id="avatarCard" class="card col-md-6">
+        <section id="avatarCard" style="position: relative" class="card col-md-6">
           <div class="card-body">
             <h5 class="card-title">Avatar preview</h5>
             <div class="avatarPreview">
@@ -28,9 +28,9 @@
               <div class="container mt-3">
                 <span>Volume :</span>
                 <input class="form-range" type="range" [(ngModel)]="volume">
-                <div class="row">
-                  <div class="col-3 mb-1" *ngFor="let item of systemVoicelines">
-                      <button class="btn btn-outline-secondary w-100 h-100" (click)="item.click()" *ngIf="item.click">{{item.name}}</button>
+                <div class="row mt-3">
+                  <div class="col-3 mb-1" style="height: 4rem" *ngFor="let item of systemVoicelines">
+                      <button class="w-100 h-100" mat-button (click)="item.click()" *ngIf="item.click">{{item.name}}</button>
                   </div>
                 </div>
               </div>
@@ -41,14 +41,14 @@
     </div>
   </div>
 
-  <div class="mt-3" fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="1rem">
+  <div class="mt-5" fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="1rem">
     <div class="container">
-      <div class="row g-3">
-        <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4" *ngFor="let item of customable">
+      <div class="row">
+        <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4" *ngFor="let item of customable" style="position: relative">
           <div class="card-body">
             <h5 class="card-title">{{item.name}}</h5>
             <div *ngIf="profile" [ngClass]="{'namePlate': item.name == 'Nameplate', 'mapIcon': item.name == 'Map Icon', 'systemVoice': item.name == 'System Voice', 'avatarIcon': item.name.match('Avatar')}">
-              {{item.value | async}}
+              <p class="text-truncate">{{item.value | async}}</p>
               <div *ngIf="enableImages == true">
                 <img *ngIf="item.name == 'Nameplate'" src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{profile.nameplateId|formatNumber:8}}.png">
                 <img *ngIf="item.name == 'Map Icon'" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{profile.mapIconId|formatNumber:8}}.png">
@@ -63,7 +63,7 @@
               </div>
             </div>
             <mat-card-actions>
-              <button (click)="item.click()" mat-button *ngIf="item.click">Change</button>
+              <button (click)="item.click()" style="position: absolute;bottom: 5%; left: 5%;" mat-button *ngIf="item.click">Change</button>
             </mat-card-actions>
 
           </div>
