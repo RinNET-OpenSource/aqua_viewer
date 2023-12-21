@@ -94,6 +94,32 @@ export class AuthenticationService {
       );
   }
 
+  checkUsernameAvailability(username: string) {
+    return this.http.get<any>(environment.apiServer + 'api/user/checkUsernameAvailability', {params: {username}})
+      .pipe(
+        map(
+          resp => {
+            if (resp) {
+              return resp;
+            }
+          }
+        )
+      );
+  }
+
+  checkEmailAvailability(email: string) {
+    return this.http.get<any>(environment.apiServer + 'api/user/checkEmailAvailability', {params: {email}})
+      .pipe(
+        map(
+          resp => {
+            if (resp) {
+              return resp;
+            }
+          }
+        )
+      );
+  }
+
   getResetPasswordCode(email: string) {
     return this.http.post<any>(environment.apiServer + 'api/auth/getResetPasswordCode', {emailAddress: email})
       .pipe(

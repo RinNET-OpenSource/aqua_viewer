@@ -4,7 +4,7 @@
   <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
                        style="cursor: default"
                        (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
-    <ul class="pagination pagination-sm justify-content-center">
+    <ul class="pagination pagination-sm justify-content-center m-0">
       <li class="page-item" [class.disabled]="p.isFirstPage()">
         <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
       </li>
@@ -20,7 +20,7 @@
   </pagination-template>
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
-<div *ngIf="recent" class="list-group gap-3 ">
+<div *ngIf="recent" class="list-group gap-3 my-3">
   <!--  placeholder-->
   <div *ngIf="loading" class="card placeholder-wave user-select-none" aria-hidden="true">
     <div class="card-header hstack gap-2" style="padding: 4px">
@@ -144,3 +144,4 @@
   </div>
 </div>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<div class="mb-3"></div>

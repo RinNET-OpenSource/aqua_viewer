@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {OngekiRoutes} from './ongeki.routing';
 import {OngekiProfileComponent} from './ongeki-profile/ongeki-profile.component';
@@ -77,7 +77,8 @@ import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.co
         MatSortModule,
         NgbAccordionModule,
         NgbCollapseModule,
-        NgbPopoverModule
+        NgbPopoverModule,
+        NgOptimizedImage
     ]
 })
 export class OngekiModule {

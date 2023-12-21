@@ -1,18 +1,22 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
+import {first, take} from 'rxjs/operators';
 import {AuthenticationService} from '../../auth/authentication.service';
 import {MessageService} from '../../message.service';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-password-reset',
   templateUrl: './password-reset.component.html',
   styleUrls: ['./password-reset.component.css']
 })
-export class PasswordResetComponent {
+export class PasswordResetComponent implements OnDestroy {
 
   resetPasswordForm: FormGroup;
   getVerifyCodeForm: FormGroup;
+  isButtonDisabled = false;
+  remainingTime = 0;
+  private timerSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +47,11 @@ export class PasswordResetComponent {
     });
   }
 
-
+  ngOnDestroy(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+  }
 
   get email() {
     return this.resetPasswordForm.get('email');
@@ -57,7 +65,7 @@ export class PasswordResetComponent {
     return this.resetPasswordForm.get('password');
   }
 
-  getVerifyCode(){
+  getVerifyCode() {
     if (this.email.invalid) {
       this.email.markAsTouched();
       return;
@@ -71,6 +79,9 @@ export class PasswordResetComponent {
           next: (data) => {
             if (data && data.message) {
               this.messageService.notice(data.message);
+            }
+            if (data?.success) {
+              this.disableButtonForInterval(60);
             }
           }
           ,
@@ -117,5 +128,16 @@ export class PasswordResetComponent {
       );
   }
 
+  private disableButtonForInterval(seconds: number) {
+    this.isButtonDisabled = true;
+    this.remainingTime = seconds;
+
+    const t = interval(1000).pipe(take(seconds));
+    this.timerSubscription = t.subscribe(
+      () => this.remainingTime--,
+      e => console.error(e),
+      () => this.isButtonDisabled = false
+    );
+  }
 
 }

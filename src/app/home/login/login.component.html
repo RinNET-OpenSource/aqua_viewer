@@ -5,7 +5,7 @@
   <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
     <div class="d-grid gap-2">
       <div class="position-relative">
-        <label for="usernameOrEmail" class="form-label small">Username or Email</label>
+        <label for="usernameOrEmail" class="form-label small">User name or Email</label>
         <input type="text" class="form-control form-control-sm" id="usernameOrEmail"
                formControlName="usernameOrEmail" placeholder=""
                [class.is-invalid]="usernameOrEmail.touched && !usernameOrEmail.valid && usernameOrEmail.errors">

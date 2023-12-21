@@ -1,19 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
+import {first, take} from 'rxjs/operators';
 import {MessageService} from '../../message.service';
 import {AuthenticationService} from '../../auth/authentication.service';
 import {Router} from '@angular/router';
+import {interval, Subscription, timer} from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
 
   signUpForm: FormGroup;
   getVerifyCodeForm: FormGroup;
+  isButtonDisabled = false;
+  remainingTime = 0;
+  private timerSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -47,13 +51,19 @@ export class SignUpComponent implements OnInit {
         Validators.minLength(8),
         Validators.maxLength(100)]],
       confirmPassword: ['']
-    }, { validators: this.checkPasswords });
+    }, {validators: this.checkPasswords});
     this.getVerifyCodeForm = this.fb.group({
       email: ['', [
         Validators.required,
         Validators.email,
         Validators.maxLength(40)]]
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 
   get name() {
@@ -80,13 +90,13 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.get('confirmPassword');
   }
 
-  checkPasswords: ValidatorFn = (group: FormGroup) => {
-    const password = group.get('password').value;
-    const confirmPass = group.get('confirmPassword').value;
+  checkPasswords: ValidatorFn = (g: FormGroup) => {
+    const password = g.get('password').value;
+    const confirmPass = g.get('confirmPassword').value;
     return password === confirmPass ? null : {notSame: true};
   }
 
-  getVerifyCode(){
+  getVerifyCode() {
     if (this.email.invalid) {
       this.email.markAsTouched();
       return;
@@ -101,6 +111,9 @@ export class SignUpComponent implements OnInit {
             if (data && data.message) {
               this.messageService.notice(data.message);
             }
+            if (data?.success){
+              this.disableButtonForInterval(60);
+            }
           }
           ,
           error: (error) => {
@@ -112,6 +125,64 @@ export class SignUpComponent implements OnInit {
           }
         }
       );
+  }
+
+  checkEmail() {
+    const email = this.email.value;
+    if (email) {
+      this.authenticationService.checkEmailAvailability(email).subscribe(
+        data => {
+          if (data) {
+            if (!data.available){
+              this.messageService.notice('Email is already in use.');
+              this.email.setErrors({emailTaken: true});
+            }
+            else{
+              this.messageService.notice('Email is available.');
+            }
+          }
+        },
+        error => {
+          this.messageService.notice('Error checking email availability.');
+          console.error('Error checking email', error);
+        }
+      );
+    }
+  }
+
+  checkUsername() {
+    const username = this.username.value;
+    if (username) {
+      this.authenticationService.checkUsernameAvailability(username).subscribe(
+        data => {
+          if (data) {
+            if (!data.available){
+              this.messageService.notice('Username is already in use.');
+              this.username.setErrors({userNameTaken: true});
+            }
+            else{
+              this.messageService.notice('Username is available.');
+            }
+          }
+        },
+        error => {
+          this.messageService.notice('Error checking username availability.');
+          console.error('Error checking username', error);
+        }
+      );
+    }
+  }
+
+  private disableButtonForInterval(seconds: number) {
+    this.isButtonDisabled = true;
+    this.remainingTime = seconds;
+
+    const t = interval(1000).pipe(take(seconds));
+    this.timerSubscription = t.subscribe(
+      () => this.remainingTime--,
+      error => console.error(error),
+      () => this.isButtonDisabled = false
+    );
   }
 
   onSubmit() {

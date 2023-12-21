@@ -1,6 +1,8 @@
+.btn-top{
+  width: 5em;
+}
 .cards-col {
   width: 100%;
-  display: inline-block;
   perspective: 1500px;
   transform-style: preserve-3d;
   --rotator-transition: all .6s ease-out;
@@ -85,8 +87,7 @@
 }
 
 .card-holo-bg {
-  background-color: rgb(168, 168, 168);
-  opacity: 0.8;
+  background-color: rgb(128, 128, 128);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -111,7 +112,7 @@
 }
 
 .card-holo-frame-bg {
-  background-color: rgb(168, 168, 168);
+  background-color: rgb(128, 128, 128);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -158,8 +159,8 @@
 
 .card-rare {
   width: 26%;
-  top: 4%;
-  left: 18%;
+  top: 2.5%;
+  left: 16%;
   position: absolute;
 }
 
@@ -319,11 +320,15 @@
 .card-back{
   position: absolute;
   inset: 0;
-  height: 100%;
   width: 100%;
+  aspect-ratio: 0.730038022813688;
   border-radius: 3%;
   background-size: cover;
   transform: rotateY(180deg);
   backface-visibility: hidden;
   background-position: center;
+}
+
+.card-level{
+  width: 50%;
 }

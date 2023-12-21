@@ -1,10 +1,10 @@
-<h1>Card</h1>
+<h1 class="mb-2">Card</h1>
 
 <ng-template #pagination>
   <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
                        style="cursor: default"
                        (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
-    <ul class="pagination pagination-sm justify-content-center">
+    <ul class="pagination pagination-sm justify-content-center my-2">
       <li class="page-item" [class.disabled]="p.isFirstPage()">
         <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
       </li>
@@ -19,27 +19,31 @@
     </ul>
   </pagination-template>
 </ng-template>
-
-<ng-container *ngTemplateOutlet="pagination;"></ng-container>
-<div>
-  <button type="button" class="btn btn-link" routerLink="all">Show All Cards</button>
-  <button type="button" class="btn btn-link" routerLink="gacha">Gacha</button>
+<div class="d-flex gap-2 mb-2">
+  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="all">Gallery</button>
+  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="gacha">Gacha</button>
 </div>
-<div class="form-check form-switch">
+<div class="form-check form-check-inline form-switch">
   <input class="form-check-input" type="checkbox" role="switch" id="holeSwitch" [(ngModel)]="showHolo">
   <label class="form-check-label" for="holeSwitch">Holo</label>
 </div>
-<div class="form-check form-switch">
+<div class="form-check form-check-inline form-switch">
   <input class="form-check-input" type="checkbox" role="switch" id="elementsSwitch" [(ngModel)]="showElements">
   <label class="form-check-label" for="elementsSwitch">Elements</label>
 </div>
 
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
 
-<div *ngIf="cardList" class="text-center px-2">
+
+<div *ngIf="cardList" class="text-center px-1">
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
-    <div class="col d-flex p-2"
+    <div class="col p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
-      <div class="w-100 h-100">
+<!--      <div *ngIf="item.cardInfo">-->
+<!--        <span>Level: {{item.level}}</span>-->
+<!--        <span>Atk: {{calculateAtk(item.level, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0')}}</span>-->
+<!--      </div>-->
+      <div class="w-100">
         <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}"
              [@cardAnimation]="{
            value: pickedCardId === item.cardId?'expanded':'normal',
@@ -85,7 +89,8 @@
                 <div [ngSwitch]="item.cardInfo.rarity">
                   <img *ngSwitchCase="'N'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.png">
                   <img *ngSwitchCase="'R'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.png">
-                  <img *ngSwitchCase="'SR'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
+                  <img *ngSwitchCase="'SR'" class="card-rare"
+                       ngSrc="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
                   <img *ngSwitchCase="'SSR'" class="card-rare"
                        src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_03_SSR.png">
                   <img *ngSwitchCase="'SRPlus'" class="card-rare"
@@ -193,6 +198,7 @@
 </div>
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<div class="mb-2"></div>
 <!--<mat-card-->
 <!--  *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">-->
 <!--  <mat-card-title>-->

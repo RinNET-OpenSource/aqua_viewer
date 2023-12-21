@@ -180,7 +180,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
     const pseudoLeft = (x / rect.width) * 100 + '%';
     const pseudoTop = (y / rect.height) * 100 + '%';
-    cardCol.style.setProperty('--rotator-transition', 'all .1s ease-out');
+    cardCol.style.setProperty('--rotator-transition', 'all 0s ease-out');
     cardCol.style.setProperty('--pseudo-left', pseudoLeft.toString());
     cardCol.style.setProperty('--pseudo-top', pseudoTop.toString());
     cardCol.style.setProperty('--pseudo-opacity', Math.min(1, distance).toString());
@@ -327,8 +327,11 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
     const levels = [1, 50, 55, 60, 65, 70, 80, 90, 100];
 
-    if (level < levels[0] || level > levels[levels.length - 2]) {
-      throw new Error('Invalid level');
+    if (level < levels[0]) {
+      level = 1;
+    }
+    else if (level > levels[levels.length - 4]){
+      level = levels[levels.length - 4];
     }
 
     for (let i = 0; i < levels.length - 1; i++) {

@@ -5,32 +5,41 @@
   <form  [formGroup]="signUpForm">
     <div class="d-grid gap-2">
       <div class="position-relative">
-        <label for="name" class="form-label small">Name</label>
+        <label for="name" class="form-label small">Nick name</label>
         <input type="text" class="form-control form-control-sm" id="name" formControlName="name" placeholder=""
                [class.is-invalid]="name.touched && !name.valid && name.errors">
       </div>
       <div>
         <label for="username" class="form-label small">User name</label>
-        <input type="text" class="form-control form-control-sm" id="userName" formControlName="username"
-               placeholder=""
-               [class.is-invalid]="username.touched && !username.valid && username.errors">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control form-control-sm" id="userName" formControlName="username"
+                 placeholder=""
+                 [class.is-invalid]="username.touched && !username.valid && username.errors">
+          <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="checkUsername()">Check</button>
+        </div>
       </div>
       <div>
         <label for="email" class="form-label small">Email address</label>
-        <input type="email" class="form-control form-control-sm" id="email" formControlName="email"
-               placeholder=""
-               [class.is-invalid]="email.touched && !email.valid && email.errors">
+        <div class="input-group input-group-sm">
+          <input type="email" class="form-control form-control-sm" id="email" formControlName="email"
+                 placeholder=""
+                 [class.is-invalid]="email.touched && !email.valid && email.errors">
+          <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="checkEmail()">Check</button>
+        </div>
       </div>
+
       <div>
         <label for="verifyCode" class="form-label small">Verify code</label>
-
         <div class="input-group input-group-sm">
           <input type="text" class="form-control form-control-sm" id="verifyCode" formControlName="verifyCode"
                  placeholder=""
                  [class.is-invalid]="verifyCode.touched && !verifyCode.valid && verifyCode.errors">
-          <button class="btn btn-outline-secondary" type="submit" (click)="getVerifyCode()">Get</button>
+          <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="getVerifyCode()" [disabled]="isButtonDisabled">
+            {{ isButtonDisabled ? remainingTime : 'Get' }}
+          </button>
         </div>
       </div>
+
       <div>
         <label for="password" class="form-label small">Password</label>
         <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
