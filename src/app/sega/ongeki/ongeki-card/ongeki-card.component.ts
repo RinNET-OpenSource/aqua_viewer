@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChildren} from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {HttpParams} from '@angular/common/http';
 import {ApiService} from '../../../api.service';
 import {AuthenticationService} from '../../../auth/authentication.service';
@@ -77,6 +78,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
   host = environment.assetsHost;
   enableImages = environment.enableImages;
+  isMobileDevice: boolean; // 是否为移动设备
 
   cardList: Observable<PlayerCard[]>;
   loading = true;
@@ -131,7 +133,10 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     cardCol.classList.add('card-picking');
     this.pickedCardId = cardId;
     this.pickedCardParent = cardCol.parentElement;
-    document.querySelector('body').classList.add('overflow-hidden');
+    if (this.isMobileDevice) {
+      // 检测用户使用移动设备
+      document.querySelector('body').classList.add('overflow-hidden');
+    }
   }
 
   unpickCard() {
@@ -235,12 +240,21 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     private auth: AuthenticationService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
-    public router: Router
+    public router: Router,
+    private renderer: Renderer2,
+    private breakpointObserver: BreakpointObserver,
   ) {
     const userAgent = window.navigator.userAgent;
     const safari = userAgent.indexOf('Safari') > -1;
     const chrome = userAgent.indexOf('Chrome') > -1;
     this.isSafari = safari && !chrome;
+
+    this.breakpointObserver.observe([
+      Breakpoints.Handset, // 手持设备
+      Breakpoints.Tablet    // 平板设备
+    ]).subscribe(result => {
+      this.isMobileDevice = result.matches;
+    });
   }
 
   ngOnInit() {
