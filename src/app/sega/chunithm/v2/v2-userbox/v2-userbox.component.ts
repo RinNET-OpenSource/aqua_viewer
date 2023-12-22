@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
+import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../../api.service';
 import {AuthenticationService} from '../../../../auth/authentication.service';
 import {MessageService} from '../../../../message.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
-import {MatDialog} from '@angular/material/dialog';
 import {V2Profile} from '../model/V2Profile';
 import {HttpParams} from '@angular/common/http';
-import {V2UserBoxSettingDialog} from './v2-userbox-setting/v2-userbox-setting.dialog';
+import {V2UserBoxSettingDialog, V2UserBoxSettingData} from './v2-userbox-setting/v2-userbox-setting.dialog';
 import {environment} from '../../../../../environments/environment';
 import { ChusanTrophy } from '../model/ChusanTrophy';
 import { Observable, Subject } from 'rxjs';
@@ -35,13 +35,16 @@ export class V2UserBoxComponent implements OnInit {
   systemVoicelines = [];
   volume: number;
 
+  dialogOptions: NgbModalOptions = {
+    centered: true,
+  };
 
   constructor(
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    public dialog: MatDialog,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -53,13 +56,20 @@ export class V2UserBoxComponent implements OnInit {
       { name: 'Nameplate', value: this.getNamePlateName(this.profile.nameplateId), click: () => this.namePlate() },
       { name: 'Map Icon', value: this.getMapIconName(this.profile.mapIconId), click: () => this.mapIcon() },
       { name: 'System Voice', value: this.getSystemVoiceName(this.profile.voiceId), click: () => this.systemVoice() },
-      { name: 'Avatar Wear', value: this.getAvatarAccName(this.profile.avatarWear), click: () => this.avatarAcc(1, this.profile.avatarWear) },
-      { name: 'Avatar Head', value: this.getAvatarAccName(this.profile.avatarHead), click: () => this.avatarAcc(2, this.profile.avatarHead) },
-      { name: 'Avatar Face', value: this.getAvatarAccName(this.profile.avatarFace), click: () => this.avatarAcc(3, this.profile.avatarFace) },
-      { name: 'Avatar Skin', value: this.getAvatarAccName(this.profile.avatarSkin), click: () => this.avatarAcc(4, this.profile.avatarSkin) },
-      { name: 'Avatar Item', value: this.getAvatarAccName(this.profile.avatarItem), click: () => this.avatarAcc(5, this.profile.avatarItem) },
-      { name: 'Avatar Front', value: this.getAvatarAccName(this.profile.avatarFront), click: () => this.avatarAcc(6, this.profile.avatarFront) },
-      { name: 'Avatar Back', value: this.getAvatarAccName(this.profile.avatarBack), click: () => this.avatarAcc(7, this.profile.avatarBack) },
+      { name: 'Avatar Wear', value: this.getAvatarAccName(this.profile.avatarWear),
+        click: () => this.avatarAcc(1, this.profile.avatarWear) },
+      { name: 'Avatar Head', value: this.getAvatarAccName(this.profile.avatarHead),
+        click: () => this.avatarAcc(2, this.profile.avatarHead) },
+      { name: 'Avatar Face', value: this.getAvatarAccName(this.profile.avatarFace),
+        click: () => this.avatarAcc(3, this.profile.avatarFace) },
+      { name: 'Avatar Skin', value: this.getAvatarAccName(this.profile.avatarSkin),
+        click: () => this.avatarAcc(4, this.profile.avatarSkin) },
+      { name: 'Avatar Item', value: this.getAvatarAccName(this.profile.avatarItem),
+        click: () => this.avatarAcc(5, this.profile.avatarItem) },
+      { name: 'Avatar Front', value: this.getAvatarAccName(this.profile.avatarFront),
+        click: () => this.avatarAcc(6, this.profile.avatarFront) },
+      { name: 'Avatar Back', value: this.getAvatarAccName(this.profile.avatarBack),
+        click: () => this.avatarAcc(7, this.profile.avatarBack) },
       { name: 'Trophy (Title)', value: this.getTrophyName(this.profile.trophyId), click: () => this.trophy() },
       { name: 'Frame', value: this.getFrameName(this.profile.frameId), click: () => this.frame() },
     ];
@@ -69,7 +79,7 @@ export class V2UserBoxComponent implements OnInit {
     this.systemVoicelines = [
       { name: 'SEGA',       click: () => this.playAudio(34)},
       { name: 'FULL COMBO', click: () => this.playAudio(0)},
-      { name: 'ALL JUSTICE',click: () => this.playAudio(1)},
+      { name: 'ALL JUSTICE', click: () => this.playAudio(1)},
       { name: 'NEW RECORD', click: () => this.playAudio(8)},
       { name: 'RANK D',     click: () => this.playAudio(10)},
       { name: 'RANK C',     click: () => this.playAudio(11)},
@@ -94,12 +104,13 @@ export class V2UserBoxComponent implements OnInit {
 
   playAudio(id: number)
   {
-    let audio = new Audio();
-    audio.src = this.host + "assets/chuni/systemVoice/systemvoice" + this.profile.voiceId.toString().padStart(4, '0') + "/000" + id.toString().padStart(2, '0') + ".wav"
+    const audio = new Audio();
+    // tslint:disable-next-line:max-line-length
+    audio.src = this.host + 'assets/chuni/systemVoice/systemvoice' + this.profile.voiceId.toString().padStart(4, '0') + '/000' + id.toString().padStart(2, '0') + '.wav';
     audio.load();
     if (this.volume)
     {
-      audio.volume = (this.volume / 100)
+      audio.volume = (this.volume / 100);
     }else{
       audio.volume = 0.20;
     }
@@ -122,139 +133,153 @@ export class V2UserBoxComponent implements OnInit {
 
   getNamePlateName(nameplateId: number) {
     return new Promise( resolve => {
-      this.dbService.getByID<ChusanNamePlate>('chusanNamePlate', nameplateId).subscribe(NamePlate => resolve(nameplateId + ': ' + (NamePlate.name ? NamePlate.name : "Unknown")));
-    })
+      this.dbService.getByID<ChusanNamePlate>('chusanNamePlate', nameplateId).
+      subscribe(NamePlate => resolve(nameplateId + ': ' + (NamePlate.name ? NamePlate.name : 'Unknown')));
+    });
   }
 
   getFrameName(frameId: number) {
     return new Promise( resolve => {
-      this.dbService.getByID<ChusanTrophy>('chusanFrame', frameId).subscribe(frame => resolve(frameId + ': ' + (frame.name ? frame.name : "Unknown")));
-    })
+      this.dbService.getByID<ChusanTrophy>('chusanFrame', frameId).
+      subscribe(frame => resolve(frameId + ': ' + (frame.name ? frame.name : 'Unknown')));
+    });
   }
 
   getMapIconName(mapiconId: number) {
     return new Promise( resolve => {
-      this.dbService.getByID<ChusanMapIcon>('chusanMapIcon', mapiconId).subscribe(mapicon => resolve(mapiconId + ': ' + (mapicon.name ? mapicon.name : "Unknown")));
-    })
+      this.dbService.getByID<ChusanMapIcon>('chusanMapIcon', mapiconId).
+      subscribe(mapicon => resolve(mapiconId + ': ' + (mapicon.name ? mapicon.name : 'Unknown')));
+    });
   }
 
   getSystemVoiceName(sysvoiceId: number) {
     return new Promise( resolve => {
-      this.dbService.getByID<ChusanSystemVoice>('chusanSystemVoice', sysvoiceId).subscribe(sysvoice => resolve(sysvoiceId + ': ' + (sysvoice.name ? sysvoice.name : "Unknown")));
-    })
+      this.dbService.getByID<ChusanSystemVoice>('chusanSystemVoice', sysvoiceId).
+      subscribe(sysvoice => resolve(sysvoiceId + ': ' + (sysvoice.name ? sysvoice.name : 'Unknown')));
+    });
   }
 
   getAvatarAccName(avatarAccId: number) {
     return new Promise( resolve => {
-      this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', avatarAccId).subscribe(avatarAcc => resolve(avatarAccId + ': ' + (avatarAcc.name ? avatarAcc.name : "Unknown")));
-    })
+      this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', avatarAccId).
+      subscribe(avatarAcc => resolve(avatarAccId + ': ' + (avatarAcc.name ? avatarAcc.name : 'Unknown')));
+    });
   }
 
   getTrophyName(trophyId: number) {
     return new Promise( resolve => {
-      this.dbService.getByID<ChusanTrophy>('chusanTrophy', trophyId).subscribe(trophy => resolve(trophyId + ': ' + (trophy.name ? trophy.name : "Unknown")));
-    })
+      this.dbService.getByID<ChusanTrophy>('chusanTrophy', trophyId).
+      subscribe(trophy => resolve(trophyId + ': ' + (trophy.name ? trophy.name : 'Unknown')));
+    });
+  }
+
+  openDislog(dialogData: V2UserBoxSettingData) {
+    const dialogRef = this.modalService.open(V2UserBoxSettingDialog, this.dialogOptions);
+    dialogRef.componentInstance.data = dialogData;
   }
 
   namePlate() {
-    const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      data: {itemKind: 1, itemId: this.profile.nameplateId}
-    });
+    this.openDislog({itemKind: 1, itemId: this.profile.nameplateId});
 
-    dialogRef.afterClosed().subscribe(namePlateId => {
-      if (typeof namePlateId === "number") {
-        this.api.put('api/game/chuni/v2/profile/plate', {aimeId: this.aimeId, nameplateId: namePlateId}).subscribe(
-          () => {
-            this.messageService.notice('Successfully changed');
-            this.refreshProfile();
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    // dialogRef.afterClosed().subscribe(namePlateId => {
+    //   if (typeof namePlateId === "number") {
+    //     this.api.put('api/game/chuni/v2/profile/plate', {aimeId: this.aimeId, nameplateId: namePlateId}).subscribe(
+    //       () => {
+    //         this.messageService.notice('Successfully changed');
+    //         this.refreshProfile();
+    //       }, error => this.messageService.notice(error)
+    //     );
+    //   }
+    // });
   }
 
   frame() {
-    const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      data: {itemKind: 2, itemId: this.profile.frameId}
-    });
-
-    dialogRef.afterClosed().subscribe(frameId => {
-      if (typeof frameId === "number") {
-        this.api.put('api/game/chuni/v2/profile/frame', {aimeId: this.aimeId, frameId: frameId}).subscribe(
-          () => {
-            this.messageService.notice('Successfully changed');
-            this.refreshProfile();
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    this.openDislog({itemKind: 2, itemId: this.profile.frameId});
+    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
+    //   data: {itemKind: 2, itemId: this.profile.frameId}
+    // });
+    //
+    // dialogRef.afterClosed().subscribe(frameId => {
+    //   if (typeof frameId === "number") {
+    //     this.api.put('api/game/chuni/v2/profile/frame', {aimeId: this.aimeId, frameId: frameId}).subscribe(
+    //       () => {
+    //         this.messageService.notice('Successfully changed');
+    //         this.refreshProfile();
+    //       }, error => this.messageService.notice(error)
+    //     );
+    //   }
+    // });
   }
 
   trophy() {
-    const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      data: {itemKind: 3, itemId: this.profile.trophyId}
-    });
-
-    dialogRef.afterClosed().subscribe(trophyId => {
-      if (typeof trophyId === "number") {
-        this.api.put('api/game/chuni/v2/profile/trophy', {aimeId: this.aimeId, trophyId: trophyId}).subscribe(
-          () => {
-            this.messageService.notice('Successfully changed');
-            this.refreshProfile();
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    this.openDislog({itemKind: 3, itemId: this.profile.trophyId});
+    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
+    //   data: {itemKind: 3, itemId: this.profile.trophyId}
+    // });
+    //
+    // dialogRef.afterClosed().subscribe(trophyId => {
+    //   if (typeof trophyId === "number") {
+    //     this.api.put('api/game/chuni/v2/profile/trophy', {aimeId: this.aimeId, trophyId: trophyId}).subscribe(
+    //       () => {
+    //         this.messageService.notice('Successfully changed');
+    //         this.refreshProfile();
+    //       }, error => this.messageService.notice(error)
+    //     );
+    //   }
+    // });
   }
 
   mapIcon() {
-    const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      data: {itemKind: 8, itemId: this.profile.mapIconId},
-    });
-
-    dialogRef.afterClosed().subscribe(mapIconId => {
-      if (typeof mapIconId === "number") {
-        this.api.put('api/game/chuni/v2/profile/mapicon', {aimeId: this.aimeId, mapiconId: mapIconId}).subscribe(
-          () => {
-            this.messageService.notice('Successfully changed');
-            this.refreshProfile();
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    this.openDislog({itemKind: 8, itemId: this.profile.mapIconId});
+    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
+    //   data: {itemKind: 8, itemId: this.profile.mapIconId},
+    // });
+    //
+    // dialogRef.afterClosed().subscribe(mapIconId => {
+    //   if (typeof mapIconId === "number") {
+    //     this.api.put('api/game/chuni/v2/profile/mapicon', {aimeId: this.aimeId, mapiconId: mapIconId}).subscribe(
+    //       () => {
+    //         this.messageService.notice('Successfully changed');
+    //         this.refreshProfile();
+    //       }, error => this.messageService.notice(error)
+    //     );
+    //   }
+    // });
   }
 
   systemVoice() {
-    const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      data: {itemKind: 9, itemId: this.profile.voiceId}
-    });
-
-    dialogRef.afterClosed().subscribe(voiceId => {
-      if (typeof voiceId === "number") {
-        this.api.put('api/game/chuni/v2/profile/sysvoice', {aimeId: this.aimeId, voiceId: voiceId}).subscribe(
-          () => {
-            this.messageService.notice('Successfully changed');
-            this.refreshProfile();
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    this.openDislog({itemKind: 9, itemId: this.profile.voiceId});
+    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
+    //   data: {itemKind: 9, itemId: this.profile.voiceId}
+    // });
+    //
+    // dialogRef.afterClosed().subscribe(voiceId => {
+    //   if (typeof voiceId === "number") {
+    //     this.api.put('api/game/chuni/v2/profile/sysvoice', {aimeId: this.aimeId, voiceId: voiceId}).subscribe(
+    //       () => {
+    //         this.messageService.notice('Successfully changed');
+    //         this.refreshProfile();
+    //       }, error => this.messageService.notice(error)
+    //     );
+    //   }
+    // });
   }
 
   avatarAcc(category: number, accId: number) {
-    const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-      data: {itemKind: 11, itemId: accId, category: category}
-    });
-
-    dialogRef.afterClosed().subscribe(accId => {
-      if (typeof accId === "number") {
-        this.api.put('api/game/chuni/v2/profile/avatar', {aimeId: this.aimeId, category: category, accId: accId}).subscribe(
-          () => {
-            this.messageService.notice('Successfully changed');
-            this.refreshProfile();
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    this.openDislog({itemKind: 11, itemId: accId, category});
+    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
+    //   data: {itemKind: 11, itemId: accId, category: category}
+    // });
+    //
+    // dialogRef.afterClosed().subscribe(accId => {
+    //   if (typeof accId === "number") {
+    //     this.api.put('api/game/chuni/v2/profile/avatar', {aimeId: this.aimeId, category: category, accId: accId}).subscribe(
+    //       () => {
+    //         this.messageService.notice('Successfully changed');
+    //         this.refreshProfile();
+    //       }, error => this.messageService.notice(error)
+    //     );
+    //   }
+    // });
   }
 }
