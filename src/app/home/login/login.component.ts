@@ -3,6 +3,7 @@ import {AuthenticationService} from '../../auth/authentication.service';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../message.service';
+import {StatusCode} from '../../status-code';
 
 @Component({
   selector: 'app-login',
@@ -50,13 +51,21 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(value.usernameOrEmail, value.password)
       .subscribe(
         {
-          next: (data) => {
-            if (data != null) {
-              this.messageService.notice('Logging in');
-              location.reload();
-            } else {
-              this.messageService.notice('Card you entered does not exist');
+          next: (resp) => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK && resp.data) {
+                this.messageService.notice(resp.status.message);
+                location.reload();
+              }
+              else if (statusCode === StatusCode.LOGIN_FAILED){
+                this.messageService.notice('Invalid username/email or password. Please try again.');
+              }
+              else{
+                this.messageService.notice(resp.status.message);
+              }
             }
+            this.signInForm.enable();
           },
           error: (error) => {
             this.messageService.notice(error);

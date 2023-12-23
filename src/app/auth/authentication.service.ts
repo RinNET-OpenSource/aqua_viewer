@@ -1,8 +1,9 @@
-import {BehaviorSubject, mergeMap} from 'rxjs';
+import {BehaviorSubject, from, mergeMap, of} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
+import {StatusCode} from '../status-code';
 
 @Injectable({
   providedIn: 'root'
@@ -29,26 +30,34 @@ export class AuthenticationService {
       .pipe(
         map(
           resp => {
-            if (resp && resp.tokenType && resp.accessToken) {
-              return {tokenType: resp.tokenType, accessToken: resp.accessToken};
-            }
+            return resp;
           }
         ),
-        mergeMap((account: Account) => {
-          const headers = {Authorization: `${account.tokenType} ${account.accessToken}`};
+        mergeMap(loginResp => {
+          const loginStatusCode: StatusCode = loginResp?.status?.code;
+          if (loginStatusCode !== StatusCode.OK || !loginResp.data) {
+            return of(loginResp);
+          }
+          const account: Account = loginResp.data;
+          const headers = {Authorization: `${loginResp.data.tokenType} ${loginResp.data.accessToken}`};
           return this.http.get<any>(environment.apiServer + 'api/user/me', {headers})
             .pipe(
               map(
-                user => {
-                  for (const card of user.cards) {
-                    account.name = user.name;
-                    if (card.default) {
-                      account.currentCard = card.extId;
-                      break;
+                resp => {
+                  if (resp?.status) {
+                    const statusCode: StatusCode = resp.status.code;
+                    if (statusCode === StatusCode.OK && resp.data) {
+                      account.name = resp.data.name;
+                      for (const card of resp.data.cards) {
+                        if (card.default) {
+                          account.currentCard = card.extId;
+                          break;
+                        }
+                      }
                     }
+                    this.currentAccountValue = account;
+                    return resp;
                   }
-                  this.currentAccountValue = account;
-                  return account;
                 }
               )
             );
@@ -60,9 +69,7 @@ export class AuthenticationService {
       .pipe(
         map(
           resp => {
-            if (resp) {
-              return resp;
-            }
+            return resp;
           }
         )
       );
@@ -73,22 +80,18 @@ export class AuthenticationService {
       .pipe(
         map(
           resp => {
-            if (resp) {
-              return resp;
-            }
+            return resp;
           }
         )
       );
   }
 
   getVerifyCode(email: string) {
-    return this.http.post<any>(environment.apiServer + 'api/auth/getVerifyCode', {emailAddress: email})
+    return this.http.post<any>(environment.apiServer + 'api/auth/getVerifyCode', {email})
       .pipe(
         map(
           resp => {
-            if (resp) {
-              return resp;
-            }
+            return resp;
           }
         )
       );
@@ -99,9 +102,7 @@ export class AuthenticationService {
       .pipe(
         map(
           resp => {
-            if (resp) {
-              return resp;
-            }
+            return resp;
           }
         )
       );
@@ -112,22 +113,18 @@ export class AuthenticationService {
       .pipe(
         map(
           resp => {
-            if (resp) {
-              return resp;
-            }
+            return resp;
           }
         )
       );
   }
 
   getResetPasswordCode(email: string) {
-    return this.http.post<any>(environment.apiServer + 'api/auth/getResetPasswordCode', {emailAddress: email})
+    return this.http.post<any>(environment.apiServer + 'api/auth/getResetPasswordCode', {email})
       .pipe(
         map(
           resp => {
-            if (resp) {
-              return resp;
-            }
+            return resp;
           }
         )
       );

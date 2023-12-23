@@ -9,6 +9,7 @@ import {ToastService} from './toast-service';
 import * as bootstrap from 'bootstrap';
 import {MessageService} from './message.service';
 import {environment} from '../environments/environment';
+import {StatusCode} from './status-code';
 
 @Component({
   selector: 'app-root',
@@ -237,15 +238,22 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   loadUser() {
     this.api.get('api/user/me').subscribe(
-      data => {
-        this.authenticationService.currentAccountValue.name = data.name;
-        const cards = data.cards;
-        for (const card of cards) {
-          if (card.default){
-            this.authenticationService.currentAccountValue.currentCard = card.extId;
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            this.authenticationService.currentAccountValue.name = resp.data.name;
+            for (const card of resp.data.cards) {
+              if (card.default) {
+                this.authenticationService.currentAccountValue.currentCard = card.extId;
+              }
+            }
+            this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
+          }
+          else{
+            this.messageService.notice(resp.status.message);
           }
         }
-        this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
       },
       error => {
         this.messageService.notice(error);

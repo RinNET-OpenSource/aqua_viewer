@@ -5,6 +5,7 @@ import {MessageService} from '../message.service';
 import {AuthenticationService} from '../auth/authentication.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Time} from '@angular/common';
+import {StatusCode} from '../status-code';
 
 @Component({
   selector: 'app-cards',
@@ -44,20 +45,30 @@ export class CardsComponent implements OnInit {
 
   loadCards() {
     this.api.get('api/user/me').subscribe(
-      data => {
-        this.authenticationService.currentAccountValue.name = data.name;
-        this.cards = data.cards.map(card => {
-          card.luid = new Luid(card.luid);
-          card.cardExternalList = card.cardExternalList.map(cardExt => {
-            cardExt.luid = new Luid(cardExt.luid);
-            return cardExt;
-          });
-          if (card.default) {
-            this.authenticationService.currentAccountValue.currentCard = card.extId;
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            const data = resp.data;
+            this.authenticationService.currentAccountValue.name = data.name;
+            this.cards = data.cards.map(card => {
+              card.luid = new Luid(card.luid);
+              card.cardExternalList = card.cardExternalList.map(cardExt => {
+                cardExt.luid = new Luid(cardExt.luid);
+                return cardExt;
+              });
+              if (card.default) {
+                this.authenticationService.currentAccountValue.currentCard = card.extId;
+              }
+              return card;
+            });
+            this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
+          } else {
+            this.messageService.notice(resp.status.message);
           }
-          return card;
-        });
-        this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
+        } else {
+          this.messageService.notice('Load cards failed.');
+        }
         this.loaded = true;
       },
       error => {
@@ -78,12 +89,18 @@ export class CardsComponent implements OnInit {
     const extId = card.extId;
     const body = {extId};
     this.api.post('api/sega/aime/setDefaultCard', body).subscribe(
-      data => {
-        if (data.success) {
-          this.loadCards();
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK) {
+            this.loadCards();
+          }
+          else {
+            this.messageService.notice(resp.status.message);
+          }
         }
-        if (data.message) {
-          this.messageService.notice(data.message);
+        else{
+          this.messageService.notice('Set default card failed.');
         }
       },
       error => {
@@ -121,11 +138,19 @@ export class CardsComponent implements OnInit {
     const accessCode = this.bindCardForm.value.accessCode;
     const params = {accessCode};
     this.api.post('api/user/bindCard/', params).subscribe(
-      data => {
-        if (data.success) {
-          this.loadCards();
-        } else if (data.message) {
-          this.messageService.notice(data.message);
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK) {
+            this.bindCardForm.reset();
+            this.loadCards();
+          }
+          else {
+            this.messageService.notice(resp.status.message);
+          }
+        }
+        else{
+          this.messageService.notice('Bind card failed.');
         }
       },
       error => {
@@ -141,13 +166,19 @@ export class CardsComponent implements OnInit {
     const accessCode = this.addAccessCodeForm.value.accessCode;
     const params = {accessCode, extId};
     this.api.post('api/user/addAccessCode/', params).subscribe(
-      data => {
-        if (data.success) {
-          this.loadCards();
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK) {
+            this.addAccessCodeForm.reset();
+            this.loadCards();
+          }
+          else {
+            this.messageService.notice(resp.status.message);
+          }
         }
-        if (data.message) {
-          this.messageService.notice(data.message);
-          this.addAccessCodeForm.reset();
+        else{
+          this.messageService.notice('Add alias failed.');
         }
       },
       error => {
@@ -156,7 +187,7 @@ export class CardsComponent implements OnInit {
     modal.dismiss();
   }
 
-  onChangeAccesscode(extId: number, modal){
+  onChangeAccesscode(extId: number, modal) {
     if (this.changeAccessCodeForm.invalid) {
       return;
     }
@@ -182,11 +213,18 @@ export class CardsComponent implements OnInit {
     const accessCode = card.luid.full;
     const params = {accessCode};
     this.api.post('api/user/unbindCard/', params).subscribe(
-      data => {
-        if (data.success) {
-          this.loadCards();
-        } else if (data.message) {
-          this.messageService.notice(data.message);
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK) {
+            this.loadCards();
+          }
+          else {
+            this.messageService.notice(resp.status.message);
+          }
+        }
+        else{
+          this.messageService.notice('Unbind card failed.');
         }
       },
       error => {

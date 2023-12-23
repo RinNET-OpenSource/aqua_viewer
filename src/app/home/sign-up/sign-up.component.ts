@@ -5,6 +5,7 @@ import {MessageService} from '../../message.service';
 import {AuthenticationService} from '../../auth/authentication.service';
 import {Router} from '@angular/router';
 import {interval, Subscription, timer} from 'rxjs';
+import {StatusCode} from '../../status-code';
 
 @Component({
   selector: 'app-sign-up',
@@ -107,12 +108,15 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.authenticationService.getVerifyCode(value).pipe(first())
       .subscribe(
         {
-          next: (data) => {
-            if (data && data.message) {
-              this.messageService.notice(data.message);
-            }
-            if (data?.success){
-              this.disableButtonForInterval(60);
+          next: (resp) => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK){
+                this.messageService.notice('Send verify code success.');
+              }
+              else{
+                this.messageService.notice(resp.status.message);
+              }
             }
           }
           ,
@@ -121,7 +125,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
               this.messageService.notice(error);
             }
             this.getVerifyCodeForm.enable();
-            console.warn('get verify code fail', error);
+            console.warn('Send verify code fail.', error);
           }
         }
       );
@@ -131,14 +135,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
     const email = this.email.value;
     if (email) {
       this.authenticationService.checkEmailAvailability(email).subscribe(
-        data => {
-          if (data) {
-            if (!data.available){
-              this.messageService.notice('Email is already in use.');
-              this.email.setErrors({emailTaken: true});
+        resp => {
+          if (resp?.status) {
+            const statusCode: StatusCode = resp.status.code;
+            if (statusCode === StatusCode.OK){
+              this.messageService.notice('Email is available.');
             }
             else{
-              this.messageService.notice('Email is available.');
+              this.messageService.notice(resp.status.message);
             }
           }
         },
@@ -154,14 +158,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
     const username = this.username.value;
     if (username) {
       this.authenticationService.checkUsernameAvailability(username).subscribe(
-        data => {
-          if (data) {
-            if (!data.available){
-              this.messageService.notice('Username is already in use.');
-              this.username.setErrors({userNameTaken: true});
+        resp => {
+          if (resp?.status) {
+            const statusCode: StatusCode = resp.status.code;
+            if (statusCode === StatusCode.OK){
+              this.messageService.notice('Username is available.');
             }
             else{
-              this.messageService.notice('Username is available.');
+              this.messageService.notice(resp.status.message);
             }
           }
         },
@@ -192,26 +196,41 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
     this.signUpForm.disable();
     const value = this.signUpForm.value;
-
+/*
+*
+*         resp => {
+          if (resp?.status) {
+            const statusCode: StatusCode = resp.status.code;
+            if (statusCode === StatusCode.OK){
+              this.messageService.notice('Username is available.');
+            }
+            else{
+              this.messageService.notice(resp.status.message);
+            }
+          }
+        },
+* */
     this.authenticationService.signUp(value.name, value.username, value.email, value.verifyCode, value.password).pipe(first())
       .subscribe(
         {
-          next: (data) => {
-            if (data && data.message) {
-              this.messageService.notice(data.message);
+          next: (resp) => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK){
+                this.messageService.notice('Sign up success.');
+                window.location.reload();
+              }
+              else{
+                this.messageService.notice(resp.status.message);
+              }
             }
-            if (data && data.success) {
-              window.location.reload();
-              // login
-            }
-          }
-          ,
+          },
           error: (error) => {
             if (error) {
               this.messageService.notice(error);
             }
             this.signUpForm.enable();
-            console.warn('sign up fail', error);
+            console.warn('Sign up failed.', error);
           }
         }
       );
