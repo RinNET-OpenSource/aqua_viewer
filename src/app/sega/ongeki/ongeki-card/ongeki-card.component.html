@@ -87,10 +87,12 @@
                        src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_02_Green.png">
                 </div>
                 <div [ngSwitch]="item.cardInfo.rarity">
-                  <img *ngSwitchCase="'N'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.png">
-                  <img *ngSwitchCase="'R'" class="card-rare" src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.png">
+                  <img *ngSwitchCase="'N'" class="card-rare"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.png">
+                  <img *ngSwitchCase="'R'" class="card-rare"
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.png">
                   <img *ngSwitchCase="'SR'" class="card-rare"
-                       ngSrc="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
                   <img *ngSwitchCase="'SSR'" class="card-rare"
                        src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_03_SSR.png">
                   <img *ngSwitchCase="'SRPlus'" class="card-rare"

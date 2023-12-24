@@ -88,7 +88,7 @@ export class CardsComponent implements OnInit {
   setDefault(card: Card) {
     const extId = card.extId;
     const body = {extId};
-    this.api.post('api/sega/aime/setDefaultCard', body).subscribe(
+    this.api.post('api/user/setDefaultCard', body).subscribe(
       resp => {
         if (resp?.status) {
           const statusCode: StatusCode = resp.status.code;
@@ -112,12 +112,18 @@ export class CardsComponent implements OnInit {
     const accessCode = external.luid.full;
     const body = {accessCode};
     this.api.delete('api/sega/aime/removeCardExternal', null, body).subscribe(
-      data => {
-        if (data.success) {
-          this.loadCards();
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK) {
+            this.loadCards();
+          }
+          else {
+            this.messageService.notice(resp.status.message);
+          }
         }
-        if (data.message) {
-          this.messageService.notice(data.message);
+        else{
+          this.messageService.notice('Remove alias failed.');
         }
       },
       error => {
@@ -194,13 +200,19 @@ export class CardsComponent implements OnInit {
     const accessCode = this.changeAccessCodeForm.value.accessCode;
     const params = {accessCode, extId};
     this.api.post('api/user/changeProfileAccessCode/', params).subscribe(
-      data => {
-        if (data.success) {
-          this.loadCards();
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK) {
+            this.changeAccessCodeForm.reset();
+            this.loadCards();
+          }
+          else {
+            this.messageService.notice(resp.status.message);
+          }
         }
-        if (data.message) {
-          this.messageService.notice(data.message);
-          this.addAccessCodeForm.reset();
+        else{
+          this.messageService.notice('Change access code failed.');
         }
       },
       error => {
