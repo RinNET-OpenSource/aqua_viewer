@@ -18,7 +18,6 @@ export class OngekiSongListComponent implements OnInit {
   totalElements = 0;
   searchTerm = '';
   host = environment.assetsHost;
-  protected readonly parseFloat = parseFloat;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
