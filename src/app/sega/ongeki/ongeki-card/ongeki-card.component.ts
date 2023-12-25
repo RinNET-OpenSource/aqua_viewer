@@ -1,5 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChildren} from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {HttpParams} from '@angular/common/http';
 import {ApiService} from '../../../api.service';
 import {AuthenticationService} from '../../../auth/authentication.service';
@@ -14,6 +13,7 @@ import {environment} from '../../../../environments/environment';
 import {OngekiSkill} from '../model/OngekiSkill';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-ongeki-card',
@@ -65,7 +65,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     ])
   ]
 })
-export class OngekiCardComponent implements OnInit, OnDestroy {
+export class OngekiCardComponent implements OnInit {
   private specialHoloIDs = [
     100009, 100018, 100027, 100201, 100202, 100203, 100204, 100205, 100206, 100288, 100289, 100290, 100291, 100292, 100293, 100294, 100295,
     100296, 100297, 100298, 100458, 100459, 100460, 100489, 100572, 100613, 100614, 100615, 100616, 100617, 100618, 100729, 100730, 100806,
@@ -78,7 +78,6 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
   host = environment.assetsHost;
   enableImages = environment.enableImages;
-  isMobileDevice: boolean; // 是否为移动设备
 
   cardList: Observable<PlayerCard[]>;
   loading = true;
@@ -106,6 +105,33 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     expandedHeight: null
   };
   private pickedCardParent: HTMLElement;
+
+  constructor(
+    private api: ApiService,
+    public route: ActivatedRoute,
+    private auth: AuthenticationService,
+    private messageService: MessageService,
+    private dbService: NgxIndexedDBService,
+    public router: Router,
+    private modalService: NgbModal
+  ) {
+    const userAgent = window.navigator.userAgent;
+    const safari = userAgent.indexOf('Safari') > -1;
+    const chrome = userAgent.indexOf('Chrome') > -1;
+    this.isSafari = safari && !chrome;
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe((data) => {
+      if (data.page) {
+        this.currentPage = data.page;
+      }
+      this.load(this.currentPage);
+    });
+    if (this.isSafari) {
+      this.messageService.notice('Warning: Some features of this page are not Safari compatible!');
+    }
+  }
 
   pickCard(cardId: number, cardCol: HTMLDivElement): void {
     if (this.pickingCard || this.isSafari) {
@@ -160,7 +186,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
   }
 
   onMoveRotator(clientX: number, clientY: number, cardCol: HTMLDivElement) {
-    if (this.isSafari){
+    if (this.isSafari) {
       return;
     }
     const rect = cardCol.getBoundingClientRect();
@@ -217,7 +243,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
   }
 
   onMouseLeaveCard(cardCol: HTMLDivElement): void {
-    if (this.isSafari){
+    if (this.isSafari) {
       return;
     }
 
@@ -228,37 +254,6 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     cardCol.style.setProperty('--pseudo-left', '50%');
     cardCol.style.setProperty('--pseudo-top', '50%');
     cardCol.style.setProperty('--pseudo-opacity', '0');
-  }
-
-
-  constructor(
-    private api: ApiService,
-    public route: ActivatedRoute,
-    private auth: AuthenticationService,
-    private messageService: MessageService,
-    private dbService: NgxIndexedDBService,
-    public router: Router
-  ) {
-    const userAgent = window.navigator.userAgent;
-    const safari = userAgent.indexOf('Safari') > -1;
-    const chrome = userAgent.indexOf('Chrome') > -1;
-    this.isSafari = safari && !chrome;
-  }
-
-  ngOnInit() {
-    this.route.queryParams.subscribe((data) => {
-      if (data.page) {
-        this.currentPage = data.page;
-      }
-      this.load(this.currentPage);
-    });
-    if (this.isSafari){
-      this.messageService.notice('Warning: Some features of this page are not Safari compatible!');
-    }
-  }
-
-  ngOnDestroy() {
-
   }
 
   load(page: number) {
@@ -300,7 +295,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.post('api/game/ongeki/card/' + cardId + '/' + type, param).subscribe(
       data => {
-        this.messageService.notice('Successful');
+        this.messageService.notice('Kaika success');
         this.load(this.currentPage);
       },
       error => this.messageService.notice(error)
@@ -331,8 +326,7 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
 
     if (level < levels[0]) {
       level = 1;
-    }
-    else if (level > levels[levels.length - 4]){
+    } else if (level > levels[levels.length - 4]) {
       level = levels[levels.length - 4];
     }
 
@@ -356,7 +350,9 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
   }
 
   getCardName(str: string, rarity: string, nickName: string): string {
-    return str.replace('【SR+】', '【SRPlus】').replace(`【${rarity}】`, '').replace(`[${nickName}]`, '');
+    if (str){
+      return str.replace('【SR+】', '【SRPlus】').replace(`【${rarity}】`, '').replace(`[${nickName}]`, '');
+    }
   }
 
   getCharaMask(card: PlayerCard) {
@@ -532,5 +528,13 @@ export class OngekiCardComponent implements OnInit, OnDestroy {
   getCardBack() {
     const backImg = this.host + 'assets/ongeki/gameUi/UI_CMN_CardBackSide.png';
     return 'url(' + backImg + ')';
+  }
+
+  openContext($event: MouseEvent, content: TemplateRef<any>) {
+    if (this.pickedCardId) {
+      return;
+    }
+    this.modalService.open(content, {centered: true});
+    $event.preventDefault();
   }
 }
