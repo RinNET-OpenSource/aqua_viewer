@@ -222,6 +222,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
               }
               else{
                 this.messageService.notice(resp.status.message);
+                this.signUpForm.enable();
               }
             }
           },
