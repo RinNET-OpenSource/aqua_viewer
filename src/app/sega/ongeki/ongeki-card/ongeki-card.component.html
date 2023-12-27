@@ -39,11 +39,59 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
-<!--      <div *ngIf="item.cardInfo">-->
-<!--        <span>Level: {{item.level}}</span>-->
-<!--        <span>Atk: {{calculateAtk(item.level, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0')}}</span>-->
-<!--      </div>-->
+      <!--      <div *ngIf="item.cardInfo">-->
+      <!--        <span>Level: {{item.level}}</span>-->
+      <!--        <span>Atk: {{calculateAtk(item.level, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0')}}</span>-->
+      <!--      </div>-->
       <div class="w-100">
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title">Details</h5>
+            <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
+          </div>
+          <div class="modal-body">
+            <table class="card-details-table table table-borderless table-sm table-striped align-middle text-center small">
+              <tbody>
+              <tr>
+                <td>ID</td>
+                <td>{{item.cardId}}</td>
+              </tr>
+              <tr *ngIf="item.cardInfo">
+                <td>Character</td>
+                <td>{{getCardName(item.cardInfo.name, item.cardInfo.rarity, item.cardInfo.nickName)}}</td>
+              </tr>
+              <tr *ngIf="item.cardInfo">
+                <td>NickName</td>
+                <td>{{item.cardInfo.nickName}}</td>
+              </tr>
+              <tr>
+                <td>Level</td>
+                <td>{{item.level}}/{{item.maxLevel}}</td>
+              </tr>
+              <tr *ngIf="item.cardInfo">
+                <td>Attack</td>
+                <td>{{calculateAtk(item.level, convertToNumberArray(item.cardInfo.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0')}}</td>
+              </tr>
+              <tr>
+                <td>Skill</td>
+                <td>{{item.skillInfo?item.skillInfo.name:item.skillId}}</td>
+              </tr>
+              <tr *ngIf="item.skillInfo">
+                <td>Info</td>
+                <td>{{item.skillInfo.info}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="hstack gap-1 float-end">
+              <button class="btn btn-sm btn-secondary" (click)="kaika(item.cardId, 'kaika');modal.dismiss()"
+                      [disabled]="item.kaikaDate != '0000-00-00 00:00:00.0'">Kaika</button>
+              <button class="btn btn-sm btn-secondary" (click)="kaika(item.cardId, 'choKaika');modal.dismiss()"
+                      [disabled]="item.choKaikaDate != '0000-00-00 00:00:00.0'">ChoKaika</button>
+            </div>
+          </div>
+
+        </ng-template>
+
         <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}"
              [@cardAnimation]="{
            value: pickedCardId === item.cardId?'expanded':'normal',
@@ -54,6 +102,7 @@
              (mousemove)="onMouseMoveRotator($event, cardCol)"
              (mouseleave)="onMouseLeaveCard(cardCol)"
              (click)="pickCard(item.cardId, cardCol)"
+             (contextmenu)="openContext($event, content)"
              (touchmove)="onTouchMoveRotator($event, cardCol)"
              (touchend)="onMouseLeaveCard(cardCol)"
              (touchcancel)="onMouseLeaveCard(cardCol)">
@@ -141,9 +190,9 @@
                   <img *ngFor="let _ of getArrayFromNumber((item.cardInfo.rarity == 'N'?11:5) - getStarCount(item))"
                        class="card-star" src="{{host}}assets/ongeki/gameUi/UI_Card_star_01.png">
                 </div>
-                <!--        <div class="card-qr-code-container">-->
-                <!--          <img class="card-qr-code" src="{{host}}assets/ongeki/gameUi/UI_Card_qr_dummy_00.png">-->
-                <!--        </div>-->
+                <!--                <div class="card-qr-code-container">-->
+                <!--                  <img class="card-qr-code" src="{{host}}assets/ongeki/gameUi/UI_Card_qr_dummy_00.png">-->
+                <!--                </div>-->
 
                 <img class="card-max-atk-title" draggable="false"
                      src="{{host}}assets/ongeki/gameUi/UI_Card_max_00.png">
@@ -195,7 +244,7 @@
     </div>
   </div>
   <div class="card-backdrop"
-       [ngClass]="{'hidden': !pickedCardId}"
+       [ngClass]="{'card-backdrop-hidden': !pickedCardId}"
        (click)="unpickCard()"></div>
 </div>
 

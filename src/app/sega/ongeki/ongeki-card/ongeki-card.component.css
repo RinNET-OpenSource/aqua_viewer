@@ -1,6 +1,7 @@
-.btn-top{
+.btn-top {
   width: 5em;
 }
+
 .cards-col {
   width: 100%;
   perspective: 1500px;
@@ -15,14 +16,14 @@
   --pseudo-top: 50%;
 }
 
-.card-picking{
+.card-picking {
   --rotator-global-rotate-y: 360deg;
 }
 
 .cards-col .card-rotator {
   width: 100%;
   height: 100%;
-  transition:var(--rotator-transition);
+  transition: var(--rotator-transition);
   appearance: none;
   will-change: transform;
   transform: rotateX(var(--rotator-rotate-x)) rotateY(calc(var(--rotator-global-rotate-y) + var(--rotator-rotate-y)));
@@ -45,7 +46,7 @@
   background-blend-mode: multiply, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: multiply;
-  transition:var(--rotator-transition);
+  transition: var(--rotator-transition);
 }
 
 .cards-col .card-holo::before {
@@ -62,7 +63,7 @@
   background-blend-mode: lighten, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: overlay;
-  transition:var(--rotator-transition);
+  transition: var(--rotator-transition);
 }
 
 .cards-col .card-holo {
@@ -79,7 +80,7 @@
   background-blend-mode: color-burn, multiply;
   filter: brightness(1.25) contrast(1.75) saturate(.8);
   mix-blend-mode: color-dodge;
-  transition:var(--rotator-transition);
+  transition: var(--rotator-transition);
   -webkit-mask-size: cover;
   mask-composite: intersect, subtract;
   -webkit-mask-composite: source-in, source-out;
@@ -131,7 +132,7 @@
   height: 250%;
   background: radial-gradient(farthest-corner circle at 50% 50%, hsl(280, 100%, 96%) 5%, hsl(0, 0%, 10%) 60%);
   pointer-events: none;
-  transition:var(--rotator-transition);
+  transition: var(--rotator-transition);
   opacity: var(--pseudo-opacity);
   filter: brightness(.75) contrast(2) saturate(2);
   mix-blend-mode: soft-light;
@@ -311,13 +312,27 @@
   visibility: visible;
 }
 
-.hidden {
+.card-backdrop-hidden {
   visibility: hidden;
   opacity: .0;
   transition: opacity 1s linear, visibility 0s linear 1s;
 }
 
-.card-back{
+.card-context {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+}
+
+.card-context-hidden {
+  visibility: hidden;
+  opacity: .0;
+  transition: opacity .3s linear, visibility 0s linear .3s;
+}
+
+.card-back {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -329,6 +344,14 @@
   background-position: center;
 }
 
-.card-level{
+.card-level {
+  width: 50%;
+}
+
+.card-details-table{
+
+}
+
+.card-details-table td{
   width: 50%;
 }
