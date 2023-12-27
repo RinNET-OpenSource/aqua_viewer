@@ -46,8 +46,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="parentComponent.handleCloseClick()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="parentComponent.handleApplyClick(this.data)">Apply</button>
       </div>
     </div>
   </div>

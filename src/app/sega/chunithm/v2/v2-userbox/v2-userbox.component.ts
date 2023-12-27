@@ -34,6 +34,7 @@ export class V2UserBoxComponent implements OnInit {
 
   systemVoicelines = [];
   volume: number;
+  currentAvatarAcc: {category: number, accId: number} = {category: 0, accId: 0};
 
   dialogOptions: NgbModalOptions = {
     centered: true,
@@ -173,113 +174,83 @@ export class V2UserBoxComponent implements OnInit {
     });
   }
 
-  openDislog(dialogData: V2UserBoxSettingData) {
+  openDialog(dialogData: V2UserBoxSettingData) {
     const dialogRef = this.modalService.open(V2UserBoxSettingDialog, this.dialogOptions);
     dialogRef.componentInstance.data = dialogData;
+    dialogRef.componentInstance.parentComponent = this;
+  }
+
+  handleCloseClick() {
+    this.modalService.dismissAll();
+  }
+
+  handleApplyClick(data) {
+    const { itemKind, itemId } = data;
+    let apiURL = '';
+    let requestBody = {};
+    if (itemKind === 11) {
+      const { category, accId } = this.currentAvatarAcc;
+      this.api.put('api/game/chuni/v2/profile/avatar', { aimeId: this.aimeId, category, accId: itemId }).subscribe(
+        (result) => {
+          this.messageService.notice('Successfully changed');
+          this.refreshProfile();
+          this.modalService.dismissAll();
+        }, error => this.messageService.notice(error)
+      );
+    } else {
+      switch (itemKind) {
+        case 1: // NamePlate
+          apiURL = 'api/game/chuni/v2/profile/plate';
+          requestBody = { aimeId: this.aimeId, nameplateId: itemId };
+          break;
+        case 2: // Frame
+          apiURL = 'api/game/chuni/v2/profile/frame';
+          requestBody = { aimeId: this.aimeId, frameId: itemId };
+          break;
+        case 3: // Trophy
+          apiURL = 'api/game/chuni/v2/profile/trophy';
+          requestBody = { aimeId: this.aimeId, trophyId: itemId };
+          break;
+        case 8: // MapIcon
+          apiURL = 'api/game/chuni/v2/profile/mapicon';
+          requestBody = { aimeId: this.aimeId, mapIconId: itemId };
+          break;
+        case 9: // Voice
+          apiURL = 'api/game/chuni/v2/profile/sysvoice';
+          requestBody = { aimeId: this.aimeId, voiceId: itemId };
+          break;
+      }
+
+      this.api.put(apiURL, requestBody).subscribe(() => {
+        this.messageService.notice('Successfully changed');
+        this.refreshProfile();
+        this.modalService.dismissAll();
+      }, error => this.messageService.notice(error));
+    }
   }
 
   namePlate() {
-    this.openDislog({itemKind: 1, itemId: this.profile.nameplateId});
-
-    // dialogRef.afterClosed().subscribe(namePlateId => {
-    //   if (typeof namePlateId === "number") {
-    //     this.api.put('api/game/chuni/v2/profile/plate', {aimeId: this.aimeId, nameplateId: namePlateId}).subscribe(
-    //       () => {
-    //         this.messageService.notice('Successfully changed');
-    //         this.refreshProfile();
-    //       }, error => this.messageService.notice(error)
-    //     );
-    //   }
-    // });
+    this.openDialog({ itemKind: 1, itemId: this.profile.nameplateId });
   }
 
   frame() {
-    this.openDislog({itemKind: 2, itemId: this.profile.frameId});
-    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-    //   data: {itemKind: 2, itemId: this.profile.frameId}
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(frameId => {
-    //   if (typeof frameId === "number") {
-    //     this.api.put('api/game/chuni/v2/profile/frame', {aimeId: this.aimeId, frameId: frameId}).subscribe(
-    //       () => {
-    //         this.messageService.notice('Successfully changed');
-    //         this.refreshProfile();
-    //       }, error => this.messageService.notice(error)
-    //     );
-    //   }
-    // });
+    this.openDialog({ itemKind: 2, itemId: this.profile.frameId });
   }
 
   trophy() {
-    this.openDislog({itemKind: 3, itemId: this.profile.trophyId});
-    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-    //   data: {itemKind: 3, itemId: this.profile.trophyId}
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(trophyId => {
-    //   if (typeof trophyId === "number") {
-    //     this.api.put('api/game/chuni/v2/profile/trophy', {aimeId: this.aimeId, trophyId: trophyId}).subscribe(
-    //       () => {
-    //         this.messageService.notice('Successfully changed');
-    //         this.refreshProfile();
-    //       }, error => this.messageService.notice(error)
-    //     );
-    //   }
-    // });
+    this.openDialog({ itemKind: 3, itemId: this.profile.trophyId });
   }
 
   mapIcon() {
-    this.openDislog({itemKind: 8, itemId: this.profile.mapIconId});
-    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-    //   data: {itemKind: 8, itemId: this.profile.mapIconId},
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(mapIconId => {
-    //   if (typeof mapIconId === "number") {
-    //     this.api.put('api/game/chuni/v2/profile/mapicon', {aimeId: this.aimeId, mapiconId: mapIconId}).subscribe(
-    //       () => {
-    //         this.messageService.notice('Successfully changed');
-    //         this.refreshProfile();
-    //       }, error => this.messageService.notice(error)
-    //     );
-    //   }
-    // });
+    this.openDialog({ itemKind: 8, itemId: this.profile.mapIconId });
   }
 
   systemVoice() {
-    this.openDislog({itemKind: 9, itemId: this.profile.voiceId});
-    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-    //   data: {itemKind: 9, itemId: this.profile.voiceId}
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(voiceId => {
-    //   if (typeof voiceId === "number") {
-    //     this.api.put('api/game/chuni/v2/profile/sysvoice', {aimeId: this.aimeId, voiceId: voiceId}).subscribe(
-    //       () => {
-    //         this.messageService.notice('Successfully changed');
-    //         this.refreshProfile();
-    //       }, error => this.messageService.notice(error)
-    //     );
-    //   }
-    // });
+    this.openDialog({ itemKind: 9, itemId: this.profile.voiceId });
   }
 
   avatarAcc(category: number, accId: number) {
-    this.openDislog({itemKind: 11, itemId: accId, category});
-    // const dialogRef = this.dialog.open(V2UserBoxSettingDialog, {
-    //   data: {itemKind: 11, itemId: accId, category: category}
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(accId => {
-    //   if (typeof accId === "number") {
-    //     this.api.put('api/game/chuni/v2/profile/avatar', {aimeId: this.aimeId, category: category, accId: accId}).subscribe(
-    //       () => {
-    //         this.messageService.notice('Successfully changed');
-    //         this.refreshProfile();
-    //       }, error => this.messageService.notice(error)
-    //     );
-    //   }
-    // });
+    this.openDialog({ itemKind: 11, itemId: accId, category });
+    this.currentAvatarAcc = { category, accId };
   }
 }

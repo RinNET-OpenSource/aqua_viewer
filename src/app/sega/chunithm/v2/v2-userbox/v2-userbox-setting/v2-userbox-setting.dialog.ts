@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthenticationService} from '../../../../../auth/authentication.service';
 import {MessageService} from '../../../../../message.service';
 import {ApiService} from '../../../../../api.service';
@@ -12,7 +12,6 @@ import { ChusanNamePlate } from '../../model/ChusanNamePlate';
 import { ChusanSystemVoice } from '../../model/ChusanSystemVoice';
 import { ChusanMapIcon } from '../../model/ChusanMapIcon';
 import { ChusanAvatarAcc } from '../../model/ChusanAvatarAcc';
-import {subscribeOn} from 'rxjs';
 
 @Component({
   selector: 'v2-userbox-setting-dialog',
@@ -25,7 +24,7 @@ export class V2UserBoxSettingDialog implements OnInit{
   enableImages = environment.enableImages;
   aimeId: string;
   iList: V2Item[] = [];
-  test: string;
+  parentComponent: any;
   @Input() public data: V2UserBoxSettingData;
 
   constructor(
@@ -33,8 +32,7 @@ export class V2UserBoxSettingDialog implements OnInit{
     private messageService: MessageService,
     private auth: AuthenticationService,
     private dbService: NgxIndexedDBService,
-    //   @Inject(MAT_DIALOG_DATA) public data: V2UserBoxSettingData,
-    // @Input() public data: V2UserBoxSettingData,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -79,18 +77,16 @@ export class V2UserBoxSettingDialog implements OnInit{
       subscribe(trophy => resolve(trophyId + ': ' + (trophy.name ? trophy.name : 'Unknown')));
     });
   }
-  //
+
   ngOnInit() {
     // if (this.enableImages == true && this.data.itemKind != 2 && this.data.itemKind != 3) {this.dialogRef.updateSize('80%', '80%');}
     this.aimeId = String(this.auth.currentAccountValue.currentCard);
     const param = new HttpParams().set('aimeId', this.aimeId);
 
-    console.log(this.data);
     // Make all avatar accs available as there is no way to obtain them in game
     if (this.data.itemKind == 11) {
       this.dbService.getAll<ChusanAvatarAcc>('chusanAvatarAcc').subscribe(avatarAccList => {
         avatarAccList.forEach(avatarAcc => {
-          console.log(avatarAcc);
           if (avatarAcc.category == this.data.category) {
             const acc: V2Item = {
               itemKind: 11, itemId: avatarAcc.id, stock: 1, name: avatarAcc.id + ': ' + (avatarAcc.name ? avatarAcc.name : 'Unknown')
@@ -101,7 +97,6 @@ export class V2UserBoxSettingDialog implements OnInit{
         });
       });
     } else {
-      console.log(11111321321);
       this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
         data => {
           data.forEach(x => {
@@ -111,8 +106,6 @@ export class V2UserBoxSettingDialog implements OnInit{
                   x.name = name;
                   this.iList.push(x);
                   this.iList.sort((a, b) => a.itemId - b.itemId);
-                  this.test = this.iList[0].name;
-                  console.log(this.test);
                 });
                 break;
               case 2: // Frame

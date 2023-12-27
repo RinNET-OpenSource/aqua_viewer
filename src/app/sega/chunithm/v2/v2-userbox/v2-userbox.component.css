@@ -52,8 +52,26 @@ img {
 
 #avatarFace {
   z-index: 2;
-  left: 30.5%;
-  top: 23%;
+  left: 50%;
+  top: 26%;
+  width: 20%;
+  object-fit: inherit;
+}
+
+#avatarLeftHand {
+  z-index: 2;
+  left: 25.7%;
+  top: 52%;
+  width: 13%;
+  object-fit: inherit;
+}
+
+#avatarRightHand {
+  z-index: 2;
+  right: 13.7%;
+  top: 52%;
+  width: 12.7%;
+  object-fit: inherit;
 }
 
 #avatarHead {
