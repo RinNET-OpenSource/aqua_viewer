@@ -78,6 +78,8 @@ export class OngekiCardComponent implements OnInit {
 
   host = environment.assetsHost;
   enableImages = environment.enableImages;
+  holoSheetStyles: string[] = [];
+  reversedHoloSheetStyles: string[] = [];
 
   cardList: Observable<PlayerCard[]>;
   loading = true;
@@ -283,6 +285,8 @@ export class OngekiCardComponent implements OnInit {
             );
           });
           this.loading = false;
+          this.holoSheetStyles = this.generateShuffledHoloSheetStyles();
+          this.reversedHoloSheetStyles = this.holoSheetStyles.reverse();
           return data.content;
         },
         error => this.messageService.notice(error)
@@ -536,5 +540,32 @@ export class OngekiCardComponent implements OnInit {
     }
     this.modalService.open(content, {centered: true});
     $event.preventDefault();
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  generateShuffledHoloSheetStyles(): string[] {
+    const styles = [];
+    for (let i = 0; i < 12; i++) {
+      const index = i.toString().padStart(2, '0');
+      styles.push(this.getHoloSheetStyle(index));
+    }
+    return this.shuffleArray(styles);
+  }
+
+  getHoloSheetStyle(index: string) {
+    return `--holo-sheet-bottom: url("${this.host}assets/holo-sheet/${index}/bottom.png");
+      --holo-sheet-middle: url("${this.host}assets/holo-sheet/${index}/middle.png");
+      --holo-sheet-top: url("${this.host}assets/holo-sheet/${index}/top.png");`;
+  }
+
+  shuffleArray(array: string[]): string[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 }

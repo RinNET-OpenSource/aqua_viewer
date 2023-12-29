@@ -38,7 +38,7 @@
 <div *ngIf="cardList" class="text-center px-1">
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col p-2"
-         *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
+         *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }; let i = index">
       <!--      <div *ngIf="item.cardInfo">-->
       <!--        <span>Level: {{item.level}}</span>-->
       <!--        <span>Atk: {{calculateAtk(item.level, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0')}}</span>-->
@@ -83,9 +83,9 @@
               </tbody>
             </table>
             <div class="hstack gap-1 float-end">
-              <button class="btn btn-sm btn-secondary" (click)="kaika(item.cardId, 'kaika');modal.dismiss()"
+              <button class="btn btn-sm btn-outline-secondary" (click)="kaika(item.cardId, 'kaika');modal.dismiss()"
                       [disabled]="item.kaikaDate != '0000-00-00 00:00:00.0'">Kaika</button>
-              <button class="btn btn-sm btn-secondary" (click)="kaika(item.cardId, 'choKaika');modal.dismiss()"
+              <button class="btn btn-sm btn-outline-secondary" (click)="kaika(item.cardId, 'choKaika');modal.dismiss()"
                       [disabled]="item.choKaikaDate != '0000-00-00 00:00:00.0'">ChoKaika</button>
             </div>
           </div>
@@ -113,13 +113,13 @@
                    class="card-frame"
                    style="background-image: {{getFrame(item)}}"></div>
               <div class="card-chara" style="background-image: {{getChara(item)}}"></div>
-              <div *ngIf="showHolo" class="position-absolute w-100 h-100">
+              <div *ngIf="showHolo" [style]="holoSheetStyles[i]" class="position-absolute w-100 h-100">
                 <div class="card-holo-bg" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
                 <div class="card-holo" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
               </div>
               <div *ngIf="showElements && !showHolo && !(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
                    class="card-frame" style="background-image: {{getFrame(item)}}"></div>
-              <div *ngIf="showHolo" class="position-absolute w-100 h-100">
+              <div *ngIf="showHolo" [style]="reversedHoloSheetStyles[i]" class="position-absolute w-100 h-100">
                 <div *ngIf="!(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')" class="card-frame"
                      style="background-image: {{getHoloFrame(item)}}"></div>
                 <div class="card-holo-frame-bg"

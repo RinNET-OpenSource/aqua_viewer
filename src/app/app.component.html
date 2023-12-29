@@ -34,7 +34,7 @@
     </div>
   </nav>
   <div class="position-relative">
-    <mat-progress-bar *ngIf="loading" class="position-absolute" style="margin-top: 3.6rem" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar *ngIf="loading" class="position-fixed fixed-top" style="margin-top: 3.6rem" mode="indeterminate"></mat-progress-bar>
     <div class="d-lg-grid container-xxl" style="grid-template-areas: 'sidebar main'; grid-template-columns: auto 1fr">
       <aside #sidebar *ngIf="account" class="sidebar d-block overflow-y-auto position-sticky" style="">
         <div id="sidebar" class="offcanvas-lg offcanvas-start" tabindex="-1">
