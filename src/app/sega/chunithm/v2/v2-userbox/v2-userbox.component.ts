@@ -213,7 +213,7 @@ export class V2UserBoxComponent implements OnInit {
           break;
         case 8: // MapIcon
           apiURL = 'api/game/chuni/v2/profile/mapicon';
-          requestBody = { aimeId: this.aimeId, mapIconId: itemId };
+          requestBody = { aimeId: this.aimeId, mapiconId: itemId };
           break;
         case 9: // Voice
           apiURL = 'api/game/chuni/v2/profile/sysvoice';
