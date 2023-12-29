@@ -36,42 +36,77 @@ img {
   transform: translateX(-50%);
 }
 
+.avatarContainer {
+  position: absolute;
+  width: 460px;
+  height: 580px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 #avatarFeet {
   clip-path: inset(405px 87px 0px 0px);
   z-index: 0;
-  left: 58.8%;
-  top: 16.7%;
+  left: 60.4%;
+  top: 10.7%;
 }
 
 #avatarBody {
-  clip-path: inset(0px 0px 107px 0px);
+  clip-path: inset(0px 0px 89px 0px);
   z-index: 1;
   left: 50%;
-  top: 23%;
+  top: 27%;
+  width: 53%;
+  height: 75%;
+  object-fit: inherit;
 }
 
 #avatarFace {
   z-index: 2;
-  left: 30.5%;
-  top: 23%;
+  left: 50%;
+  top: 30%;
+  width: 20%;
+  object-fit: inherit;
+}
+
+#avatarLeftHand {
+  z-index: 5;
+  left: 24.3%;
+  top: 52%;
+  width: 13%;
+  object-fit: inherit;
+}
+
+#avatarRightHand {
+  z-index: 5;
+  right: 11.7%;
+  top: 52%;
+  width: 12.7%;
+  object-fit: inherit;
 }
 
 #avatarHead {
   z-index: 3;
-  left: 50%;
-  top: 2%;
+  left: 50.4%;
+  top: 4%;
+  object-fit: inherit;
+  width: 82%;
 }
 
 #avatarWear {
   z-index: 4;
   left: 50%;
-  top: 27%;
+  top: 28.5%;
+  object-fit: inherit;
+  width: 103.4%;
 }
 
 #avatarFaceWear {
   z-index: 4;
-  left: 32%;
-  top: 25%;
+  left: 50%;
+  top: 26.1%;
+  object-fit: initial;
 }
 
 #avatarArms {
@@ -80,15 +115,27 @@ img {
   top: 52%;
 }
 
-#avatarItem {
+#avatarItemLeft {
+  clip-path: inset(0px 177px 0px 0px);
   z-index: 6;
-  left: 10%;
-  top: 15%;
+  left: 40%;
+  top: 14%;
+  width: 75%;
+  object-fit: initial;
+}
+
+#avatarItemRight {
+  clip-path: inset(0px 0px 0px 167px);
+  z-index: 6;
+  left: 60%;
+  top: 13%;
+  width: 75%;
+  object-fit: initial;
 }
 
 #avatarBack {
   z-index: 0;
-  left: 6%;
+  left: 50%;
   top: 0%;
 }
 
