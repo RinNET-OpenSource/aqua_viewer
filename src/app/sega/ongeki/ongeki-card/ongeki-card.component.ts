@@ -547,7 +547,7 @@ export class OngekiCardComponent implements OnInit {
   }
 
   generateShuffledHoloSheetStyles(): string[] {
-    let styles = [];
+    const styles = [];
     for (let i = 0; i < 12; i++) {
       const index = i.toString().padStart(2, '0');
       styles.push(this.getHoloSheetStyle(index));
@@ -564,7 +564,7 @@ export class OngekiCardComponent implements OnInit {
   shuffleArray(array: string[]): string[] {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]]; // 交换元素
+      [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
   }
