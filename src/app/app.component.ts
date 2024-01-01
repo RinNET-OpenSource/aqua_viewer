@@ -29,52 +29,62 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     {
       id: 0,
       name: 'Profile',
-      url: 'ongeki/profile'
+      url: 'ongeki/profile',
+      show: false,
     },
     {
       id: 1,
       name: 'Battle Point',
-      url: 'ongeki/battle'
+      url: 'ongeki/battle',
+      show: false,
     },
     {
       id: 2,
       name: 'Rating',
-      url: 'ongeki/rating'
+      url: 'ongeki/rating',
+      show: false,
     },
     {
       id: 3,
       name: 'Play Record',
-      url: 'ongeki/recent'
+      url: 'ongeki/recent',
+      show: false,
     },
     {
       id: 4,
       name: 'Music List',
-      url: 'ongeki/song'
+      url: 'ongeki/song',
+      show: true,
     },
     {
       id: 5,
       name: 'Card',
-      url: 'ongeki/card'
+      url: 'ongeki/card',
+      show: false,
     },
     {
       id: 6,
       name: 'Rival List',
-      url: 'ongeki/rival'
+      url: 'ongeki/rival',
+      show: false,
     },
     {
       id: 7,
       name: 'Music Ranking',
-      url: 'ongeki/musicRanking'
+      url: 'ongeki/musicRanking',
+      show: false,
     },
     {
       id: 8,
       name: 'User Ranking',
-      url: 'ongeki/userRanking'
+      url: 'ongeki/userRanking',
+      show: false,
     },
     {
       id: 9,
       name: 'Setting',
-      url: 'ongeki/setting'
+      url: 'ongeki/setting',
+      show: false,
     }
   ];
 
@@ -85,32 +95,38 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     {
       id: 0,
       name: 'Profile',
-      url: 'chuni/v1/profile'
+      url: 'chuni/v1/profile',
+      show: false,
     },
     {
       id: 1,
       name: 'Rating',
-      url: 'chuni/v1/rating'
+      url: 'chuni/v1/rating',
+      show: false,
     },
     {
       id: 2,
       name: 'Play Record',
-      url: 'chuni/v1/recent'
+      url: 'chuni/v1/recent',
+      show: false,
     },
     {
       id: 3,
       name: 'Music List',
-      url: 'chuni/v1/song'
+      url: 'chuni/v1/song',
+      show: true,
     },
     {
       id: 4,
       name: 'Character',
-      url: 'chuni/v1/character'
+      url: 'chuni/v1/character',
+      show: false,
     },
     {
       id: 5,
       name: 'Setting',
-      url: 'chuni/v1/setting'
+      url: 'chuni/v1/setting',
+      show: false,
     }
   ];
 
@@ -118,37 +134,44 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     {
       id: 0,
       name: 'Profile',
-      url: 'chuni/v2/profile'
+      url: 'chuni/v2/profile',
+      show: false,
     },
     {
       id: 1,
       name: 'Rating',
-      url: 'chuni/v2/rating'
+      url: 'chuni/v2/rating',
+      show: false,
     },
     {
       id: 2,
       name: 'Play Record',
-      url: 'chuni/v2/recent'
+      url: 'chuni/v2/recent',
+      show: false,
     },
     {
       id: 3,
       name: 'Music List',
-      url: 'chuni/v2/song'
+      url: 'chuni/v2/song',
+      show: true,
     },
     {
       id: 4,
       name: 'Character',
-      url: 'chuni/v2/character'
+      url: 'chuni/v2/character',
+      show: false,
     },
     {
       id: 5,
       name: 'User Box',
-      url: 'chuni/v2/userbox'
+      url: 'chuni/v2/userbox',
+      show: false,
     },
     {
       id: 6,
       name: 'Setting',
-      url: 'chuni/v2/setting'
+      url: 'chuni/v2/setting',
+      show: false,
     }
   ];
 
@@ -156,12 +179,14 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     {
       id: 0,
       name: 'Profile',
-      url: 'mai2/profile'
+      url: 'mai2/profile',
+      show: false,
     },
     {
       id: 1,
       name: 'Setting',
-      url: 'mai2/setting'
+      url: 'mai2/setting',
+      show: false,
     }
   ];
 
@@ -169,42 +194,50 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     {
       id: 0,
       name: 'Profile',
-      url: 'diva/profile'
+      url: 'diva/profile',
+      show: false,
     },
     {
       id: 1,
       name: 'Pv Record',
-      url: 'diva/record'
+      url: 'diva/record',
+      show: false,
     },
     {
       id: 2,
       name: 'Pv List',
-      url: 'diva/pv'
+      url: 'diva/pv',
+      show: true,
     },
     {
       id: 3,
       name: 'Recent Play',
-      url: 'diva/recent'
+      url: 'diva/recent',
+      show: false,
     },
     {
       id: 4,
       name: 'Setting',
-      url: 'diva/setting'
+      url: 'diva/setting',
+      show: false,
     },
     {
       id: 5,
       name: 'Management',
-      url: 'diva/management'
+      url: 'diva/management',
+      show: false,
     },
     {
       id: 6,
       name: 'Modules',
-      url: 'diva/modules'
+      url: 'diva/modules',
+      show: false,
     },
     {
       id: 7,
       name: 'Customizes',
-      url: 'diva/customizes'
+      url: 'diva/customizes',
+      show: false,
     },
   ];
   private subscription: Subscription;
@@ -234,6 +267,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     this.subscription = this.api.loadingState.subscribe(
       state => this.loading = state.show
     );
+    this.refreshMenus();
   }
 
   loadUser() {
@@ -248,7 +282,9 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
                 this.authenticationService.currentAccountValue.currentCard = card.extId;
               }
             }
+            this.authenticationService.currentAccountValue.games = resp.data.games;
             this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
+            this.refreshMenus();
           }
           else{
             this.messageService.notice(resp.status.message);
@@ -269,6 +305,23 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     this.toastService.clear();
   }
 
+  refreshMenus() {
+    const map = new Map(
+      [
+        ['ongeki', this.ongekiMenu.filter(m => m.id !== 4)],
+        ['chusan', this.v2Menus.filter(m => m.id !== 3)],
+        ['diva', this.divaMenus.filter(m => m.id !== 2)],
+        ['maimai2', this.mai2Menus]
+      ]
+    );
+    // 先全部设置为false再调
+    map.forEach((menu, _) => {
+      menu.forEach(m => m.show = false);
+    });
+    this.authenticationService.currentAccountValue.games.forEach(game => {
+      map.get(game).forEach(menu => menu.show = true);
+    });
+  }
   logout() {
     this.authenticationService.logout();
     location.assign('');
@@ -302,6 +355,10 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     this.router.navigateByUrl(routerLink);
     this.hideSidebar();
   }
+
+  filterItems(menu: Menu[]) {
+    return menu.filter(m => m.show);
+  }
   @HostListener('window:popstate', ['$event'])
   onPopState(event: any) {
     if (this.sidebarOffcanvasOpened) {
@@ -314,4 +371,5 @@ export class Menu {
   id: number;
   name: string;
   url: string;
+  show: boolean;
 }

@@ -62,6 +62,7 @@ export class CardsComponent implements OnInit {
               }
               return card;
             });
+            this.authenticationService.currentAccountValue.games = resp.data.games;
             this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
           } else {
             this.messageService.notice(resp.status.message);

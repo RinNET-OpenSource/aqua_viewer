@@ -54,6 +54,7 @@ export class AuthenticationService {
                           break;
                         }
                       }
+                      account.games = resp.data.games;
                     }
                     this.currentAccountValue = account;
                     return resp;
@@ -142,4 +143,5 @@ export class Account {
   tokenType: string;
   accessToken: string;
   currentCard: number;
+  games: string[];
 }
