@@ -5,9 +5,12 @@ img {
 }
 
 .selected {
-	background-color: #B0BEC5;
+  border: 1px solid rgba(255, 255, 255) !important;
 }
 
-.mat-dialog-actions {
-    justify-content: flex-end;
+.row > div {
+  box-sizing: border-box;
+  padding: 1%;
+  border-radius: 10px;
+  border: 1px solid transparent;
 }

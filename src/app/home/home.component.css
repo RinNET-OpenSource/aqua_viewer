@@ -13,7 +13,7 @@
   max-width: 15rem;
   max-height: 25rem;
   background: url('src/assets/turtle.svg') no-repeat center center / 100%;
-  z-index: 999;
+  z-index: 99;
   top: 21%;
   right: 3%;
 }

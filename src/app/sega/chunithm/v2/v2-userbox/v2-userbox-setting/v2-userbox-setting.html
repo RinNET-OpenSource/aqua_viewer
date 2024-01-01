@@ -1,42 +1,58 @@
-  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-body">
         <h2>Change Item</h2>
-        <div *ngIf="enableImages == true" class="card">
-          <div *ngIf="data.itemKind == 1" cols="5" rowHeight="200px">
-              <div *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
-                <img src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{item.itemId|formatNumber:8}}.png">
-                <span>{{item.name}}</span>
+        <article *ngIf="enableImages == true" class="card">
+          <section class="card-body namePlate" *ngIf="data.itemKind == 1">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <p class="card-subtitle text-truncate">{{item.name}}</p>
+                  <img class="card-img" src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{item.itemId|formatNumber:8}}.png">
+                </div>
               </div>
-          </div>
+            </div>
+          </section>
 
-          <div *ngIf="data.itemKind == 8" cols="8" rowHeight="200px">
-              <div *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
-                <img src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">
-                <mat-grid-tile-footer>{{item.name}}</mat-grid-tile-footer>
+          <section class="card-body mapIcon" *ngIf="data.itemKind == 8">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <span class="card-title text-truncate">{{item.name}}</span>
+                  <img class="card-img" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">
+                </div>
               </div>
-          </div>
+            </div>
+          </section>
 
-          <div *ngIf="data.itemKind == 9" cols="6" rowHeight="200px">
-              <div *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
-                <img src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">
-                <mat-grid-tile-footer>{{item.name}}</mat-grid-tile-footer>
+          <section class="card-body systemVoice" *ngIf="data.itemKind == 9">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <span class="card-title text-truncate">{{item.name}}</span>
+                  <img class="card-img" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">
+                </div>
               </div>
-          </div>
+            </div>
+          </section>
 
-          <div *ngIf="data.itemKind == 11" cols="8" rowHeight="200px">
-              <div *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected':data.itemId == item.itemId}">
-                <img src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">
-                <mat-grid-tile-footer>{{item.name}}</mat-grid-tile-footer>
+          <section class="card-body avatar" *ngIf="data.itemKind == 11">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <span class="card-title text-truncate">{{item.name}}</span>
+                  <img class="card-img" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">
+                </div>
               </div>
-          </div>
+            </div>
+          </section>
 
-          <div *ngIf="data.itemKind == 3 || data.itemKind == 2" style="min-width:20rem;">
+
+          <section class="card-body" *ngIf="data.itemKind == 3 || data.itemKind == 2" style="min-width:20rem;">
             <mat-select [(ngModel)]="data.itemId">
               <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.name}}</mat-option>
             </mat-select>
-          </div>
-        </div>
+          </section>
+        </article>
 
 <!--        <mat-form-field *ngIf="enableImages == false" style="min-width:20rem;">-->
 <!--          <mat-select [(ngModel)]="data.itemId">-->
@@ -50,4 +66,3 @@
         <button type="button" class="btn btn-primary" (click)="parentComponent.handleApplyClick(this.data)">Apply</button>
       </div>
     </div>
-  </div>

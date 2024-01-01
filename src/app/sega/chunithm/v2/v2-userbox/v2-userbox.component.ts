@@ -38,6 +38,7 @@ export class V2UserBoxComponent implements OnInit {
 
   dialogOptions: NgbModalOptions = {
     centered: true,
+    size: 'xl',
   };
 
   constructor(
