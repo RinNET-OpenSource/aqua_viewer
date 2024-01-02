@@ -72,13 +72,13 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       id: 7,
       name: 'Music Ranking',
       url: 'ongeki/musicRanking',
-      show: false,
+      show: true,
     },
     {
       id: 8,
       name: 'User Ranking',
       url: 'ongeki/userRanking',
-      show: false,
+      show: true,
     },
     {
       id: 9,
@@ -308,7 +308,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   refreshMenus() {
     const map = new Map(
       [
-        ['ongeki', this.ongekiMenu.filter(m => m.id !== 4)],
+        ['ongeki', this.ongekiMenu.filter(m => ![4, 7, 8].includes(m.id))],
         ['chusan', this.v2Menus.filter(m => m.id !== 3)],
         ['diva', this.divaMenus.filter(m => m.id !== 2)],
         ['maimai2', this.mai2Menus]
