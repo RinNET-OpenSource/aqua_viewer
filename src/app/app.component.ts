@@ -316,7 +316,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     );
     // 先全部设置为false再调
     map.forEach((menu, _) => {
-      menu.forEach(m => m.show = true);
+      menu.forEach(m => m.show = false);
     });
     this.authenticationService.currentAccountValue.games.forEach(game => {
       map.get(game).forEach(menu => menu.show = true);
