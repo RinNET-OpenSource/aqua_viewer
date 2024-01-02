@@ -1,5 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Component, Inject, Input} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {V2SettingComponent} from '../v2-setting.component';
 
 @Component({
   selector: 'v2-name-setting-dialog',
@@ -7,13 +8,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class V2NameSettingDialog {
 
+  parentComponent: any;
+  @Input() public data: V2SettingComponent;
   constructor(
-    public dialogRef: MatDialogRef<V2NameSettingDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: V2NameSettingData) {
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
+    public modalService: NgbModal,
+  ) {
   }
 
 }

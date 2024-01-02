@@ -1,11 +1,14 @@
-<h1 mat-dialog-title>Change version</h1>
-<div mat-dialog-content>
-  Version format is x.xx.xx
-  <mat-form-field>
-    <input [(ngModel)]="data.version" matInput>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" [mat-dialog-close]="data.version">Apply</button>
+<div class="modal-content">
+  <div class="modal-body">
+    <h2>Change version</h2>
+    <p>Version format is x.xx.xx</p>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Version</span>
+      <input [(ngModel)]="data.version" type="text" class="form-control" placeholder="x.xx.xx">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="this.modalService.dismissAll()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="parentComponent.handleVersionApplyClick(data)">Apply</button>
+  </div>
 </div>

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../../api.service';
 import {AuthenticationService} from '../../../../auth/authentication.service';
 import {MessageService} from '../../../../message.service';
-import {MatDialog} from '@angular/material/dialog';
 import {V2Profile} from '../model/V2Profile';
 import {HttpParams} from '@angular/common/http';
 import {V2NameSettingDialog} from './v2-name-setting/v2-name-setting.dialog';
@@ -19,12 +19,17 @@ export class V2SettingComponent implements OnInit {
   profile: V2Profile;
   aimeId: string;
   apiServer: string;
+  dialogOptions: NgbModalOptions = {
+    centered: true,
+  };
+  version: string;
+  type: number;
 
   constructor(
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    public dialog: MatDialog
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -39,58 +44,53 @@ export class V2SettingComponent implements OnInit {
     );
   }
 
-  userName() {
-    const dialogRef = this.dialog.open(V2NameSettingDialog, {
-      width: '250px',
-      data: {userName: this.profile.userName}
-    });
+  handleUserNameApplyClick(data: { userName: string }) {
+    if (data.userName) {
+      this.api.put('api/game/chuni/v2/profile/username', {aimeId: this.aimeId, userName: data.userName}).subscribe(
+        x => {
+          this.profile = x;
+          this.messageService.notice('Successfully changed');
+          this.modalService.dismissAll();
+        }, error => this.messageService.notice(error)
+      );
+    }
+  }
 
-    dialogRef.afterClosed().subscribe(userName => {
-      if (userName) {
-        this.api.put('api/game/chuni/v2/profile/username', {aimeId: this.aimeId, userName: userName}).subscribe(
-          x => {
-            this.profile = x;
-            this.messageService.notice('Successfully changed');
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+  handleVersionApplyClick(data: { version: string, type: number }) {
+    if (data.version && data.type === 1) {
+      this.api.put('api/game/chuni/v2/profile/dataversion', {aimeId: this.aimeId, dataVersion: data.version}).subscribe(
+        x => {
+          this.profile = x;
+          this.messageService.notice('Successfully changed');
+          this.modalService.dismissAll();
+        }, error => this.messageService.notice(error)
+      );
+    } else if (data.version && data.type === 2) {
+      this.api.put('api/game/chuni/v2/profile/romversion', {aimeId: this.aimeId, romVersion: data.version}).subscribe(
+        x => {
+          this.profile = x;
+          this.messageService.notice('Successfully changed');
+          this.modalService.dismissAll();
+        }, error => this.messageService.notice(error)
+      );
+    }
+  }
+
+  userName() {
+    const dialogRef = this.modalService.open(V2NameSettingDialog, this.dialogOptions);
+    dialogRef.componentInstance.data = { userName: this.profile.userName };
+    dialogRef.componentInstance.parentComponent = this;
   }
 
   dataVersion() {
-    const dialogRef = this.dialog.open(V2VersionSettingDialog, {
-      width: '250px',
-      data: {version: this.profile.lastDataVersion}
-    });
-
-    dialogRef.afterClosed().subscribe(version => {
-      if (version) {
-        this.api.put('api/game/chuni/v2/profile/dataversion', {aimeId: this.aimeId, dataVersion: version}).subscribe(
-          x => {
-            this.profile = x;
-            this.messageService.notice('Successfully changed');
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    const dialogRef = this.modalService.open(V2VersionSettingDialog, this.dialogOptions);
+    dialogRef.componentInstance.data = { version: this.profile.lastDataVersion, type: 1 };
+    dialogRef.componentInstance.parentComponent = this;
   }
 
   romVersion() {
-    const dialogRef = this.dialog.open(V2VersionSettingDialog, {
-      width: '250px',
-      data: {version: this.profile.lastRomVersion}
-    });
-
-    dialogRef.afterClosed().subscribe(version => {
-      if (version) {
-        this.api.put('api/game/chuni/v2/profile/romversion', {aimeId: this.aimeId, romVersion: version}).subscribe(
-          x => {
-            this.profile = x;
-            this.messageService.notice('Successfully changed');
-          }, error => this.messageService.notice(error)
-        );
-      }
-    });
+    const dialogRef = this.modalService.open(V2VersionSettingDialog, this.dialogOptions);
+    dialogRef.componentInstance.data = { version: this.profile.lastRomVersion, type: 2 };
+    dialogRef.componentInstance.parentComponent = this;
   }
-
 }

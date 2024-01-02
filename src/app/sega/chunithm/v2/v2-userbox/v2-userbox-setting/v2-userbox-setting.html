@@ -17,7 +17,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
-                  <span class="card-title text-truncate">{{item.name}}</span>
+                  <p class="card-title text-truncate">{{item.name}}</p>
                   <img class="card-img" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">
                 </div>
               </div>
@@ -28,7 +28,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
-                  <span class="card-title text-truncate">{{item.name}}</span>
+                  <p class="card-title text-truncate">{{item.name}}</p>
                   <img class="card-img" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">
                 </div>
               </div>
@@ -39,7 +39,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
-                  <span class="card-title text-truncate">{{item.name}}</span>
+                  <p class="card-title text-truncate">{{item.name}}</p>
                   <img class="card-img" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">
                 </div>
               </div>
@@ -62,7 +62,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="parentComponent.handleCloseClick()">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.modalService.dismissAll()">Close</button>
         <button type="button" class="btn btn-primary" (click)="parentComponent.handleApplyClick(this.data)">Apply</button>
       </div>
     </div>

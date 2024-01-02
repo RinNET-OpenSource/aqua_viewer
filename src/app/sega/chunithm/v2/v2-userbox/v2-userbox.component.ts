@@ -181,10 +181,6 @@ export class V2UserBoxComponent implements OnInit {
     dialogRef.componentInstance.parentComponent = this;
   }
 
-  handleCloseClick() {
-    this.modalService.dismissAll();
-  }
-
   handleApplyClick(data) {
     const { itemKind, itemId } = data;
     let apiURL = '';

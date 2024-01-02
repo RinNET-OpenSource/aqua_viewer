@@ -1,10 +1,13 @@
-<h1 mat-dialog-title>Change User Name</h1>
-<div mat-dialog-content>
-  <mat-form-field>
-    <input [(ngModel)]="data.userName" matInput>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" [mat-dialog-close]="data.userName">Apply</button>
+<div class="modal-content">
+  <div class="modal-body">
+    <h2>Change User Name</h2>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Name</span>
+      <input [(ngModel)]="data.userName" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="this.modalService.dismissAll()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="parentComponent.handleUserNameApplyClick(this.data)">Apply</button>
+  </div>
 </div>

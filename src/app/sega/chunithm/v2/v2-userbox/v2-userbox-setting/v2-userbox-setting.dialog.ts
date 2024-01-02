@@ -32,7 +32,7 @@ export class V2UserBoxSettingDialog implements OnInit{
     private messageService: MessageService,
     private auth: AuthenticationService,
     private dbService: NgxIndexedDBService,
-    private modalService: NgbModal,
+    public modalService: NgbModal,
   ) {
   }
 
