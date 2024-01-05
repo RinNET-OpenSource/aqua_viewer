@@ -31,13 +31,16 @@ tr * {
 }
 
 .music-img {
-  width: 3rem;
+  width: 4rem;
+}
+
+.music-img > img {
+  padding: 0 10px;
 }
 
 .music-title {
   text-align: left;
 }
-
 
 @media only screen and (max-width: 599px) {
   .skill-card table {
