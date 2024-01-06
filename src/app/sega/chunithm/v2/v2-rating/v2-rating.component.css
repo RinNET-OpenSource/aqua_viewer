@@ -42,6 +42,10 @@ tr * {
   text-align: left;
 }
 
+.rating-info > p {
+  margin: 0;
+}
+
 @media only screen and (max-width: 599px) {
   .skill-card table {
     width: 100%;

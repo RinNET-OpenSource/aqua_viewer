@@ -1,16 +1,20 @@
 .character-display {
   display: flex;
-}
-
-.character-display .image {
-  max-width: 30%;
+  flex-direction: column;
 }
 
 .character-display .image img {
   width: 100%;
 }
 
-.character-display .content {
-  margin: 0 auto;
-  width: 65%;
+.top-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-image img {
+  display: block;
+  width: 80%;
 }

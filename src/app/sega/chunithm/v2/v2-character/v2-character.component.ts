@@ -10,6 +10,7 @@ import {V2Profile} from '../model/V2Profile';
 import {V2Character} from '../model/V2Character';
 import {ChusanCharacter} from '../model/ChusanCharacter';
 import {environment} from '../../../../../environments/environment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-v2-character',
@@ -35,7 +36,8 @@ export class V2CharacterComponent implements OnInit {
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    public router: Router
   ) {
     this.aimeId = String(this.auth.currentAccountValue.currentCard);
     this.getEquippedCharaName();
@@ -89,5 +91,9 @@ export class V2CharacterComponent implements OnInit {
     }).subscribe(data => {
       this.load(this.currentPage);
     }, error => this.messageService.notice(error));
+  }
+
+  pageChanged(page: number) {
+    this.router.navigate(['chuni/v2/character'], {queryParams: {page}});
   }
 }
