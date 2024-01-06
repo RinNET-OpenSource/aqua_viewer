@@ -2,12 +2,12 @@
 
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title mb-2">Username</h4>
+    <h5 class="card-title mb-2">Username</h5>
     <p class="card-subtitle mb-2">Warning - use full-width character</p>
     <div *ngIf="profile">
       <div class="content">{{profile.userName}}</div>
       <div class="action mt-2">
-        <button type="button" class="btn btn-outline-primary" (click)="userName()">Edit</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="userName()">Edit</button>
       </div>
     </div>
   </div>
@@ -15,12 +15,12 @@
 
 <div class="card mt-3">
   <div class="card-body">
-    <h4 class="card-title mb-2">Last data version</h4>
+    <h5 class="card-title mb-2">Last data version</h5>
     <p class="card-subtitle mb-2">Change only if you have login problem due to <u>data</u> version</p>
     <div *ngIf="profile">
-      <div class="content">{{profile.lastDataVersion}}</div>
+      <div class="content version">{{profile.lastDataVersion}}</div>
       <div class="action mt-2">
-        <button type="button" class="btn btn-outline-primary" (click)="dataVersion()">Edit</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="dataVersion()">Edit</button>
       </div>
     </div>
   </div>
@@ -28,12 +28,12 @@
 
 <div class="card mt-3">
   <div class="card-body">
-    <h4 class="card-title mb-2">Last rom version</h4>
+    <h5 class="card-title mb-2">Last rom version</h5>
     <p class="card-subtitle mb-2">Change only if you have login problem due to <u>rom</u> version</p>
     <div *ngIf="profile">
-      <div class="content">{{profile.lastRomVersion}}</div>
+      <div class="content version">{{profile.lastRomVersion}}</div>
       <div class="action mt-2">
-        <button type="button" class="btn btn-outline-primary" (click)="romVersion()" >Edit</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="romVersion()" >Edit</button>
       </div>
     </div>
   </div>
@@ -41,13 +41,11 @@
 
 <div class="card mt-3">
   <div class="card-body">
-    <h4 class="card-title mb-2">Export data</h4>
+    <h5 class="card-title mb-2">Export data</h5>
     <p class="card-subtitle mb-2">Warning - this data might unable to import</p>
     <div>
       <div class="action mt-2">
-        <button type="button" class="btn btn-outline-primary">
-          <a href="{{apiServer + '/api/game/chuni/v2/export?aimeId=' + aimeId}}" target="_blank">Download</a>
-        </button>
+          <a (click)="downloadFile()" class="btn btn-sm btn-primary">Download</a>
       </div>
     </div>
   </div>

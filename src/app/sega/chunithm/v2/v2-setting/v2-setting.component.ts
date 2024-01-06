@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../../api.service';
 import {AuthenticationService} from '../../../../auth/authentication.service';
 import {MessageService} from '../../../../message.service';
 import {V2Profile} from '../model/V2Profile';
-import {HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {V2NameSettingDialog} from './v2-name-setting/v2-name-setting.dialog';
 import {V2VersionSettingDialog} from './v2-version-setting/v2-version-setting.dialog';
 import {environment} from '../../../../../environments/environment';
@@ -30,6 +30,8 @@ export class V2SettingComponent implements OnInit {
     private auth: AuthenticationService,
     private messageService: MessageService,
     private modalService: NgbModal,
+    private http: HttpClient,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
@@ -92,5 +94,21 @@ export class V2SettingComponent implements OnInit {
     const dialogRef = this.modalService.open(V2VersionSettingDialog, this.dialogOptions);
     dialogRef.componentInstance.data = { version: this.profile.lastRomVersion, type: 2 };
     dialogRef.componentInstance.parentComponent = this;
+  }
+
+  downloadFile() {
+    const url = this.apiServer + 'api/game/chuni/v2/export?aimeId=' + this.aimeId;
+    const headers = { Authorization: `Bearer ${this.auth.currentAccountValue.accessToken}` };
+    this.http.get(url, { headers, responseType: 'blob' }).subscribe(blob => {
+      const objUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = objUrl;
+      a.download = `chusan_${this.aimeId}_exported.json`;
+      a.click();
+      document.body.appendChild(a);
+      document.body.removeChild(a);
+
+      window.URL.revokeObjectURL(objUrl);
+    });
   }
 }
