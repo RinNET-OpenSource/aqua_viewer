@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         Validators.maxLength(40)]],
       username: ['', [
         Validators.required,
-        Validators.pattern('^((?![a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*).)*$'),
+        Validators.pattern('^[a-zA-Z0-9_]+$'),
         Validators.minLength(3),
         Validators.maxLength(15)]],
       email: ['', [
