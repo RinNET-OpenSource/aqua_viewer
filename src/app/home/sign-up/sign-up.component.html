@@ -5,35 +5,58 @@
   <form  [formGroup]="signUpForm">
     <div class="d-grid gap-2">
       <div class="position-relative">
-        <label for="name" class="form-label small">Nick name</label>
+        <label for="name" class="form-label small">Nickname</label>
         <input type="text" class="form-control form-control-sm" id="name" formControlName="name" placeholder=""
                [class.is-invalid]="name.touched && !name.valid && name.errors">
+        <div *ngIf="name.errors" class="invalid-tooltip">
+          <div *ngIf="name.errors.required">Nickname is required.</div>
+          <div *ngIf="name.errors.minlength">Nickname must be at least 4 characters long.</div>
+          <div *ngIf="name.errors.maxLength">Nickname must be at most 40 characters long.</div>
+        </div>
       </div>
+
       <div>
-        <label for="username" class="form-label small">User name</label>
-        <div class="input-group input-group-sm">
+        <label for="username" class="form-label small">Username</label>
+        <div class="input-group input-group-sm has-validation">
           <input type="text" class="form-control form-control-sm" id="userName" formControlName="username"
                  placeholder=""
                  [class.is-invalid]="username.touched && !username.valid && username.errors">
+          <div *ngIf="username.errors" class="invalid-tooltip">
+            <div *ngIf="username.errors.required">Username is required.</div>
+            <div *ngIf="username.errors.minlength">Username must be at least 3 characters long.</div>
+            <div *ngIf="username.errors.maxLength">Username must be at most 15 characters long.</div>
+            <div *ngIf="username.errors.pattern">Only letters, numbers, and underscores are allowed.</div>
+          </div>
           <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="checkUsername()">Check</button>
         </div>
       </div>
+
       <div>
         <label for="email" class="form-label small">Email address</label>
-        <div class="input-group input-group-sm">
+        <div class="input-group input-group-sm has-validation">
           <input type="email" class="form-control form-control-sm" id="email" formControlName="email"
                  placeholder=""
                  [class.is-invalid]="email.touched && !email.valid && email.errors">
+          <div *ngIf="email.errors" class="invalid-tooltip">
+            <div *ngIf="email.errors.required">Email address is required.</div>
+            <div *ngIf="email.errors.maxLength">Email address must be at most 40 characters long.</div>
+            <div *ngIf="email.errors.email">Invalid email address</div>
+          </div>
           <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="checkEmail()">Check</button>
         </div>
       </div>
 
       <div>
-        <label for="verifyCode" class="form-label small">Verify code</label>
-        <div class="input-group input-group-sm">
+        <label for="verifyCode" class="form-label small">Verification code</label>
+        <div class="input-group input-group-sm has-validation">
           <input type="text" class="form-control form-control-sm" id="verifyCode" formControlName="verifyCode"
                  placeholder=""
                  [class.is-invalid]="verifyCode.touched && !verifyCode.valid && verifyCode.errors">
+          <div *ngIf="verifyCode.errors" class="invalid-tooltip">
+            <div *ngIf="verifyCode.errors.required">Verification code is required.</div>
+            <div *ngIf="verifyCode.errors.minlength">Verification code must be 8 characters long.</div>
+            <div *ngIf="verifyCode.errors.maxLength">Verification code must be 8 characters long.</div>
+          </div>
           <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="getVerifyCode()" [disabled]="isButtonDisabled">
             {{ isButtonDisabled ? remainingTime : 'Get' }}
           </button>
@@ -42,18 +65,30 @@
 
       <div>
         <label for="password" class="form-label small">Password</label>
-        <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
-               placeholder=""
-               [class.is-invalid]="password.touched && !password.valid && password.errors">
+        <div class="input-group input-group-sm has-validation">
+          <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
+                 placeholder=""
+                 [class.is-invalid]="password.touched && !password.valid && password.errors">
+          <div *ngIf="password.errors" class="invalid-tooltip">
+            <div *ngIf="password.errors.required">Password is required.</div>
+            <div *ngIf="password.errors.minlength">Password must be at least 8 characters long.</div>
+            <div *ngIf="password.errors.maxLength">Password must be at most 100 characters long.</div>
+          </div>
+        </div>
       </div>
       <div>
         <label for="confirmPassword" class="form-label small">Confirm password</label>
-        <input type="password" class="form-control form-control-sm" id="confirmPassword"
-               formControlName="confirmPassword"
-               placeholder=""
-               [class.is-invalid]="confirmPassword.touched && signUpForm.hasError('notSame')">
+        <div class="input-group input-group-sm has-validation">
+          <input type="password" class="form-control form-control-sm" id="confirmPassword"
+                 formControlName="confirmPassword"
+                 placeholder=""
+                 [class.is-invalid]="confirmPassword.touched && signUpForm.hasError('notSame') && !password.errors">
+          <div *ngIf="confirmPassword.touched && signUpForm.hasError('notSame') && !password.errors" class="invalid-tooltip">
+            <div>Passwords don't match.</div>
+          </div>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-sm mt-4" [class.disabled]="signUpForm.disabled" (click)="onSubmit()">Sign up</button>
+      <button type="submit" class="btn btn-primary btn-sm mt-4" (click)="onSubmit()">Sign up</button>
     </div>
   </form>
 </div>
