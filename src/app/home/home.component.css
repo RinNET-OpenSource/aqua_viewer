@@ -32,6 +32,14 @@
   background-blend-mode: screen;
 }
 
+.logo .ongekiHead {
+  width: 90%;
+  position: absolute;
+  top: 2.4%;
+  left: -22.5%;
+  z-index: 99;
+}
+
 .logo-img_fault::after,.logo-img_fault::before {
   content: "";
   position: absolute;

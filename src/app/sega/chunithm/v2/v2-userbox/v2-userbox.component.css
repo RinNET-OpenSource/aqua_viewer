@@ -36,13 +36,29 @@ img {
   transform: translateX(-50%);
 }
 
-.avatarContainer {
+.avatarContainer, .guiguiContainer {
   position: absolute;
   width: 460px;
   height: 580px;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.guiguiContainer .guiguiSVG {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(2);
+  top: 50%;
+  left: 50%;
+  width: 100%;
+}
+
+.guiguiContainer .avatarHead {
+  position: absolute;
+  top: 24.9%;
+  left: 32%;
+  width: 62%;
+  object-fit: contain;
 }
 
 #avatarFeet {

@@ -8,7 +8,11 @@
           <div class="card-body">
             <h5 class="card-title">Avatar preview</h5>
             <div class="avatarPreview">
-              <div class="avatarContainer">
+              <div *ngIf="showGuiGui == true" class="guiguiContainer">
+                <img id="avatarGuiGui" class="guiguiSVG" src="assets/turtle.svg">
+                <img class="avatarHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarHead|formatNumber:8}}.png">
+              </div>
+              <div *ngIf="showGuiGui == false" class="avatarContainer">
                 <img id="avatarFeet" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
                 <img id="avatarBody" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
                 <img id="avatarFace" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Face.webp">

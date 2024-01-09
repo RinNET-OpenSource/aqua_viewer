@@ -41,6 +41,9 @@ export class V2UserBoxComponent implements OnInit {
     size: 'xl',
   };
 
+  showGuiGui = false;
+  private showGuiGuiTimer;
+
   constructor(
     private api: ApiService,
     private auth: AuthenticationService,
@@ -183,12 +186,18 @@ export class V2UserBoxComponent implements OnInit {
 
   handleApplyClick(data) {
     const { itemKind, itemId } = data;
+    clearTimeout(this.showGuiGuiTimer);
     let apiURL = '';
     let requestBody = {};
     if (itemKind === 11) {
       const { category, accId } = this.currentAvatarAcc;
       this.api.put('api/game/chuni/v2/profile/avatar', { aimeId: this.aimeId, category, accId: itemId }).subscribe(
         (result) => {
+          const random = Math.floor(Math.random() * 10);
+          if (random === 5) {
+            this.showGuiGui = true;
+            this.showGuiGuiTimer = setTimeout(() => this.showGuiGui = false, 10000);
+          }
           this.messageService.notice('Successfully changed');
           this.refreshProfile();
           this.modalService.dismissAll();
