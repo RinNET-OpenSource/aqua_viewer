@@ -15,8 +15,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   host = environment.assetsHost;
   popupStatus = 0;
   transformLogo: number;
-  ongekiAvatarIconHeadArr: string[] = ['06202101', '06202201', '06202301', '06202401', '06202501', '06202601', '06202701', '06202801', '06202901', '06203001', '06203101', '06203201']
-  ongekiAvatarIconHead: string;
+  ongekiAvatarIconHeadArr: string[] = ['06202101', '06202201', '06202301', '06202401', '06202501', '06202601', '06202701', '06202801', '06202901', '06203001', '06203101', '06203201'];
+  ongekiAvatarHeadId;
+  ongekiAvatarHeadData = [
+    {
+      id: '06202101',
+      color: ['#fca2c8', '#ea81b6', '#bf0477'],
+    },
+    {
+      id: '06202201',
+      color: ['#ffef5d', '#efc75b', '#f48a00'],
+    },
+    {
+      id: '06202301',
+      color: ['#67667c', '#594f66', '#141219'],
+    }
+  ];
+
   constructor(private modalService: NgbModal,
               public messageService: MessageService,
               public authenticationService: AuthenticationService,
@@ -24,9 +39,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.transformLogo = Math.round(Math.random() * 5);
-    console.log(this.transformLogo);
-    this.ongekiAvatarIconHead = this.ongekiAvatarIconHeadArr[Math.floor(Math.random() * this.ongekiAvatarIconHeadArr.length)];
+    this.transformLogo = Math.round(Math.random() * 6);
+    this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[Math.floor(Math.random() * this.ongekiAvatarHeadData.length)];
+    console.log(this.transformLogo, this.ongekiAvatarHeadId);
   }
 
   ngOnDestroy(): void {
