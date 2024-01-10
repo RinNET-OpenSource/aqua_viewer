@@ -17,17 +17,10 @@ import {HttpParams} from '@angular/common/http';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  divaPv = 'Initialize';
-  divaModule = 'Initialize';
-  divaCustomize = 'Initialize';
-  chuniMusic = 'Initialize';
   ongekiCard = 'Initialize';
   ongekiCharacter = 'Initialize';
   ongekiMusic = 'Initialize';
   ongekiSkill = 'Initialize';
-  chuniCharacter = 'Initialize';
-  chuniSkill = 'Initialize';
   chusanMusic = 'Initialize';
   chusanCharacter = 'Initialize';
   chusanTrophy = 'Initialize';
@@ -46,16 +39,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.preload.divaPvState.subscribe(data => this.divaPv = data);
-    this.preload.divaModuleState.subscribe(data => this.divaModule = data);
-    this.preload.divaCustomizeState.subscribe(data => this.divaCustomize = data);
-    this.preload.chuniMusicState.subscribe(data => this.chuniMusic = data);
     this.preload.ongekiCardState.subscribe(data => this.ongekiCard = data);
     this.preload.ongekiCharacterState.subscribe(data => this.ongekiCharacter = data);
     this.preload.ongekiMusicState.subscribe(data => this.ongekiMusic = data);
     this.preload.ongekiSkillState.subscribe(data => this.ongekiSkill = data);
-    this.preload.chuniCharacterState.subscribe(data => this.chuniCharacter = data);
-    this.preload.chuniSkillState.subscribe(data => this.chuniSkill = data);
     this.preload.chusanMusicState.subscribe(data => this.chusanMusic = data);
     this.preload.chusanCharacterState.subscribe(data => this.chusanCharacter = data);
     this.preload.chusanTrophyState.subscribe(data => this.chusanTrophy = data);

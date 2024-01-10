@@ -2,16 +2,10 @@ import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { ReplaySubject } from 'rxjs';
 import { ApiService } from '../api.service';
-import { DivaPv } from '../sega/diva/model/DivaPv';
-import { ChuniMusic } from '../sega/chunithm/v1/model/ChuniMusic';
-import { DivaModule } from '../sega/diva/model/DivaModule';
-import { DivaCustomize } from '../sega/diva/model/DivaCustomize';
 import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
 import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
 import { OngekiMusic } from '../sega/ongeki/model/OngekiMusic';
 import { OngekiSkill } from '../sega/ongeki/model/OngekiSkill';
-import { ChuniCharacter } from '../sega/chunithm/v1/model/ChuniCharacter';
-import { ChuniSkill } from '../sega/chunithm/v1/model/ChuniSkill';
 import { ChusanMusic } from '../sega/chunithm/v2/model/ChusanMusic';
 import { ChusanCharacter } from '../sega/chunithm/v2/model/ChusanCharacter';
 import { ChusanTrophy } from '../sega/chunithm/v2/model/ChusanTrophy';
@@ -28,17 +22,6 @@ import { AuthenticationService } from '../auth/authentication.service';
   providedIn: 'root'
 })
 export class PreloadService {
-
-  private divaPv = new ReplaySubject<string>();
-  divaPvState = this.divaPv.asObservable();
-  private divaModule = new ReplaySubject<string>();
-  divaModuleState = this.divaModule.asObservable();
-  private divaCustomize = new ReplaySubject<string>();
-  divaCustomizeState = this.divaCustomize.asObservable();
-
-  private chuniMusic = new ReplaySubject<string>();
-  chuniMusicState = this.chuniMusic.asObservable();
-
   private ongekiCard = new ReplaySubject<string>();
   ongekiCardState = this.ongekiCard.asObservable();
   private ongekiCharacter = new ReplaySubject<string>();
@@ -47,11 +30,6 @@ export class PreloadService {
   ongekiMusicState = this.ongekiMusic.asObservable();
   private ongekiSkill = new ReplaySubject<string>();
   ongekiSkillState = this.ongekiSkill.asObservable();
-
-  private chuniCharacter = new ReplaySubject<string>();
-  chuniCharacterState = this.chuniCharacter.asObservable();
-  private chuniSkill = new ReplaySubject<string>();
-  chuniSkillState = this.chuniSkill.asObservable();
 
   private chusanMusic = new ReplaySubject<string>();
   chusanMusicState = this.chusanMusic.asObservable();
@@ -81,16 +59,10 @@ export class PreloadService {
     const aimeId = String(this.auth.currentAccountValue.currentCard);
     const param = aimeId.trim().length != 0 ? new HttpParams().set('aimeId', aimeId) : undefined;
 
-    this.loader<DivaPv>('divaPv', 'api/game/diva/data/musicList', this.divaPv);
-    this.loader<DivaModule>('divaModule', 'api/game/diva/data/moduleList', this.divaModule);
-    this.loader<DivaCustomize>('divaCustomize', 'api/game/diva/data/customizeList', this.divaCustomize);
-    this.loader<ChuniMusic>('chuniMusic', 'api/game/chuni/v1/music', this.chuniMusic);
     this.loader<OngekiCard>('ongekiCard', 'api/game/ongeki/data/cardList', this.ongekiCard);
     this.loader<OngekiCharacter>('ongekiCharacter', 'api/game/ongeki/data/charaList', this.ongekiCharacter);
     this.loader<OngekiMusic>('ongekiMusic', 'api/game/ongeki/data/musicList', this.ongekiMusic);
     this.loader<OngekiSkill>('ongekiSkill', 'api/game/ongeki/data/skillList', this.ongekiSkill);
-    this.loader<ChuniCharacter>('chuniCharacter', 'api/game/chuni/v1/data/character', this.chuniCharacter);
-    this.loader<ChuniSkill>('chuniSkill', 'api/game/chuni/v1/data/skill', this.chuniSkill);
     this.loader<ChusanMusic>('chusanMusic', 'api/game/chuni/v2/data/music', this.chusanMusic);
     this.loader<ChusanCharacter>('chusanCharacter', 'api/game/chuni/v2/data/character', this.chusanCharacter);
     this.loader<ChusanTrophy>('chusanTrophy', 'api/game/chuni/v2/data/trophy', this.chusanTrophy);
