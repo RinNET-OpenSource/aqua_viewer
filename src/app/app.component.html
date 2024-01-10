@@ -16,8 +16,8 @@
         <div class="user-popover vstack">
           <label class="text-start mx-2 h5">{{authenticationService.currentAccountValue.name}}</label>
           <hr class="my-2 border">
-          <a class="link-btn rounded mb-2" [class.active]="isActive('/cards')" routerLink="/cards">My cards</a>
-          <a class="link-btn link-btn-danger rounded" (click)="logout()">Sign out</a>
+          <a class="link-btn rounded mb-2" [class.active]="isActive('/cards')" routerLink="/cards">{{'App.UserPopup.MyCards' | translate}}</a>
+          <a class="link-btn link-btn-danger rounded" (click)="logout()">{{'App.UserPopup.SignOut' | translate}}</a>
         </div>
       </ng-template>
       <div>
@@ -49,54 +49,38 @@
                 <li>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li class="pb-2">
-                      <a class="link-btn rounded" [class.active]="isActive('/dashboard')" (click)="navigateTo('/dashboard')">Dashboard</a>
+                      <a class="link-btn rounded" [class.active]="isActive('/dashboard')" (click)="navigateTo('/dashboard')">{{'App.Sidebar.Dashboard' | translate}}</a>
                     </li>
                     <li class="pb-2">
-                      <a class="link-btn rounded" [class.active]="isActive('/import')" (click)="navigateTo('/import')">Import</a>
+                      <a class="link-btn rounded" [class.active]="isActive('/import')" (click)="navigateTo('/import')">{{'App.Sidebar.Import' | translate}}</a>
                     </li>
                     <li class="pb-2">
                       <a class="link-btn rounded" target="_blank"
-                         href="https://status.naominet.live/status/aquaserver">Status</a>
+                         href="https://status.naominet.live/status/aquaserver">{{'App.Sidebar.Status' | translate}}</a>
                     </li>
                   </ul>
                 </li>
                 <li *ngIf="filterItems(ongekiMenu).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2">O.N.G.E.K.I.</strong>
+                  <strong class="d-flex w-100 fw-semibold mb-2">{{'App.Sidebar.Ongeki' | translate}}</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of filterItems(ongekiMenu)" class="pb-2">
-                      <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
+                      <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
                     </li>
                   </ul>
                 </li>
-<!--                <li>-->
-<!--                  <strong class="d-flex w-100 fw-semibold mb-2">CHUNITHM</strong>-->
-<!--                  <ul class="list-unstyled fw-normal pb-2 small">-->
-<!--                    <li *ngFor="let item of v1Menus" class="pb-2">-->
-<!--                      <a class="sidebar-item-link rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                </li>-->
                 <li *ngIf="filterItems(v2Menus).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2">CHUNITHM NEW</strong>
+                  <strong class="d-flex w-100 fw-semibold mb-2">{{'App.Sidebar.ChuniV2' | translate}}</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of filterItems(v2Menus)" class="pb-2">
-                      <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
+                      <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
                     </li>
                   </ul>
                 </li>
                 <li *ngIf="filterItems(mai2Menus).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2" >Maimai DX</strong>
+                  <strong class="d-flex w-100 fw-semibold mb-2" >{{'App.Sidebar.Mai2' | translate}}</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of filterItems(mai2Menus)" class="pb-2">
-                      <a class="link-btn rounded " [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
-                    </li>
-                  </ul>
-                </li>
-                <li *ngIf="filterItems(divaMenus).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2">Project DIVA AFT</strong>
-                  <ul class="list-unstyled fw-normal pb-2 small">
-                    <li *ngFor="let item of filterItems(divaMenus)" class="pb-2">
-                      <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{item.name}}</a>
+                      <a class="link-btn rounded " [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
                     </li>
                   </ul>
                 </li>

@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 1,
-      name: 'Battle Point',
+      name: 'BattlePoint',
       url: 'ongeki/battle',
       show: false,
     },
@@ -47,13 +47,13 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 3,
-      name: 'Play Record',
+      name: 'PlayRecord',
       url: 'ongeki/recent',
       show: false,
     },
     {
       id: 4,
-      name: 'Music List',
+      name: 'MusicList',
       url: 'ongeki/song',
       show: true,
     },
@@ -65,19 +65,19 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 6,
-      name: 'Rival List',
+      name: 'Rival',
       url: 'ongeki/rival',
       show: false,
     },
     {
       id: 7,
-      name: 'Music Ranking',
+      name: 'MusicRanking',
       url: 'ongeki/musicRanking',
       show: true,
     },
     {
       id: 8,
-      name: 'User Ranking',
+      name: 'UserRanking',
       url: 'ongeki/userRanking',
       show: true,
     },
@@ -90,46 +90,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   ];
 
   mobileQuery: MediaQueryList;
-
-  dark = 'dark';
-  v1Menus: Menu[] = [
-    {
-      id: 0,
-      name: 'Profile',
-      url: 'chuni/v1/profile',
-      show: false,
-    },
-    {
-      id: 1,
-      name: 'Rating',
-      url: 'chuni/v1/rating',
-      show: false,
-    },
-    {
-      id: 2,
-      name: 'Play Record',
-      url: 'chuni/v1/recent',
-      show: false,
-    },
-    {
-      id: 3,
-      name: 'Music List',
-      url: 'chuni/v1/song',
-      show: true,
-    },
-    {
-      id: 4,
-      name: 'Character',
-      url: 'chuni/v1/character',
-      show: false,
-    },
-    {
-      id: 5,
-      name: 'Setting',
-      url: 'chuni/v1/setting',
-      show: false,
-    }
-  ];
 
   v2Menus: Menu[] = [
     {
@@ -146,13 +106,13 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 2,
-      name: 'Play Record',
+      name: 'PlayRecord',
       url: 'chuni/v2/recent',
       show: false,
     },
     {
       id: 3,
-      name: 'Music List',
+      name: 'MusicList',
       url: 'chuni/v2/song',
       show: true,
     },
@@ -164,7 +124,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 5,
-      name: 'User Box',
+      name: 'UserBox',
       url: 'chuni/v2/userbox',
       show: false,
     },
@@ -190,57 +150,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       show: false,
     }
   ];
-
-  divaMenus: Menu[] = [
-    {
-      id: 0,
-      name: 'Profile',
-      url: 'diva/profile',
-      show: false,
-    },
-    {
-      id: 1,
-      name: 'Pv Record',
-      url: 'diva/record',
-      show: false,
-    },
-    {
-      id: 2,
-      name: 'Pv List',
-      url: 'diva/pv',
-      show: true,
-    },
-    {
-      id: 3,
-      name: 'Recent Play',
-      url: 'diva/recent',
-      show: false,
-    },
-    {
-      id: 4,
-      name: 'Setting',
-      url: 'diva/setting',
-      show: false,
-    },
-    {
-      id: 5,
-      name: 'Management',
-      url: 'diva/management',
-      show: false,
-    },
-    {
-      id: 6,
-      name: 'Modules',
-      url: 'diva/modules',
-      show: false,
-    },
-    {
-      id: 7,
-      name: 'Customizes',
-      url: 'diva/customizes',
-      show: false,
-    },
-  ];
+  
   private subscription: Subscription;
 
   constructor(
@@ -322,7 +232,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       [
         ['ongeki', this.ongekiMenu.filter(m => ![4, 7, 8].includes(m.id))],
         ['chusan', this.v2Menus.filter(m => m.id !== 3)],
-        ['diva', this.divaMenus.filter(m => m.id !== 2)],
         ['maimai2', this.mai2Menus]
       ]
     );

@@ -1,4 +1,28 @@
 {
+  "App" : {
+    "UserPopup" : {
+      "MyCards" : "My cards",
+      "SignOut" : "Sign out"
+    },
+    "Sidebar" : {
+      "Dashboard" : "Dashboard",
+      "Import" : "Import",
+      "Status" : "Status",
+      "Ongeki" : "O.N.G.E.K.I.",
+      "ChuniV2" : "CHUNITHM NEW",
+      "Mai2" : "Maimai DX",
+      "Profile" : "Profile",
+      "BattlePoint" : "Battle Point",
+      "Rating" : "Rating",
+      "PlayRecord" : "Play Record",
+      "MusicList" : "Music List",
+      "Card" : "Card",
+      "Rival" : "Rival",
+      "MusicRanking" : "Music Ranking",
+      "UserRanking" : "User Ranking",
+      "Setting" : "Setting"
+    }
+  },
   "HomePage": {
     "Title": "Home",
     "Description": "Multipurpose online service for ALL.Net based games",

@@ -1,4 +1,28 @@
 {
+  "App" : {
+    "UserPopup" : {
+      "MyCards" : "卡包",
+      "SignOut" : "登出"
+    },
+    "Sidebar" : {
+      "Dashboard" : "仪表板",
+      "Import" : "导入",
+      "Status" : "状态",
+      "Ongeki" : "音击",
+      "ChuniV2" : "中二节奏NEW",
+      "Mai2" : "舞萌DX",
+      "Profile" : "档案",
+      "BattlePoint" : "战斗得分",
+      "Rating" : "评级",
+      "PlayRecord" : "游玩记录",
+      "MusicList" : "乐曲列表",
+      "Card" : "卡片",
+      "Rival" : "劲敌",
+      "MusicRanking" : "乐曲排行",
+      "UserRanking" : "玩家排行",
+      "Setting" : "设定"
+    }
+  },
   "HomePage": {
     "Title": "主页",
     "Description": "致力于为ALL.Net游戏提供在线服务",
@@ -6,7 +30,7 @@
     "EditSegatools" : "在<code>segatools.ini</code>中添加以下文本",
     "SupportedGames" : "支持的游戏",
     "AndBelow" : "（及以下）",
-    "Dashboard" : "进入面板",
+    "Dashboard" : "仪表板",
     "SignIn": "登录",
     "SignUp": "注册",
     "Back": "返回",
