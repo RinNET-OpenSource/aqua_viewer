@@ -47,37 +47,36 @@
           <h1 class="display-1 fw-semibold">RinNET</h1>
         </div>
         <div class="text-center mb-3">
-          <h2 class="lead text-secondary">Multipurpose online service for ALL.Net based games</h2>
+          <h2 class="lead text-secondary">{{'HomePage.Description' | translate}}</h2>
         </div>
         <div class="mb-3 text-center">
           <button *ngIf="authenticationService.currentAccountValue" class="btn btn-primary w-100" routerLink="/dashboard">
-            Dashboard
+            {{'HomePage.Dashboard' | translate}}
           </button>
           <button *ngIf="!authenticationService.currentAccountValue" class="btn btn-primary w-100"
-                  (click)="popupStatus=0;showPopup(content)">Sign in
+                  (click)="popupStatus=0;showPopup(content)">{{'HomePage.SignIn' | translate}}
           </button>
         </div>
         <hr>
         <div class="mb-3 ps-0 fw-semibold h3">
-          Connect to RinNET
+          {{'HomePage.Connect' | translate}}
         </div>
-        <p class="mb-3 ps-0 text-secondary h4 lead">
-          Edit <code>segatools.ini</code> with the following text
+        <p class="mb-3 ps-0 text-secondary h4 lead" [innerHTML]="'HomePage.EditSegatools' | translate">
         </p>
-        <div class="card align-middle bg-body-tertiary mb-3">
+        <div class="card align-middle bg-body-tertiary mb-4">
           <div class="card-body">
-      <pre class="m-0 " style="text-wrap: inherit"><code data-lang="ini">[DNS]
+            <pre class="m-0 " style="text-wrap: inherit"><code data-lang="ini">[DNS]
 default = aqua.naominet.live</code></pre>
           </div>
         </div>
         <div class="mb-3 ps-0 fw-semibold h3">
-          Supported Games
+          {{'HomePage.SupportedGames' | translate}}
         </div>
         <ul>
-          <li>O.N.G.E.K.I. Bright Memory (and below)</li>
-          <li>CHUNITHM SUN (and below)</li>
-          <li>CHUNITHM Paradise Lost (and below)</li>
-          <li>Maimai DX Festival (and below)</li>
+          <li>O.N.G.E.K.I. Bright Memory {{'HomePage.AndBelow' | translate}}</li>
+          <li>CHUNITHM SUN {{'HomePage.AndBelow' | translate}}</li>
+          <li>CHUNITHM Paradise Lost {{'HomePage.AndBelow' | translate}}</li>
+          <li>Maimai DX Festival {{'HomePage.AndBelow' | translate}}</li>
           <li>Card Maker (1.34)</li>
           <li>Project DIVA Arcade Future Tone</li>
         </ul>
@@ -89,21 +88,21 @@ default = aqua.naominet.live</code></pre>
       <div *ngIf="popupStatus == 0">
         <app-login (onForgotPassword)="popupStatus = 2"></app-login>
         <div class="text-center my-3 small">
-          Don't have an account?
-          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 1">Sign up</button>
+          {{'HomePage.SignUpTip' | translate}}
+          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 1">{{'HomePage.SignUp' | translate}}</button>
         </div>
       </div>
       <div *ngIf="popupStatus == 1">
         <app-sign-up></app-sign-up>
         <div class="text-center my-3 small">
-          Already have an account?
-          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">Sign in</button>
+          {{'HomePage.SignInTip' | translate}}
+          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.SignIn' | translate}}</button>
         </div>
       </div>
       <div *ngIf="popupStatus == 2">
         <app-password-reset></app-password-reset>
         <div class="text-center my-3 small">
-          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">Back</button>
+          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.Back' | translate}}</button>
         </div>
       </div>
     </ng-template>

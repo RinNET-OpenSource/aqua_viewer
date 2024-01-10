@@ -1,0 +1,83 @@
+{
+  "HomePage": {
+    "Title": "Home",
+    "Description": "Multipurpose online service for ALL.Net based games",
+    "Connect" : "Connect to RinNET",
+    "EditSegatools" : "Edit <code>segatools.ini</code> with the following text",
+    "SupportedGames" : "Supported Games",
+    "AndBelow" : "(and below)",
+    "Dashboard" : "Dashboard",
+    "SignIn": "Sign in",
+    "SignUp": "Sign up",
+    "Back": "Back",
+    "SignUpTip": "Don't have an account?",
+    "SignInTip": "Already have an account?",
+    "SignInModal" : {
+      "Title" : "Sign in to your account",
+      "UsernameOrEmail" : "User name or Email",
+      "Password" : "Password",
+      "ResetPasswordTip" : "Forgot password?",
+      "SignIn" : "Sign in"
+    },
+    "SignUpModal" : {
+      "Title" : "Sign up to RinNET",
+      "Nickname" : "Nickname",
+      "Username" : "Username",
+      "EmailAddress" : "Email address",
+      "VerificationCode" : "Verification code",
+      "Password" : "Password",
+      "ConfirmPassword" : "Confirm password",
+      "SignUp" : "Sign up",
+      "Check" : "Check",
+      "Send" : "Send",
+      "NicknameErrors" : {
+        "Required" : "Nickname is required.",
+        "Minlength" : "Nickname must be at least 4 characters long.",
+        "Maxlength" : "Nickname must be at most 40 characters long."
+      },
+      "UsernameErrors" : {
+        "Required" : "Username is required.",
+        "Minlength" : "Username must be at least 3 characters long.",
+        "Maxlength" : "Username must be at most 15 characters long.",
+        "Pattern" : "Only letters, numbers, and underscores are allowed."
+      },
+      "EmailErrors" : {
+        "Required" : "Email address is required.",
+        "Maxlength" : "Email address must be at most 40 characters long.",
+        "Email" : "Invalid email address."
+      },
+      "VerificationCodeErrors" : {
+        "Required" : "Verification code is required.",
+        "Length" : "Verification code must be 8 characters long."
+      },
+      "PasswordErrors" : {
+        "Required" : "Password is required.",
+        "Minlength" : "Password must be at least 8 characters long.",
+        "Maxlength" : "Password must be at most 100 characters long.",
+        "Confirm" : "Passwords don't match."
+      }
+    },
+    "ResetPasswordModal" : {
+      "Title" : "Reset your password",
+      "EmailAddress" : "Email address",
+      "VerificationCode" : "Verification code",
+      "Password" : "Password",
+      "Send" : "Send",
+      "Reset" : "Reset",
+      "EmailErrors" : {
+        "Required" : "Email address is required.",
+        "Maxlength" : "Email address must be at most 40 characters long.",
+        "Email" : "Invalid email address."
+      },
+      "VerificationCodeErrors" : {
+        "Required" : "Verification code is required.",
+        "Length" : "Verification code must be 8 characters long."
+      },
+      "PasswordErrors" : {
+        "Required" : "Password is required.",
+        "Minlength" : "Password must be at least 8 characters long.",
+        "Maxlength" : "Password must be at most 100 characters long."
+      }
+    }
+  }
+}

@@ -56,6 +56,9 @@ import {
   bootstrapTrash,
   bootstrapPencilSquare
 } from '@ng-icons/bootstrap-icons';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -64,6 +67,10 @@ const aegis = new Aegis({
   reportAssetSpeed: true, // 静态资源测速
   spa: true // spa 应用页面跳转的时候开启 pv 计算
 });
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -119,6 +126,13 @@ const aegis = new Aegis({
       bootstrapEyeSlash,
       bootstrapTrash,
       bootstrapPencilSquare
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
   ],
   providers: [

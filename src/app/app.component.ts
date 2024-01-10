@@ -10,6 +10,7 @@ import * as bootstrap from 'bootstrap';
 import {MessageService} from './message.service';
 import {environment} from '../environments/environment';
 import {StatusCode} from './status-code';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -241,7 +242,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
   ];
   private subscription: Subscription;
-  private mobileQueryListener: () => void;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -251,11 +251,10 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private api: ApiService,
     private preLoad: PreloadService,
     private messageService: MessageService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private translate: TranslateService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this.mobileQueryListener);
+    this.initializeLanguage();
     this.account = authenticationService.currentAccountValue;
   }
 
@@ -268,6 +267,20 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       state => this.loading = state.show
     );
     this.refreshMenus();
+  }
+
+  initializeLanguage() {
+    let userLang = navigator.language;
+
+    userLang = userLang.split('-')[0];
+
+    if (!['en', 'zh'].includes(userLang)) {
+      userLang = 'en';
+    }
+    
+    this.translate.use(userLang);
+    
+    document.documentElement.lang = userLang;
   }
 
   loadUser() {
@@ -301,7 +314,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this.mobileQueryListener);
     this.toastService.clear();
   }
 
