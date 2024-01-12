@@ -180,16 +180,19 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   initializeLanguage() {
-    let userLang = navigator.language;
+    const supportedLangs = ['en', 'zh'];
+    let userLang = 'en';
 
-    userLang = userLang.split('-')[0];
-
-    if (!['en', 'zh'].includes(userLang)) {
-      userLang = 'en';
+    const browserLangs = navigator.languages || [navigator.language];
+    for (let lang of browserLangs) {
+      const baseLang = lang.split('-')[0];
+      if (supportedLangs.includes(baseLang)) {
+        userLang = baseLang;
+        break;
+      }
     }
-    
+
     this.translate.use(userLang);
-    
     document.documentElement.lang = userLang;
   }
 

@@ -1,4 +1,8 @@
 {
+  "Common" : {
+    "Colon" : "：",
+    "OK" : "确定"
+  },
   "App" : {
     "UserPopup" : {
       "MyCards" : "卡包",
@@ -20,6 +24,8 @@
       "Rival" : "劲敌",
       "MusicRanking" : "乐曲排行",
       "UserRanking" : "玩家排行",
+      "Character" : "伙伴",
+      "UserBox" : "收藏品",
       "Setting" : "设定"
     }
   },
@@ -103,5 +109,17 @@
         "Maxlength" : "密码不得超过100个字符。"
       }
     }
+  },
+  "CardsPage" : {
+    "Title" : "卡包",
+    "UnbindCard" : "解绑卡片",
+    "UnbindCardTip" : "确定要解除这张卡的绑定吗？",
+    "AccessCode" : "访问码",
+    "ChangeAccessCode" : "变更访问码",
+    "Aliases" : "别名",
+    "None" : "无",
+    "AddAlias" : "添加别名",
+    "SetDefault" : "设为默认",
+    "BindCard" : "绑定卡片"
   }
 }

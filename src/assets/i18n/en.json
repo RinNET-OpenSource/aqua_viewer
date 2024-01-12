@@ -1,4 +1,8 @@
 {
+  "Common" : {
+    "Colon" : ":",
+    "OK" : "OK"
+  },
   "App" : {
     "UserPopup" : {
       "MyCards" : "My cards",
@@ -20,6 +24,8 @@
       "Rival" : "Rival",
       "MusicRanking" : "Music Ranking",
       "UserRanking" : "User Ranking",
+      "Character" : "Character",
+      "UserBox" : "User Box",
       "Setting" : "Setting"
     }
   },
@@ -103,5 +109,17 @@
         "Maxlength" : "Password must be at most 100 characters long."
       }
     }
+  },
+  "CardsPage" : {
+    "Title" : "Cards",
+    "UnbindCard" : "Unbind Card",
+    "UnbindCardTip" : "Are you sure to unbind this card?",
+    "AccessCode" : "Access code",
+    "ChangeAccessCode" : "Change AccessCode",
+    "Aliases" : "Aliases",
+    "None" : "None",
+    "AddAlias" : "Add Alias",
+    "SetDefault" : "Set Default",
+    "BindCard" : "Bind Card"
   }
 }
