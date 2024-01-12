@@ -1,4 +1,4 @@
-<h1>Import</h1>
+<h1>{{'ImportPage.Title' | translate}}</h1>
 
 <div class="card my-3">
   <div class="card-header">
@@ -11,16 +11,7 @@
 
 <div class="card my-3">
   <div class="card-header">
-    CHUNITHM New
-  </div>
-  <div class="card-body">
-    <input (change)="chusan($event)" accept=".json" class="form-control" type='file'>
-  </div>
-</div>
-
-<div class="card my-3">
-  <div class="card-header">
-    ONGEKI
+    {{'Common.Ongeki' | translate}}
   </div>
   <div class="card-body">
     <input (change)="ongeki($event)" accept=".json" class="form-control" type='file'>
@@ -29,7 +20,16 @@
 
 <div class="card my-3">
   <div class="card-header">
-    Maimai DX
+    {{'Common.ChuniV2' | translate}}
+  </div>
+  <div class="card-body">
+    <input (change)="chusan($event)" accept=".json" class="form-control" type='file'>
+  </div>
+</div>
+
+<div class="card my-3">
+  <div class="card-header">
+    {{'Common.Mai2' | translate}}
   </div>
   <div class="card-body">
     <input (change)="maimai2($event)" accept=".json" class="form-control" type='file'>

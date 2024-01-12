@@ -1,5 +1,8 @@
 {
   "Common" : {
+    "Ongeki" : "O.N.G.E.K.I.",
+    "ChuniV2" : "CHUNITHM NEW",
+    "Mai2" : "Maimai DX",
     "Colon" : ":",
     "OK" : "OK"
   },
@@ -12,9 +15,6 @@
       "Dashboard" : "Dashboard",
       "Import" : "Import",
       "Status" : "Status",
-      "Ongeki" : "O.N.G.E.K.I.",
-      "ChuniV2" : "CHUNITHM NEW",
-      "Mai2" : "Maimai DX",
       "Profile" : "Profile",
       "BattlePoint" : "Battle Point",
       "Rating" : "Rating",
@@ -121,5 +121,18 @@
     "AddAlias" : "Add Alias",
     "SetDefault" : "Set Default",
     "BindCard" : "Bind Card"
+  },
+  "ImportPage" : {
+    "Title" : "Import"
+  },
+  "Ongeki" : {
+    "ProfilePage" : {
+      "Overview" : "Overview"
+    }
+  },
+  "ChuniV2" : {
+    "ProfilePage" : {
+      "Overview" : "Overview"
+    }
   }
 }

@@ -1,5 +1,8 @@
 {
   "Common" : {
+    "Ongeki" : "音击",
+    "ChuniV2" : "中二节奏NEW",
+    "Mai2" : "舞萌DX",
     "Colon" : "：",
     "OK" : "确定"
   },
@@ -12,9 +15,6 @@
       "Dashboard" : "仪表板",
       "Import" : "导入",
       "Status" : "状态",
-      "Ongeki" : "音击",
-      "ChuniV2" : "中二节奏NEW",
-      "Mai2" : "舞萌DX",
       "Profile" : "档案",
       "BattlePoint" : "战斗得分",
       "Rating" : "评级",
@@ -121,5 +121,18 @@
     "AddAlias" : "添加别名",
     "SetDefault" : "设为默认",
     "BindCard" : "绑定卡片"
+  },
+  "ImportPage" : {
+    "Title" : "导入"
+  },
+  "Ongeki" : {
+    "ProfilePage" : {
+      "Overview" : "概览"
+    }
+  },
+  "ChuniV2" : {
+    "ProfilePage" : {
+      "Overview" : "概览"
+    }
   }
 }

@@ -61,7 +61,7 @@
                   </ul>
                 </li>
                 <li *ngIf="filterItems(ongekiMenu).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2">{{'App.Sidebar.Ongeki' | translate}}</strong>
+                  <strong class="d-flex w-100 fw-semibold mb-2">{{'Common.Ongeki' | translate}}</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of filterItems(ongekiMenu)" class="pb-2">
                       <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
@@ -69,7 +69,7 @@
                   </ul>
                 </li>
                 <li *ngIf="filterItems(v2Menus).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2">{{'App.Sidebar.ChuniV2' | translate}}</strong>
+                  <strong class="d-flex w-100 fw-semibold mb-2">{{'Common.ChuniV2' | translate}}</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of filterItems(v2Menus)" class="pb-2">
                       <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
@@ -77,7 +77,7 @@
                   </ul>
                 </li>
                 <li *ngIf="filterItems(mai2Menus).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2" >{{'App.Sidebar.Mai2' | translate}}</strong>
+                  <strong class="d-flex w-100 fw-semibold mb-2" >{{'Common.Mai2' | translate}}</strong>
                   <ul class="list-unstyled fw-normal pb-2 small">
                     <li *ngFor="let item of filterItems(mai2Menus)" class="pb-2">
                       <a class="link-btn rounded " [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>

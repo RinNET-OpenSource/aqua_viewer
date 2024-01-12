@@ -33,6 +33,13 @@ import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item
 import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
 import {NgbAccordionModule, NgbPopoverModule, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
 import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.component';
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {HttpClient } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -78,7 +85,14 @@ import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.co
         NgbAccordionModule,
         NgbCollapseModule,
         NgbPopoverModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        TranslateModule.forChild({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        })
     ]
 })
 export class OngekiModule {

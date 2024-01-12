@@ -37,6 +37,13 @@ import {V2SongPlaylogComponent} from './v2-song-playlog/v2-song-playlog.componen
 import {V2UserBoxComponent} from './v2-userbox/v2-userbox.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ToolsModule} from '../../../util/tools.module';
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {HttpClient } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+  }
 
 @NgModule({
     imports: [
@@ -62,7 +69,14 @@ import {ToolsModule} from '../../../util/tools.module';
         MatGridListModule,
         FlexLayoutModule,
         NgxPaginationModule,
-        ToolsModule
+        ToolsModule,
+        TranslateModule.forChild({
+            loader: {
+              provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [HttpClient]
+            }
+          })
     ],
     declarations: [
         V2ProfileComponent,
