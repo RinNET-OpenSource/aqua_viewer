@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   faultTimer = null;
   host = environment.assetsHost;
   popupStatus = 0;
-  transformLogo: number;
+  logoIsShow = true;
   ongekiAvatarIconHeadArr: string[] = ['06202101', '06202201', '06202301', '06202401', '06202501', '06202601', '06202701', '06202801', '06202901', '06203001', '06203101', '06203201'];
   ongekiAvatarHeadId;
   ongekiAvatarHeadData = [
@@ -39,9 +39,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.transformLogo = Math.round(Math.random() * 6);
+    // this.transformLogo = Math.round(Math.random() * 6);
     this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[Math.floor(Math.random() * this.ongekiAvatarHeadData.length)];
-    console.log(this.transformLogo, this.ongekiAvatarHeadId);
   }
 
   ngOnDestroy(): void {
@@ -58,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   fault(e: MouseEvent): void {
     clearInterval(this.faultTimer);
-    if (this.transformLogo !== 1) {
+    if (this.logoIsShow) {
       this.faultTimer = setInterval(() => {
         this.faultLogos.forEach((img) => {
           this.renderer.setStyle(img.nativeElement, 'transform', `translate(${Math.random() * 60 - 30}%, ${Math.random() * 60 - 30}%)`);
@@ -83,5 +82,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(img.nativeElement, 'transform', '');
       this.renderer.setStyle(img.nativeElement, 'clipPath', '');
     });
+    this.logoIsShow = false;
   }
 }
