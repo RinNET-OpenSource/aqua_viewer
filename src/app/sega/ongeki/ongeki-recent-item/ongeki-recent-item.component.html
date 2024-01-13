@@ -231,5 +231,11 @@
         </tr>
         </tbody>
       </table>
+      <a type="button"
+         class="text-primary"
+         [routerLink]="['/ongeki/song/ranking',playLog.musicId, playLog.level]"
+         (click)="modal.dismiss()">
+        View ranking
+      </a>
   </div>
 </ng-template>

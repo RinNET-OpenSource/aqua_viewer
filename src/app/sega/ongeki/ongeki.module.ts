@@ -36,6 +36,7 @@ import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.co
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {HttpClient } from '@angular/common/http';
+import { OngekiSongScoreRankingComponent } from './ongeki-song-score-ranking/ongeki-song-score-ranking.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -62,7 +63,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     OngekiSettingComponent,
     OngekiRecentItemComponent,
     ToRaritySpritePipe,
-    OngekiCardLevelComponent
+    OngekiCardLevelComponent,
+    OngekiSongScoreRankingComponent
   ],
     exports: [
         OngekiCardComponent
