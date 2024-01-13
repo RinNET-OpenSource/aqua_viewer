@@ -1,27 +1,46 @@
 <h1>Music List</h1>
 
+<ng-template #pagination>
+  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
 
-<input type="text" class="form-control mb-2" placeholder="Filter" (input)="applyFilter($event.target.value)">
+<input type="text" class="form-control mb-2" placeholder="Filter" [(ngModel)]="searchTerm" (input)="filterSongs()">
 
-
-<div class="card">
-  <div class="card-body">
-    <table class="table table-borderless table-striped align-middle" [dataSource]="dataSource" mat-table matSort>
-      <ng-container matColumnDef="musicId">
-        <th *matHeaderCellDef> ID</th>
-        <td *matCellDef="let element" mat-cell> {{element.musicId}} </td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <th *matHeaderCellDef> Name</th>
-        <td *matCellDef="let element" mat-cell> {{element.name}} </td>
-      </ng-container>
-      <ng-container matColumnDef="artistName">
-        <th *matHeaderCellDef> Artist</th>
-        <td *matCellDef="let element" mat-cell> {{element.artistName}} </td>
-      </ng-container>
-      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedColumns;" mat-row routerLink="/chuni/v2/song/{{row.musicId}}"></tr>
-    </table>
+<div class="song-container card btn mb-1 text-start"
+     *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
+  <div class="song-info card-body hstack gap-2">
+    <div class="jacket-container ratio ratio-1x1">
+      <img class="position-absolute"
+           src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.jpg"
+           alt="">
+    </div>
+    <div class="overflow-hidden">
+      <div class="song-info-title text-truncate fw-bold">
+        <span>{{item.musicId}}.「{{item.name}}」</span>
+      </div>
+      <div class="song-info-artist text-truncate">
+        <span>{{item.artistName}}</span>
+      </div>
+    </div>
   </div>
 </div>
-<mat-paginator [pageSizeOptions]="[15, 50, 100]"></mat-paginator>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<!--<mat-paginator [pageSizeOptions]="[15, 50, 100]"></mat-paginator>-->
