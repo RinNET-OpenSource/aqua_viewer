@@ -5,6 +5,8 @@ import {OngekiMusic} from '../model/OngekiMusic';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Difficulty} from '../model/OngekiEnums';
 import {environment} from '../../../../environments/environment';
+import {NgbOffcanvas, NgbOffcanvasOptions} from '@ng-bootstrap/ng-bootstrap';
+import { OngekiSongScroeRankingComponent } from './ongeki-song-score-ranking/ongeki-song-score-ranking.component';
 
 @Component({
   selector: 'app-ongeki-song-list',
@@ -20,11 +22,13 @@ export class OngekiSongListComponent implements OnInit {
   host = environment.assetsHost;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(OngekiSongScroeRankingComponent, { static: false }) OngekiSongScroeRankingComponent: OngekiSongScroeRankingComponent;
 
   constructor(
     private dbService: NgxIndexedDBService,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private offcanvasService: NgbOffcanvas,
   ) {
   }
 
@@ -61,7 +65,12 @@ export class OngekiSongListComponent implements OnInit {
       this.filteredSongList = [...this.songList];
     }
   }
-  showDetail(music: OngekiMusic){
-
+  showDetail(music: OngekiMusic) {
+    const offcanvasRef = this.offcanvasService.open(OngekiSongScroeRankingComponent, {
+      position: 'end',
+      scroll: false,
+      // panelClass: 'ongeki-song-score-ranking',
+    });
+    offcanvasRef.componentInstance.music = music;
   }
 }

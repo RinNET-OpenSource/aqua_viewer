@@ -1,0 +1,95 @@
+:root {
+  --basic-color: #64cc5a;
+  --advanced-color: #e9c047;
+  --expert-color: #e97682;
+  --master-color: #b478e1;
+  --Lunatic-color: #ffffff
+}
+
+.score {
+  width: 40vw !important;
+}
+
+.offcanvas {
+  width: 40vw !important;
+}
+
+.music-img {
+  width: 60%;
+}
+
+.level {
+  display: flex;
+  height: 50px;
+  /*flex: 1;*/
+  align-items: center;
+}
+
+.level .level-title {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+}
+
+.level .level-img {
+  height: 40px;
+  margin-left: 30px;
+}
+
+.level0 .level-title {
+  border: 1px solid #64cc5a;
+}
+.level0 .level-title span {
+  background-color: #64cc5a;
+}
+
+.level1 .level-title {
+  border: 1px solid #e9c047;
+}
+.level1 .level-title span {
+  background-color: #e9c047;
+}
+
+.level2 .level-title {
+  border: 1px solid #e97682;
+}
+.level2 .level-title span {
+  background-color: #e97682;
+}
+
+.level3 .level-title {
+  border: 1px solid #b478e1;
+}
+.level3 .level-title span {
+  background-color: #b478e1;
+}
+
+.level4 .level-title {
+  border: 1px solid #ffffff;
+}
+.level4 .level-title span {
+  background-color: #ffffff;
+}
+
+.level .level-title span {
+  display: block;
+  width: 100%;
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+}
+
+.level .level-title span {
+  text-align: center;
+}
+
+@media only screen and (max-width: 766px) {
+  .music-img {
+    width: 100%;
+  }
+}
+

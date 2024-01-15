@@ -1,0 +1,79 @@
+<div class="offcanvas-header" >
+  <h2 class="offcanvas-title m-0" id="offcanvasDarkLabel">User Score</h2>
+  <button type="button" class="btn-close" (click)="offcanvasService.dismiss()"></button>
+</div>
+<div class="offcanvas-body" style="max-height: 90vh; overflow-y: scroll;">
+  <div class="card">
+    <div class="card-body">
+      <img class="card-img mb-3 music-img"
+           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{music.id|formatNumber:4}}.jpg"
+           alt="">
+      <div class="position-relative">
+        <h5 class="card-title mb-1 fw-bold">「{{music.name}}」</h5>
+        <span class="card-subtitle music-artistName" style="font-size: 12px">{{music.artistName}}</span>
+        <hr>
+      </div>
+      <section>
+        <div *ngIf="music.level0" class="level mb-4 level0">
+          <div class="level-title">
+            <span>BASIC</span>
+            <p class="pt-1">{{music.level0.replace(',','.') | number: '1.1-1'}}</p>
+          </div>
+          <ng-container *ngFor="let item of songData; let i = index" >
+            <img *ngIf="item.level == 0" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
+          </ng-container>
+        </div>
+        <div *ngIf="music.level1" class="level mb-4 level1">
+          <div class="level-title">
+            <span>ADVAN</span>
+            <p class="pt-1">{{music.level1.replace(',','.') | number: '1.1-1'}}</p>
+          </div>
+          <ng-container *ngFor="let item of songData; let i = index">
+            <img *ngIf="item.level == 1" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
+          </ng-container>
+        </div>
+        <div class="level mb-4 level2">
+          <div class="level-title">
+            <span>EXPERT</span>
+            <p class="pt-1">{{music.level2.replace(',','.') | number: '1.1-1'}}</p>
+          </div>
+          <ng-container *ngFor="let item of songData; let i = index">
+            <img *ngIf="item.level == 2" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
+          </ng-container>
+        </div>
+        <div class="level mb-4 level3">
+          <div class="level-title">
+            <span>MASTER</span>
+            <p class="pt-1">{{music.level3.replace(',','.') | number: '1.1-1'}}</p>
+          </div>
+          <ng-container *ngFor="let item of songData; let i = index">
+            <img *ngIf="item.level == 3" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
+          </ng-container>
+        </div>
+        <div *ngIf="music.level4.replace(',','.') | number: '1'" class="level mb-4 level4">
+          <div class="level-title">
+            <span>LUNATIC</span>
+            <p class="pt-1">{{music.level4.replace(',','.') | number: '1.1-1'}}</p>
+          </div>
+          <ng-container *ngFor="let item of songData; let i = index">
+            <img *ngIf="item.level == 4" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
+          </ng-container>
+        </div>
+      </section>
+<!--      <table class="table table-striped table-borderless">-->
+<!--        <thead>-->
+<!--        <th>No.</th>-->
+<!--        <th>Username</th>-->
+<!--        <th>Score</th>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr *ngFor="let item of ranking; index as i">-->
+<!--          <td>{{ i + 1 }}</td>-->
+<!--          <td>{{ item.username }}</td>-->
+<!--          <td>{{ item.score }}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+    </div>
+  </div>
+</div>

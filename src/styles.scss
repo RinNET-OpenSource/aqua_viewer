@@ -241,7 +241,15 @@ pagination-template {
   cursor: pointer;
 }
 
+.ongeki-song-score-ranking {
+  width: 35vw !important;
+}
 
+@media only screen and (max-width: 766px) {
+  .ongeki-song-score-ranking {
+    width: 100vw !important;
+  }
+}
 
 
 

@@ -27,6 +27,7 @@ export class OngekiSongScoreRankingComponent {
       // router ensures that the id and level cannot be null.
       const id = params.get('id');
       const level = params.get('level');
+      console.log(level);
       this.api.get(`api/game/ongeki/musicScoreRanking?musicId=${id}&level=${level}`).subscribe(
         res => this.ranking = res
       );
