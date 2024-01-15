@@ -10,8 +10,19 @@ export class MessageService {
               public toastService: ToastService) {
   }
 
-  notice(message: string) {
-    this.toastService.show(message);
+  notice(message: string, color: string = null) {
+    if(color === 'danger'){
+      this.toastService.show(message, {classname: 'text-bg-danger'});
+    }
+    else if(color === 'warning'){
+      this.toastService.show(message, {classname: 'text-bg-warning'});
+    }
+    else if(color === 'success'){
+      this.toastService.show(message, {classname: 'text-bg-success'});
+    }
+    else{
+      this.toastService.show(message);
+    }
     // this.messageComponent.openSnackBar(message);
   }
 }

@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
                 location.reload();
               }
               else if (statusCode === StatusCode.LOGIN_FAILED){
-                this.messageService.notice('Invalid username/email or password. Please try again.');
+                this.messageService.notice('Invalid username/email or password. Please try again.', 'danger');
               }
               else{
                 this.messageService.notice(resp.status.message);
