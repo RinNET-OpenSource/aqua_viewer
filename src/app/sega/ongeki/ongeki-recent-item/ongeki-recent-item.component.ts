@@ -3,6 +3,7 @@ import {PlayerPlaylog} from '../model/PlayerPlaylog';
 import {AttributeType, BattleRank, Difficulty, TechnicalRank} from '../model/OngekiEnums';
 import {environment} from '../../../../environments/environment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-ongeki-recent-item',
@@ -21,7 +22,10 @@ export class OngekiRecentItemComponent implements OnInit {
   protected readonly Difficulty = Difficulty;
   protected readonly Math = Math;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    public router: Router,
+  ) { }
 
   ngOnInit(): void {
   }

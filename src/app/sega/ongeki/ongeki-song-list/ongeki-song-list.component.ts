@@ -54,6 +54,7 @@ export class OngekiSongListComponent implements OnInit {
         const includesName = song.name.toLowerCase().includes(lowerSearchTerm);
         const includesSortName = song.sortName.toLowerCase().includes(lowerSearchTerm);
         const includesArtist = song.artistName.toLowerCase().includes(lowerSearchTerm);
+        console.log(sameId || includesName || includesSortName || includesArtist);
         return sameId || includesName || includesSortName || includesArtist;
       });
     } else {
