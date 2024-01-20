@@ -47,18 +47,20 @@
           </section>
 
 
-          <section class="card-body" *ngIf="data.itemKind == 3 || data.itemKind == 2" style="min-width:20rem;">
-            <mat-select [(ngModel)]="data.itemId">
-              <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.name}}</mat-option>
-            </mat-select>
+          <section class="card-body" *ngIf="data.itemKind == 3 || data.itemKind == 2">
+            <select [(ngModel)]="data.itemId" size="20" class="form-select trophy-select" multiple aria-label="multiple select example">
+              <option selected>Open this select menu</option>
+              <option *ngFor="let item of iList" value="{{item.itemId}}">{{item.name}}</option>
+            </select>
           </section>
         </article>
 
-<!--        <mat-form-field *ngIf="enableImages == false" style="min-width:20rem;">-->
-<!--          <mat-select [(ngModel)]="data.itemId">-->
-<!--            <mat-option *ngFor="let item in iList" [value]="item.itemId">{{item.name}}</mat-option>-->
-<!--          </mat-select>-->
-<!--        </mat-form-field>-->
+        <section class="card-body" *ngIf="enableImages == false">
+          <select [(ngModel)]="data.itemId" size="10" class="form-select frame-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option *ngFor="let item of iList" value="{{item.itemId}}">{{item.name}}</option>
+          </select>
+        </section>
 
       </div>
       <div class="modal-footer">

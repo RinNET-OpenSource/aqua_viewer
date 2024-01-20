@@ -69,6 +69,7 @@
                 <img *ngIf="item.name == 'Avatar Item'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarItem|formatNumber:8}}.png">
                 <img *ngIf="item.name == 'Avatar Front'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarFront|formatNumber:8}}.png">
                 <img *ngIf="item.name == 'Avatar Back'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarBack|formatNumber:8}}.png">
+                <p *ngIf="item.name == 'Trophy (Title)'">{{profile.trophyId}}</p>
               </div>
             </div>
             <mat-card-actions>
