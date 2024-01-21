@@ -5,6 +5,7 @@ import {OngekiMusic} from '../../model/OngekiMusic';
 import {environment} from '../../../../../environments/environment';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
+import {AuthenticationService} from '../../../../auth/authentication.service';
 
 interface Ranking {
   level?: number;
@@ -36,15 +37,18 @@ interface ISongData {
 @Component({
   selector: 'app-ongeki-song-score-ranking',
   templateUrl: './ongeki-song-score-ranking.component.html',
-  styleUrls: ['./ongeki-song-score-ranking.component.css']
+  styleUrls: ['./ongeki-song-score-ranking.component.scss']
 })
 export class OngekiSongScroeRankingComponent {
+  protected readonly Math = Math;
   ranking: Ranking[];
-  songData: ISongData[];
+  songData: {[key: number]: ISongData};
   host = environment.assetsHost;
+  protected readonly parseFloat = parseFloat;
   @Input() public music: OngekiMusic;
   constructor(
     private api: ApiService,
+    private auth: AuthenticationService,
     public messageService: MessageService,
     public offcanvasService: NgbOffcanvas,
   ) {
@@ -52,10 +56,14 @@ export class OngekiSongScroeRankingComponent {
 
   ngOnInit() {
     const { id } = this.music;
-    this.api.get(`api/game/ongeki/song/${id}?aimeId=68705438`).subscribe(
+    this.api.get(`api/game/ongeki/song/${id}?aimeId=${String(this.auth.currentAccountValue.currentCard)}`).subscribe(
       res => {
-        this.songData = res;
-        console.log(this.songData);
+        const songData = {};
+        for (const data of res) {
+          songData[data.level] = data;
+        }
+        this.songData = songData;
+        console.log(res);
       }
     );
     const param = new HttpParams().set('musicId', id).set('level', 3);
@@ -75,6 +83,27 @@ export class OngekiSongScroeRankingComponent {
         this.ranking = res;
       }
     );
+  }
+
+
+  getLevelString(song: OngekiMusic, level: number) {
+    if (!song) { return '0'; }
+    if (level === 0){
+      return song.level0;
+    }
+    else if (level === 1){
+      return song.level1;
+    }
+    else if (level === 2){
+      return song.level2;
+    }
+    else if (level === 3){
+      return song.level3;
+    }
+    else if (level === 4){
+      return song.level4;
+    }
+    else { return '0'; }
   }
 
   battleScoreRank(score: number) {

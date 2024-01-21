@@ -5,7 +5,7 @@
 <div class="offcanvas-body" style="max-height: 90vh; overflow-y: scroll;">
   <div class="card">
     <div class="card-body">
-      <img class="card-img mb-3 music-img"
+      <img class="card-img mb-3 music-img sm"
            src="{{host}}assets/ongeki/jacket/UI_Jacket_{{music.id|formatNumber:4}}.jpg"
            alt="">
       <div class="position-relative">
@@ -14,66 +14,69 @@
         <hr>
       </div>
       <section>
-        <div *ngIf="music.level0" class="level mb-4 level0">
-          <div class="level-title">
-            <span>BASIC</span>
-            <p class="pt-1">{{music.level0.replace(',','.') | number: '1.1-1'}}</p>
+        <ng-template #difficultyDetail let-difficulty>
+          <div class="card my-2">
+              <ng-container [ngSwitch]="difficulty">
+                <div *ngSwitchCase="0" class="card-header py-0 px-2 bg-basic text-truncate fw-bold">
+                  Basic
+                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                </div>
+                <div *ngSwitchCase="1" class="card-header py-0 px-2 bg-advanced text-truncate fw-bold">
+                  Advanced
+                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                </div>
+                <div *ngSwitchCase="2" class="card-header py-0 px-2 bg-expert text-truncate fw-bold">
+                  Expert
+                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                </div>
+                <div *ngSwitchCase="3" class="card-header py-0 px-2 bg-master text-truncate fw-bold">
+                  Master
+                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                </div>
+                <div *ngSwitchCase="4"
+                     class="card-header py-0 px-2 bg-lunatic text-danger border-danger text-truncate fw-bold">
+                  Lunatic
+                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                </div>
+              </ng-container>
+            <div class="card-body p-0 px-2">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="score float-start">
+                  <span *ngIf="songData[difficulty]" class="score-font-large">{{songData[difficulty].techScoreMax}}</span>
+                  <span *ngIf="!songData[difficulty]" class="score-font-large">No Record</span>
+                </div>
+                <div *ngIf="songData[difficulty]" class="honor float-end">
+                  <img class="honor-badge"
+                       src="{{host}}assets/ongeki/gameUi/{{songData[difficulty].techScoreRank|toTechHonorSprite}}" alt="">
+                  <ng-container *ngIf="songData[difficulty].isAllBreake">
+                    <img class="honor-badge"
+                         src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.png" alt="">
+                  </ng-container>
+                  <ng-container *ngIf="!songData[difficulty].isAllBreake && songData[difficulty].isFullCombo">
+                    <img class="honor-badge"
+                         src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.png" alt="">
+                  </ng-container>
+                  <ng-container *ngIf="!songData[difficulty].isAllBreake && !songData[difficulty].isFullCombo">
+                    <img class="honor-badge"
+                         src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_None.png" alt="">
+                  </ng-container>
+                  <img class="honor-badge"
+                       src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_{{songData[difficulty].isFullBell?'FB':'None'}}.png"
+                       alt="">
+                </div>
+              </div>
+            </div>
           </div>
-          <ng-container *ngFor="let item of songData; let i = index" >
-            <img *ngIf="item.level == 0" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
-            <img *ngIf="item.level == 0 && item.isAllBreake" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.png" alt="">
-            <img *ngIf="item.level == 0 && item.isFullCombo" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.png" alt="">
-            <img *ngIf="item.level == 0 && item.isFullBell" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FB.png" alt="">
-          </ng-container>
-        </div>
-        <div *ngIf="music.level1" class="level mb-4 level1">
-          <div class="level-title">
-            <span>ADVAN</span>
-            <p class="pt-1">{{music.level1.replace(',','.') | number: '1.1-1'}}</p>
-          </div>
-          <ng-container *ngFor="let item of songData; let i = index">
-            <img *ngIf="item.level == 1" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
-            <img *ngIf="item.level == 1 && item.isAllBreake" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.png" alt="">
-            <img *ngIf="item.level == 1 && item.isFullCombo" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.png" alt="">
-            <img *ngIf="item.level == 1 && item.isFullBell" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FB.png" alt="">
-          </ng-container>
-        </div>
-        <div class="level mb-4 level2">
-          <div class="level-title">
-            <span>EXPERT</span>
-            <p class="pt-1">{{music.level2.replace(',','.') | number: '1.1-1'}}</p>
-          </div>
-          <ng-container *ngFor="let item of songData; let i = index">
-            <img *ngIf="item.level == 2" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
-            <img *ngIf="item.level == 2 && item.isAllBreake" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.png" alt="">
-            <img *ngIf="item.level == 2 && item.isFullCombo" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.png" alt="">
-            <img *ngIf="item.level == 2 && item.isFullBell" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FB.png" alt="">
-          </ng-container>
-        </div>
-        <div class="level mb-4 level3">
-          <div class="level-title">
-            <span>MASTER</span>
-            <p class="pt-1">{{music.level3.replace(',','.') | number: '1.1-1'}}</p>
-          </div>
-          <ng-container *ngFor="let item of songData; let i = index">
-            <img *ngIf="item.level == 3" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
-            <img *ngIf="item.level == 3 && item.isAllBreake" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.png" alt="">
-            <img *ngIf="item.level == 3 && item.isFullCombo" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.png" alt="">
-            <img *ngIf="item.level == 3 && item.isFullBell" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FB.png" alt="">
-          </ng-container>
-        </div>
-        <div *ngIf="music.level4.replace(',','.') | number: '1'" class="level mb-4 level4">
-          <div class="level-title">
-            <span>LUNATIC</span>
-            <p class="pt-1">{{music.level4.replace(',','.') | number: '1.1-1'}}</p>
-          </div>
-          <ng-container *ngFor="let item of songData; let i = index">
-            <img *ngIf="item.level == 4" class="level-img" src="{{host}}assets/ongeki/gameUi/SB_RES_ScoreRank_{{battleScoreRank(songData[i].techScoreMax)}}.png" alt="">
-            <img *ngIf="item.level == 4 && item.isAllBreake" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.png" alt="">
-            <img *ngIf="item.level == 4 && item.isFullCombo" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.png" alt="">
-            <img *ngIf="item.level == 4 && item.isFullBell" class="fbab-img" src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FB.png" alt="">
-          </ng-container>
-        </div>
+        </ng-template>
+        <ng-container *ngIf="parseFloat(music.level3) != 0 && songData">
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 0}"></ng-container>
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 1}"></ng-container>
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 2}"></ng-container>
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 3}"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="parseFloat(music.level3) == 0 && songData">
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 4}"></ng-container>
+        </ng-container>
       </section>
 
       <nav>
