@@ -4,11 +4,33 @@ import { MessageService } from '../../../../message.service';
 import {OngekiMusic} from '../../model/OngekiMusic';
 import {environment} from '../../../../../environments/environment';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {HttpParams} from '@angular/common/http';
 
 interface Ranking {
   level?: number;
   username: string;
   score: number;
+}
+
+interface ISongData {
+  musicId: number;
+  level: number;
+  playCount: number;
+  techScoreMax: number;
+  techScoreRank: number;
+  battleScoreMax: number;
+  battleScoreRank: number;
+  platinumScoreMax: number;
+  maxComboCount: number;
+  maxOverKill: number;
+  maxTeamOverKill: number;
+  clearStatus: number;
+  storyWatched: boolean;
+  isFullBell: boolean;
+  isFullCombo: boolean;
+  isAllBreake: boolean;
+  isLock: boolean;
+  ranking: Ranking;
 }
 
 @Component({
@@ -17,9 +39,8 @@ interface Ranking {
   styleUrls: ['./ongeki-song-score-ranking.component.css']
 })
 export class OngekiSongScroeRankingComponent {
-
   ranking: Ranking[];
-  songData;
+  songData: ISongData[];
   host = environment.assetsHost;
   @Input() public music: OngekiMusic;
   constructor(
@@ -30,17 +51,28 @@ export class OngekiSongScroeRankingComponent {
   }
 
   ngOnInit() {
-    console.log(this.music);
     const { id } = this.music;
-    this.api.get(`api/game/ongeki/musicScoreRanking?musicId=${id}&level=${2}`).subscribe(
+    this.api.get(`api/game/ongeki/song/${id}?aimeId=68705438`).subscribe(
+      res => {
+        this.songData = res;
+        console.log(this.songData);
+      }
+    );
+    const param = new HttpParams().set('musicId', id).set('level', 3);
+    this.api.get('api/game/ongeki/musicScoreRanking', param).subscribe(
       res => {
         this.ranking = res;
       }
     );
-    this.api.get(`api/game/ongeki/song/${id}?aimeId=68705438`).subscribe(
+  }
+
+
+  handleTabButtonClick(level: number) {
+    const { id } = this.music;
+    const param = new HttpParams().set('musicId', id).set('level', level);
+    this.api.get('api/game/ongeki/musicScoreRanking', param).subscribe(
       res => {
-        this.songData = res;
-        console.log(res);
+        this.ranking = res;
       }
     );
   }
