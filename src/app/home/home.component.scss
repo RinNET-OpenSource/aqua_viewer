@@ -1,3 +1,5 @@
+@import "/node_modules/bootstrap/scss/bootstrap";
+
 .logo-container {
   position: relative;
   display: flex;
@@ -63,7 +65,7 @@
   background-color: #00f;
 }
 
-@media only screen and (max-width: 766px) {
+@include media-breakpoint-up(md) {
   .logo-container {
     height: 13rem !important;
   }
