@@ -17,57 +17,57 @@
         <ng-template #difficultyDetail let-difficulty>
           <div class="card my-2">
               <ng-container [ngSwitch]="difficulty">
-                <div *ngSwitchCase="0" class="card-header py-0 px-2 text-truncate fw-bold">
+                <div *ngSwitchCase="0" class="card-header py-1 px-2 text-truncate">
                   <div class="hstack">
                     <ng-icon name="bootstrap-stop-fill" class="color-basic h-100 d-flex align-items-center"></ng-icon>
-                    <div class="p-0 align-middle ps-1">
+                    <div class="p-0 align-middle ps-1 small">
                       Basic
                       {{getLevelString(music, difficulty) | toLevelDecimal}}
                     </div>
                   </div>
                 </div>
-                <div *ngSwitchCase="1" class="card-header py-0 px-2 text-truncate fw-bold">
+                <div *ngSwitchCase="1" class="card-header py-1 px-2 text-truncate">
                   <div class="hstack">
                     <ng-icon name="bootstrap-stop-fill" class="color-advanced h-100 d-flex align-items-center"></ng-icon>
-                    <div class="p-0 align-middle ps-1">
+                    <div class="p-0 align-middle ps-1 small">
                       Advanced
                       {{getLevelString(music, difficulty) | toLevelDecimal}}
                     </div>
                   </div>
                 </div>
-                <div *ngSwitchCase="2" class="card-header py-0 px-2 text-truncate fw-bold">
+                <div *ngSwitchCase="2" class="card-header py-1 px-2 text-truncate">
                   <div class="hstack">
                     <ng-icon name="bootstrap-stop-fill" class="color-expert h-100 d-flex align-items-center"></ng-icon>
-                    <div class="p-0 align-middle ps-1">
+                    <div class="p-0 align-middle ps-1 small">
                       Expert
                       {{getLevelString(music, difficulty) | toLevelDecimal}}
                     </div>
                   </div>
                 </div>
-                <div *ngSwitchCase="3" class="card-header py-0 px-2 text-truncate fw-bold">
+                <div *ngSwitchCase="3" class="card-header py-1 px-2 text-truncate">
                   <div class="hstack">
                     <ng-icon name="bootstrap-stop-fill" class="color-master h-100 d-flex align-items-center"></ng-icon>
-                    <div class="p-0 align-middle ps-1">
+                    <div class="p-0 align-middle ps-1 small">
                       Master
                       {{getLevelString(music, difficulty) | toLevelDecimal}}
                     </div>
                   </div>
                 </div>
-                <div *ngSwitchCase="4" class="card-header py-0 px-2 text-truncate fw-bold border border-danger">
-                     <div class="hstack text-danger">
-                      <ng-icon name="bootstrap-stop-fill" class="h-100 d-flex align-items-center"></ng-icon>
-                      <div class="p-0 align-middle ps-1">
-                        Lunatic
-                        {{getLevelString(music, difficulty) | toLevelDecimal}}
-                      </div>
+                <div *ngSwitchCase="10" class="card-header py-1 px-2 text-truncate border border-danger bg-lunatic">
+                  <div class="hstack text-danger">
+                    <ng-icon name="bootstrap-stop-fill" class="h-100 d-flex align-items-center"></ng-icon>
+                    <div class="p-0 align-middle ps-1 small">
+                      Lunatic
+                      {{getLevelString(music, difficulty) | toLevelDecimal}}
                     </div>
+                  </div>
                 </div>
               </ng-container>
-            <div class="card-body p-0 px-2">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="score float-start">
-                  <span *ngIf="songData[difficulty]" class="score-font-large">{{songData[difficulty].techScoreMax}}</span>
-                  <span *ngIf="!songData[difficulty]" class="score-font-large">No Record</span>
+            <div class="card-body py-1 px-3">
+              <div class="difficulty-detail-body d-flex align-items-center justify-content-between">
+                <div class="float-start small fw-bold">
+                  <span *ngIf="songData[difficulty]">{{songData[difficulty].techScoreMax}}</span>
+                  <span *ngIf="!songData[difficulty]">No Record</span>
                 </div>
                 <div *ngIf="songData[difficulty]" class="honor float-end">
                   <img class="honor-badge"
@@ -99,7 +99,7 @@
           <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 3}"></ng-container>
         </ng-container>
         <ng-container *ngIf="parseFloat(music.level3) == 0 && songData">
-          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 4}"></ng-container>
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 10}"></ng-container>
         </ng-container>
       </section>
 

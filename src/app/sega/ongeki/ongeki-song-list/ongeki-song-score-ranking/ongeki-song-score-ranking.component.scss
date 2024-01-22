@@ -83,7 +83,7 @@
 
 .honor-badge {
   aspect-ratio: 1;
-  width: 40px;
+  width: 32px;
 }
 
 @include media-breakpoint-down(sm) {
@@ -112,17 +112,10 @@
   background: $white;
 }
 
-.score-font-large {
-  font-size: 22px;
-}
-
-.score-font-small {
-  font-size: 16px;
-}
-
-.score {
-}
-
 .honor{
-  height: 40px;
+  height: 32px;
+}
+
+.difficulty-detail-body{
+  min-height: 32px;
 }
