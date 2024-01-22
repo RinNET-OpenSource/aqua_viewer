@@ -54,7 +54,8 @@ import {
   bootstrapEye,
   bootstrapEyeSlash,
   bootstrapTrash,
-  bootstrapPencilSquare
+  bootstrapPencilSquare,
+  bootstrapDot
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';

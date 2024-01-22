@@ -1,13 +1,5 @@
 @import "/node_modules/bootstrap/scss/bootstrap";
 
-:root {
-  --basic-color: #64cc5a;
-  --advanced-color: #e9c047;
-  --expert-color: #e97682;
-  --master-color: #b478e1;
-  --Lunatic-color: #ffffff
-}
-
 .offcanvas {
   width: 40vw !important;
 }
@@ -100,24 +92,24 @@
   }
 }
 
-.bg-basic {
-  background: #51B540;
+.color-basic {
+  color: $green;
 }
 
-.bg-advanced {
-  background: #B5A440;
+.color-advanced {
+  color: $yellow;
 }
 
-.bg-expert {
-  background: #B54051;
+.color-expert {
+  color: $red;
 }
 
-.bg-master {
-  background: #6940B5;
+.color-master {
+  color: $purple;
 }
 
 .bg-lunatic {
-  background: #FFFFFF;
+  background: $white;
 }
 
 .score-font-large {

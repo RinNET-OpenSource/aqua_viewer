@@ -39,7 +39,10 @@ import {HttpClient } from '@angular/common/http';
 import { OngekiSongScoreRankingComponent } from './ongeki-song-score-ranking/ongeki-song-score-ranking.component';
 import { OngekiSongScroeRankingComponent } from './ongeki-song-list/ongeki-song-score-ranking/ongeki-song-score-ranking.component';
 import { ToTechHonorSpritePipe } from './util/to-tech-honor-sprite.pipe';
-
+import {NgIconsModule} from '@ng-icons/core';
+import {
+  bootstrapStopFill
+} from '@ng-icons/bootstrap-icons';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -98,7 +101,10 @@ export function HttpLoaderFactory(http: HttpClient) {
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        })
+        }),
+        NgIconsModule.withIcons({
+          bootstrapStopFill
+        }),
     ]
 })
 export class OngekiModule {

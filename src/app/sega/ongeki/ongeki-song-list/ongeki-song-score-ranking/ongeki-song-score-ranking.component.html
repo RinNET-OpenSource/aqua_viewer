@@ -17,26 +17,50 @@
         <ng-template #difficultyDetail let-difficulty>
           <div class="card my-2">
               <ng-container [ngSwitch]="difficulty">
-                <div *ngSwitchCase="0" class="card-header py-0 px-2 bg-basic text-truncate fw-bold">
-                  Basic
-                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                <div *ngSwitchCase="0" class="card-header py-0 px-2 text-truncate fw-bold">
+                  <div class="hstack">
+                    <ng-icon name="bootstrap-stop-fill" class="color-basic h-100 d-flex align-items-center"></ng-icon>
+                    <div class="p-0 align-middle ps-1">
+                      Basic
+                      {{getLevelString(music, difficulty) | toLevelDecimal}}
+                    </div>
+                  </div>
                 </div>
-                <div *ngSwitchCase="1" class="card-header py-0 px-2 bg-advanced text-truncate fw-bold">
-                  Advanced
-                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                <div *ngSwitchCase="1" class="card-header py-0 px-2 text-truncate fw-bold">
+                  <div class="hstack">
+                    <ng-icon name="bootstrap-stop-fill" class="color-advanced h-100 d-flex align-items-center"></ng-icon>
+                    <div class="p-0 align-middle ps-1">
+                      Advanced
+                      {{getLevelString(music, difficulty) | toLevelDecimal}}
+                    </div>
+                  </div>
                 </div>
-                <div *ngSwitchCase="2" class="card-header py-0 px-2 bg-expert text-truncate fw-bold">
-                  Expert
-                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                <div *ngSwitchCase="2" class="card-header py-0 px-2 text-truncate fw-bold">
+                  <div class="hstack">
+                    <ng-icon name="bootstrap-stop-fill" class="color-expert h-100 d-flex align-items-center"></ng-icon>
+                    <div class="p-0 align-middle ps-1">
+                      Expert
+                      {{getLevelString(music, difficulty) | toLevelDecimal}}
+                    </div>
+                  </div>
                 </div>
-                <div *ngSwitchCase="3" class="card-header py-0 px-2 bg-master text-truncate fw-bold">
-                  Master
-                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                <div *ngSwitchCase="3" class="card-header py-0 px-2 text-truncate fw-bold">
+                  <div class="hstack">
+                    <ng-icon name="bootstrap-stop-fill" class="color-master h-100 d-flex align-items-center"></ng-icon>
+                    <div class="p-0 align-middle ps-1">
+                      Master
+                      {{getLevelString(music, difficulty) | toLevelDecimal}}
+                    </div>
+                  </div>
                 </div>
-                <div *ngSwitchCase="4"
-                     class="card-header py-0 px-2 bg-lunatic text-danger border-danger text-truncate fw-bold">
-                  Lunatic
-                  {{getLevelString(music, difficulty) | toLevelDecimal}}
+                <div *ngSwitchCase="4" class="card-header py-0 px-2 text-truncate fw-bold border border-danger">
+                     <div class="hstack text-danger">
+                      <ng-icon name="bootstrap-stop-fill" class="h-100 d-flex align-items-center"></ng-icon>
+                      <div class="p-0 align-middle ps-1">
+                        Lunatic
+                        {{getLevelString(music, difficulty) | toLevelDecimal}}
+                      </div>
+                    </div>
                 </div>
               </ng-container>
             <div class="card-body p-0 px-2">
