@@ -40,6 +40,7 @@ import {ToolsModule} from '../../../util/tools.module';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {HttpClient } from '@angular/common/http';
+import { V2SongScoreRankingComponent } from './v2-song-score-ranking/v2-song-score-ranking.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -94,7 +95,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         V2SongDetailComponent,
         V2SongPlaylogComponent,
         V2UserBoxComponent,
-        V2UserBoxSettingDialog
+        V2UserBoxSettingDialog,
+        V2SongScoreRankingComponent
     ]
 })
 export class V2Module {
