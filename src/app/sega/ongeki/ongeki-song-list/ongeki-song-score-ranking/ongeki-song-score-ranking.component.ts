@@ -31,7 +31,12 @@ interface ISongData {
   isFullCombo: boolean;
   isAllBreake: boolean;
   isLock: boolean;
-  ranking: Ranking;
+  ranking: UserRanking;
+}
+
+interface UserRanking {
+  rank: number;
+  playedCount: number;
 }
 
 @Component({
