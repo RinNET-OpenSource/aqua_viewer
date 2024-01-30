@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
@@ -56,9 +55,10 @@ import {
   bootstrapPencilSquare,
   bootstrapDot
 } from '@ng-icons/bootstrap-icons';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import {APP_INITIALIZER} from '@angular/core';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -70,6 +70,24 @@ const aegis = new Aegis({
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
+}
+
+export function initializeApp(translateService: TranslateService) {
+  return () => {
+    const supportedLangs = ['en', 'zh'];
+    let userLang = 'en';
+
+    const browserLangs = navigator.languages || [navigator.language];
+    for (let lang of browserLangs) {
+      const baseLang = lang.split('-')[0];
+      if (supportedLangs.includes(baseLang)) {
+        userLang = baseLang;
+        break;
+      }
+    }
+    
+    return translateService.use(userLang).toPromise();
+  };
 }
 
 @NgModule({
@@ -130,7 +148,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
+        deps: [HttpClient],
       }
     })
   ],
@@ -138,6 +156,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true},
+    {provide: APP_INITIALIZER, useFactory: initializeApp, deps: [TranslateService], multi: true},
   ],
   bootstrap: [AppComponent]
 })

@@ -162,7 +162,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     public toastService: ToastService,
     private translate: TranslateService
   ) {
-    this.initializeLanguage();
     this.account = authenticationService.currentAccountValue;
   }
 
@@ -175,23 +174,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       state => this.loading = state.show
     );
     this.refreshMenus();
-  }
-
-  initializeLanguage() {
-    const supportedLangs = ['en', 'zh'];
-    let userLang = 'en';
-
-    const browserLangs = navigator.languages || [navigator.language];
-    for (let lang of browserLangs) {
-      const baseLang = lang.split('-')[0];
-      if (supportedLangs.includes(baseLang)) {
-        userLang = baseLang;
-        break;
-      }
-    }
-
-    this.translate.use(userLang);
-    document.documentElement.lang = userLang;
   }
 
   loadUser() {

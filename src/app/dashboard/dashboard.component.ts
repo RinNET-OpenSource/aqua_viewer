@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   chusanAvatarAcc = 'Initialize';
   enableImages = environment.enableImages;
   announcements: Announcement[]
+  loadingAnnouncements = true;
 
 
   constructor(
@@ -76,6 +77,7 @@ export class DashboardComponent implements OnInit {
               ...announcement,
               expirationDate: new Date(announcement.expirationDate)
             }));
+            this.loadingAnnouncements = false;
           }
           else{
             this.messageService.notice(resp.status.message);
@@ -84,6 +86,7 @@ export class DashboardComponent implements OnInit {
       },
       error => {
         this.messageService.notice(error);
+        this.loadingAnnouncements = false;
       });
   }
 

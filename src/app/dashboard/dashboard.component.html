@@ -17,12 +17,20 @@
     <ng-icon name="bootstrap-bell" class="d-flex align-items-center me-2"></ng-icon>
     {{'DashboardPage.Announcements' | translate}}
   </div>
-  <div class="card-body">
+  <div class="card-body py-2">
+    <div *ngIf="loadingAnnouncements" class="placeholder-glow my-1">
+      <div>
+        <div class="placeholder small fw-light text-secondary" style="width: 8em;"></div>
+      </div>
+      <div>
+        <div class="placeholder fs-5" href="#" style="width: 12em;"></div>
+      </div>
+    </div>
     <ng-container *ngFor="let announcement of announcements">
-      <ng-container *ngIf="announcement.status == 'ACTIVE'">        
+      <div *ngIf="announcement.status == 'ACTIVE'" class="my-1">
         <div class="small fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
         <a class="fs-5 announcements-title" href="#">{{announcement.title}}</a>
-      </ng-container>
+      </div>
     </ng-container>
   </div>
 </div>
