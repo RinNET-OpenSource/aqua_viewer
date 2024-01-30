@@ -29,6 +29,10 @@
       "Setting" : "Setting"
     }
   },
+  "DashboardPage" : {
+    "Title" : "Dashboard",
+    "Announcements": "Announcements"
+  },
   "HomePage": {
     "Title": "Home",
     "Description": "Multipurpose online service for ALL.Net based games",

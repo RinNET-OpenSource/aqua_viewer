@@ -29,7 +29,6 @@ import {OngekiModule} from './sega/ongeki/ongeki.module';
 import {Maimai2Module} from './sega/maimai2/maimai2.module';
 import {ErrorInterceptorService} from './auth/error-interceptor.service';
 import {LoadingInterceptorService} from './auth/loading-interceptor.service';
-import {ChangelogComponent} from './changelog/changelog.component';
 import {ImporterModule} from './importer/importer.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
@@ -76,7 +75,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ChangelogComponent,
     Maimai2UploadUserPortraitDialog,
     SignUpComponent,
     LoginComponent,

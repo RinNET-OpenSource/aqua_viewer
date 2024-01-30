@@ -10,6 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Account, AuthenticationService} from '../auth/authentication.service';
 import {HttpParams} from '@angular/common/http';
+import {StatusCode} from '../status-code';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,12 +31,17 @@ export class DashboardComponent implements OnInit {
   chusanFrame = 'Initialize';
   chusanAvatarAcc = 'Initialize';
   enableImages = environment.enableImages;
+  announcements: Announcement[]
 
 
   constructor(
     private dbService: NgxIndexedDBService,
-    private preload: PreloadService
+    private preload: PreloadService,
+    protected authenticationService: AuthenticationService,
+    private api: ApiService,
+    private messageService: MessageService,
   ) {
+    this.loadAnnouncements();
   }
 
   ngOnInit() {
@@ -60,4 +66,33 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  loadAnnouncements() {
+    this.api.get('api/user/announcement').subscribe(
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            this.announcements = resp.data.map((announcement: any) => ({
+              ...announcement,
+              expirationDate: new Date(announcement.expirationDate)
+            }));
+          }
+          else{
+            this.messageService.notice(resp.status.message);
+          }
+        }
+      },
+      error => {
+        this.messageService.notice(error);
+      });
+  }
+
+}
+
+export interface Announcement {
+  id: number;
+  title: String;
+  content: String;
+  expirationDate: Date;
+  status: String
 }

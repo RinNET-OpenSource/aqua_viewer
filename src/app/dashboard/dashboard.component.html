@@ -1,4 +1,4 @@
-<h1>Dashboard</h1>
+<h3 class="mb-3">{{'DashboardPage.Title' | translate}}</h3>
 
 <!--<mat-card>-->
 <!--  <mat-card-content>-->
@@ -6,13 +6,28 @@
 <!--    This instance configured to {{enableImages ? 'use image assets.' : 'not to use image assets.'}}-->
 <!--  </mat-card-content>-->
 <!--</mat-card>-->
-<div class="card mt-3">
+<!-- <div class="card mb-3">
   <div class="card-body">
     Welcome to RinNET
   </div>
+</div> -->
+
+<div class="card mb-3">
+  <div class="card-header hstack">
+    <ng-icon name="bootstrap-bell" class="d-flex align-items-center me-2"></ng-icon>
+    {{'DashboardPage.Announcements' | translate}}
+  </div>
+  <div class="card-body">
+    <ng-container *ngFor="let announcement of announcements">
+      <ng-container *ngIf="announcement.status == 'ACTIVE'">        
+        <div class="small fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
+        <a class="fs-5 announcements-title" href="#">{{announcement.title}}</a>
+      </ng-container>
+    </ng-container>
+  </div>
 </div>
 
-<div class="card mt-3">
+<div class="card mb-3">
   <div class="card-header">
     Status
   </div>

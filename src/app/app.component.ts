@@ -154,8 +154,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   private subscription: Subscription;
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
     public authenticationService: AuthenticationService,
     private router: Router,
     private api: ApiService,

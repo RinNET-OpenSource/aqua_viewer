@@ -1,0 +1,9 @@
+.announcements-title{
+    text-decoration: none;
+    color: inherit;
+}
+
+.announcements-title:hover {
+    text-decoration: underline;
+    color: var(--bs-primary);
+}

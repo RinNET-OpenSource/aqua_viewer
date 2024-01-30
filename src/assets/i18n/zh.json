@@ -29,6 +29,10 @@
       "Setting" : "设定"
     }
   },
+  "DashboardPage" : {
+    "Title" : "仪表板",
+    "Announcements": "公告"
+  },
   "HomePage": {
     "Title": "主页",
     "Description": "致力于为ALL.Net游戏提供在线服务",

@@ -1,4 +1,4 @@
-<h1 class="mat-display-1">Play Record</h1>
+<h3 class="mat-display-1">Play Record</h3>
 <div *ngIf="recent" class="record">
   <mat-card
     *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"

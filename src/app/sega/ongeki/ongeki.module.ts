@@ -43,6 +43,7 @@ import {NgIconsModule} from '@ng-icons/core';
 import {
   bootstrapStopFill
 } from '@ng-icons/bootstrap-icons';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }

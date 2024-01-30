@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuardService} from './auth/auth-guard.service';
-import {ChangelogComponent} from './changelog/changelog.component';
 import {ImporterComponent} from './importer/importer/importer.component';
 import {SignUpComponent} from './home/sign-up/sign-up.component';
 import {HomeComponent} from './home/home.component';
@@ -12,7 +11,6 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'cards', component: CardsComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
-  {path: 'changelog', component: ChangelogComponent},
   {path: 'import', component: ImporterComponent},
   {path: 'diva', loadChildren: () => import('./sega/diva/diva.module').then(mod => mod.DivaModule), canLoad: [AuthGuardService]},
   {path: 'ongeki', loadChildren: () => import('./sega/ongeki/ongeki.module').then(mod => mod.OngekiModule), canLoad: [AuthGuardService]},
