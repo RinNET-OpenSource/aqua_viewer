@@ -205,7 +205,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
             this.authenticationService.currentAccountValue.name = resp.data.name;
             for (const card of resp.data.cards) {
               if (card.default) {
-                this.authenticationService.currentAccountValue.currentCard = card.extId;
+                this.authenticationService.currentAccountValue.currentCard = card;
               }
             }
             this.authenticationService.currentAccountValue.games = resp.data.games;

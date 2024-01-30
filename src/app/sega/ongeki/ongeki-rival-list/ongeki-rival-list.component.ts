@@ -24,7 +24,6 @@ type ObjectMessageResponse<T> = {
 export class OngekiRivalListComponent implements OnInit {
   rivalList: OngekiRival[] = [];
   displayedColumns: string[] = ['rivalUserId', 'rivalUserName', 'opButton'];
-  dataSource = new MatTableDataSource();
   aimeId: string;
 
   inputAddRivalUserId: string = "";
@@ -32,10 +31,10 @@ export class OngekiRivalListComponent implements OnInit {
   constructor(
     private dbService: NgxIndexedDBService,
     private api: ApiService,
-    private auth: AuthenticationService,
+    protected auth: AuthenticationService,
     private messageService: MessageService,
   ) {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
   }
 
   ngOnInit() {
@@ -49,15 +48,10 @@ export class OngekiRivalListComponent implements OnInit {
 
   refreshFrom(rivalList: OngekiRival[]) {
     this.rivalList = rivalList;
-    this.dataSource.data = this.rivalList;
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   removeRival(rivalUserId: number) {
-    let param = new HttpParams().set('aimeId', this.aimeId).set('rivalAimeId', rivalUserId);
+    let param = new HttpParams().set('aimeId', this.aimeId).set('rivalUserId', rivalUserId);
     this.api.delete(`api/game/ongeki/rival`, param).subscribe(
       () => {
         var newList = this.rivalList.filter(item => item.rivalUserId != rivalUserId);
@@ -69,7 +63,7 @@ export class OngekiRivalListComponent implements OnInit {
   }
 
   addRival() {
-    let param = new HttpParams().set('aimeId', this.aimeId).set('rivalAimeId', Number.parseInt(this.inputAddRivalUserId));
+    let param = new HttpParams().set('aimeId', this.aimeId).set('rivalUserId', Number.parseInt(this.inputAddRivalUserId));
     this.api.post(`api/game/ongeki/rival`, param).subscribe(
       (data: ObjectMessageResponse<OngekiRival>) => {
         if (data != null) {

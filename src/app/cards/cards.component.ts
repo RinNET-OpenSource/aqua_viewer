@@ -58,7 +58,7 @@ export class CardsComponent implements OnInit {
                 return cardExt;
               });
               if (card.default) {
-                this.authenticationService.currentAccountValue.currentCard = card.extId;
+                this.authenticationService.currentAccountValue.currentCard = card;
               }
               return card;
             });
