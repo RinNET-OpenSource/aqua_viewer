@@ -24,11 +24,11 @@ export class OngekiProfileComponent implements OnInit {
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
   ) {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
   }
 
   ngOnInit() {
-    const aimeId = String(this.auth.currentAccountValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/ongeki/profile', param).subscribe(
       data => {

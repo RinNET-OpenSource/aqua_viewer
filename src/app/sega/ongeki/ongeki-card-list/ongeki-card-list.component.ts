@@ -53,7 +53,7 @@ export class OngekiCardListComponent implements OnInit {
   }
 
   insertCard(cardId: number) {
-    const aimeId = this.auth.currentAccountValue.currentCard;
+    const aimeId = this.auth.currentAccountValue.currentCard.extId;
     this.api.post('api/game/ongeki/card', {
       aimeId,
       cardId

@@ -21,7 +21,7 @@
       "PlayRecord" : "游玩记录",
       "MusicList" : "乐曲列表",
       "Card" : "卡片",
-      "Rival" : "劲敌",
+      "Rival" : "好友",
       "MusicRanking" : "乐曲排行",
       "UserRanking" : "玩家排行",
       "Character" : "伙伴",
@@ -127,7 +127,18 @@
   },
   "Ongeki" : {
     "ProfilePage" : {
+      "Title" : "档案",
       "Overview" : "概览"
+    },
+    "RivalPage" : {
+      "Title" : "好友",
+      "IDInputPlaceholder" : "好友ID",
+      "AddRival" : "添加好友",
+      "MyCardID" : "我的ID",
+      "RivalList" : "好友列表",
+      "ID" : "ID",
+      "PlayerName" : "玩家名",
+      "Remove" : "删除"
     }
   },
   "ChuniV2" : {

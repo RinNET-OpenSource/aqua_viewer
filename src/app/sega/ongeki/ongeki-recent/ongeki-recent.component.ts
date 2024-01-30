@@ -46,7 +46,7 @@ export class OngekiRecentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard);
+    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     this.loading = true;
     this.route.queryParams.subscribe((data) => {
       if (data.page) {

@@ -28,7 +28,7 @@ export class V2RatingComponent implements OnInit {
   }
 
   ngOnInit() {
-    const aimeId = String(this.auth.currentAccountValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v2/rating', param).subscribe(
       data => {

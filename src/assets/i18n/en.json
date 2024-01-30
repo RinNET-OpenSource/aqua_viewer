@@ -127,7 +127,18 @@
   },
   "Ongeki" : {
     "ProfilePage" : {
+      "Title" : "Profile",
       "Overview" : "Overview"
+    },
+    "RivalPage" : {
+      "Title" : "Rival",
+      "IDInputPlaceholder" : "Rival Card ID",
+      "AddRival" : "Add Rival",
+      "MyCardID" : "My Card ID",
+      "RivalList" : "Rival List",
+      "ID" : "ID",
+      "PlayerName" : "PlayerName",
+      "Remove" : "Remove"
     }
   },
   "ChuniV2" : {

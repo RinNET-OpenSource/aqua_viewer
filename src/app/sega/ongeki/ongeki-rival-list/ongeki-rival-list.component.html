@@ -1,51 +1,32 @@
-<h1 class="mat-display-1">Rival List</h1>
+<h1 class="mb-3">{{'Ongeki.RivalPage.Title' | translate}}</h1>
 
-<mat-card>
-  <mat-card-content>
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <div fxFlex="40" max>
-        <mat-form-field>
-          <input
-            [(ngModel)]="inputAddRivalUserId"
-            matInput
-            placeholder="Rival User Aime Id"
-          />
-        </mat-form-field>
-      </div>
-      <div fxFlex="30px"></div>
-      <div fxFlex="40">
-        <button (click)="addRival()" mat-button>Add Rival</button>
-      </div>
-    </div>
-    <span>Your aime Id is provided in <a href="ongeki/profile">Ongeki Profile Page</a>.</span>
-  </mat-card-content>
-</mat-card>
-
-<mat-form-field>
-  <input
-    (keyup)="applyFilter($event.target.value)"
-    matInput
-    placeholder="Filter"
-  />
-</mat-form-field>
-<table [dataSource]="dataSource" mat-table matSort>
-  <ng-container matColumnDef="rivalUserId">
-    <th *matHeaderCellDef mat-header-cell>ID</th>
-    <td *matCellDef="let element" mat-cell>{{ element.rivalUserId }}</td>
-  </ng-container>
-  <ng-container matColumnDef="rivalUserName">
-    <th *matHeaderCellDef mat-header-cell>User Name</th>
-    <td *matCellDef="let element" mat-cell>
-      {{ element.rivalUserName }}
-    </td> </ng-container
-  ><ng-container matColumnDef="opButton">
-    <th *matHeaderCellDef mat-header-cell></th>
-    <td *matCellDef="let element" mat-cell>
-      <button (click)="removeRival(element.rivalUserId)" mat-button>
-        Remove
-      </button>
-    </td>
-  </ng-container>
-  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-  <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
-</table>
+<div class="input-group">
+  <input type="text" class="form-control form-control mb-3" placeholder="{{'Ongeki.RivalPage.IDInputPlaceholder' | translate}}" [(ngModel)]="inputAddRivalUserId">
+  <button class="btn btn-primary mb-3" type="button" (click)="addRival()">{{'Ongeki.RivalPage.AddRival' | translate}}</button>
+</div>
+<div class="small mx-3 mb-3">{{'Ongeki.RivalPage.MyCardID' | translate}}{{'Common.Colon' | translate}}{{10000000 + auth.currentAccountValue.currentCard.id}}</div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h5>
+    <table class="table table-borderless table-striped align-middle">
+      <thead>
+      <th>{{'Ongeki.RivalPage.ID' | translate}}</th>
+      <th>{{'Ongeki.RivalPage.PlayerName' | translate}}</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of rivalList; index as i">
+        <td>
+          {{item.rivalUserId}}
+        </td>
+        <td>
+          {{item.rivalUserName}}
+        </td>
+        <td>
+          <a type="button" (click)="removeRival(item.rivalUserId)">{{'Ongeki.RivalPage.Remove' | translate}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

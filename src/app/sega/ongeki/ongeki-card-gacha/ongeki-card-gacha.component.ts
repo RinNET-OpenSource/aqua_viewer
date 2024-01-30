@@ -99,7 +99,7 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
   }
 
   submitCardData() {
-    const aimeId = this.auth.currentAccountValue.currentCard;
+    const aimeId = this.auth.currentAccountValue.currentCard.extId;
     this.cardResultList.forEach(x => {
       this.api.post('api/game/ongeki/card', {
         aimeId,

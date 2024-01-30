@@ -22,7 +22,7 @@ export class DivaProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pdId = String(this.auth.currentAccountValue.currentCard);
+    const pdId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('pdId', pdId);
     this.api.get('api/game/diva/playerInfo', param).subscribe(
       data => this.profile = data,

@@ -19,7 +19,7 @@ export class V2ProfileComponent implements OnInit {
     private auth: AuthenticationService,
     private messageService: MessageService,
   ) {
-    const aimeId = String(this.auth.currentAccountValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v2/profile', param).subscribe(
       data => {

@@ -95,8 +95,8 @@
     </div>
     <div class="card-footer">
       <button class="btn btn-link p-0"
-              [class.disabled]="card.extId == authenticationService.currentAccountValue.currentCard"
-              [class.link-secondary]="card.extId == authenticationService.currentAccountValue.currentCard"
+              [class.disabled]="card.extId == authenticationService.currentAccountValue.currentCard.extId"
+              [class.link-secondary]="card.extId == authenticationService.currentAccountValue.currentCard.extId"
               (click)="setDefault(card)">{{'CardsPage.SetDefault' | translate}}
       </button>
     </div>

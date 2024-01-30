@@ -259,7 +259,7 @@ export class OngekiCardComponent implements OnInit {
   }
 
   load(page: number) {
-    const aimeId = String(this.auth.currentAccountValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', aimeId).set('page', String(page - 1)).set('size', 12);
     this.cardList = this.api.get('api/game/ongeki/card', param).pipe(
       tap(
@@ -295,7 +295,7 @@ export class OngekiCardComponent implements OnInit {
   }
 
   kaika(cardId: number, type: string) {
-    const aimeId = String(this.auth.currentAccountValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.post('api/game/ongeki/card/' + cardId + '/' + type, param).subscribe(
       data => {

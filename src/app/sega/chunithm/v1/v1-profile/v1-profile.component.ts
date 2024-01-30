@@ -22,7 +22,7 @@ export class V1ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    const aimeId = String(this.auth.currentAccountValue.currentCard);
+    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v1/profile', param).subscribe(
       data => {

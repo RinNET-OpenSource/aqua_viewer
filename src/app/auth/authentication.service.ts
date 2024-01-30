@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {StatusCode} from '../status-code';
+import {Card} from '../cards/cards.component';
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +51,7 @@ export class AuthenticationService {
                       account.name = resp.data.name;
                       for (const card of resp.data.cards) {
                         if (card.default) {
-                          account.currentCard = card.extId;
+                          account.currentCard = card;
                           break;
                         }
                       }
@@ -142,6 +143,6 @@ export class Account {
   name: string;
   tokenType: string;
   accessToken: string;
-  currentCard: number;
+  currentCard: Card;
   games: string[];
 }

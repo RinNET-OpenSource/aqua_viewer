@@ -38,7 +38,7 @@ export class DivaRecentComponent implements OnInit {
   }
 
   load() {
-    const pdId = String(this.auth.currentAccountValue.currentCard);
+    const pdId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('pdId', pdId).set('page', String(this.currentPage));
     this.api.get('api/game/diva/playLog', param).subscribe(
       data => {
