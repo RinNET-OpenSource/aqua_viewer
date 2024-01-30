@@ -8,7 +8,7 @@ import {environment} from '../../../../../environments/environment';
 @Component({
   selector: 'app-v2-rating',
   templateUrl: './v2-rating.component.html',
-  styleUrls: ['./v2-rating.component.css']
+  styleUrls: ['./v2-rating.component.scss']
 })
 export class V2RatingComponent implements OnInit {
 

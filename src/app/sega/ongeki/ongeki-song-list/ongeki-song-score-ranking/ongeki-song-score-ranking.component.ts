@@ -31,7 +31,12 @@ interface ISongData {
   isFullCombo: boolean;
   isAllBreake: boolean;
   isLock: boolean;
-  ranking: Ranking;
+  ranking: UserRanking;
+}
+
+interface UserRanking {
+  rank: number;
+  playedCount: number;
 }
 
 @Component({
@@ -100,7 +105,7 @@ export class OngekiSongScroeRankingComponent {
     else if (level === 3){
       return song.level3;
     }
-    else if (level === 4){
+    else if (level === 10){
       return song.level4;
     }
     else { return '0'; }

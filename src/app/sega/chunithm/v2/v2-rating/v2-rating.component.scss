@@ -1,3 +1,5 @@
+@import "/node_modules/bootstrap/scss/bootstrap";
+
 .rating-info {
   font-size: 1.2em;
 }
@@ -19,18 +21,20 @@
 }
 
 td {
-  max-width: 130px;
+  max-width: 110px;
+  padding: 0 !important;
 }
 
 thead th {
   text-align: left;
 }
 
-tr * {
-  padding: 10px 0;
+table {
+  padding: 0 !important;
 }
 
 .music-img {
+  padding: 10px 0 !important;
   width: 4rem;
 }
 
@@ -46,9 +50,10 @@ tr * {
   margin: 0;
 }
 
-@media only screen and (max-width: 599px) {
+@include media-breakpoint-up(sm) {
   .skill-card table {
     width: 100%;
     font-size: 12px;
   }
 }
+
