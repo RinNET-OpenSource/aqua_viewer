@@ -5,7 +5,7 @@ import {environment} from '../../../../environments/environment';
 import {NgbModal, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {OngekiMusic} from '../model/OngekiMusic';
-import {OngekiSongScroeRankingComponent} from '../ongeki-song-list/ongeki-song-score-ranking/ongeki-song-score-ranking.component';
+import {OngekiSongScoreRankingComponent} from '../ongeki-song-score-ranking/ongeki-song-score-ranking.component';
 
 @Component({
   selector: 'app-ongeki-recent-item',
@@ -39,7 +39,7 @@ export class OngekiRecentItemComponent implements OnInit {
   showDetail(music: OngekiMusic) {
     this.modalService.dismissAll();
     setTimeout(() => {
-      const offcanvasRef = this.offcanvasService.open(OngekiSongScroeRankingComponent, {
+      const offcanvasRef = this.offcanvasService.open(OngekiSongScoreRankingComponent, {
         position: 'end',
         scroll: false,
       });
