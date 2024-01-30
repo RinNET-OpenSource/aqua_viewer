@@ -60,6 +60,8 @@ export class OngekiSongScroeRankingComponent {
   }
 
   ngOnInit() {
+
+
     const { id } = this.music;
     this.api.get(`api/game/ongeki/song/${id}?aimeId=${String(this.auth.currentAccountValue.currentCard)}`).subscribe(
       res => {

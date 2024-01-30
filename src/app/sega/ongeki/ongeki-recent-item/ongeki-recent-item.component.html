@@ -233,8 +233,7 @@
       </table>
       <a type="button"
          class="text-primary"
-         [routerLink]="['/ongeki/song/ranking',playLog.musicId, playLog.level]"
-         (click)="modal.dismiss()">
+         (click)="showDetail(playLog.songInfo)">
         View ranking
       </a>
   </div>
