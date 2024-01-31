@@ -11,7 +11,8 @@ import {TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {HttpClient } from '@angular/common/http';
 import {NgIconsModule} from '@ng-icons/core';
 import {
-  bootstrapBell
+  bootstrapBell,
+  bootstrapCheckLg
 } from '@ng-icons/bootstrap-icons';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,7 +35,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     NgIconsModule.withIcons({
-      bootstrapBell
+      bootstrapBell,
+      bootstrapCheckLg
     })
   ],
   exports: [],

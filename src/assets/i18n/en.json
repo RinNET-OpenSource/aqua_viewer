@@ -31,7 +31,7 @@
   },
   "DashboardPage" : {
     "Title" : "Dashboard",
-    "Announcements": "Announcements"
+    "LatestAnnouncement": "Latest Announcement"
   },
   "HomePage": {
     "Title": "Home",
@@ -133,6 +133,12 @@
     "ProfilePage" : {
       "Title" : "Profile",
       "Overview" : "Overview"
+    },
+    "RecentPage" : {
+      "Title" : "Play Record",
+      "UnknownArtist " : "Unknown artist",
+      "Details" : "Details",
+      "Ranking" : "Ranking"
     },
     "RivalPage" : {
       "Title" : "Rival",

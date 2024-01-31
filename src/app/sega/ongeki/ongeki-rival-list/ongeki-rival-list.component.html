@@ -1,13 +1,14 @@
-<h3 class="mb-3">{{'Ongeki.RivalPage.Title' | translate}}</h3>
+<h3 class="mb-4">{{'Ongeki.RivalPage.Title' | translate}}</h3>
 
+<h6 class="mb-3 fw-bold">添加好友</h6>
 <div class="input-group">
   <input type="text" class="form-control form-control mb-3" placeholder="{{'Ongeki.RivalPage.IDInputPlaceholder' | translate}}" [(ngModel)]="inputAddRivalUserId">
   <button class="btn btn-primary mb-3" type="button" (click)="addRival()">{{'Ongeki.RivalPage.AddRival' | translate}}</button>
 </div>
-<div class="small mx-3 mb-3">{{'Ongeki.RivalPage.MyCardID' | translate}}{{'Common.Colon' | translate}}{{10000000 + auth.currentAccountValue.currentCard.id}}</div>
+<div class="small mx-3 mb-3 fw-light">{{'Ongeki.RivalPage.MyCardID' | translate}}{{'Common.Colon' | translate}}{{10000000 + auth.currentAccountValue.currentCard.id}}</div>
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h5>
+    <h6 class="card-title fw-bold mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h6>
     <table class="table table-borderless table-striped align-middle">
       <thead>
       <th>{{'Ongeki.RivalPage.ID' | translate}}</th>

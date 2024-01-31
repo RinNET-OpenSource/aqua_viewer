@@ -31,7 +31,7 @@
   },
   "DashboardPage" : {
     "Title" : "仪表板",
-    "Announcements": "公告"
+    "LatestAnnouncement": "最新公告"
   },
   "HomePage": {
     "Title": "主页",
@@ -133,6 +133,12 @@
     "ProfilePage" : {
       "Title" : "档案",
       "Overview" : "概览"
+    },
+    "RecentPage" : {
+      "Title" : "游玩记录",
+      "UnknownArtist" : "未知艺术家",
+      "Details" : "详细",
+      "Ranking" : "排名"
     },
     "RivalPage" : {
       "Title" : "好友",

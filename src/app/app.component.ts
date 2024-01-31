@@ -150,7 +150,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       show: false,
     }
   ];
-  
+
   private subscription: Subscription;
 
   constructor(
@@ -167,7 +167,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     if (this.account !== null) {
-      this.preLoad.load();
+      this.preLoad.checkDbUpdate();
       this.loadUser();
     }
     this.subscription = this.api.loadingState.subscribe(

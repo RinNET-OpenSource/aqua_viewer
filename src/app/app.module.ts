@@ -53,7 +53,7 @@ import {
   bootstrapEyeSlash,
   bootstrapTrash,
   bootstrapPencilSquare,
-  bootstrapDot
+  bootstrapDatabase
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -142,7 +142,8 @@ export function initializeApp(translateService: TranslateService) {
       bootstrapEye,
       bootstrapEyeSlash,
       bootstrapTrash,
-      bootstrapPencilSquare
+      bootstrapPencilSquare,
+      bootstrapDatabase
     }),
     TranslateModule.forRoot({
       loader: {

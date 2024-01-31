@@ -17,6 +17,8 @@ import { ChusanAvatarAcc } from '../sega/chunithm/v2/model/ChusanAvatarAcc';
 import { OngekiRival } from '../sega/ongeki/model/OngekiRival';
 import { HttpParams } from '@angular/common/http';
 import { AuthenticationService } from '../auth/authentication.service';
+import {StatusCode} from '../status-code';
+import {MessageService} from '../message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -48,16 +50,25 @@ export class PreloadService {
   private chusanAvatarAcc = new ReplaySubject<string>();
   chusanAvatarAccState = this.chusanAvatarAcc.asObservable();
 
+  private dbVersion = new ReplaySubject<number>();
+  dbVersionObservable = this.dbVersion.asObservable();
+
+  private checkingUpdate = new ReplaySubject<boolean>();
+  checkingUpdateObservable = this.checkingUpdate.asObservable();
+
   constructor(
     private dbService: NgxIndexedDBService,
     private api: ApiService,
     private auth: AuthenticationService,
+    private messageService: MessageService,
   ) {
+    const version: number = +localStorage.getItem('dbVersion');
+    this.dbVersion.next(version);
   }
 
   load() {
     const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
-    const param = aimeId.trim().length != 0 ? new HttpParams().set('aimeId', aimeId) : undefined;
+    const param = aimeId.trim().length !== 0 ? new HttpParams().set('aimeId', aimeId) : undefined;
 
     this.loader<OngekiCard>('ongekiCard', 'api/game/ongeki/data/cardList', this.ongekiCard);
     this.loader<OngekiCharacter>('ongekiCharacter', 'api/game/ongeki/data/charaList', this.ongekiCharacter);
@@ -77,25 +88,53 @@ export class PreloadService {
 
   }
 
+  checkDbUpdate(){
+    this.checkingUpdate.next(true);
+    this.api.get('api/static/dbVersion').subscribe(
+      resp => {
+        if (resp?.state === 'SUCCESS') {
+          const latestVersion = resp.version.major;
+          this.dbVersionObservable.subscribe(version => {
+            if (version !== 0 && latestVersion > version){
+              this.dbService.deleteDatabase().subscribe(() => {
+                localStorage.setItem('dbVersion', latestVersion.toString());
+                window.location.reload();
+              });
+            }
+            else{
+              this.load();
+              this.checkingUpdate.next(false);
+            }
+          });
+        }
+      },
+      error => {
+        this.load();
+        this.checkingUpdate.next(false);
+        this.messageService.notice(error);
+      });
+  }
+
   loader<T>(storeName: string, url: string, status: ReplaySubject<string>, param?: HttpParams) {
     this.dbService.count(storeName).subscribe(
       pageCount => {
         if (pageCount > 0) {
-          //table is avaliable.
+          // table is avaliable.
           status.next('OK');
         } else {
-          //test if table is avaliable.
-          let callback = (error?: any) => {
+          // test if table is avaliable.
+          const callback = (error?: any) => {
             if (error != null) {
               status.next('Error');
               console.error(error);
-            } else
+            } else {
               status.next('OK');
+            }
 
             status.complete();
-          }
+          };
 
-          //fetch data and add into DB.
+          // fetch data and add into DB.
           status.next('Downloading');
           this.api.get(url, param).subscribe(
             data => this.dbService.bulkAdd<T>(storeName, data).subscribe(() => callback(), error => callback(error)),

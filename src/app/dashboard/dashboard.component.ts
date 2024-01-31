@@ -18,22 +18,16 @@ import {StatusCode} from '../status-code';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  ongekiCard = 'Initialize';
-  ongekiCharacter = 'Initialize';
-  ongekiMusic = 'Initialize';
-  ongekiSkill = 'Initialize';
-  chusanMusic = 'Initialize';
-  chusanCharacter = 'Initialize';
-  chusanTrophy = 'Initialize';
-  chusanNamePlate = 'Initialize';
-  chusanSystemVoice = 'Initialize';
-  chusanMapIcon = 'Initialize';
-  chusanFrame = 'Initialize';
-  chusanAvatarAcc = 'Initialize';
+  totalPreloadTaskCount = 0;
+  downloadingPreloadTaskCount = 0;
+  completedPreloadTaskCount = 0;
+  errorPreloadTaskCount = 0;
   enableImages = environment.enableImages;
-  announcements: Announcement[]
-  loadingAnnouncements = true;
-
+  announcement: Announcement;
+  loadingAnnouncement = true;
+  loadingDatabase = true;
+  checkingUpdate = true;
+  dbVersion = 0;
 
   constructor(
     private dbService: NgxIndexedDBService,
@@ -46,18 +40,44 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.preload.ongekiCardState.subscribe(data => this.ongekiCard = data);
-    this.preload.ongekiCharacterState.subscribe(data => this.ongekiCharacter = data);
-    this.preload.ongekiMusicState.subscribe(data => this.ongekiMusic = data);
-    this.preload.ongekiSkillState.subscribe(data => this.ongekiSkill = data);
-    this.preload.chusanMusicState.subscribe(data => this.chusanMusic = data);
-    this.preload.chusanCharacterState.subscribe(data => this.chusanCharacter = data);
-    this.preload.chusanTrophyState.subscribe(data => this.chusanTrophy = data);
-    this.preload.chusanNamePlateState.subscribe(data => this.chusanNamePlate = data);
-    this.preload.chusanSystemVoiceState.subscribe(data => this.chusanSystemVoice = data);
-    this.preload.chusanMapIconState.subscribe(data => this.chusanMapIcon = data);
-    this.preload.chusanFrameState.subscribe(data => this.chusanFrame = data);
-    this.preload.chusanAvatarAccState.subscribe(data => this.chusanAvatarAcc = data);
+    this.addStatusSubscribe(this.preload.ongekiCardState);
+    this.addStatusSubscribe(this.preload.ongekiCharacterState);
+    this.addStatusSubscribe(this.preload.ongekiMusicState);
+    this.addStatusSubscribe(this.preload.ongekiSkillState);
+    this.addStatusSubscribe(this.preload.chusanMusicState);
+    this.addStatusSubscribe(this.preload.chusanCharacterState);
+    this.addStatusSubscribe(this.preload.chusanTrophyState);
+    this.addStatusSubscribe(this.preload.chusanNamePlateState);
+    this.addStatusSubscribe(this.preload.chusanSystemVoiceState);
+    this.addStatusSubscribe(this.preload.chusanMapIconState);
+    this.addStatusSubscribe(this.preload.chusanFrameState);
+    this.addStatusSubscribe(this.preload.chusanAvatarAccState);
+    this.preload.checkingUpdateObservable.subscribe(checkingUpdate => {
+      this.checkingUpdate = checkingUpdate;
+    });
+    this.preload.dbVersionObservable.subscribe(dbVersion => {
+      this.dbVersion = dbVersion;
+    });
+  }
+
+  addStatusSubscribe(observable: Observable<string>){
+    this.totalPreloadTaskCount++;
+    observable.subscribe(data => {this.onStateChanged(data); });
+  }
+
+  onStateChanged(data: string) {
+    if (data === 'Downloading') {
+      this.downloadingPreloadTaskCount++;
+    }
+    if (data === 'OK') {
+      this.completedPreloadTaskCount++;
+    }
+    if (data === 'Error') {
+      this.errorPreloadTaskCount++;
+    }
+    if (this.completedPreloadTaskCount + this.errorPreloadTaskCount === this.totalPreloadTaskCount) {
+      this.loadingDatabase = false;
+    }
   }
 
   reload() {
@@ -68,16 +88,16 @@ export class DashboardComponent implements OnInit {
   }
 
   loadAnnouncements() {
-    this.api.get('api/user/announcement').subscribe(
+    this.api.get('api/user/announcement/recent').subscribe(
       resp => {
         if (resp?.status) {
           const statusCode: StatusCode = resp.status.code;
           if (statusCode === StatusCode.OK && resp.data) {
-            this.announcements = resp.data.map((announcement: any) => ({
-              ...announcement,
-              expirationDate: new Date(announcement.expirationDate)
-            }));
-            this.loadingAnnouncements = false;
+            this.announcement = {
+              ...resp.data,
+              expirationDate: new Date(resp.data.expirationDate)
+            }
+            this.loadingAnnouncement = false;
           }
           else{
             this.messageService.notice(resp.status.message);
@@ -86,7 +106,7 @@ export class DashboardComponent implements OnInit {
       },
       error => {
         this.messageService.notice(error);
-        this.loadingAnnouncements = false;
+        this.loadingAnnouncement = false;
       });
   }
 
@@ -94,8 +114,8 @@ export class DashboardComponent implements OnInit {
 
 export interface Announcement {
   id: number;
-  title: String;
-  content: String;
+  title: string;
+  content: string;
   expirationDate: Date;
-  status: String
+  status: string;
 }

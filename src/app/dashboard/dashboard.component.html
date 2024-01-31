@@ -1,4 +1,4 @@
-<h3 class="mb-3">{{'DashboardPage.Title' | translate}}</h3>
+<h3 class="mb-4">{{'DashboardPage.Title' | translate}}</h3>
 
 <!--<mat-card>-->
 <!--  <mat-card-content>-->
@@ -15,10 +15,10 @@
 <div class="card mb-3">
   <div class="card-header hstack">
     <ng-icon name="bootstrap-bell" class="d-flex align-items-center me-2"></ng-icon>
-    {{'DashboardPage.Announcements' | translate}}
+    {{'DashboardPage.LatestAnnouncement' | translate}}
   </div>
   <div class="card-body py-2">
-    <div *ngIf="loadingAnnouncements" class="placeholder-glow my-1">
+    <div *ngIf="loadingAnnouncement" class="placeholder-glow my-1">
       <div>
         <div class="placeholder small fw-light text-secondary" style="width: 8em;"></div>
       </div>
@@ -26,16 +26,39 @@
         <div class="placeholder fs-5" href="#" style="width: 12em;"></div>
       </div>
     </div>
-    <ng-container *ngFor="let announcement of announcements">
-      <div *ngIf="announcement.status == 'ACTIVE'" class="my-1">
-        <div class="small fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
-        <a class="fs-5 announcements-title" href="#">{{announcement.title}}</a>
-      </div>
-    </ng-container>
+    <div *ngIf="!loadingAnnouncement" class="my-1">
+      <div class="small fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
+      <a class="fs-5 announcements-title" href="#">{{announcement.title}}</a>
+    </div>
   </div>
 </div>
 
 <div class="card mb-3">
+  <div class="card-header hstack">
+    <ng-icon name="bootstrap-database" class="d-flex align-items-center me-2"></ng-icon>
+    游戏数据
+  </div>
+  <div class="card-body">
+    <div *ngIf="checkingUpdate" class="mb-2">
+      <span class="pe-2">检查更新</span>
+      <span class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </span>
+    </div>
+    <div *ngIf="!checkingUpdate && loadingDatabase " class="d-flex align-items-center mb-2">
+      <span class="pe-2">下载数据：{{completedPreloadTaskCount}}/{{totalPreloadTaskCount}}</span>
+      <span class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </span>
+    </div>
+    <div *ngIf="!checkingUpdate && !loadingDatabase " class="d-flex align-items-center mb-2">
+      <ng-icon name="bootstrap-check-lg" class="d-flex align-items-center me-2 text-success"></ng-icon>
+      <span class="pe-2">版本：{{dbVersion}}</span>
+    </div>
+    <button [class.disabled]="checkingUpdate || loadingDatabase" class="btn btn-danger btn-sm mt-1" (click)="reload()">Clean Cache</button>
+  </div>
+</div>
+<!-- <div class="card mb-3">
   <div class="card-header">
     Status
   </div>
@@ -56,4 +79,4 @@
   <div class="card-body">
     <button class="btn btn-danger btn-sm mt-1" (click)="reload()">Clean Cache</button>
   </div>
-</div>
+</div> -->

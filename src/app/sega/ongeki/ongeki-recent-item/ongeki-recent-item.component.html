@@ -16,7 +16,7 @@
       <!--artist-->
       <div class="song-info-artist text-truncate ">
           <span>
-            {{playLog.songInfo != null ? playLog.songInfo.artistName : 'Unknown artist'}}
+            {{playLog.songInfo != null ? playLog.songInfo.artistName : ('Ongeki.RecentPage.UnknownArtist' | translate)}}
           </span>
       </div>
       <!--difficulty-->
@@ -165,7 +165,10 @@
   </div>
   <div class="card-footer fw-bold">
     <div class="float-start">
-      <a type="button" class="text-primary" (click)="open(judgeContent)">Details</a>
+      <a type="button" class="text-primary" (click)="open(judgeContent)">{{'Ongeki.RecentPage.Details' | translate}}</a>
+    </div>
+    <div class="float-start ms-3">
+      <a type="button" class="text-primary" (click)="showDetail(playLog.songInfo)">{{'Ongeki.RecentPage.Ranking' | translate}}</a>
     </div>
     <div class="float-end">
       <span>{{playLog.userPlayDate}}</span>
@@ -175,7 +178,7 @@
 
 <ng-template #judgeContent let-modal>
     <div class="modal-header">
-      <h5 class="modal-title">Details</h5>
+      <h5 class="modal-title">{{'Ongeki.RecentPage.Details' | translate}}</h5>
       <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
     </div>
     <div class="modal-body">
