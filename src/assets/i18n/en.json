@@ -34,8 +34,10 @@
     "LatestAnnouncement": "Latest Announcement",
     "GameData": "Game Data",
     "Downloading" : "Downloading",
+    "DownloadFailed" : "Download failed",
     "CheckingUpdate" : "Checking update",
-    "Version" : "Version"
+    "Version" : "Version",
+    "Reload" : "Reload"
   },
   "HomePage": {
     "Title": "Home",

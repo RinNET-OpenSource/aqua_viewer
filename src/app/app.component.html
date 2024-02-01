@@ -20,10 +20,21 @@
           <a class="link-btn link-btn-danger rounded" (click)="logout()">{{'App.UserPopup.SignOut' | translate}}</a>
         </div>
       </ng-template>
-      <div>
+
+      <div class="hstack gap-1">
+        <button class="btn btn-icon py-0"
+                style="font-size: 1.2rem;"
+                type="button"
+                (click)="toggleColorMode()">
+                <ng-container [ngSwitch]="colorMode">
+                  <ng-icon *ngSwitchCase="'light'" name="bootstrap-sun-fill"></ng-icon>
+                  <ng-icon *ngSwitchCase="'dark'" name="bootstrap-stars"></ng-icon>
+                </ng-container>
+        </button>
+        <div *ngIf="account" class="vr my-2"></div>
         <button *ngIf="account"
                 class="btn btn-icon py-0"
-                style="font-size: 1.6rem;"
+                style="font-size: 1.2rem;"
                 container="body"
                 placement="bottom-right"
                 [ngbPopover]="userPopContent"

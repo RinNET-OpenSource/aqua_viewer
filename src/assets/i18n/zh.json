@@ -34,8 +34,10 @@
     "LatestAnnouncement": "最新公告",
     "GameData": "游戏数据",
     "Downloading" : "下载数据",
+    "DownloadFailed" : "下载失败",
     "CheckingUpdate" : "检查更新",
-    "Version" : "版本"
+    "Version" : "版本",
+    "Reload" : "重新加载"
   },
   "HomePage": {
     "Title": "主页",

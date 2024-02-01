@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, HostListener, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, Inject, OnChanges, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {Router} from '@angular/router';
@@ -11,6 +11,7 @@ import {MessageService} from './message.service';
 import {environment} from '../environments/environment';
 import {StatusCode} from './status-code';
 import { TranslateService } from '@ngx-translate/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
+  colorMode: string;
+
   title = 'aqua-viewer';
   host = environment.assetsHost;
 
@@ -160,12 +163,15 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private preLoad: PreloadService,
     private messageService: MessageService,
     public toastService: ToastService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private renderer: Renderer2, 
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.account = authenticationService.currentAccountValue;
   }
 
   ngOnInit(): void {
+    this.loadColorMode();
     if (this.account !== null) {
       this.preLoad.checkDbUpdate();
       this.loadUser();
@@ -268,6 +274,28 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     if (this.sidebarOffcanvasOpened) {
       this.hideSidebar();
     }
+  }
+
+  loadColorMode(){
+    var colorMode = localStorage.getItem('colorMode');
+    if(colorMode !== 'dark' && colorMode !== 'light'){
+      colorMode = 'dark';
+    }
+    this.colorMode = colorMode;
+    const body = this.document.body;
+    this.renderer.setAttribute(body, 'data-bs-theme', this.colorMode);
+  }
+
+  toggleColorMode(){    
+    if (this.colorMode === 'dark') {
+      this.colorMode = 'light';
+    } else {
+      this.colorMode = 'dark';
+    }
+    localStorage.setItem('colorMode', this.colorMode);
+    
+    const body = this.document.body;
+    this.renderer.setAttribute(body, 'data-bs-theme', this.colorMode);
   }
 }
 
