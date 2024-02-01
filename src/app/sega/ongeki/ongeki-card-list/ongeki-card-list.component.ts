@@ -21,7 +21,6 @@ export class OngekiCardListComponent implements OnInit {
   filteredCardList: OngekiCard[] = [];
   currentPage = 1;
   totalElements = 0;
-  searchTerm = '';
 
   constructor(
     private api: ApiService,
@@ -67,13 +66,12 @@ export class OngekiCardListComponent implements OnInit {
     this.router.navigate(['ongeki/card/all'], {queryParams: {page}});
   }
 
-  filterCards() {
-    if (this.searchTerm) {
+  filterCards(searchTerm: string) {
+    if (searchTerm) {
       this.filteredCardList = this.cardList.filter(card =>
       {
-        const lowerSearchTerm = this.searchTerm.toLowerCase();
-
-        const sameId = card.id === Number(this.searchTerm);
+        const lowerSearchTerm = searchTerm.toLowerCase();
+        const sameId = card.id === Number(searchTerm);
         const includesName = card.name.toLowerCase().includes(lowerSearchTerm);
         const includesNickName = card.nickName.toLowerCase().includes(lowerSearchTerm);
         const sameSkillCategory = card.skillInfo.category.toLowerCase() === lowerSearchTerm ||
