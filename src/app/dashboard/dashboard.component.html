@@ -36,24 +36,24 @@
 <div class="card mb-3">
   <div class="card-header hstack">
     <ng-icon name="bootstrap-database" class="d-flex align-items-center me-2"></ng-icon>
-    游戏数据
+    {{'DashboardPage.GameData' | translate}}
   </div>
   <div class="card-body">
     <div *ngIf="checkingUpdate" class="mb-2">
-      <span class="pe-2">检查更新</span>
+      <span class="pe-2">{{'DashboardPage.CheckingUpdate' | translate}}</span>
       <span class="spinner-border spinner-border-sm" role="status">
         <span class="visually-hidden">Loading...</span>
       </span>
     </div>
     <div *ngIf="!checkingUpdate && loadingDatabase " class="d-flex align-items-center mb-2">
-      <span class="pe-2">下载数据：{{completedPreloadTaskCount}}/{{totalPreloadTaskCount}}</span>
+      <span class="pe-2">{{'DashboardPage.Downloading' | translate}}{{'Common.Colon' | translate}}{{completedPreloadTaskCount}}/{{totalPreloadTaskCount}}</span>
       <span class="spinner-border spinner-border-sm" role="status">
         <span class="visually-hidden">Loading...</span>
       </span>
     </div>
     <div *ngIf="!checkingUpdate && !loadingDatabase " class="d-flex align-items-center mb-2">
       <ng-icon name="bootstrap-check-lg" class="d-flex align-items-center me-2 text-success"></ng-icon>
-      <span class="pe-2">版本：{{dbVersion}}</span>
+      <span class="pe-2">{{'DashboardPage.Version' | translate}}{{'Common.Colon' | translate}}{{dbVersion}}</span>
     </div>
     <button [class.disabled]="checkingUpdate || loadingDatabase" class="btn btn-danger btn-sm mt-1" (click)="reload()">Clean Cache</button>
   </div>

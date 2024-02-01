@@ -3,7 +3,7 @@
     "Ongeki" : "O.N.G.E.K.I.",
     "ChuniV2" : "CHUNITHM NEW",
     "Mai2" : "Maimai DX",
-    "Colon" : ":",
+    "Colon" : ": ",
     "OK" : "OK"
   },
   "App" : {
@@ -31,7 +31,11 @@
   },
   "DashboardPage" : {
     "Title" : "Dashboard",
-    "LatestAnnouncement": "Latest Announcement"
+    "LatestAnnouncement": "Latest Announcement",
+    "GameData": "Game Data",
+    "Downloading" : "Downloading",
+    "CheckingUpdate" : "Checking update",
+    "Version" : "Version"
   },
   "HomePage": {
     "Title": "Home",

@@ -85,7 +85,11 @@ export class PreloadService {
   }
 
   reload() {
-
+    this.dbService.deleteDatabase().subscribe(
+      () => {
+        localStorage.setItem('dbVersion', '0');
+        window.location.reload();
+      });
   }
 
   checkDbUpdate(){
@@ -95,7 +99,7 @@ export class PreloadService {
         if (resp?.state === 'SUCCESS') {
           const latestVersion = resp.version.major;
           this.dbVersionObservable.subscribe(version => {
-            if (version !== 0 && latestVersion > version){
+            if (latestVersion > version){
               this.dbService.deleteDatabase().subscribe(() => {
                 localStorage.setItem('dbVersion', latestVersion.toString());
                 window.location.reload();
