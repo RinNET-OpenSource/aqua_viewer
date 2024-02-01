@@ -52,12 +52,6 @@ mat-toolbar {
   padding-top: 4px;
 }
 
-.bg {
-  transition-duration: .218s;
-  transition-property: background;
-  transition-timing-function: ease-in;
-}
-
 .dark {
   background-color: #202124;
 }
@@ -98,28 +92,15 @@ mat-toolbar {
   background-color: var(--bs-danger);
 }
 
-@media only screen and (max-width: 599px) {
-  .content {
-    background-origin: content-box;
-    height: auto;
-    overflow-y: visible;
-    width: 96%;
-    box-sizing: border-box;
-    padding: 15px;
-    margin: auto;
-  }
-}
-
 .sidebar {
   grid-area: sidebar;
-  min-width: 15rem;
+  min-width: 12rem;
   top: 3.6rem;
   z-index: 1000
 }
 
 @media (min-width: 992px) {
   .sidebar {
-    min-width: 15rem;
     top: 4.1rem;
     height: calc(100vh - 3.6rem - 1rem);
   }
