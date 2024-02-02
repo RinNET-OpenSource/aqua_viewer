@@ -21,7 +21,7 @@
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
 
-<input type="text" class="form-control mb-2" placeholder="Filter" [(ngModel)]="searchTerm" (input)="filterSongs()">
+<input type="text" #search class="form-control mb-2" placeholder="Filter" (input)="filterSongs(search.value)">
 
 <div class="song-container card btn mb-1 text-start"
      *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">

@@ -23,7 +23,6 @@ export class V2SonglistComponent implements OnInit {
   host = environment.assetsHost;
   currentPage: 1;
   totalElements = 0;
-  searchTerm = '';
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -58,13 +57,13 @@ export class V2SonglistComponent implements OnInit {
     this.router.navigate(['chuni/v2/song'], {queryParams: {page}});
   }
 
-  filterSongs() {
-    if (this.searchTerm) {
-      console.log(this.searchTerm);
+  filterSongs(searchTerm: string) {
+    if (searchTerm) {
+      console.log(searchTerm);
       this.filteredSongList = this.songList.filter(song =>
       {
-        const lowerSearchTerm = this.searchTerm.toLowerCase();
-        const sameId = song.musicId === Number(this.searchTerm);
+        const lowerSearchTerm = searchTerm.toLowerCase();
+        const sameId = song.musicId === Number(searchTerm);
         const includesName = song.name.toLowerCase().includes(lowerSearchTerm);
         // const includesSortName = song.sotrName.toLowerCase().includes(lowerSearchTerm);
         const includesArtist = song.artistName.toLowerCase().includes(lowerSearchTerm);
