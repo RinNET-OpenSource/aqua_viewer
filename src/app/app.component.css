@@ -111,3 +111,24 @@ mat-toolbar {
   src: url("../assets/fonts/SEGA_Humming v2-B.ttf") format("truetype");
 }
 
+.progress{
+  border-radius: 0;
+  height: 2px;
+}
+
+.progress-bar.indeterminate-front {
+  position: relative;
+  animation: progress-indeterminate 3s ease-in-out infinite;
+  animation-delay: -.5s !important;
+}
+
+.progress-bar.indeterminate-back {
+  position: relative;
+  animation: progress-indeterminate 3s ease-out infinite;
+  animation-delay: 1s !important;
+}
+
+@keyframes progress-indeterminate {
+  from { left: -25%; width: 25%; }
+  to { left: 150%; width: 100%;}
+}
