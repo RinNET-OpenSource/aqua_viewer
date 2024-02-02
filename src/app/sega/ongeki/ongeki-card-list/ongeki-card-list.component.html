@@ -20,7 +20,7 @@
   </pagination-template>
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
-<input type="text" #search class="form-control mb-2" placeholder="Filter" (input)="filterCards(search.value)">
+<input type="text" #search [disabled]="!ready" class="form-control mb-2" [placeholder]="ready ? 'Filter' : 'Preparing data...'" (input)="filterCards(search.value)">
 <div class="card mb-2 text-start"
      *ngFor="let item of filteredCardList | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
   <div class="card-body">

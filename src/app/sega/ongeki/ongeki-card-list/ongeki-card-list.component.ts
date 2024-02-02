@@ -8,6 +8,8 @@ import {OngekiCard} from '../model/OngekiCard';
 import {OngekiSkill} from '../model/OngekiSkill';
 import {OngekiCharacter} from '../model/OngekiCharacter';
 import {ActivatedRoute, Router} from '@angular/router';
+import {forkJoin, lastValueFrom} from 'rxjs';
+import {map, take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-ongeki-card-list',
@@ -21,6 +23,7 @@ export class OngekiCardListComponent implements OnInit {
   filteredCardList: OngekiCard[] = [];
   currentPage = 1;
   totalElements = 0;
+  ready = false;
 
   constructor(
     private api: ApiService,
@@ -32,18 +35,28 @@ export class OngekiCardListComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.dbService.getAll<OngekiCard>('ongekiCard').subscribe(
-      x => {
-        x.forEach(y => {
-          this.dbService.getByID<OngekiCharacter>('ongekiCharacter', y.charaId).subscribe(z => y.characterInfo = z);
-          this.dbService.getByID<OngekiSkill>('ongekiSkill', y.skillId).subscribe(z => y.skillInfo = z);
-          this.dbService.getByID<OngekiSkill>('ongekiSkill', y.choKaikaSkillId).subscribe(z => y.choKaikaSkillInfo = z);
-        });
-        this.cardList = x;
-        this.filteredCardList = [...this.cardList];
-      }
-    );
+  async ngOnInit() {
+    this.cardList = await lastValueFrom(this.dbService.getAll<OngekiCard>('ongekiCard'));
+    this.filteredCardList = [...this.cardList];
+    const observers = this.cardList.map(card => {
+      const character$ = this.dbService.getByID<OngekiCharacter>('ongekiCharacter', card.charaId).pipe(take(1));
+      const skill$ = this.dbService.getByID<OngekiSkill>('ongekiSkill', card.skillId).pipe(take(1));
+      const choKaikaSkill$ = this.dbService.getByID<OngekiSkill>('ongekiSkill', card.choKaikaSkillId).pipe(take(1));
+      return forkJoin([character$, skill$, choKaikaSkill$]).pipe(
+        map(([character, skill, choKaikaSkill]) => {
+          card.characterInfo = character;
+          card.skillInfo = skill;
+          card.choKaikaSkillInfo = choKaikaSkill;
+          return card;
+        })
+      );
+    });
+    forkJoin(observers).subscribe(cards => {
+      this.cardList = cards;
+      this.filteredCardList = [...this.cardList];
+      console.log('ok');
+      this.ready = true;
+    });
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
         this.currentPage = data.page;
@@ -68,8 +81,7 @@ export class OngekiCardListComponent implements OnInit {
 
   filterCards(searchTerm: string) {
     if (searchTerm) {
-      this.filteredCardList = this.cardList.filter(card =>
-      {
+      this.filteredCardList = this.cardList.filter(card => {
         const lowerSearchTerm = searchTerm.toLowerCase();
         const sameId = card.id === Number(searchTerm);
         const includesName = card.name.toLowerCase().includes(lowerSearchTerm);
