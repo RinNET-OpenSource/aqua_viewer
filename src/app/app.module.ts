@@ -54,7 +54,7 @@ import {
   bootstrapTrash,
   bootstrapPencilSquare,
   bootstrapDatabase,
-  bootstrapSunFill,
+  bootstrapSun,
   bootstrapStars
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -80,14 +80,14 @@ export function initializeApp(translateService: TranslateService) {
     let userLang = 'en';
 
     const browserLangs = navigator.languages || [navigator.language];
-    for (let lang of browserLangs) {
+    for (const lang of browserLangs) {
       const baseLang = lang.split('-')[0];
       if (supportedLangs.includes(baseLang)) {
         userLang = baseLang;
         break;
       }
     }
-    
+
     return translateService.use(userLang).toPromise();
   };
 }
@@ -146,7 +146,7 @@ export function initializeApp(translateService: TranslateService) {
       bootstrapTrash,
       bootstrapPencilSquare,
       bootstrapDatabase,
-      bootstrapSunFill,
+      bootstrapSun,
       bootstrapStars
     }),
     TranslateModule.forRoot({

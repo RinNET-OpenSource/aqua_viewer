@@ -3,28 +3,21 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
-  height: 53vh;
 }
 
 .logo {
   position: absolute;
-  width: 219px;
-  height: 216px;
-  max-width: 15rem;
-  max-height: 25rem;
   z-index: 99;
-  top: 21%;
-  right: 3%;
+  max-height: 100%;
+  max-width: 100%;
+  top: 0;
+  transform: translate(-50%, 0);
+  left: 50%;
+  height: 100%;
 }
 
 .logo-bg {
   background: url('src/assets/turtle.svg') no-repeat center center / 100%;
-}
-
-.logo-img {
-  position: absolute;
-  z-index: 99;
-  top: -1%;
 }
 
 .logo-bottom {
@@ -50,7 +43,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  mask: url('src/assets/turtle.svg') center/cover;
+  mask: url('src/assets/turtle.svg') center/contain;
 }
 
 .logo-img_fault::after {
@@ -63,11 +56,8 @@
   background-color: #00f;
 }
 
-@media only screen and (max-width: 766px) {
+@media only screen and (max-width: 575px) {
   .logo-container {
-    height: 13rem !important;
-  }
-  .logo {
-    top: 0 !important;
+    height: 10rem !important;
   }
 }
