@@ -18,7 +18,6 @@ export class OngekiSongListComponent implements OnInit {
   filteredSongList: OngekiMusic[];
   currentPage = 1;
   totalElements = 0;
-  searchTerm = '';
   host = environment.assetsHost;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -49,12 +48,13 @@ export class OngekiSongListComponent implements OnInit {
   pageChanged(page: number) {
     this.router.navigate(['ongeki/song'], {queryParams: {page}});
   }
-  filterSongs() {
-    if (this.searchTerm) {
+
+  filterSongs(searchTerm: string) {
+    if (searchTerm) {
       this.filteredSongList = this.songList.filter(song =>
       {
-        const lowerSearchTerm = this.searchTerm.toLowerCase();
-        const sameId = song.id === Number(this.searchTerm);
+        const lowerSearchTerm = searchTerm.toLowerCase();
+        const sameId = song.id === Number(searchTerm);
         const includesName = song.name.toLowerCase().includes(lowerSearchTerm);
         const includesSortName = song.sortName.toLowerCase().includes(lowerSearchTerm);
         const includesArtist = song.artistName.toLowerCase().includes(lowerSearchTerm);
