@@ -33,7 +33,7 @@
   transform: rotateX(var(--rotator-rotate-x)) rotateY(calc(var(--rotator-global-rotate-y) + var(--rotator-rotate-y)));
   transform-style: preserve-3d;
   border-radius: 3%;
-  box-shadow: 0px 0px 20px -5px rgb(128, 128, 128), 0 0px 15px -5px rgb(128, 128, 128);
+  box-shadow: 0px 0px 10px -5px rgb(128, 128, 128), 0 0px 15px -5px rgb(128, 128, 128);
 }
 
 .cards-col .card-holo::after {
