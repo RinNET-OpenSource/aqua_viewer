@@ -146,6 +146,22 @@
       "Details" : "详细",
       "Ranking" : "排名"
     },
+    "CardPage" : {
+      "Title" : "卡片",
+      "Gallery" : "全部",
+      "Gacha" : "抽取",
+      "Holo" : "闪膜",
+      "Elements" : "信息",
+      "Details" : "卡片信息",
+      "Character" : "角色",
+      "NickName" : "称号",
+      "Level" : "等级",
+      "Attack" : "攻击力",
+      "Skill" : "技能",
+      "Info" : "详情",
+      "Kaika" : "解花",
+      "ChoKaika" : "超解花"
+    },
     "RivalPage" : {
       "Title" : "好友",
       "IDInputPlaceholder" : "好友ID",

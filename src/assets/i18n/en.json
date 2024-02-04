@@ -146,6 +146,20 @@
       "Details" : "Details",
       "Ranking" : "Ranking"
     },
+    "CardPage" : {
+      "Title" : "Card",
+      "Gallery" : "Gallery",
+      "Gacha" : "Gacha",
+      "Holo" : "Holo",
+      "Elements" : "Elements",
+      "Details" : "Details",
+      "Character" : "Character",
+      "NickName" : "NickName",
+      "Level" : "Level",
+      "Attack" : "Attack",
+      "Kaika" : "Kaika",
+      "ChoKaika" : "ChoKaika"
+    },
     "RivalPage" : {
       "Title" : "Rival",
       "IDInputPlaceholder" : "Rival Card ID",
