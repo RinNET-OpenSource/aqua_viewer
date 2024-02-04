@@ -11,6 +11,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Account, AuthenticationService} from '../auth/authentication.service';
 import {HttpParams} from '@angular/common/http';
 import {StatusCode} from '../status-code';
+import {Router} from '@angular/router';
+import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
+import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +31,8 @@ export class DashboardComponent implements OnInit {
   loadingDatabase = true;
   checkingUpdate = true;
   dbVersion = 0;
+
+  protected ongekiProfile;
 
   constructor(
     private dbService: NgxIndexedDBService,
@@ -58,6 +63,12 @@ export class DashboardComponent implements OnInit {
     this.preload.dbVersionObservable.subscribe(dbVersion => {
       this.dbVersion = dbVersion;
     });
+
+    const aimeId = this.authenticationService.currentAccountValue.currentCard.extId;
+  }
+
+  getOngekiProfile(){
+
   }
 
   addStatusSubscribe(observable: Observable<string>){

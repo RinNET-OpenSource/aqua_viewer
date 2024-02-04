@@ -1,3 +1,4 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
 .app-container {
   display: flex;
   flex-direction: column;
@@ -94,7 +95,7 @@ mat-toolbar {
 
 .sidebar {
   grid-area: sidebar;
-  min-width: 12rem;
+  min-width: 14rem;
   top: 3.6rem;
   z-index: 1000
 }
@@ -130,5 +131,5 @@ mat-toolbar {
 
 @keyframes progress-indeterminate {
   from { left: -25%; width: 25%; }
-  to { left: 150%; width: 100%;}
+  to { left: 150%; width: 150%;}
 }

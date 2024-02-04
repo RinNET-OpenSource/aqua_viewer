@@ -15,6 +15,7 @@ import {
   bootstrapCheckLg,
   bootstrapXLg
 } from '@ng-icons/bootstrap-icons';
+import { AppRoutingModule } from '../app-routing.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -22,6 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   imports: [
+    AppRoutingModule,
     CommonModule,
     MatCardModule,
     MatButtonModule,
