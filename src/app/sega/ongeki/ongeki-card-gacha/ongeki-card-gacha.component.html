@@ -1,12 +1,6 @@
 <h3 class="mat-display-1">Card Gacha</h3>
 
 <mat-card *ngIf="!isStarted">
-  <mat-card-content>
-    <p>This is still work in progress.</p>
-  </mat-card-content>
-</mat-card>
-
-<mat-card *ngIf="!isStarted">
   <mat-card-title>
     Regular Gacha
   </mat-card-title>
@@ -17,8 +11,8 @@
       <button (click)="gacha(11)" mat-raised-button>Gacha<br>11x</button>
     </div>
     <p>Probability:
-      R: 70%, 
-      SR: 25%, 
+      R: 70%,
+      SR: 25%,
       SSR: 5%
     </p>
   </mat-card-content>
@@ -40,9 +34,6 @@
       </ng-container>
       </tbody>
     </table>
-    <p *ngIf="cardResultList.length > 0">
-      {{submitSuccessful}} card(s) sucessfully saved ({{cardResultList.length - submitSuccessful}} failed)
-    </p>
   </mat-card-content>
   <mat-card-actions>
     <button (click)="goBack()" mat-raised-button>Go back</button>
@@ -52,10 +43,10 @@
 <ng-template #resultRow let-item="item">
   <tr>
     <td>
-      {{item.card.rarity}}
+      {{item.rarity}}
     </td>
     <td>
-      {{item.card.name}}
+      {{item.name}}
     </td>
   </tr>
 </ng-template>
