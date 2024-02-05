@@ -7,6 +7,8 @@ import {ApiService} from '../../../../api.service';
 import {MessageService} from '../../../../message.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../../../../environments/environment';
+import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-score-ranking.component';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class V2SonglistComponent implements OnInit {
     private messageService: MessageService,
     public router: Router,
     public route: ActivatedRoute,
+    private offcanvasService: NgbOffcanvas,
   ) {
   }
 
@@ -72,5 +75,13 @@ export class V2SonglistComponent implements OnInit {
     } else {
       this.filteredSongList = [...this.songList];
     }
+  }
+
+  showDetail(music: ChusanMusic) {
+    const offcanvasRef = this.offcanvasService.open(V2SongScoreRankingComponent, {
+      position: 'end',
+      scroll: false,
+    });
+    offcanvasRef.componentInstance.music = music;
   }
 }

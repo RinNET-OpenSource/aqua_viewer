@@ -23,7 +23,7 @@
 
 <input type="text" #search class="form-control mb-2" placeholder="Filter" (input)="filterSongs(search.value)">
 
-<div class="song-container card btn mb-1 text-start"
+<div class="song-container card btn mb-1 text-start" (click)="showDetail(item)"
      *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
   <div class="song-info card-body hstack gap-2">
     <div class="jacket-container ratio ratio-1x1">

@@ -41,44 +41,46 @@ import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {HttpClient } from '@angular/common/http';
 import { V2SongScoreRankingComponent } from './v2-song-score-ranking/v2-song-score-ranking.component';
+import {NgIcon} from '@ng-icons/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
   }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        V2Routes,
-        MatFormFieldModule,
-        MatCardModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        MatInputModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        MatMenuModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatDialogModule,
-        MatSnackBarModule,
-        MatGridListModule,
-        FlexLayoutModule,
-        NgxPaginationModule,
-        ToolsModule,
-        TranslateModule.forChild({
-            loader: {
-              provide: TranslateLoader,
-              useFactory: HttpLoaderFactory,
-              deps: [HttpClient]
-            }
-          })
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    V2Routes,
+    MatFormFieldModule,
+    MatCardModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatGridListModule,
+    FlexLayoutModule,
+    NgxPaginationModule,
+    ToolsModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    NgIcon
+  ],
     declarations: [
         V2ProfileComponent,
         V2RatingComponent,
