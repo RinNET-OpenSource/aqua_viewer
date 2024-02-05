@@ -2,5 +2,5 @@ export const environment = {
   apiServer: '/',
   production: true,
   enableImages: true,
-  assetsHost: ''
+  assetsHost: 'https://rinnet.stehp.cn/'
 };
