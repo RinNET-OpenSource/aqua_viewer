@@ -27,7 +27,7 @@
     </div>
     <div *ngIf="!loadingAnnouncement" class="my-1">
       <div class="small fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
-      <a class="fs-5 announcements-title" href="#">{{announcement.title}}</a>
+      <a class="fs-5 announcements-title" (click)="showAnnouncement(announcement)">{{announcement.title}}</a>
     </div>
   </div>
 </div>

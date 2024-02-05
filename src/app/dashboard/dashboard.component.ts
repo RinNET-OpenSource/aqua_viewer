@@ -14,6 +14,7 @@ import {StatusCode} from '../status-code';
 import {Router} from '@angular/router';
 import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
 import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
+import {AnnouncementComponent} from './announcement/announcement.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
     protected authenticationService: AuthenticationService,
     private api: ApiService,
     private messageService: MessageService,
+    private modalService: NgbModal,
   ) {
     this.loadAnnouncements();
   }
@@ -139,6 +141,10 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  showAnnouncement(announcement: Announcement) {
+    const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true});
+    modalRef.componentInstance.announcement = announcement; // 怎么全是any，受不了
+  }
 }
 
 export interface Announcement {

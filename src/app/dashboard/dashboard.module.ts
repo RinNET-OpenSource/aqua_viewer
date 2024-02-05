@@ -16,6 +16,7 @@ import {
   bootstrapXLg
 } from '@ng-icons/bootstrap-icons';
 import { AppRoutingModule } from '../app-routing.module';
+import { AnnouncementComponent } from './announcement/announcement.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -44,7 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   exports: [],
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, AnnouncementComponent],
   providers: [],
 })
 export class DashboardModule {
