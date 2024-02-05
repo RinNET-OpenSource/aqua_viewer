@@ -93,7 +93,7 @@
             </div>
           </div>
         </ng-template>
-        <ng-container *ngIf="music.levels['3'].levelDecimal != 0 && songData">
+        <ng-container>
           <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 0}"></ng-container>
           <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 1}"></ng-container>
           <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 2}"></ng-container>
