@@ -16,7 +16,7 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
   colorMode: string;
@@ -164,7 +164,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private messageService: MessageService,
     public toastService: ToastService,
     private translate: TranslateService,
-    private renderer: Renderer2, 
+    private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.account = authenticationService.currentAccountValue;
@@ -286,14 +286,14 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     this.renderer.setAttribute(body, 'data-bs-theme', this.colorMode);
   }
 
-  toggleColorMode(){    
+  toggleColorMode(){
     if (this.colorMode === 'dark') {
       this.colorMode = 'light';
     } else {
       this.colorMode = 'dark';
     }
     localStorage.setItem('colorMode', this.colorMode);
-    
+
     const body = this.document.body;
     this.renderer.setAttribute(body, 'data-bs-theme', this.colorMode);
   }

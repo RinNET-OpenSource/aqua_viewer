@@ -1,5 +1,5 @@
 <div class="app-container">
-  <nav ngbNav #nav="ngbNav" class="app-navbar navbar navbar-expand-lg position-fixed shadow-sm w-100">
+  <nav ngbNav #nav="ngbNav" class="app-navbar navbar navbar-expand-lg position-fixed shadow w-100">
     <div class="container-xxl">
       <button *ngIf="account" (click)="showSidebar()" class="navbar-toggler"
               style="--bs-navbar-toggler-focus-width: 0; --bs-navbar-toggler-border-color: transparent;font-size: 1.2rem;"
@@ -27,7 +27,7 @@
                 type="button"
                 (click)="toggleColorMode()">
                 <ng-container [ngSwitch]="colorMode">
-                  <ng-icon *ngSwitchCase="'light'" name="bootstrap-sun-fill"></ng-icon>
+                  <ng-icon *ngSwitchCase="'light'" name="bootstrap-sun"></ng-icon>
                   <ng-icon *ngSwitchCase="'dark'" name="bootstrap-stars"></ng-icon>
                 </ng-container>
         </button>
@@ -53,7 +53,6 @@
         <div class="progress-bar indeterminate-back" role="progressbar"></div>
       </div>
     </div>
-<!--    <mat-progress-bar class="position-fixed fixed-top" style="margin-top: 3.6rem" mode="indeterminate"></mat-progress-bar>-->
     <div class="d-lg-grid container-xxl" style="grid-template-areas: 'sidebar main'; grid-template-columns: auto 1fr">
       <aside #sidebar *ngIf="account" class="sidebar d-block overflow-y-auto position-sticky" style="">
         <div id="sidebar" class="offcanvas-lg offcanvas-start" tabindex="-1">
@@ -66,7 +65,7 @@
             <nav>
               <ul class="list-unstyled mt-2">
                 <li>
-                  <ul class="list-unstyled fw-normal pb-2 small">
+                  <ul class="list-unstyled pb-2 ps-3 small">
                     <li class="pb-2">
                       <a class="link-btn rounded" [class.active]="isActive('/dashboard')" (click)="navigateTo('/dashboard')">{{'App.Sidebar.Dashboard' | translate}}</a>
                     </li>
@@ -80,24 +79,24 @@
                   </ul>
                 </li>
                 <li *ngIf="filterItems(ongekiMenu).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2">{{'Common.Ongeki' | translate}}</strong>
-                  <ul class="list-unstyled fw-normal pb-2 small">
+                  <strong class="d-flex w-100 fw-semibold mb-2 ps-3">{{'Common.Ongeki' | translate}}</strong>
+                  <ul class="list-unstyled pb-2 ps-3 small">
                     <li *ngFor="let item of filterItems(ongekiMenu)" class="pb-2">
                       <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
                     </li>
                   </ul>
                 </li>
                 <li *ngIf="filterItems(v2Menus).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2">{{'Common.ChuniV2' | translate}}</strong>
-                  <ul class="list-unstyled fw-normal pb-2 small">
+                  <strong class="d-flex w-100 fw-semibold mb-2 ps-3">{{'Common.ChuniV2' | translate}}</strong>
+                  <ul class="list-unstyled pb-2 ps-3 small">
                     <li *ngFor="let item of filterItems(v2Menus)" class="pb-2">
                       <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
                     </li>
                   </ul>
                 </li>
                 <li *ngIf="filterItems(mai2Menus).length != 0">
-                  <strong class="d-flex w-100 fw-semibold mb-2" >{{'Common.Mai2' | translate}}</strong>
-                  <ul class="list-unstyled fw-normal pb-2 small">
+                  <strong class="d-flex w-100 fw-semibold mb-2 ps-3" >{{'Common.Mai2' | translate}}</strong>
+                  <ul class="list-unstyled pb-2 ps-3 small">
                     <li *ngFor="let item of filterItems(mai2Menus)" class="pb-2">
                       <a class="link-btn rounded " [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
                     </li>
@@ -108,7 +107,7 @@
           </div>
         </div>
       </aside>
-      <main class="order-1 ms-0 ms-lg-2 ms-xxl-4" style="grid-area: main;min-height: 100vh;margin-top: 4.6rem">
+      <main class="order-1 ms-0 ms-lg-3 me-lg-2" style="grid-area: main;min-height: 100vh;margin-top: 4.6rem">
         <div>
           <router-outlet></router-outlet>
         </div>

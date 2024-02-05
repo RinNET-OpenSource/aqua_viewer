@@ -1,4 +1,4 @@
-<h3 class="mb-2">Card</h3>
+<h3 class="mb-2">{{'Ongeki.CardPage.Title' | translate}}</h3>
 
 <ng-template #pagination>
   <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
@@ -20,16 +20,16 @@
   </pagination-template>
 </ng-template>
 <div class="d-flex gap-2 mb-2">
-  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="all">Gallery</button>
-  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="gacha">Gacha</button>
+  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="all">{{'Ongeki.CardPage.Gallery' | translate}}</button>
+  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="gacha">{{'Ongeki.CardPage.Gacha' | translate}}</button>
 </div>
 <div class="form-check form-check-inline form-switch">
   <input class="form-check-input" type="checkbox" role="switch" id="holeSwitch" [(ngModel)]="showHolo">
-  <label class="form-check-label" for="holeSwitch">Holo</label>
+  <label class="form-check-label" for="holeSwitch">{{'Ongeki.CardPage.Holo' | translate}}</label>
 </div>
 <div class="form-check form-check-inline form-switch">
   <input class="form-check-input" type="checkbox" role="switch" id="elementsSwitch" [(ngModel)]="showElements">
-  <label class="form-check-label" for="elementsSwitch">Elements</label>
+  <label class="form-check-label" for="elementsSwitch">{{'Ongeki.CardPage.Elements' | translate}}</label>
 </div>
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
@@ -46,7 +46,7 @@
       <div class="w-100">
         <ng-template #content let-modal>
           <div class="modal-header">
-            <h5 class="modal-title">Details</h5>
+            <h5 class="modal-title">{{'Ongeki.CardPage.Details' | translate}}</h5>
             <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
           </div>
           <div class="modal-body">
@@ -57,36 +57,36 @@
                 <td>{{item.cardId}}</td>
               </tr>
               <tr *ngIf="item.cardInfo">
-                <td>Character</td>
+                <td>{{'Ongeki.CardPage.Character' | translate}}</td>
                 <td>{{getCardName(item.cardInfo.name, item.cardInfo.rarity, item.cardInfo.nickName)}}</td>
               </tr>
               <tr *ngIf="item.cardInfo">
-                <td>NickName</td>
+                <td>{{'Ongeki.CardPage.NickName' | translate}}</td>
                 <td>{{item.cardInfo.nickName}}</td>
               </tr>
               <tr>
-                <td>Level</td>
+                <td>{{'Ongeki.CardPage.Level' | translate}}</td>
                 <td>{{item.level}}/{{item.maxLevel}}</td>
               </tr>
               <tr *ngIf="item.cardInfo">
-                <td>Attack</td>
+                <td>{{'Ongeki.CardPage.Attack' | translate}}</td>
                 <td>{{calculateAtk(item.level, convertToNumberArray(item.cardInfo.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0')}}</td>
               </tr>
               <tr>
-                <td>Skill</td>
+                <td>{{'Ongeki.CardPage.Skill' | translate}}</td>
                 <td>{{item.skillInfo?item.skillInfo.name:item.skillId}}</td>
               </tr>
               <tr *ngIf="item.skillInfo">
-                <td>Info</td>
+                <td>{{'Ongeki.CardPage.Info' | translate}}</td>
                 <td>{{item.skillInfo.info}}</td>
               </tr>
               </tbody>
             </table>
             <div class="hstack gap-1 float-end">
               <button class="btn btn-sm btn-outline-secondary" (click)="kaika(item.cardId, 'kaika');modal.dismiss()"
-                      [disabled]="item.kaikaDate != '0000-00-00 00:00:00.0'">Kaika</button>
+                      [disabled]="item.kaikaDate != '0000-00-00 00:00:00.0'">{{'Ongeki.CardPage.Kaika' | translate}}</button>
               <button class="btn btn-sm btn-outline-secondary" (click)="kaika(item.cardId, 'choKaika');modal.dismiss()"
-                      [disabled]="item.choKaikaDate != '0000-00-00 00:00:00.0'">ChoKaika</button>
+                      [disabled]="item.choKaikaDate != '0000-00-00 00:00:00.0'">{{'Ongeki.CardPage.ChoKaika' | translate}}</button>
             </div>
           </div>
 

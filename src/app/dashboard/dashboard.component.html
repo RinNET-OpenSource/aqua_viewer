@@ -12,10 +12,9 @@
   </div>
 </div> -->
 
-<h5 class="fw-bold hstack mb-3">
-  <ng-icon name="bootstrap-bell" class="d-flex align-items-center me-2"></ng-icon>
+<h6 class="fw-bold mb-3">
   {{'DashboardPage.LatestAnnouncement' | translate}}
-</h5>
+</h6>
 <div class="card mb-3">
   <div class="card-body py-2">
     <div *ngIf="loadingAnnouncement" class="placeholder-glow my-1">
@@ -33,10 +32,34 @@
   </div>
 </div>
 
-<h5 class="fw-bold hstack mb-3">
-  <ng-icon name="bootstrap-database" class="d-flex align-items-center me-2"></ng-icon>
+<!-- <h6 class="fw-bold mb-3">
+  账号
+</h6>
+<ng-container *ngIf="authenticationService.currentAccountValue.games.includes('ongeki')">
+  <div class="card mb-3">
+    <div *ngIf="!ongekiProfile" class="card-body">
+      O.N.G.E.K.I.
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="authenticationService.currentAccountValue.games.includes('chusan')">
+  <div class="card mb-3">
+    <div class="card-body">
+      CHUNiTHM NEW
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="authenticationService.currentAccountValue.games.includes('maimai2')">
+  <div class="card mb-3">
+    <div class="card-body">
+      Maimai DX
+    </div>
+  </div>
+</ng-container> -->
+
+<h6 class="fw-bold mb-3">
   {{'DashboardPage.GameData' | translate}}
-</h5>
+</h6>
 <div class="card mb-3">
   <div class="card-body">
     <div *ngIf="checkingUpdate || (loadingDatabase && downloadingPreloadTaskCount == 0)" class="mb-2">
