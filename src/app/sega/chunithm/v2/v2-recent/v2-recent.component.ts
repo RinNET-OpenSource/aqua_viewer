@@ -9,6 +9,8 @@ import {ChusanMusic, Difficulty} from '../model/ChusanMusic';
 import {environment} from '../../../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-score-ranking.component';
 
 @Component({
   selector: 'app-v2-recent',
@@ -32,7 +34,8 @@ export class V2RecentComponent implements OnInit {
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    private offcanvasService: NgbOffcanvas,
   ) {
   }
 
@@ -64,4 +67,11 @@ export class V2RecentComponent implements OnInit {
     );
   }
 
+  showDetail(music: ChusanMusic) {
+    const offcanvasRef = this.offcanvasService.open(V2SongScoreRankingComponent, {
+      position: 'end',
+      scroll: false,
+    });
+    offcanvasRef.componentInstance.music = music;
+  }
 }
