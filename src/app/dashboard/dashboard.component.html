@@ -32,30 +32,44 @@
   </div>
 </div>
 
-<!-- <h6 class="fw-bold mb-3">
+<h6 class="fw-bold mb-3">
   账号
 </h6>
-<ng-container *ngIf="authenticationService.currentAccountValue.games.includes('ongeki')">
-  <div class="card mb-3">
-    <div *ngIf="!ongekiProfile" class="card-body">
-      O.N.G.E.K.I.
+<ng-container *ngIf="loadingProfile">
+  <div class="card mb-3 placeholder-glow">
+    <div class="card-body">
+      <span class="placeholder" style="width: 7em;"></span>
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="authenticationService.currentAccountValue.games.includes('chusan')">
-  <div class="card mb-3">
+<ng-container *ngIf="!loadingProfile && !ongekiProfile && !chusanProfile && !mai2Profile">
+  <div class="card mb-3 placeholder-glow">
     <div class="card-body">
-      CHUNiTHM NEW
+      你没有玩过游戏
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="authenticationService.currentAccountValue.games.includes('maimai2')">
+<ng-container *ngIf="ongekiProfile">
   <div class="card mb-3">
     <div class="card-body">
-      Maimai DX
+      {{'Common.Ongeki' | translate}}
     </div>
   </div>
-</ng-container> -->
+</ng-container>
+<ng-container *ngIf="chusanProfile">
+  <div class="card mb-3">
+    <div class="card-body">
+      {{'Common.ChuniV2' | translate}}
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="mai2Profile">
+  <div class="card mb-3">
+    <div class="card-body">
+      {{'Common.Mai2' | translate}}
+    </div>
+  </div>
+</ng-container>
 
 <h6 class="fw-bold mb-3">
   {{'DashboardPage.GameData' | translate}}

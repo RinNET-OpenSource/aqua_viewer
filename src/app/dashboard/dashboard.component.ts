@@ -29,10 +29,13 @@ export class DashboardComponent implements OnInit {
   announcement: Announcement;
   loadingAnnouncement = true;
   loadingDatabase = true;
+  loadingProfile = true;
   checkingUpdate = true;
   dbVersion = 0;
 
   protected ongekiProfile;
+  protected chusanProfile;
+  protected mai2Profile;
 
   constructor(
     private dbService: NgxIndexedDBService,
@@ -64,11 +67,29 @@ export class DashboardComponent implements OnInit {
       this.dbVersion = dbVersion;
     });
 
-    const aimeId = this.authenticationService.currentAccountValue.currentCard.extId;
+    this.getProfiles();
   }
 
-  getOngekiProfile(){
-
+  getProfiles(){
+    this.api.get('api/user/profiles').subscribe(
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            this.chusanProfile = resp.data.chusan;
+            this.ongekiProfile = resp.data.ongeki;
+            this.mai2Profile = resp.data.maimai2;
+          }
+          else{
+            this.messageService.notice(resp.status.message);
+          }
+          this.loadingProfile = false;
+        }
+      },
+      error => {
+        this.messageService.notice(error);
+        this.loadingProfile = false;
+      });
   }
 
   addStatusSubscribe(observable: Observable<string>){
@@ -105,11 +126,11 @@ export class DashboardComponent implements OnInit {
               ...resp.data,
               expirationDate: new Date(resp.data.expirationDate)
             }
-            this.loadingAnnouncement = false;
           }
           else{
             this.messageService.notice(resp.status.message);
           }
+          this.loadingAnnouncement = false;
         }
       },
       error => {
