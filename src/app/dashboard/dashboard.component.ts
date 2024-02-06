@@ -144,7 +144,7 @@ export class DashboardComponent implements OnInit {
 
   showAnnouncement(announcement: Announcement) {
     const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true});
-    modalRef.componentInstance.announcement = announcement; // 怎么全是any，受不了
+    modalRef.componentInstance.announcement = announcement;
   }
 }
 

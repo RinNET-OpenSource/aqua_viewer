@@ -41,7 +41,10 @@
     "Reload" : "Reload",
     "Level" : "Level",
     "BattlePoint" : "BattlePoint",
-    "Rating" : "Rating"
+    "Rating" : "Rating",
+    "AnnouncementModal" : {
+      "Title" : "Announcement"
+    }
   },
   "HomePage": {
     "Title": "Home",

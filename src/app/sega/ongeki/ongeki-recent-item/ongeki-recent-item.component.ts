@@ -37,13 +37,10 @@ export class OngekiRecentItemComponent implements OnInit {
   }
 
   showDetail(music: OngekiMusic) {
-    this.modalService.dismissAll();
-    setTimeout(() => {
-      const offcanvasRef = this.offcanvasService.open(OngekiSongScoreRankingComponent, {
-        position: 'end',
-        scroll: false,
-      });
-      offcanvasRef.componentInstance.music = music;
-    }, 500);
+    const offcanvasRef = this.offcanvasService.open(OngekiSongScoreRankingComponent, {
+      position: 'end',
+      scroll: false,
+    });
+    offcanvasRef.componentInstance.music = music;
   }
 }

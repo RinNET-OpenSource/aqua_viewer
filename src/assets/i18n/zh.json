@@ -41,7 +41,10 @@
     "Reload" : "重新加载",
     "Level" : "等级",
     "BattlePoint" : "战斗得分",
-    "Rating" : "评级"
+    "Rating" : "评级",
+    "AnnouncementModal" : {
+      "Title" : "公告"
+    }
   },
   "HomePage": {
     "Title": "主页",

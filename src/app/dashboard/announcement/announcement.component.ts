@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {Announcement} from '../dashboard.component';
 import {marked} from 'marked';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-announcement',
@@ -10,7 +11,9 @@ import {marked} from 'marked';
 export class AnnouncementComponent {
   @Input() announcement: Announcement;
   @ViewChild('content') set div(div: ElementRef<HTMLDivElement>) {
-    const html: string = marked.parse(this.announcement.content) as string; // sb
+    const html: string = marked.parse(this.announcement.content) as string;
     div.nativeElement.innerHTML = html;
   }
+
+  constructor(public activeModal: NgbActiveModal) {}
 }
