@@ -42,6 +42,8 @@
     "Level" : "Level",
     "BattlePoint" : "BattlePoint",
     "Rating" : "Rating",
+    "OverPower" : "OverPower",
+    "LastPlay" : "Last play",
     "AnnouncementModal" : {
       "Title" : "Announcement"
     }

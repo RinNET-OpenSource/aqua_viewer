@@ -42,6 +42,8 @@
     "Level" : "等级",
     "BattlePoint" : "战斗得分",
     "Rating" : "评级",
+    "OverPower" : "完成度",
+    "LastPlay" : "上次游玩",
     "AnnouncementModal" : {
       "Title" : "公告"
     }

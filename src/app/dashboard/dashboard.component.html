@@ -41,7 +41,7 @@
       <span class="placeholder" style="width: 6em;"></span>
     </div>
     <div class="card-body p-2">
-      <div class="profile-container hstack">
+      <div class="profile-container hstack gap-2">
         <img class="placeholder profile-icon">
         <table class="profile-table">
           <tbody>
@@ -84,10 +84,10 @@
 </ng-container>
 <ng-container *ngIf="ongekiProfile">
   <div class="card mb-3">
-    <div class="card-header">{{ongekiProfile.userName | fullWidth}}</div>
+    <div class="card-header fw-bold">{{ongekiProfile.userName | fullWidth}}</div>
     <div class="card-body p-2">
-      <div class="profile-container hstack">
-        <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_100078.png">
+      <div class="profile-container hstack gap-2">
+        <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{ongekiProfile.cardId}}.png">
         <table class="profile-table">
           <tbody>
             <tr>
@@ -95,23 +95,53 @@
               <td>{{ongekiProfile.reincarnationNum * 100 + ongekiProfile.level}}</td>
             </tr>
             <tr>
-              <th>{{'DashboardPage.BattlePoint' | translate}}</th>
-              <td>{{ongekiProfile.battlePoint}}</td>
-            </tr>
-            <tr>
               <th>{{'DashboardPage.Rating' | translate}}</th>
               <td>{{ongekiProfile.playerRating / 100 | number: '1.2-2'}}</td>
+            </tr>
+            <tr>
+              <th>{{'DashboardPage.BattlePoint' | translate}}</th>
+              <td>{{ongekiProfile.battlePoint}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <div class="card-footer">
+      <div class="float-end fw-bold small">
+        {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(ongekiProfile.lastPlayDate | toDate).toLocaleString()}}
+      </div>
+    </div>
   </div>
 </ng-container>
+
 <ng-container *ngIf="chusanProfile">
   <div class="card mb-3">
-    <div class="card-body">
-      {{'Common.ChuniV2' | translate}}
+    <div class="card-header fw-bold">{{chusanProfile.userName | fullWidth}}</div>
+    <div class="card-body p-2">
+      <div class="profile-container hstack gap-2">
+        <img class="profile-icon" src="">
+        <table class="profile-table">
+          <tbody>
+          <tr>
+            <th>{{'DashboardPage.Level' | translate}}</th>
+            <td>{{chusanProfile.reincarnationNum * 100 + chusanProfile.level}}</td>
+          </tr>
+          <tr>
+            <th>{{'DashboardPage.Rating' | translate}}</th>
+            <td>{{chusanProfile.playerRating / 100 | number: '1.2-2'}}</td>
+          </tr>
+          <tr>
+            <th>{{'DashboardPage.OverPower' | translate}}</th>
+            <td>{{chusanProfile.overPowerRate/ 100}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="float-end fw-bold small">
+        {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(chusanProfile.lastPlayDate | toDate).toLocaleString()}}
+      </div>
     </div>
   </div>
 </ng-container>
