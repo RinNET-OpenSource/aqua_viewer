@@ -10,7 +10,7 @@ import {marked} from 'marked';
 export class AnnouncementComponent {
   @Input() announcement: Announcement;
   @ViewChild('content') set div(div: ElementRef<HTMLDivElement>) {
-    const html: string = marked.parse('# test \n 123 **test** *test* \n ## test2') as string; // sb
+    const html: string = marked.parse(this.announcement.content) as string; // sb
     div.nativeElement.innerHTML = html;
   }
 }
