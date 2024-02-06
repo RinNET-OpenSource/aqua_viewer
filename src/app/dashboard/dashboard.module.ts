@@ -17,36 +17,38 @@ import {
 } from '@ng-icons/bootstrap-icons';
 import { AppRoutingModule } from '../app-routing.module';
 import { AnnouncementComponent } from './announcement/announcement.component';
+import { ToolsModule } from "../util/tools.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  imports: [
-    AppRoutingModule,
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    NgForOf,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    NgIconsModule.withIcons({
-      bootstrapBell,
-      bootstrapCheckLg,
-      bootstrapXLg
-    })
-  ],
-  exports: [],
-  declarations: [DashboardComponent, AnnouncementComponent],
-  providers: [],
+    exports: [],
+    declarations: [DashboardComponent, AnnouncementComponent],
+    providers: [],
+    imports: [
+        AppRoutingModule,
+        CommonModule,
+        MatCardModule,
+        MatButtonModule,
+        NgForOf,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        NgIconsModule.withIcons({
+            bootstrapBell,
+            bootstrapCheckLg,
+            bootstrapXLg
+        }),
+        ToolsModule
+    ]
 })
 export class DashboardModule {
 }

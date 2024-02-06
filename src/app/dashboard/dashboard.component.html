@@ -33,12 +33,45 @@
 </div>
 
 <h6 class="fw-bold mb-3">
-  账号
+  {{'DashboardPage.Profiles' | translate}}
 </h6>
 <ng-container *ngIf="loadingProfile">
-  <div class="card mb-3 placeholder-glow">
-    <div class="card-body">
-      <span class="placeholder" style="width: 7em;"></span>
+  <div class="card mb-3 placeholder-wave">
+    <div class="card-header">
+      <span class="placeholder" style="width: 6em;"></span>
+    </div>
+    <div class="card-body p-2">
+      <div class="profile-container hstack">
+        <img class="placeholder profile-icon">
+        <table class="profile-table">
+          <tbody>
+            <tr>
+              <th>
+                <span class="placeholder" style="width: 3em;"></span>
+              </th>
+              <td>
+                <span class="placeholder" style="width: 2em;"></span>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <span class="placeholder" style="width: 4em;"></span>
+              </th>
+              <td>
+                <span class="placeholder" style="width: 5em;"></span>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <span class="placeholder" style="width: 3em;"></span>
+              </th>
+              <td>
+                <span class="placeholder" style="width: 3em;"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </ng-container>
@@ -51,8 +84,27 @@
 </ng-container>
 <ng-container *ngIf="ongekiProfile">
   <div class="card mb-3">
-    <div class="card-body">
-      {{'Common.Ongeki' | translate}}
+    <div class="card-header">{{ongekiProfile.userName | fullWidth}}</div>
+    <div class="card-body p-2">
+      <div class="profile-container hstack">
+        <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_100078.png">
+        <table class="profile-table">
+          <tbody>
+            <tr>
+              <th>{{'DashboardPage.Level' | translate}}</th>
+              <td>{{ongekiProfile.reincarnationNum * 100 + ongekiProfile.level}}</td>
+            </tr>
+            <tr>
+              <th>{{'DashboardPage.BattlePoint' | translate}}</th>
+              <td>{{ongekiProfile.battlePoint}}</td>
+            </tr>
+            <tr>
+              <th>{{'DashboardPage.Rating' | translate}}</th>
+              <td>{{ongekiProfile.playerRating / 100 | number: '1.2-2'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </ng-container>

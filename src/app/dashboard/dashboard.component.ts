@@ -22,6 +22,7 @@ import {AnnouncementComponent} from './announcement/announcement.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  host = environment.assetsHost;
   totalPreloadTaskCount = 0;
   downloadingPreloadTaskCount = 0;
   completedPreloadTaskCount = 0;

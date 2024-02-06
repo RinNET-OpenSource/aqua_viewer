@@ -32,12 +32,16 @@
   "DashboardPage" : {
     "Title" : "Dashboard",
     "LatestAnnouncement": "Latest Announcement",
+    "Profiles": "Profiles",
     "GameData": "Game Data",
     "Downloading" : "Downloading",
     "DownloadFailed" : "Download failed",
     "CheckingUpdate" : "Checking update",
     "Version" : "Version",
-    "Reload" : "Reload"
+    "Reload" : "Reload",
+    "Level" : "Level",
+    "BattlePoint" : "BattlePoint",
+    "Rating" : "Rating"
   },
   "HomePage": {
     "Title": "Home",

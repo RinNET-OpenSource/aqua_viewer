@@ -32,12 +32,16 @@
   "DashboardPage" : {
     "Title" : "仪表板",
     "LatestAnnouncement": "最新公告",
+    "Profiles": "游玩信息",
     "GameData": "游戏数据",
     "Downloading" : "下载数据",
     "DownloadFailed" : "下载失败",
     "CheckingUpdate" : "检查更新",
     "Version" : "版本",
-    "Reload" : "重新加载"
+    "Reload" : "重新加载",
+    "Level" : "等级",
+    "BattlePoint" : "战斗得分",
+    "Rating" : "评级"
   },
   "HomePage": {
     "Title": "主页",
