@@ -28,11 +28,17 @@
   background-blend-mode: screen;
 }
 
-.logo .ongekiHead {
-  width: 90%;
+.logo-container .logo-box {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.logo-container .ongekiHead {
+  width: 89%;
   position: absolute;
-  top: 2.4%;
-  left: -22.5%;
+  top: 4.5%;
+  left: -22.4%;
   z-index: 99;
 }
 
@@ -57,7 +63,9 @@
 }
 
 @media only screen and (max-width: 575px) {
-  .logo-container {
-    height: 10rem !important;
+  .logo-container .ongekiHead {
+    width: 79%;
+    top: 18.5%;
+    left: -17.4%;
   }
 }
