@@ -1,6 +1,7 @@
 .announcements-title{
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
 }
 
 .announcements-title:hover {
