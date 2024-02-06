@@ -4,7 +4,7 @@
 
       <div class="row flex-sm-row-reverse justify-content-center px-0 px-md-4">
         <div class="logo-container col-6 col-sm position-relative">
-          <div #faultLogo [ngClass]="{'logo-bg': logoIsShow}" (click)="fault($event)">
+          <div #faultLogo [ngClass]="{'logo-bg': logoIsShow}" class="logo-box" (click)="fault($event)">
             <img *ngIf="logoIsShow" class="logo" src="{{host}}assets/turtle.svg" alt="turtle"/>
             <svg *ngIf="!logoIsShow" class="logo" version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
@@ -40,7 +40,7 @@
 </svg>
             <img *ngIf="!logoIsShow" class="ongekiHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{ongekiAvatarHeadId.id}}.png" alt="">
           </div>
-          <div #faultLogo class="h-100 w-100">
+          <div #faultLogo class="h-100 w-100 position-absolute">
             <img *ngIf="logoIsShow" class="logo" src="{{host}}assets/turtle.svg" alt="turtle" (click)="fault($event)"/>
           </div>
         </div>
