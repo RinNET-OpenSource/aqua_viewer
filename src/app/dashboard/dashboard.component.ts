@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
             this.announcement = {
               ...resp.data,
               expirationDate: new Date(resp.data.expirationDate)
-            }
+            };
           }
           else{
             this.messageService.notice(resp.status.message);
@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showAnnouncement(announcement: Announcement) {
-    const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true});
+    const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true, centered: true});
     modalRef.componentInstance.announcement = announcement;
   }
 }
