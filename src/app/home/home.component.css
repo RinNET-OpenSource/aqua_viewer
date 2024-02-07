@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .logo {
