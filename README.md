@@ -1,18 +1,16 @@
-# AquaViewer
+# AquaViewer For RinNET
 
-A WebUI for AQUA Server
+This is the WebUI for RinNET, a fork of Aqua-Viewer. 
+
+RinNET differs significantly from Aqua, additional development may be required to use it on your own server.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
-## Self Host
-Due to modern browser's security restriction, there is no simple way to self host like old days.
+## How to Contribute
 
-- To serve local instance: install NodeJS and required dependencies respectively then run `ng serve`.
-
-- To build: same as above but run `ng build --configuration=production`.
-
-- For use with Aqua server: `ng build --configuration=production --base-href /web/`
-
-For static images, place them into assets folder. Otherwise, all related images won't display.
+You can write code, test it yourself, and submit a pull request. You can also improve translations [here](/src/assets/i18n).
 
 Please follow the [deployment guide](https://angular.io/guide/deployment) if you are new to angular.
+
+## License
+This project is governed by the AGPL-3.0 license. Should you employ or refer to the codebase of this project in delivering services to users, you are required to release your contributions under a license that is compatible with AGPL-3.0.
