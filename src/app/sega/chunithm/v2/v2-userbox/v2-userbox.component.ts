@@ -215,7 +215,8 @@ export class V2UserBoxComponent implements OnInit {
           break;
         case 3: // Trophy
           apiURL = 'api/game/chuni/v2/profile/trophy';
-          requestBody = { aimeId: this.aimeId, trophyId: itemId };
+          const trophyId = Number(itemId[0]);
+          requestBody = { aimeId: this.aimeId, trophyId };
           break;
         case 8: // MapIcon
           apiURL = 'api/game/chuni/v2/profile/mapicon';

@@ -1,3 +1,12 @@
+.row {
+  /*-bs-gotter*/
+  --bs-gutter-y: 1rem !important;
+}
+
+.audio-btn {
+  font-size: calc(0.7vw + 0.1rem);
+}
+
 img {
   display: block;
   margin-left: auto;
@@ -162,4 +171,16 @@ img {
 .voiceButton:hover {
 	background-color: #999;
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 767px) {
+  .audio-btn {
+    font-size: 1.5vw;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .audio-btn {
+    font-size: 2.1vw;
+  }
 }

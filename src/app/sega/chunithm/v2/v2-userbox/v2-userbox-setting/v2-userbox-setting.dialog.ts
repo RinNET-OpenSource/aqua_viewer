@@ -116,6 +116,7 @@ export class V2UserBoxSettingDialog implements OnInit{
                 });
                 break;
               case 3: // Trophy
+                console.log(111);
                 this.getTrophyName(x.itemId).then(name => {
                   x.name = name;
                   this.iList.push(x);

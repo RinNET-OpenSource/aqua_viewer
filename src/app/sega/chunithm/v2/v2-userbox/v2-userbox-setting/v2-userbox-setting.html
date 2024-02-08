@@ -56,7 +56,7 @@
         </article>
 
         <section class="card-body" *ngIf="enableImages == false">
-          <select [(ngModel)]="data.itemId" size="10" class="form-select frame-select" aria-label="Default select example">
+          <select [(ngModel)]="data.itemId" size="10" class="form-select frame-select" multiple="false" aria-label="Default select example">
             <option selected>Open this select menu</option>
             <option *ngFor="let item of iList" value="{{item.itemId}}">{{item.name}}</option>
           </select>

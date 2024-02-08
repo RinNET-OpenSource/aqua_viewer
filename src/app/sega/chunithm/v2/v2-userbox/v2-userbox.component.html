@@ -16,7 +16,7 @@
                 <img id="avatarFeet" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
                 <img id="avatarBody" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
                 <img id="avatarFace" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Face.webp">
-                <img id="avatarArms" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Arms.png">
+<!--                <img id="avatarArms" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Arms.png">-->
                 <img id="avatarLeftHand" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_LeftHand.webp">
                 <img id="avatarRightHand" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_RightHand.webp">
                 <img id="avatarWear" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarWear|formatNumber:8}}.png">
@@ -38,8 +38,8 @@
                 <span>Volume :</span>
                 <input class="form-range" type="range" [(ngModel)]="volume">
                 <div class="row mt-3">
-                  <div class="col-3 mb-1" style="height: 4rem" *ngFor="let item of systemVoicelines">
-                      <button class="w-100 h-100" mat-button (click)="item.click()" *ngIf="item.click">{{item.name}}</button>
+                  <div class="col-3 mb-1" style="height: 3rem" *ngFor="let item of systemVoicelines">
+                      <button class="audio-btn btn btn-outline-primary btn-sm w-100 h-100" (click)="item.click()" *ngIf="item.click">{{item.name}}</button>
                   </div>
                 </div>
               </div>
@@ -69,12 +69,9 @@
                 <img *ngIf="item.name == 'Avatar Item'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarItem|formatNumber:8}}.png">
                 <img *ngIf="item.name == 'Avatar Front'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarFront|formatNumber:8}}.png">
                 <img *ngIf="item.name == 'Avatar Back'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarBack|formatNumber:8}}.png">
-                <p *ngIf="item.name == 'Trophy (Title)'">{{profile.trophyId}}</p>
               </div>
             </div>
-            <mat-card-actions>
-              <button (click)="item.click()" style="position: absolute;bottom: 5%; left: 5%;" mat-button *ngIf="item.click">Change</button>
-            </mat-card-actions>
+            <button class="btn btn-sm btn-outline-primary" (click)="item.click()" style="position: absolute;bottom: 5%; left: 5%;" *ngIf="item.click">Change</button>
           </div>
         </div>
       </div>
