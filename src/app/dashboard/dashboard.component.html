@@ -73,15 +73,27 @@
         </table>
       </div>
     </div>
-  </div>
-</ng-container>
-<ng-container *ngIf="!loadingProfile && !ongekiProfile && !chusanProfile && !mai2Profile">
-  <div class="card mb-3 placeholder-glow">
-    <div class="card-body">
-      你没有玩过游戏
+    <div class="card-footer">
+      <div class="float-end fw-bold small">
+        <span class="placeholder" style="width: 14em;"></span>
+      </div>
     </div>
   </div>
 </ng-container>
+<ng-container *ngIf="!authenticationService.currentAccountValue.currentCard">
+  <div class="card mb-3 placeholder-glow">
+    <div class="card-body">
+      你没有卡片
+    </div>
+  </div>
+</ng-container>
+<!--<ng-container *ngIf="!loadingProfile && !ongekiProfile && !chusanProfile && !mai2Profile">-->
+<!--  <div class="card mb-3 placeholder-glow">-->
+<!--    <div class="card-body">-->
+<!--      你没有玩过游戏-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-container>-->
 <ng-container *ngIf="ongekiProfile">
   <div class="card mb-3">
     <div class="card-header fw-bold">{{ongekiProfile.userName | fullWidth}}</div>

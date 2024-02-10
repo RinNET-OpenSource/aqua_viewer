@@ -10,6 +10,7 @@ import { MessageService } from '../../../message.service';
 import { Key } from 'protractor';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { environment } from "../../../../environments/environment";
+import {DisplayOngekiProfile} from "../model/OngekiProfile";
 
 type ObjectMessageResponse<T> = {
   data: T,
@@ -26,9 +27,11 @@ export class OngekiRivalListComponent implements OnInit {
   host = environment.assetsHost;
   rivalList: OngekiRival[] = [];
   displayedColumns: string[] = ['rivalUserId', 'rivalUserName', 'opButton'];
-  aimeId: string;
+  myProfile: DisplayOngekiProfile;
+  loadingProfile = true;
+  loadingRival = true;
 
-  inputAddRivalUserId: string = "";
+  inputAddRivalUserId = '';
 
   constructor(
     private dbService: NgxIndexedDBService,
@@ -36,24 +39,37 @@ export class OngekiRivalListComponent implements OnInit {
     protected auth: AuthenticationService,
     private messageService: MessageService,
   ) {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
   }
 
   ngOnInit() {
-    const param = new HttpParams().set('aimeId', this.aimeId);
 
-    this.api.get('api/game/ongeki/rival', param).subscribe(
+    this.api.get('api/game/ongeki/rival').subscribe(
       this.refreshFrom.bind(this),
-      error => this.messageService.notice(`get rival list failed : ${error}`)
+      error => {
+        this.messageService.notice(`get rival list failed : ${error}`);
+        this.loadingRival = false;
+      }
+    );
+
+    this.api.get('api/game/ongeki/profile').subscribe(
+      (data: DisplayOngekiProfile) => {
+        this.myProfile = data;
+        this.loadingProfile = false;
+      },
+      (error) => {
+        this.messageService.notice(error);
+        this.loadingProfile = false;
+      }
     );
   }
 
   refreshFrom(rivalList: OngekiRival[]) {
     this.rivalList = rivalList;
+    this.loadingRival = false;
   }
 
   removeRival(rivalUserId: number) {
-    let param = new HttpParams().set('aimeId', this.aimeId).set('rivalUserId', rivalUserId);
+    let param = new HttpParams().set('rivalUserId', rivalUserId);
     this.api.delete(`api/game/ongeki/rival`, param).subscribe(
       () => {
         var newList = this.rivalList.filter(item => item.rivalUserId != rivalUserId);
@@ -65,12 +81,12 @@ export class OngekiRivalListComponent implements OnInit {
   }
 
   addRival() {
-    let param = new HttpParams().set('aimeId', this.aimeId).set('rivalUserId', Number.parseInt(this.inputAddRivalUserId));
+    const param = new HttpParams().set('rivalUserId', (Number).parseInt(this.inputAddRivalUserId));
     this.api.post(`api/game/ongeki/rival`, param).subscribe(
       (data: ObjectMessageResponse<OngekiRival>) => {
         if (data != null) {
           if (data.data != null) {
-            if (this.rivalList.find(x => x.rivalUserId == data.data.rivalUserId) == null) {
+            if (this.rivalList.find(x => x.rivalUserId === data.data.rivalUserId) == null) {
               this.rivalList.push(data.data);
               this.refreshFrom(this.rivalList);
               this.messageService.notice(`add rival (id:${data.data.rivalUserId}) successfully.`);

@@ -177,8 +177,10 @@
       "Me" : "Me",
       "RivalList" : "Rival List",
       "ID" : "ID",
+      "Level" : "Level",
       "Rating" : "Rating",
-      "HighestRating" : "HighestRating",
+      "BattlePoint" : "BattlePoint",
+      "LastPlay" : "LastPlay",
       "PlayerName" : "PlayerName",
       "Remove" : "Remove"
     }

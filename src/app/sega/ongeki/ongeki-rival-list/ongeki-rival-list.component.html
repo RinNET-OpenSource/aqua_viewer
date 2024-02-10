@@ -7,9 +7,148 @@
 </div>
 
 <h6 class="fw-bold mb-3">{{'Ongeki.RivalPage.Me' | translate}}</h6>
-<div class="small mx-3 mb-3 fw-light">{{'Ongeki.RivalPage.MyCardID' | translate}}{{'Common.Colon' | translate}}{{10000000 + auth.currentAccountValue.currentCard.id}}</div>
+<ng-container *ngIf="loadingProfile">
+  <div class="card mb-3 placeholder-wave">
+    <div class="card-header">
+      <span class="placeholder" style="width: 6em;"></span>
+    </div>
+    <div class="card-body p-2">
+      <div class="hstack gap-2">
+        <img class="placeholder profile-icon">
+        <table class="profile-table">
+          <tbody>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 1em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 5em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 2em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 3em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 4em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 4em;"></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="float-end fw-bold small">
+        <span class="placeholder" style="width: 14em;"></span>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<div *ngIf="myProfile" class="card mb-3">
+  <div class="card-header fw-bold">{{myProfile.userName | fullWidth}}</div>
+  <div class="card-body p-2">
+    <div class="profile-container hstack gap-2">
+      <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{myProfile.cardId}}.png">
+      <table class="profile-table">
+        <tbody>
+        <tr>
+          <th>{{'Ongeki.RivalPage.ID' | translate}}</th>
+          <td>{{10000000 + auth.currentAccountValue.currentCard.id}}</td>
+        </tr>
+        <tr>
+          <th>{{'Ongeki.RivalPage.Level' | translate}}</th>
+          <td>{{myProfile.reincarnationNum *100 + myProfile.level}}</td>
+        </tr>
+        <tr>
+          <th>{{'Ongeki.RivalPage.Rating' | translate}}</th>
+          <td>{{myProfile.playerRating / 100 | number: '1.2-2'}}</td>
+        </tr>
+        <tr>
+          <th>{{'Ongeki.RivalPage.BattlePoint' | translate}}</th>
+          <td>{{myProfile.battlePoint}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="float-end fw-bold small">
+      {{'Ongeki.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(myProfile.lastPlayDate | toDate).toLocaleString()}}
+    </div>
+  </div>
+</div>
 
 <h6 class="fw-bold mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h6>
+
+<ng-container *ngIf="loadingRival">
+  <div class="card mb-3 placeholder-wave">
+    <div class="card-header">
+      <span class="placeholder" style="width: 6em;"></span>
+    </div>
+    <div class="card-body p-2">
+      <div class="hstack gap-2">
+        <img class="placeholder profile-icon">
+        <table class="profile-table">
+          <tbody>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 1em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 5em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 2em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 3em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 4em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 4em;"></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="float-end fw-bold small">
+        <span class="placeholder" style="width: 14em;"></span>
+      </div>
+    </div>
+  </div>
+</ng-container>
 <div *ngFor="let item of rivalList" class="card mb-3">
   <div class="card-header fw-bold">{{item.rivalUserName | fullWidth}}</div>
   <div class="card-body p-2">
@@ -22,15 +161,24 @@
           <td>{{item.rivalUserId}}</td>
         </tr>
         <tr>
+          <th>{{'Ongeki.RivalPage.Level' | translate}}</th>
+          <td>{{item.reincarnationNum *100 + item.level}}</td>
+        </tr>
+        <tr>
           <th>{{'Ongeki.RivalPage.Rating' | translate}}</th>
           <td>{{item.rivalNowRating | number: '1.2-2'}}</td>
         </tr>
         <tr>
-          <th>{{'Ongeki.RivalPage.HighestRating' | translate}}</th>
-          <td>{{item.rivalHighestRating | number: '1.2-2'}}</td>
+          <th>{{'Ongeki.RivalPage.BattlePoint' | translate}}</th>
+          <td>{{item.rivalBattleScore}}</td>
         </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="float-end fw-bold small">
+      {{'Ongeki.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(item.lastPlayDate | toDate).toLocaleString()}}
     </div>
   </div>
 </div>

@@ -67,9 +67,6 @@ export class PreloadService {
   }
 
   load() {
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
-    const param = aimeId.trim().length !== 0 ? new HttpParams().set('aimeId', aimeId) : undefined;
-
     this.loader<OngekiCard>('ongekiCard', 'api/game/ongeki/data/cardList', this.ongekiCard);
     this.loader<OngekiCharacter>('ongekiCharacter', 'api/game/ongeki/data/charaList', this.ongekiCharacter);
     this.loader<OngekiMusic>('ongekiMusic', 'api/game/ongeki/data/musicList', this.ongekiMusic);

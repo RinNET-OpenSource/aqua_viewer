@@ -17,7 +17,7 @@ import {
 } from '@ng-icons/bootstrap-icons';
 import { AppRoutingModule } from '../app-routing.module';
 import { AnnouncementComponent } from './announcement/announcement.component';
-import { ToolsModule } from "../util/tools.module";
+import { ToolsModule } from '../util/tools.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

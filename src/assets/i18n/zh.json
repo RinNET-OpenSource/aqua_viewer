@@ -179,9 +179,11 @@
       "Me" : "我",
       "RivalList" : "好友列表",
       "ID" : "ID",
+      "Level" : "等级",
       "PlayerName" : "玩家名",
       "Rating" : "评级",
-      "HighestRating" : "最高评级",
+      "BattlePoint" : "战斗得分",
+      "LastPlay" : "上次游玩",
       "Remove" : "删除"
     }
   },

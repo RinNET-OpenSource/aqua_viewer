@@ -4,6 +4,8 @@ import {OngekiCharacter} from './OngekiCharacter';
 export interface DisplayOngekiProfile {
   userName: string;
   level: number;
+  reincarnationNum: number;
+  lastPlayDate: string;
   exp: number;
   point: number;
   totalPoint: number;

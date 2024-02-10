@@ -189,10 +189,15 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
           const statusCode: StatusCode = resp.status.code;
           if (statusCode === StatusCode.OK && resp.data) {
             this.authenticationService.currentAccountValue.name = resp.data.name;
+            let hasDefault = false;
             for (const card of resp.data.cards) {
               if (card.default) {
                 this.authenticationService.currentAccountValue.currentCard = card;
+                hasDefault = true;
               }
+            }
+            if (!hasDefault){
+              this.authenticationService.currentAccountValue.currentCard = null;
             }
             this.authenticationService.currentAccountValue.games = resp.data.games;
             this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
