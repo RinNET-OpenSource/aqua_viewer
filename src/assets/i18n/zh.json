@@ -176,9 +176,12 @@
       "IDInputPlaceholder" : "好友ID",
       "AddRival" : "添加好友",
       "MyCardID" : "我的ID",
+      "Me" : "我",
       "RivalList" : "好友列表",
       "ID" : "ID",
       "PlayerName" : "玩家名",
+      "Rating" : "评级",
+      "HighestRating" : "最高评级",
       "Remove" : "删除"
     }
   },

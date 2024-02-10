@@ -75,7 +75,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "aqua-viewer:build"
+            "browserTarget": "aqua-viewer:build",
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {

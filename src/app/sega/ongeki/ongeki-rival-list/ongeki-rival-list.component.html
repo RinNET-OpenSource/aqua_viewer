@@ -5,29 +5,32 @@
   <input type="text" class="form-control form-control mb-3" placeholder="{{'Ongeki.RivalPage.IDInputPlaceholder' | translate}}" [(ngModel)]="inputAddRivalUserId">
   <button class="btn btn-primary mb-3" type="button" (click)="addRival()">{{'Ongeki.RivalPage.AddRival' | translate}}</button>
 </div>
+
+<h6 class="fw-bold mb-3">{{'Ongeki.RivalPage.Me' | translate}}</h6>
 <div class="small mx-3 mb-3 fw-light">{{'Ongeki.RivalPage.MyCardID' | translate}}{{'Common.Colon' | translate}}{{10000000 + auth.currentAccountValue.currentCard.id}}</div>
-<div class="card">
-  <div class="card-body">
-    <h6 class="card-title fw-bold mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h6>
-    <table class="table table-borderless table-striped align-middle">
-      <thead>
-      <th>{{'Ongeki.RivalPage.ID' | translate}}</th>
-      <th>{{'Ongeki.RivalPage.PlayerName' | translate}}</th>
-      <th></th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of rivalList; index as i">
-        <td>
-          {{item.rivalUserId}}
-        </td>
-        <td>
-          {{item.rivalUserName}}
-        </td>
-        <td>
-          <a type="button" (click)="removeRival(item.rivalUserId)">{{'Ongeki.RivalPage.Remove' | translate}}</a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+
+<h6 class="fw-bold mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h6>
+<div *ngFor="let item of rivalList" class="card mb-3">
+  <div class="card-header fw-bold">{{item.rivalUserName | fullWidth}}</div>
+  <div class="card-body p-2">
+    <div class="profile-container hstack gap-2">
+      <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{item.rivalCardId}}.png">
+      <table class="profile-table">
+        <tbody>
+        <tr>
+          <th>{{'Ongeki.RivalPage.ID' | translate}}</th>
+          <td>{{item.rivalUserId}}</td>
+        </tr>
+        <tr>
+          <th>{{'Ongeki.RivalPage.Rating' | translate}}</th>
+          <td>{{item.rivalNowRating | number: '1.2-2'}}</td>
+        </tr>
+        <tr>
+          <th>{{'Ongeki.RivalPage.HighestRating' | translate}}</th>
+          <td>{{item.rivalHighestRating | number: '1.2-2'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

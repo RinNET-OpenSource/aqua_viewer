@@ -9,6 +9,7 @@ import { ApiService } from '../../../api.service';
 import { MessageService } from '../../../message.service';
 import { Key } from 'protractor';
 import { MatSort, MatSortable } from '@angular/material/sort';
+import { environment } from "../../../../environments/environment";
 
 type ObjectMessageResponse<T> = {
   data: T,
@@ -22,6 +23,7 @@ type ObjectMessageResponse<T> = {
 })
 
 export class OngekiRivalListComponent implements OnInit {
+  host = environment.assetsHost;
   rivalList: OngekiRival[] = [];
   displayedColumns: string[] = ['rivalUserId', 'rivalUserName', 'opButton'];
   aimeId: string;

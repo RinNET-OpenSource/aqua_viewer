@@ -174,8 +174,11 @@
       "IDInputPlaceholder" : "Rival Card ID",
       "AddRival" : "Add Rival",
       "MyCardID" : "My Card ID",
+      "Me" : "Me",
       "RivalList" : "Rival List",
       "ID" : "ID",
+      "Rating" : "Rating",
+      "HighestRating" : "HighestRating",
       "PlayerName" : "PlayerName",
       "Remove" : "Remove"
     }

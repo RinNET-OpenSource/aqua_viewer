@@ -9,13 +9,9 @@
     color: var(--bs-primary);
 }
 
-.profile-container{
-  height: 5em;
-}
-
 .profile-icon{
-  height: 100%;
-  aspect-ratio: 1;
+  height: 5em;
+  width: 5em;
   /* background: linear-gradient(white, #B0B0B0); */
 }
 
