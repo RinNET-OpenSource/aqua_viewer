@@ -1,9 +1,9 @@
-<h3 class="mat-display-1">Profile</h3>
-<mat-card>
-  <mat-card-title>Overview</mat-card-title>
-  <mat-card-subtitle *ngIf="profile">{{profile.userName}}</mat-card-subtitle>
-  <mat-card-content>
-    <table *ngIf="profile" class="zebra">
+<h3>Profile</h3>
+<div class="card">
+  <div class="card-body">
+  <div class="card-title">Overview</div>
+  <div class="card-subtitle mb-3" *ngIf="profile">{{profile.userName}}</div>
+    <table *ngIf="profile" class="table table-striped table-borderless">
       <tr>
         <th>Rating</th>
         <td>{{profile.playerRating}} (max {{profile.highestRating}})</td>
@@ -29,5 +29,5 @@
         <td>{{udemaeRank[profile.courseRank]}}</td>
       </tr>
     </table>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
