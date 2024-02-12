@@ -61,10 +61,10 @@
   </div>
 </ng-container>
 <div *ngIf="myProfile" class="card mb-3">
-  <div class="card-header fw-bold">{{myProfile.userName | fullWidth}}</div>
+  <div class="card-header fw-bold">{{myProfile.rivalUserName | fullWidth}}</div>
   <div class="card-body p-2">
     <div class="profile-container hstack gap-2">
-      <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{myProfile.cardId}}.png">
+      <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{myProfile.rivalCardId}}.png">
       <table class="profile-table">
         <tbody>
         <tr>
@@ -73,15 +73,15 @@
         </tr>
         <tr>
           <th>{{'Ongeki.RivalPage.Level' | translate}}</th>
-          <td>{{myProfile.reincarnationNum *100 + myProfile.level}}</td>
+          <td>{{myProfile.reincarnationNum * 100 + myProfile.level}}</td>
         </tr>
         <tr>
           <th>{{'Ongeki.RivalPage.Rating' | translate}}</th>
-          <td>{{myProfile.playerRating / 100 | number: '1.2-2'}}</td>
+          <td>{{myProfile.rivalNowRating | number: '1.2-2'}}</td>
         </tr>
         <tr>
           <th>{{'Ongeki.RivalPage.BattlePoint' | translate}}</th>
-          <td>{{myProfile.battlePoint}}</td>
+          <td>{{myProfile.rivalBattleScore}}</td>
         </tr>
         </tbody>
       </table>

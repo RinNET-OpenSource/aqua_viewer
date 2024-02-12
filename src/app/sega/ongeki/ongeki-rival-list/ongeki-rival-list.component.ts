@@ -27,7 +27,7 @@ export class OngekiRivalListComponent implements OnInit {
   host = environment.assetsHost;
   rivalList: OngekiRival[] = [];
   displayedColumns: string[] = ['rivalUserId', 'rivalUserName', 'opButton'];
-  myProfile: DisplayOngekiProfile;
+  myProfile: OngekiRival;
   loadingProfile = true;
   loadingRival = true;
 
@@ -51,8 +51,8 @@ export class OngekiRivalListComponent implements OnInit {
       }
     );
 
-    this.api.get('api/game/ongeki/profile').subscribe(
-      (data: DisplayOngekiProfile) => {
+    this.api.get(`api/game/ongeki/rival/${10000000 + this.auth.currentAccountValue.currentCard.id}`).subscribe(
+      (data: OngekiRival) => {
         this.myProfile = data;
         this.loadingProfile = false;
       },
