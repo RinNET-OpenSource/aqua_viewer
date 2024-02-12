@@ -1,10 +1,9 @@
 .row {
-  /*-bs-gotter*/
   --bs-gutter-y: 1rem !important;
 }
 
 .audio-btn {
-  font-size: calc(0.7vw + 0.1rem);
+  font-size: calc(0.5vw + 0.3vh);
 }
 
 img {
