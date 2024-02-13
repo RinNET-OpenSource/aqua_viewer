@@ -34,6 +34,8 @@
     "LatestAnnouncement": "Latest Announcement",
     "Profiles": "Profiles",
     "GameData": "Game Data",
+    "NoCardMessage": "You don't have a card, click to go to the card page",
+    "NoProfileMessage": "You have no profile",
     "Downloading" : "Downloading",
     "DownloadFailed" : "Download failed",
     "CheckingUpdate" : "Checking update",

@@ -15,7 +15,7 @@
 <h6 class="fw-bold mb-3">
   {{'DashboardPage.LatestAnnouncement' | translate}}
 </h6>
-<div class="card mb-3">
+<div class="card-btn card mb-3" (click)="showAnnouncement(announcement)">
   <div class="card-body py-2">
     <div *ngIf="loadingAnnouncement" class="placeholder-glow my-1">
       <div>
@@ -27,7 +27,7 @@
     </div>
     <div *ngIf="!loadingAnnouncement" class="my-1">
       <div class="small fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
-      <a class="fs-5 announcements-title" (click)="showAnnouncement(announcement)">{{announcement.title}}</a>
+      <span class="fs-5 announcements-title">{{announcement.title}}</span>
     </div>
   </div>
 </div>
@@ -80,20 +80,20 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="!authenticationService.currentAccountValue.currentCard">
-  <div class="card mb-3 placeholder-glow">
+<ng-container *ngIf="noCard">
+  <div class="card card-btn mb-3 placeholder-glow" (click)="router.navigateByUrl('/cards')">
     <div class="card-body">
-      你没有卡片
+      {{'DashboardPage.NoCardMessage' | translate}}
     </div>
   </div>
 </ng-container>
-<!--<ng-container *ngIf="!loadingProfile && !ongekiProfile && !chusanProfile && !mai2Profile">-->
-<!--  <div class="card mb-3 placeholder-glow">-->
-<!--    <div class="card-body">-->
-<!--      你没有玩过游戏-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</ng-container>-->
+<ng-container *ngIf="!loadingProfile && !noCard && !ongekiProfile && !chusanProfile && !mai2Profile">
+  <div class="card mb-3 placeholder-glow">
+    <div class="card-body">
+      {{'DashboardPage.NoProfileMessage' | translate}}
+    </div>
+  </div>
+</ng-container>
 <ng-container *ngIf="ongekiProfile">
   <div class="card mb-3">
     <div class="card-header fw-bold">{{ongekiProfile.userName | fullWidth}}</div>

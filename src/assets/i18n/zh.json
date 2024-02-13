@@ -34,6 +34,8 @@
     "LatestAnnouncement": "最新公告",
     "Profiles": "游玩信息",
     "GameData": "游戏数据",
+    "NoCardMessage": "你没有绑定卡片，点击前往卡片页面",
+    "NoProfileMessage": "你没有玩过游戏",
     "Downloading" : "下载数据",
     "DownloadFailed" : "下载失败",
     "CheckingUpdate" : "检查更新",

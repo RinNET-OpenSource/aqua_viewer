@@ -250,5 +250,11 @@ pagination-template {
   }
 }
 
+.card-btn {
+  cursor: pointer;
+  transition: ease-in-out, border-color .15s;
+}
 
-
+.card-btn:hover {
+  border-color: var(--bs-secondary);
+}

@@ -15,10 +15,6 @@ table {
   padding: 4px;
 }
 
-.song-container {
-  --bs-btn-hover-border-color: var(--bs-secondary);
-}
-
 .song-info .jacket-container {
   width: 64px;
   min-width: 64px;

@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   loadingProfile = true;
   checkingUpdate = true;
   dbVersion = 0;
-
+  noCard = false;
   protected ongekiProfile;
   protected chusanProfile;
   protected mai2Profile;
@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
     private api: ApiService,
     private messageService: MessageService,
     private modalService: NgbModal,
+    protected  router: Router
   ) {
     this.loadAnnouncements();
   }
@@ -82,6 +83,9 @@ export class DashboardComponent implements OnInit {
             this.chusanProfile = resp.data.chusan;
             this.ongekiProfile = resp.data.ongeki;
             this.mai2Profile = resp.data.maimai2;
+          }
+          else if (statusCode === StatusCode.NOT_FOUND){
+            this.noCard = true;
           }
           else{
             this.messageService.notice(resp.status.message);
