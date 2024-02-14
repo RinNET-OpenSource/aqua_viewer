@@ -1,7 +1,7 @@
 <div class="app-container">
   <nav ngbNav #nav="ngbNav" class="app-navbar navbar navbar-expand-lg position-fixed shadow w-100">
     <div class="container-xxl">
-      <button *ngIf="account" (click)="showSidebar()" class="navbar-toggler"
+      <button [class.v-hidden]="router.isActive('/', true)" (click)="showSidebar()" class="navbar-toggler"
               style="--bs-navbar-toggler-focus-width: 0; --bs-navbar-toggler-border-color: transparent;font-size: 1.2rem;"
               type="button">
 
@@ -54,7 +54,8 @@
       </div>
     </div>
     <div class="d-lg-grid container-xxl" style="grid-template-areas: 'sidebar main'; grid-template-columns: auto 1fr">
-      <aside #sidebar *ngIf="account" class="sidebar d-block overflow-y-auto position-sticky" style="">
+      <aside #sidebar class="sidebar d-block overflow-y-auto position-sticky"
+             [class.d-none]="router.isActive('/', true)">
         <div id="sidebar" class="offcanvas-lg offcanvas-start" tabindex="-1">
           <div class="offcanvas-header" style="height: 3.6rem">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Navigation</h5>

@@ -158,7 +158,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private router: Router,
+    protected router: Router,
     private api: ApiService,
     private preLoad: PreloadService,
     private messageService: MessageService,
@@ -250,6 +250,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       matrixParams: 'ignored',
     });
   }
+
   hideSidebar(){
     this.sidebarOffcanvas?.hide();
   }
