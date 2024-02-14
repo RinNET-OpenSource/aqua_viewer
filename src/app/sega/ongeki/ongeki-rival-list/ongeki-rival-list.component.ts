@@ -11,6 +11,7 @@ import { Key } from 'protractor';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { environment } from "../../../../environments/environment";
 import {DisplayOngekiProfile} from "../model/OngekiProfile";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 type ObjectMessageResponse<T> = {
   data: T,
@@ -36,6 +37,7 @@ export class OngekiRivalListComponent implements OnInit {
   constructor(
     private dbService: NgxIndexedDBService,
     private api: ApiService,
+    private modalService: NgbModal,
     protected auth: AuthenticationService,
     private messageService: MessageService,
   ) {
@@ -69,10 +71,10 @@ export class OngekiRivalListComponent implements OnInit {
   }
 
   removeRival(rivalUserId: number) {
-    let param = new HttpParams().set('rivalUserId', rivalUserId);
+    const param = new HttpParams().set('rivalUserId', rivalUserId);
     this.api.delete(`api/game/ongeki/rival`, param).subscribe(
       () => {
-        var newList = this.rivalList.filter(item => item.rivalUserId != rivalUserId);
+        const newList = this.rivalList.filter(item => item.rivalUserId != rivalUserId);
         this.messageService.notice(`(id:${rivalUserId}) delete successfully.`);
         this.refreshFrom(newList);
       },
@@ -99,5 +101,9 @@ export class OngekiRivalListComponent implements OnInit {
       },
       error => this.messageService.notice(`add rival failed : ${error}`)
     );
+  }
+
+  open(content) {
+    this.modalService.open(content, {centered: true});
   }
 }

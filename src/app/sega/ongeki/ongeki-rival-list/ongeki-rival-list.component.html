@@ -148,7 +148,9 @@
       </div>
     </div>
   </div>
-</ng-container>
+</ng-container><div *ngIf="!loadingRival && rivalList.length == 0">
+  <span class="text-secondary ms-2">{{'Ongeki.RivalPage.Empty' | translate}}</span>
+</div>
 <div *ngFor="let item of rivalList" class="card mb-3">
   <div class="card-header fw-bold">{{item.rivalUserName | fullWidth}}</div>
   <div class="card-body p-2">
@@ -177,6 +179,24 @@
     </div>
   </div>
   <div class="card-footer">
+    <ng-template #remove let-modal>
+      <div class="modal-header">
+        {{'Ongeki.RivalPage.Remove' | translate}}
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="d-grid">
+            <p class="mb-3 ms-1">
+              {{'Ongeki.RivalPage.RemoveTip' | translate}}
+            </p>
+            <button class="btn btn-danger btn-sm" (click)="removeRival(item.rivalUserId);modal.dismiss()">{{'Common.OK' | translate}}</button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+    <a class="float-start cursor-pointer text-danger fw-bold small" (click)="open(remove)">
+      {{'Ongeki.RivalPage.Remove' | translate}}
+    </a>
     <div class="float-end fw-bold small">
       {{'Ongeki.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(item.lastPlayDate | toDate).toLocaleString()}}
     </div>
