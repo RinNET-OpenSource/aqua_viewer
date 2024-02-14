@@ -15,7 +15,7 @@
 <h6 class="fw-bold mb-3">
   {{'DashboardPage.LatestAnnouncement' | translate}}
 </h6>
-<div class="card-btn card mb-3" (click)="showAnnouncement(announcement)">
+<div class="card-btn card mb-3 user-select-none" (click)="showAnnouncement(announcement)">
   <div class="card-body py-2">
     <div *ngIf="loadingAnnouncement" class="placeholder-glow my-1">
       <div>

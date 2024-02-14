@@ -73,10 +73,10 @@
                     <li class="pb-2">
                       <a class="link-btn rounded" [class.active]="isActive('/import')" (click)="navigateTo('/import')">{{'App.Sidebar.Import' | translate}}</a>
                     </li>
-                    <li class="pb-2">
-                      <a class="link-btn rounded" target="_blank"
-                         href="https://status.naominet.live/status/aquaserver">{{'App.Sidebar.Status' | translate}}</a>
-                    </li>
+<!--                    <li class="pb-2">-->
+<!--                      <a class="link-btn rounded" target="_blank"-->
+<!--                         href="https://status.naominet.live/status/aquaserver">{{'App.Sidebar.Status' | translate}}</a>-->
+<!--                    </li>-->
                   </ul>
                 </li>
                 <li *ngIf="filterItems(ongekiMenu).length != 0">
@@ -117,3 +117,16 @@
     <app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 3.6rem"></app-toasts>
   </div>
 </div>
+<footer class="footer mt-3">
+  <div class="row justify-content-center small fw-bold p-4 mx-0 gy-2 gx-4 text-center">
+    <div class="col-auto">©2024 RinNET Team</div>
+    <div class="col-auto">
+      <a target="_blank" href="https://status.naominet.live/status/aquaserver">Status</a>
+      <a class="ms-4" target="_blank" href="https://github.com/mxihan/aqua_viewer">Github</a>
+    </div>
+    <div class="col-auto">
+      Code Licenced
+      <a href="https://github.com/mxihan/aqua_viewer/blob/master/LICENSE" target="_blank">AGPL 3.0</a>
+    </div>
+  </div>
+</footer>

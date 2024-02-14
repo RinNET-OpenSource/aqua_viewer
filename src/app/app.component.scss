@@ -1,20 +1,10 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .navbar-brand {
   user-select: none;
-}
-
-.is-mobile .toolbar {
-  position: fixed;
-  z-index: 2;
 }
 
 .app-navbar {
@@ -31,10 +21,6 @@
 
 mat-sidenav {
   min-width: 200px;
-}
-
-mat-toolbar {
-  z-index: 999;
 }
 
 .content {
@@ -96,7 +82,6 @@ mat-toolbar {
   grid-area: sidebar;
   min-width: 14rem;
   top: 3.6rem;
-  z-index: 1000
 }
 
 @media (min-width: 992px) {
@@ -132,3 +117,27 @@ mat-toolbar {
   from { left: -25%; width: 25%; }
   to { left: 150%; width: 150%;}
 }
+
+.footer{
+  width: 100%;
+  color: var(--bs-secondary);
+  font-size: small;
+  //background-color: var(--bs-tertiary-bg);
+}
+
+.footer a{
+  color: var(--bs-secondary);
+  text-decoration: none;
+}
+
+.footer a:hover{
+  color: var(--bs-secondary);
+  text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    z-index: 1040;
+  }
+}
+
