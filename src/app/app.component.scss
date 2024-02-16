@@ -81,13 +81,13 @@ mat-sidenav {
 .sidebar {
   grid-area: sidebar;
   min-width: 14rem;
-  top: 3.6rem;
+  top: 4.1rem;
 }
 
 @media (min-width: 992px) {
   .sidebar {
-    top: 4.1rem;
-    height: calc(100vh - 3.6rem - 1rem);
+    margin-top: 4.1rem;
+    max-height: calc(100vh - 4.6rem);
   }
 }
 
