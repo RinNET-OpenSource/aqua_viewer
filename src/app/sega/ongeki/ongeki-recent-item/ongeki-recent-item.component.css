@@ -20,19 +20,19 @@
 }
 
 .song-info .song-info-difficulty-Basic {
-  background: #51B540;
+  background: var(--bs-green);
 }
 
 .song-info .song-info-difficulty-Advanced {
-  background: #B5A440;
+  background: var(--bs-yellow);
 }
 
 .song-info .song-info-difficulty-Expert {
-  background: #B54051;
+  background: var(--bs-red);
 }
 
 .song-info .song-info-difficulty-Master {
-  background: #6940B5;
+  background: var(--bs-purple);
 }
 
 .song-info .song-info-difficulty-Lunatic {

@@ -30,53 +30,6 @@
   margin-left: 30px;
 }
 
-.level0 .level-title {
-  border: 1px solid #64cc5a;
-}
-.level0 .level-title span {
-  background-color: #64cc5a;
-}
-
-.level1 .level-title {
-  border: 1px solid #e9c047;
-}
-.level1 .level-title span {
-  background-color: #e9c047;
-}
-
-.level2 .level-title {
-  border: 1px solid #e97682;
-}
-.level2 .level-title span {
-  background-color: #e97682;
-}
-
-.level3 .level-title {
-  border: 1px solid #b478e1;
-}
-.level3 .level-title span {
-  background-color: #b478e1;
-}
-
-.level4 .level-title {
-  border: 1px solid #ffffff;
-}
-.level4 .level-title span {
-  background-color: #ffffff;
-}
-
-.level .level-title span {
-  display: block;
-  width: 100%;
-  color: #fff;
-  font-size: 10px;
-  text-align: center;
-}
-
-.level .level-title span {
-  text-align: center;
-}
-
 .fbab-img {
   margin-left: 20px;
 }
@@ -92,30 +45,30 @@
   }
 }
 
-.color-basic {
-  color: $green;
-}
-
-.color-advanced {
-  color: $yellow;
-}
-
-.color-expert {
-  color: $red;
-}
-
-.color-master {
-  color: $purple;
-}
-
-.bg-lunatic {
-  background: $white;
-}
-
 .honor{
   height: 32px;
 }
 
 .difficulty-detail-body{
   min-height: 32px;
+}
+
+.color-basic {
+  color: var(--bs-green);
+}
+
+.color-advanced {
+  color: var(--bs-yellow);
+}
+
+.color-expert {
+  color: var(--bs-red);
+}
+
+.color-master {
+  color: var(--bs-purple);
+}
+
+.bg-lunatic {
+  background: $white;
 }
