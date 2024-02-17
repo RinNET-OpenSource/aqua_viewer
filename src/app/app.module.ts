@@ -61,6 +61,7 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import {APP_INITIALIZER} from '@angular/core';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -100,7 +101,8 @@ export function initializeApp(translateService: TranslateService) {
     LoginComponent,
     HomeComponent,
     PasswordResetComponent,
-    CardsComponent
+    CardsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

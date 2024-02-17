@@ -6,6 +6,7 @@ import {ImporterComponent} from './importer/importer/importer.component';
 import {SignUpComponent} from './home/sign-up/sign-up.component';
 import {HomeComponent} from './home/home.component';
 import {CardsComponent} from './cards/cards.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -25,6 +26,8 @@ const routes: Routes = [
     loadChildren: () => import('./sega/chunithm/v2/v2.module').then(mod => mod.V2Module),
     canLoad: [AuthGuardService]
   },
+  {path: 'not-found', component: NotFoundComponent},
+  {path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
