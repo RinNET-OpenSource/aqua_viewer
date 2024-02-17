@@ -1,23 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { OngekiRival } from '../model/OngekiRival';
 import { HttpParams } from '@angular/common/http';
 import { AuthenticationService } from '../../../auth/authentication.service';
 import { ApiService } from '../../../api.service';
 import { MessageService } from '../../../message.service';
-import { Key } from 'protractor';
-import { MatSort, MatSortable } from '@angular/material/sort';
-import { environment } from "../../../../environments/environment";
-import {DisplayOngekiProfile} from "../model/OngekiProfile";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-
-type ObjectMessageResponse<T> = {
-  data: T,
-  message: string
-}
-
+import { environment } from '../../../../environments/environment';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {StatusCode} from '../../../status-code';
 @Component({
   selector: 'app-ongeki-rival-list',
   templateUrl: './ongeki-rival-list.component.html',
@@ -27,7 +17,6 @@ type ObjectMessageResponse<T> = {
 export class OngekiRivalListComponent implements OnInit {
   host = environment.assetsHost;
   rivalList: OngekiRival[] = [];
-  displayedColumns: string[] = ['rivalUserId', 'rivalUserName', 'opButton'];
   myProfile: OngekiRival;
   loadingProfile = true;
   loadingRival = true;
@@ -74,7 +63,7 @@ export class OngekiRivalListComponent implements OnInit {
     const param = new HttpParams().set('rivalUserId', rivalUserId);
     this.api.delete(`api/game/ongeki/rival`, param).subscribe(
       () => {
-        const newList = this.rivalList.filter(item => item.rivalUserId != rivalUserId);
+        const newList = this.rivalList.filter(item => item.rivalUserId !== rivalUserId);
         this.messageService.notice(`(id:${rivalUserId}) delete successfully.`);
         this.refreshFrom(newList);
       },
@@ -85,18 +74,26 @@ export class OngekiRivalListComponent implements OnInit {
   addRival() {
     const param = new HttpParams().set('rivalUserId', (Number).parseInt(this.inputAddRivalUserId));
     this.api.post(`api/game/ongeki/rival`, param).subscribe(
-      (data: ObjectMessageResponse<OngekiRival>) => {
-        if (data != null) {
-          if (data.data != null) {
-            if (this.rivalList.find(x => x.rivalUserId === data.data.rivalUserId) == null) {
-              this.rivalList.push(data.data);
-              this.refreshFrom(this.rivalList);
-              this.messageService.notice(`add rival (id:${data.data.rivalUserId}) successfully.`);
-            }else{
-              this.messageService.notice(`rival (id:${data.data.rivalUserId}) has been added.`);
-            }
-          } else
-            this.messageService.notice(`add rival (id:${this.inputAddRivalUserId}) failed: ${data.message}.`);
+      (data) => {
+        if (data?.status) {
+          const statusCode: StatusCode = data.status.code;
+          if (statusCode === StatusCode.OK && data.data) {
+            this.rivalList.push(data.data);
+            this.refreshFrom(this.rivalList);
+            this.messageService.notice(`Add rival (id:${data.data.rivalUserId}) successfully.`);
+          }
+          else if (statusCode === StatusCode.RIVAL_SELF){
+            this.messageService.notice(`Can't add your self as an rival`, 'danger');
+          }
+          else if (statusCode === StatusCode.RIVAL_ALREADY_ADDED){
+            this.messageService.notice(`Rival already added`, 'danger');
+          }
+          else if (statusCode === StatusCode.RIVAL_NOTFOUND){
+            this.messageService.notice(`Rival not found`, 'danger');
+          }
+          else{
+            this.messageService.notice(data.status.message, 'danger');
+          }
         }
       },
       error => this.messageService.notice(`add rival failed : ${error}`)
