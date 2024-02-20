@@ -4,6 +4,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../message.service';
 import {StatusCode} from '../../status-code';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private translate: TranslateService
   ) {
   }
 
@@ -59,7 +61,9 @@ export class LoginComponent implements OnInit {
                 location.reload();
               }
               else if (statusCode === StatusCode.LOGIN_FAILED){
-                this.messageService.notice('Invalid username/email or password. Please try again.', 'danger');
+                this.translate.get("HomePage.SignInModal.LoginFailedMessage").subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
               }
               else{
                 this.messageService.notice(resp.status.message);
@@ -75,39 +79,4 @@ export class LoginComponent implements OnInit {
         }
       );
   }
-
-  // onSubmit() {
-  //   if (this.loginForm.invalid) {
-  //     return;
-  //   }
-  //
-  //   let server: string = this.f.apiServer.value;
-  //   if (!server.startsWith('http')) {
-  //     server = 'http://' + server;
-  //   }
-  //
-  //   if (server.endsWith('/')) {
-  //     server = server.substring(0, server.length - 1);
-  //   }
-  //
-  //   this.authenticationService.login(this.f.accessCode.value, server).pipe(first())
-  //     .subscribe(
-  //       {
-  //         next: (data) => {
-  //           if (data != null) {
-  //             this.messageService.notice('Logging in');
-  //             location.reload();
-  //           } else {
-  //             this.messageService.notice('Card you entered does not exist');
-  //           }
-  //         }
-  //         ,
-  //         error: (error) => {
-  //           this.messageService.notice(error.message);
-  //           console.warn('login fail', error);
-  //         }
-  //       }
-  //     );
-  //
-  // }
 }

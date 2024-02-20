@@ -68,7 +68,8 @@
       "UsernameOrEmail" : "User name or Email",
       "Password" : "Password",
       "ResetPasswordTip" : "Forgot password?",
-      "SignIn" : "Sign in"
+      "SignIn" : "Sign in",
+      "LoginFailedMessage" : "Invalid username/email or password. Please try again."
     },
     "SignUpModal" : {
       "Title" : "Sign up to RinNET",
@@ -106,6 +107,15 @@
         "Minlength" : "Password must be at least 8 characters long.",
         "Maxlength" : "Password must be at most 100 characters long.",
         "Confirm" : "Passwords don't match."
+      },
+      "Messages" : {
+        "SendCodeSuccess" : "Send verify code success.",
+        "SendCodeTooFast" : "Verify code send too fast.",
+        "EmailAvailable" : "Email is available.",
+        "EmailInvailable" : "Email already in use.",
+        "UsernameAvailable" : "Username is available.",
+        "UsernameAlreadyTaken" : "Username already taken.",
+        "CodeIncorrect" : "Verification code incorrect."
       }
     },
     "ResetPasswordModal" : {

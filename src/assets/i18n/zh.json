@@ -68,7 +68,8 @@
       "UsernameOrEmail" : "登录名或电子邮箱",
       "Password" : "密码",
       "ResetPasswordTip" : "忘记密码？",
-      "SignIn" : "登录"
+      "SignIn" : "登录",
+      "LoginFailedMessage" : "用户名或密码错误。"
     },
     "SignUpModal" : {
       "Title" : "注册RinNET账号",
@@ -106,6 +107,15 @@
         "Minlength" : "密码至少包含8个字符。",
         "Maxlength" : "密码不得超过100个字符。",
         "Confirm" : "两次输入的密码不相同。"
+      },
+      "Messages" : {
+        "SendCodeSuccess" : "验证码发送成功。",
+        "SendCodeTooFast" : "验证码发送过于频繁。",
+        "EmailAvailable" : "邮箱没有被使用。",
+        "EmailInvailable" : "邮箱已被使用。",
+        "UsernameAvailable" : "用户名没有被使用。",
+        "UsernameAlreadyTaken" : "用户名已被使用。",
+        "CodeIncorrect" : "验证码错误"
       }
     },
     "ResetPasswordModal" : {

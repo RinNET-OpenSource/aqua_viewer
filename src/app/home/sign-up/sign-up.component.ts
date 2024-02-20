@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {first, take} from 'rxjs/operators';
@@ -24,7 +25,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
-    public router: Router) {
+    public router: Router,
+    private translate: TranslateService) {
 
   }
 
@@ -112,7 +114,20 @@ export class SignUpComponent implements OnInit, OnDestroy {
             if (resp?.status) {
               const statusCode: StatusCode = resp.status.code;
               if (statusCode === StatusCode.OK){
-                this.messageService.notice('Send verify code success.');
+                this.translate.get("HomePage.SignUpModal.Messages.SendCodeSuccess").subscribe((res: string) => {
+                  this.messageService.notice(res, 'success');
+                });
+                this.disableButtonForInterval(60);
+              }
+              else if(statusCode === StatusCode.EMAIL_ALREADY_IN_USE){
+                this.translate.get("HomePage.SignUpModal.Messages.EmailInvailable").subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
+              }
+              else if(statusCode === StatusCode.VERIFY_CODE_SEND_TOO_FAST){
+                this.translate.get("HomePage.SignUpModal.Messages.SendCodeTooFast").subscribe((res: string) => {
+                  this.messageService.notice(res, 'warning');
+                });
               }
               else{
                 this.messageService.notice(resp.status.message);
@@ -139,7 +154,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
           if (resp?.status) {
             const statusCode: StatusCode = resp.status.code;
             if (statusCode === StatusCode.OK){
-              this.messageService.notice('Email is available.');
+              this.translate.get("HomePage.SignUpModal.Messages.EmailAvailable").subscribe((res: string) => {
+                this.messageService.notice(res, 'success');
+              });
+            }
+            else if(statusCode === StatusCode.EMAIL_ALREADY_IN_USE){
+              this.translate.get("HomePage.SignUpModal.Messages.EmailInvailable").subscribe((res: string) => {
+                this.messageService.notice(res, 'danger');
+              });
             }
             else{
               this.messageService.notice(resp.status.message);
@@ -162,7 +184,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
           if (resp?.status) {
             const statusCode: StatusCode = resp.status.code;
             if (statusCode === StatusCode.OK){
-              this.messageService.notice('Username is available.');
+              this.translate.get("HomePage.SignUpModal.Messages.UsernameAvailable").subscribe((res: string) => {
+                this.messageService.notice(res, 'success');
+              });
+            }
+            else if(statusCode === StatusCode.USERNAME_ALREADY_TAKEN){
+              this.translate.get("HomePage.SignUpModal.Messages.UsernameAlreadyTaken").subscribe((res: string) => {
+                this.messageService.notice(res, 'danger');
+              });
             }
             else{
               this.messageService.notice(resp.status.message);
@@ -196,20 +225,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
     this.signUpForm.disable();
     const value = this.signUpForm.value;
-/*
-*
-*         resp => {
-          if (resp?.status) {
-            const statusCode: StatusCode = resp.status.code;
-            if (statusCode === StatusCode.OK){
-              this.messageService.notice('Username is available.');
-            }
-            else{
-              this.messageService.notice(resp.status.message);
-            }
-          }
-        },
-* */
+
     this.authenticationService.signUp(value.name, value.username, value.email, value.verifyCode, value.password).pipe(first())
       .subscribe(
         {
@@ -219,6 +235,24 @@ export class SignUpComponent implements OnInit, OnDestroy {
               if (statusCode === StatusCode.OK){
                 this.messageService.notice('Sign up success.');
                 window.location.reload();
+              }
+              else if(statusCode === StatusCode.EMAIL_ALREADY_IN_USE){
+                this.translate.get("HomePage.SignUpModal.Messages.EmailInvailable").subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
+                this.signUpForm.enable();
+              }
+              else if(statusCode === StatusCode.USERNAME_ALREADY_TAKEN){
+                this.translate.get("HomePage.SignUpModal.Messages.UsernameAlreadyTaken").subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
+                this.signUpForm.enable();
+              }
+              else if(statusCode === StatusCode.VERIFY_CODE_NOT_CORRECT){
+                this.translate.get("HomePage.SignUpModal.Messages.CodeIncorrect").subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
+                this.signUpForm.enable();
               }
               else{
                 this.messageService.notice(resp.status.message);
