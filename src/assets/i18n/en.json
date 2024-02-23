@@ -139,6 +139,11 @@
         "Required" : "Password is required.",
         "Minlength" : "Password must be at least 8 characters long.",
         "Maxlength" : "Password must be at most 100 characters long."
+      },
+      "Messages" : {
+        "SendCodeSuccess" : "Send verify code success.",
+        "SendCodeTooFast" : "Verify code send too fast.",
+        "CodeIncorrect" : "Verification code incorrect."
       }
     }
   },

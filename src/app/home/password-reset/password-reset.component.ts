@@ -4,6 +4,8 @@ import {first, take} from 'rxjs/operators';
 import {AuthenticationService} from '../../auth/authentication.service';
 import {MessageService} from '../../message.service';
 import {interval, Subscription} from 'rxjs';
+import {StatusCode} from 'src/app/status-code';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-password-reset',
@@ -21,7 +23,8 @@ export class PasswordResetComponent implements OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -76,12 +79,23 @@ export class PasswordResetComponent implements OnDestroy {
     this.authenticationService.getResetPasswordCode(value).pipe(first())
       .subscribe(
         {
-          next: (data) => {
-            if (data && data.message) {
-              this.messageService.notice(data.message);
-            }
-            if (data?.success) {
-              this.disableButtonForInterval(60);
+          next: (resp) => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK){
+                this.translate.get("HomePage.ResetPasswordModal.Messages.SendCodeSuccess").subscribe((res: string) => {
+                  this.messageService.notice(res, 'success');
+                });
+                this.disableButtonForInterval(60);
+              }
+              else if(statusCode === StatusCode.VERIFY_CODE_SEND_TOO_FAST){
+                this.translate.get("HomePage.ResetPasswordModal.Messages.SendCodeTooFast").subscribe((res: string) => {
+                  this.messageService.notice(res, 'warning');
+                });
+              }
+              else{
+                this.messageService.notice(resp.status.message);
+              }
             }
           }
           ,
@@ -101,19 +115,28 @@ export class PasswordResetComponent implements OnDestroy {
       this.resetPasswordForm.markAllAsTouched();
       return;
     }
+    this.getVerifyCodeForm.disable();
     this.resetPasswordForm.disable();
     const value = this.resetPasswordForm.value;
 
     this.authenticationService.resetPassword(value.email, value.verifyCode, value.password).pipe(first())
       .subscribe(
         {
-          next: (data) => {
-            if (data && data.message) {
-              this.messageService.notice(data.message);
-            }
-            if (data && data.success) {
-              window.location.reload();
-              // login
+          next: (resp) => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK){
+                window.location.reload();
+              }
+              else if(statusCode === StatusCode.VERIFY_CODE_NOT_CORRECT){
+                this.translate.get("HomePage.ResetPasswordModal.Messages.CodeIncorrect").subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
+              }
+              else{
+                this.messageService.notice(resp.status.message);
+              }
+              this.resetPasswordForm.enable();
             }
           }
           ,
@@ -121,6 +144,7 @@ export class PasswordResetComponent implements OnDestroy {
             if (error) {
               this.messageService.notice(error);
             }
+            this.getVerifyCodeForm.enable();
             this.resetPasswordForm.enable();
             console.warn('reset password fail', error);
           }
