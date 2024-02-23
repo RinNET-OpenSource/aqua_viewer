@@ -62,6 +62,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import {APP_INITIALIZER} from '@angular/core';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { GithubComponent } from './auth/oauth-callback/github/github.component';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -102,7 +103,8 @@ export function initializeApp(translateService: TranslateService) {
     HomeComponent,
     PasswordResetComponent,
     CardsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    GithubComponent
   ],
   imports: [
     BrowserModule,

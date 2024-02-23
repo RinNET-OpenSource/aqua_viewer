@@ -69,6 +69,7 @@
       "Password" : "Password",
       "ResetPasswordTip" : "Forgot password?",
       "SignIn" : "Sign in",
+      "SignInWithGithub": "SignInWithGithub",
       "LoginFailedMessage" : "Invalid username/email or password. Please try again."
     },
     "SignUpModal" : {
@@ -204,6 +205,13 @@
   "ChuniV2" : {
     "ProfilePage" : {
       "Overview" : "Overview"
+    }
+  },
+  "OAuth" : {
+    "Github": {
+      "githubLogin": "GitHub Login",
+      "githubLoginProcessing": "Validating your GitHub login information, please wait...",
+      "loading": "Loading..."
     }
   }
 }

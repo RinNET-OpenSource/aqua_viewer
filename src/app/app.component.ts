@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, HostListener, Inject, OnChanges, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {PreloadService} from './database/preload.service';
 import {Subscription} from 'rxjs';
 import {ApiService} from './api.service';
@@ -165,21 +165,30 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     public toastService: ToastService,
     private translate: TranslateService,
     private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
   ) {
-    this.account = authenticationService.currentAccountValue;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.url === '/') {
+        this.initializeApp();
+      }
+    });
   }
 
   ngOnInit(): void {
+    this.initializeApp();
+  }
+
+  private initializeApp() {
+    this.account = this.authenticationService.currentAccountValue;
     this.loadColorMode();
     if (this.account !== null) {
       this.preLoad.checkDbUpdate();
       this.loadUser();
+      this.refreshMenus();
     }
     this.subscription = this.api.loadingState.subscribe(
       state => this.loading = state.show
     );
-    this.refreshMenus();
   }
 
   loadUser() {
@@ -283,8 +292,8 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadColorMode(){
-    var colorMode = localStorage.getItem('colorMode');
-    if(colorMode !== 'dark' && colorMode !== 'light'){
+    let colorMode = localStorage.getItem('colorMode');
+    if (colorMode !== 'dark' && colorMode !== 'light'){
       colorMode = 'dark';
     }
     this.colorMode = colorMode;

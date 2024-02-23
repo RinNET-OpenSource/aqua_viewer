@@ -66,6 +66,42 @@ export class AuthenticationService {
         }));
   }
 
+  loginWithOAuth(oauthCode: string, type: string) {
+    return this.http.post<any>(`${environment.apiServer}api/auth/signin/oauth2/code/${type}`, { code: oauthCode })
+      .pipe(
+        mergeMap(loginResp => {
+          const loginStatusCode: StatusCode = loginResp?.status?.code;
+          if (loginStatusCode !== StatusCode.OK || !loginResp.data) {
+            return of(loginResp);
+          }
+          const account: Account = loginResp.data;
+          const headers = {Authorization: `${loginResp.data.tokenType} ${loginResp.data.accessToken}`};
+          return this.http.get<any>(environment.apiServer + 'api/user/me', {headers})
+            .pipe(
+              map(
+                resp => {
+                  if (resp?.status) {
+                    const statusCode: StatusCode = resp.status.code;
+                    if (statusCode === StatusCode.OK && resp.data) {
+                      account.name = resp.data.name;
+                      for (const card of resp.data.cards) {
+                        if (card.default) {
+                          account.currentCard = card;
+                          break;
+                        }
+                      }
+                      account.games = resp.data.games;
+                    }
+                    this.currentAccountValue = account;
+                    return resp;
+                  }
+                }
+              )
+            );
+        })
+      );
+  }
+
   signUp(name: string, username: string, email: string, verifyCode: string, password: string) {
     return this.http.post<any>(environment.apiServer + 'api/auth/signup', {name, username, email, verifyCode, password})
       .pipe(

@@ -19,6 +19,10 @@
       <div class="text-end">
         <button type="button" class="btn btn-link text-decoration-none btn-sm" (click)="onForgotPassword.emit()">{{'HomePage.SignInModal.ResetPasswordTip' | translate}}</button>
       </div>
+      <!-- GitHub LoginButton -->
+      <button type="button" class="btn btn-secondary btn-sm" (click)="loginWithGitHub()">
+        {{'HomePage.SignInModal.SignInWithGithub' | translate}}
+      </button>
       <button type="submit" class="btn btn-primary btn-sm" [class.disabled]="signInForm.disabled">
         {{'HomePage.SignInModal.SignIn' | translate}}
       </button>

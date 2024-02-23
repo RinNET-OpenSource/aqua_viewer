@@ -7,9 +7,11 @@ import {SignUpComponent} from './home/sign-up/sign-up.component';
 import {HomeComponent} from './home/home.component';
 import {CardsComponent} from './cards/cards.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import {GithubComponent} from './auth/oauth-callback/github/github.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'oauth-callback/github', component: GithubComponent},
   {path: 'cards', component: CardsComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'import', component: ImporterComponent},
