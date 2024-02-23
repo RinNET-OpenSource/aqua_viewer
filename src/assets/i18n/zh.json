@@ -115,7 +115,7 @@
         "EmailInvailable" : "邮箱已被使用。",
         "UsernameAvailable" : "用户名没有被使用。",
         "UsernameAlreadyTaken" : "用户名已被使用。",
-        "CodeIncorrect" : "验证码错误"
+        "CodeIncorrect" : "验证码错误。"
       }
     },
     "ResetPasswordModal" : {
@@ -138,6 +138,11 @@
         "Required" : "必须填写密码。",
         "Minlength" : "密码至少包含8个字符。",
         "Maxlength" : "密码不得超过100个字符。"
+      },
+      "Messages" : {
+        "SendCodeSuccess" : "验证码发送成功。",
+        "SendCodeTooFast" : "验证码发送过于频繁。",
+        "CodeIncorrect" : "验证码错误。"
       }
     }
   },
