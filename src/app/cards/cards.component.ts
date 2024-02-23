@@ -113,7 +113,7 @@ export class CardsComponent implements OnInit {
   onRemoveExternal(external: CardExternal, modal) {
     const accessCode = external.luid.full;
     const body = {accessCode};
-    this.api.delete('api/sega/aime/removeCardExternal', null, body).subscribe(
+    this.api.delete('api/user/removeCardExternal', null, body).subscribe(
       resp => {
         if (resp?.status) {
           const statusCode: StatusCode = resp.status.code;
