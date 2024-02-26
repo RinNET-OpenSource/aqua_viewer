@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {first, take} from 'rxjs/operators';
 import {MessageService} from '../../message.service';
@@ -14,6 +14,7 @@ import {StatusCode} from '../../status-code';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit, OnDestroy {
+  @Output() registrationComplete = new EventEmitter<{email: string, password: string}>();
 
   signUpForm: FormGroup;
   getVerifyCodeForm: FormGroup;
@@ -70,6 +71,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
       localStorage.removeItem('email');
       this.signUpForm.controls.email.setValue(email);
       this.getVerifyCodeForm.controls.email.setValue(email);
+      this.signUpForm.controls.email.disable();
+      this.getVerifyCodeForm.controls.email.disable();
     }
   }
 
@@ -244,7 +247,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
               const statusCode: StatusCode = resp.status.code;
               if (statusCode === StatusCode.OK){
                 this.messageService.notice('Sign up success.');
-                window.location.reload();
+                this.registrationComplete.emit({email: this.email.value, password: this.password.value});
               }
               else if(statusCode === StatusCode.EMAIL_ALREADY_IN_USE){
                 this.translate.get("HomePage.SignUpModal.Messages.EmailInvailable").subscribe((res: string) => {

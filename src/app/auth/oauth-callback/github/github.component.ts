@@ -5,6 +5,8 @@ import {AuthenticationService} from '../../authentication.service';
 import {StatusCode} from '../../../status-code';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SignUpComponent} from '../../../home/sign-up/sign-up.component';
+import {LoginComponent} from '../../../home/login/login.component';
+import {GithubOauth2Service} from '../../oauth/github-oauth2.service';
 
 @Component({
   selector: 'app-github',
@@ -13,11 +15,12 @@ import {SignUpComponent} from '../../../home/sign-up/sign-up.component';
 })
 export class GithubComponent implements OnInit{
   popupStatus = 0;
+
   constructor(private route: ActivatedRoute,
               private messageService: MessageService,
               private router: Router,
               private authenticationService: AuthenticationService,
-              private modalService: NgbModal) { }
+              private githubOAuth2Service: GithubOauth2Service) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -65,5 +68,9 @@ export class GithubComponent implements OnInit{
         this.messageService.notice('Invalid state parameter');
       }
     });
+  }
+
+  handleRegisterationComplete() {
+    this.githubOAuth2Service.loginWithGitHub();
   }
 }

@@ -98,7 +98,7 @@ default = aqua.naominet.live</code></pre>
         </div>
       </div>
       <div *ngIf="popupStatus == 1">
-        <app-sign-up></app-sign-up>
+        <app-sign-up (registrationComplete)="handleRegistrationComplete($event)"></app-sign-up>
         <div class="text-center my-3 small">
           {{'HomePage.SignInTip' | translate}}
           <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.SignIn' | translate}}</button>

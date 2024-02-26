@@ -6,6 +6,7 @@ import {MessageService} from '../../message.service';
 import {StatusCode} from '../../status-code';
 import { TranslateService } from '@ngx-translate/core';
 import {environment} from '../../../environments/environment';
+import {GithubOauth2Service} from '../../auth/oauth/github-oauth2.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     public messageService: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    protected githubOAuth2Service: GithubOauth2Service
   ) {
   }
 
@@ -79,23 +81,5 @@ export class LoginComponent implements OnInit {
           }
         }
       );
-  }
-
-  loginWithGitHub() {
-    const state = this.generateRandomString();
-    localStorage.setItem('oauth_state', state);
-    const clientId = environment.oauth.github.client_id;
-    const scope = environment.oauth.github.scoop;
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${scope}&state=${state}`;
-  }
-
-  generateRandomString(length: number = 16): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
   }
 }

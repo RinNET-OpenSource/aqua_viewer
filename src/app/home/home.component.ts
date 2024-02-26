@@ -3,6 +3,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MessageService} from '../message.service';
 import {AuthenticationService} from '../auth/authentication.service';
 import {environment} from '../../environments/environment';
+import {StatusCode} from '../status-code';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +37,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
               public messageService: MessageService,
               public authenticationService: AuthenticationService,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -74,6 +77,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  handleRegistrationComplete(loginInfo: {email: string, password: string}) {
+    this.authenticationService.login(loginInfo.email, loginInfo.password)
+      .subscribe(
+        {
+          next: (resp) => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK && resp.data) {
+                this.messageService.notice(resp.status.message);
+                location.reload();
+              }
+              else if (statusCode === StatusCode.LOGIN_FAILED){
+                this.translate.get('HomePage.SignInModal.LoginFailedMessage').subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
+              }
+              else{
+                this.messageService.notice(resp.status.message);
+              }
+            }
+          }
+        }
+      );
+  }
 
   faultStop(): void {
     clearInterval(this.faultTimer);
