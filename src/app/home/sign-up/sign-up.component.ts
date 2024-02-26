@@ -31,6 +31,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  private initForm(): void {
     this.signUpForm = this.fb.group({
       name: ['', [
         Validators.required,
@@ -61,6 +65,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
         Validators.email,
         Validators.maxLength(40)]]
     });
+    if (localStorage.getItem('email')){
+      const email = localStorage.getItem('email');
+      localStorage.removeItem('email');
+      this.signUpForm.controls.email.setValue(email);
+      this.getVerifyCodeForm.controls.email.setValue(email);
+    }
   }
 
   ngOnDestroy(): void {

@@ -5,11 +5,18 @@
         <div class="card-header">
           {{ 'OAuth.Github.githubLogin' | translate }}
         </div>
-        <div class="card-body">
+        <div *ngIf="popupStatus === 0" class="card-body">
           <p class="card-text">{{ 'OAuth.Github.githubLoginProcessing' | translate }}</p>
           <div class="d-flex flex-column justify-content-center align-items-center">
             <div class="spinner-border" role="status"></div>
             <span class="mt-2">{{ 'OAuth.Github.loading' | translate }}</span>
+          </div>
+        </div>
+        <div *ngIf="popupStatus == 1">
+          <app-sign-up></app-sign-up>
+          <div class="text-center my-3 small">
+            {{'HomePage.SignInTip' | translate}}
+            <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.SignIn' | translate}}</button>
           </div>
         </div>
       </div>

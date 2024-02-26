@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../../../message.service';
 import {AuthenticationService} from '../../authentication.service';
 import {StatusCode} from '../../../status-code';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SignUpComponent} from '../../../home/sign-up/sign-up.component';
 
 @Component({
   selector: 'app-github',
@@ -10,11 +12,12 @@ import {StatusCode} from '../../../status-code';
   styleUrls: ['./github.component.css']
 })
 export class GithubComponent implements OnInit{
+  popupStatus = 0;
   constructor(private route: ActivatedRoute,
               private messageService: MessageService,
               private router: Router,
               private authenticationService: AuthenticationService,
-              private zone: NgZone) { }
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -40,13 +43,16 @@ export class GithubComponent implements OnInit{
                     const statusCode: StatusCode = resp.status.code;
                     if (statusCode === StatusCode.OK && resp.data) {
                       this.messageService.notice(resp.status.message);
+                      this.router.navigate(['/']);
                     } else if (statusCode === StatusCode.OAUTH_USER_NOT_REGISTERED) {
                       // Need More Process To Register A User
+                      this.popupStatus = 1;
+                      localStorage.setItem('email', resp.data);
                       this.messageService.notice(resp.status.message);
                     } else {
                       this.messageService.notice(resp.status.message);
+                      this.router.navigate(['/']);
                     }
-                    this.router.navigate(['/']);
                   }
                 },
                 error: (errorBackend) => {
