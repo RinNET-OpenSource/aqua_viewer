@@ -7,6 +7,9 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SignUpComponent} from '../../../home/sign-up/sign-up.component';
 import {LoginComponent} from '../../../home/login/login.component';
 import {GithubOauth2Service} from '../../oauth/github-oauth2.service';
+import {HttpClient} from '@angular/common/http';
+import {first} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-github',
@@ -15,12 +18,14 @@ import {GithubOauth2Service} from '../../oauth/github-oauth2.service';
 })
 export class GithubComponent implements OnInit{
   popupStatus = 0;
+  token: '';
 
   constructor(private route: ActivatedRoute,
               private messageService: MessageService,
               private router: Router,
               private authenticationService: AuthenticationService,
-              private githubOAuth2Service: GithubOauth2Service) { }
+              private githubOAuth2Service: GithubOauth2Service,
+              private translate: TranslateService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -50,7 +55,8 @@ export class GithubComponent implements OnInit{
                     } else if (statusCode === StatusCode.OAUTH_USER_NOT_REGISTERED) {
                       // Need More Process To Register A User
                       this.popupStatus = 1;
-                      localStorage.setItem('email', resp.data);
+                      localStorage.setItem('email', resp.data.email);
+                      this.token = resp.data.token;
                       this.messageService.notice(resp.status.message);
                     } else {
                       this.messageService.notice(resp.status.message);
@@ -72,5 +78,35 @@ export class GithubComponent implements OnInit{
 
   handleRegisterationComplete() {
     this.githubOAuth2Service.loginWithGitHub();
+  }
+
+  handleOneClickRegister() {
+    this.authenticationService.signUpWithOAuth(this.token).pipe(first()).subscribe(
+      {
+        next: (resp) => {
+          if (resp?.status) {
+            const statusCode: StatusCode = resp.status.code;
+            if (statusCode === StatusCode.OK){
+              this.messageService.notice('Sign up success.');
+              this.githubOAuth2Service.loginWithGitHub();
+            }
+            else if (statusCode === StatusCode.USERNAME_ALREADY_TAKEN){
+              this.translate.get('HomePage.SignUpModal.Messages.UsernameAlreadyTaken').subscribe((res: string) => {
+                this.messageService.notice(res, 'danger');
+              });
+            }
+            else{
+              this.messageService.notice(resp.status.message);
+            }
+          }
+        },
+        error: (error) => {
+          if (error) {
+            this.messageService.notice(error);
+          }
+          console.warn('Sign up failed.', error);
+        }
+      }
+    );
   }
 }

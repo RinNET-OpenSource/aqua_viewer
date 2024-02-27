@@ -14,9 +14,12 @@
         </div>
         <div *ngIf="popupStatus == 1">
           <app-sign-up (registrationComplete)="handleRegisterationComplete()"></app-sign-up>
-          <div class="text-center my-3 small">
-            {{'HomePage.SignInTip' | translate}}
-            <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.SignIn' | translate}}</button>
+          <div class="container pt-2 px-3 px-sm-5">
+            <div class="text-center d-grid gap-2">
+              <button type="button" class="btn btn-secondary btn-sm mb-4" (click)="handleOneClickRegister()">
+                {{'OAuth.Github.OneClickRegisterGithub' | translate}}
+              </button>
+            </div>
           </div>
         </div>
       </div>

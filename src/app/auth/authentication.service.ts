@@ -113,6 +113,17 @@ export class AuthenticationService {
       );
   }
 
+  signUpWithOAuth(token: string){
+    return this.http.post<any>(environment.apiServer + 'api/auth/signup/oauth2', {token})
+      .pipe(
+        map(
+          resp => {
+            return resp;
+          }
+        )
+      );
+  }
+
   resetPassword(emailAddress: string, verifyCode: string, password: string) {
     return this.http.post<any>(environment.apiServer + 'api/auth/resetPassword', {emailAddress, verifyCode, password})
       .pipe(

@@ -217,8 +217,8 @@
     "Github": {
       "githubLogin": "GitHub登录",
       "githubLoginProcessing": "正在验证您的GitHub登录信息，请稍候...",
-      "loading": "加载中..."
-
+      "loading": "加载中...",
+      "OneClickRegisterGithub": "使用GitHub注册"
     }
   }
 }

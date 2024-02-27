@@ -216,7 +216,8 @@
     "Github": {
       "githubLogin": "GitHub Login",
       "githubLoginProcessing": "Validating your GitHub login information, please wait...",
-      "loading": "Loading..."
+      "loading": "Loading...",
+      "OneClickRegisterGithub": "Register With Github"
     }
   }
 }
