@@ -45,7 +45,7 @@
     </div>
   </nav>
   <div class="position-relative">
-    <div *ngIf="loading">
+    <div *ngIf="loading$ | async">
       <div class="progress position-fixed fixed-top" style="margin-top: 3.6rem">
         <div class="progress-bar indeterminate-front" role="progressbar"></div>
       </div>

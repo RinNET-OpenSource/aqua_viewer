@@ -1,6 +1,6 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {environment} from '../environments/environment';
 
 @Injectable({
@@ -8,7 +8,7 @@ import {environment} from '../environments/environment';
 })
 export class ApiService {
 
-  private loadingSubject = new Subject<LoadingState>();
+  private loadingSubject = new BehaviorSubject<boolean>(false);
   loadingState = this.loadingSubject.asObservable();
 
   constructor(private http: HttpClient) {
@@ -35,11 +35,11 @@ export class ApiService {
   }
 
   show() {
-    this.loadingSubject.next({show: true});
+    Promise.resolve().then(() => this.loadingSubject.next(true));
   }
 
   hide() {
-    this.loadingSubject.next({show: false});
+    Promise.resolve().then(() => this.loadingSubject.next(false));
   }
 
 }
