@@ -6,8 +6,9 @@ import {ImporterComponent} from './importer/importer/importer.component';
 import {SignUpComponent} from './home/sign-up/sign-up.component';
 import {HomeComponent} from './home/home.component';
 import {CardsComponent} from './cards/cards.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import {NotFoundComponent} from './not-found/not-found.component';
 import {GithubComponent} from './auth/oauth-callback/github/github.component';
+import {ContributorsComponent} from './contributors/contributors.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'cards', component: CardsComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'import', component: ImporterComponent},
+  {path: 'contributors', component: ContributorsComponent},
   {path: 'diva', loadChildren: () => import('./sega/diva/diva.module').then(mod => mod.DivaModule), canLoad: [AuthGuardService]},
   {path: 'ongeki', loadChildren: () => import('./sega/ongeki/ongeki.module').then(mod => mod.OngekiModule), canLoad: [AuthGuardService]},
   {path: 'mai2', loadChildren: () => import('./sega/maimai2/maimai2.module').then(mod => mod.Maimai2Module), canLoad: [AuthGuardService]},

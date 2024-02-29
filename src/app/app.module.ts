@@ -60,10 +60,11 @@ import {
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
-import {APP_INITIALIZER} from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GithubComponent } from './auth/oauth-callback/github/github.component';
 import { StaffComponent } from './home/staff/staff.component';
+import { ContributorsComponent } from './contributors/contributors.component';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -106,8 +107,9 @@ export function initializeApp(translateService: TranslateService) {
     CardsComponent,
     NotFoundComponent,
     GithubComponent,
-    StaffComponent
-  ],
+    StaffComponent,
+    ContributorsComponent
+   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

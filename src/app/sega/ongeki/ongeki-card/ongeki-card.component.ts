@@ -14,6 +14,7 @@ import {OngekiSkill} from '../model/OngekiSkill';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ArrayUtils} from 'src/app/util/array-utils';
 
 @Component({
   selector: 'app-ongeki-card',
@@ -552,7 +553,7 @@ export class OngekiCardComponent implements OnInit {
       const index = i.toString().padStart(2, '0');
       styles.push(this.getHoloSheetStyle(index));
     }
-    return this.shuffleArray(styles);
+    return ArrayUtils.shuffleArray(styles);
   }
 
   getHoloSheetStyle(index: string) {
@@ -561,11 +562,4 @@ export class OngekiCardComponent implements OnInit {
       --holo-sheet-top: url("${this.host}assets/holo-sheet/${index}/top.png");`;
   }
 
-  shuffleArray(array: string[]): string[] {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
 }
