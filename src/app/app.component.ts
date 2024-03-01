@@ -12,6 +12,7 @@ import {environment} from '../environments/environment';
 import {StatusCode} from './status-code';
 import { TranslateService } from '@ngx-translate/core';
 import { DOCUMENT } from '@angular/common';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -165,6 +166,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     public toastService: ToastService,
     private translate: TranslateService,
     private renderer: Renderer2,
+    updates: SwUpdate,
     @Inject(DOCUMENT) private document: Document,
   ) {
     this.router.events.subscribe(event => {
@@ -172,6 +174,12 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
         this.initializeApp();
       }
     });
+    if (updates.isEnabled) {
+      updates.available.subscribe(
+        event => {
+          updates.activateUpdate().then(() => document.location.reload());
+        });
+    }
   }
 
   ngOnInit(): void {
