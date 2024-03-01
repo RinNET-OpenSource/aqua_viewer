@@ -3,8 +3,8 @@ import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {NavigationEnd, Router} from '@angular/router';
 import {PreloadService} from './database/preload.service';
-import {Subscription} from 'rxjs';
-import {ApiService} from './api.service';
+import {Observable, Subscription} from 'rxjs';
+import {ApiService, LoadingState} from './api.service';
 import {ToastService} from './toast-service';
 import * as bootstrap from 'bootstrap';
 import {MessageService} from './message.service';
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   sidebarOffcanvasOpened = false;
   account: Account;
 
-  loading = false;
+  loading$: Observable<boolean>;
   ongekiMenu: Menu[] = [
     {
       id: 0,
@@ -155,7 +155,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     }
   ];
 
-  private subscription: Subscription;
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -174,6 +173,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
         this.initializeApp();
       }
     });
+    this.loading$ = this.api.loadingState;
     if (updates.isEnabled) {
       updates.available.subscribe(
         event => {
@@ -194,9 +194,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       this.loadUser();
       this.refreshMenus();
     }
-    this.subscription = this.api.loadingState.subscribe(
-      state => this.loading = state.show
-    );
   }
 
   loadUser() {
