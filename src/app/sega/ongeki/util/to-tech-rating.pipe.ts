@@ -36,6 +36,8 @@ export class ToTechRatingPipe implements PipeTransform {
         }
       }
     }
+
+    num = Math.floor(num);
     result = Math.max(num, 0) / 100.0;
 
     if (result === 0) {
