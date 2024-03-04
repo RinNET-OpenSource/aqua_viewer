@@ -14,14 +14,14 @@
     </div>
   </div>
   <h5 class="fw-bold mb-3">{{"ContributorsPage.Donations" | translate}}</h5>
-  <div class="mb-2">
+  <div class="mb-2 lh-lg">
     <span class="hstack d-inline-block me-3 mb-1" [class.fw-bold]="sponsor.CurrentPlan && sponsor.CurrentPlan !== ''" *ngFor="let sponsor of sponsors">
       <a class="text-decoration-none" target="_blank" href="https://afdian.net/u/{{sponsor.UserId}}"><img class="avator me-1" src="{{sponsor.AvatarUrl}}">{{sponsor.Name}}</a>
     </span>
   </div>
   <div class="mb-3">
-    <a href="https://afdian.net/a/rinnet">
-      <img class="sponsorme" src="https://pic1.afdiancdn.com/static/img/welcome/button-sponsorme.png" alt="" />
+    <a class="btn sponsor-me" href="https://afdian.net/a/rinnet">
+      {{"ContributorsPage.SponsorMe" | translate}}
     </a>
   </div>
   <h5 class="fw-bold mb-3">{{"ContributorsPage.SpecialThanks" | translate}}</h5>
@@ -29,7 +29,7 @@
     <div class="mb-3">{{"ContributorsPage.ThanksSamnyan" | translate}}</div>
     <div class="mb-3" [innerHTML]="'ContributorsPage.ThanksJetbrain' | translate"></div>
     <a href="https://www.jetbrains.com/webstorm/">
-      <img class="webstorm-logo" src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm.svg" alt="">
+      <img class="webstorm-logo bg-white" src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm.svg" alt="">
     </a>
   </div>
 </div>
