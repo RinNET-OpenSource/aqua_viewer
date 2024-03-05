@@ -210,6 +210,24 @@
   "ChuniV2" : {
     "ProfilePage" : {
       "Overview" : "Overview"
+    },
+    "UserBoxPage" : {
+      "Title" : "User Box",
+      "Avatar" : "Avatar",
+      "Nameplate" :"Nameplate",
+      "MapIcon" :"Map Icon",
+      "SystemVoice" :"System Voice",
+      "AvatarWear" :"Avatar Wear",
+      "AvatarHead" :"Avatar Head",
+      "AvatarFace" :"Avatar Face",
+      "AvatarSkin" :"Avatar Skin",
+      "AvatarItem" :"Avatar Item",
+      "AvatarFront" :"Avatar Front",
+      "AvatarBack" :"Avatar Back",
+      "Trophy" :"Trophy",
+      "Frame" :"Frame",
+      "Change" : "Change",
+      "Preview" : "Preview"
     }
   },
   "ContributorsPage" : {

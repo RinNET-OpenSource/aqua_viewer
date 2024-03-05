@@ -211,6 +211,24 @@
   "ChuniV2" : {
     "ProfilePage" : {
       "Overview" : "概览"
+    },
+    "UserBoxPage" : {
+      "Title" : "收藏品",
+      "Avatar" : "虚拟形象",
+      "Nameplate" :"名牌板",
+      "MapIcon" :"地图头像",
+      "SystemVoice" :"系统语音",
+      "AvatarWear" :"服装",
+      "AvatarHead" :"头饰",
+      "AvatarFace" :"脸部",
+      "AvatarSkin" :"皮肤",
+      "AvatarItem" :"道具",
+      "AvatarFront" :"前面",
+      "AvatarBack" :"背面",
+      "Trophy" :"称号",
+      "Frame" :"框体",
+      "Change" : "更改",
+      "Preview" : "预览"
     }
   },
   "ContributorsPage" : {

@@ -1,87 +1,64 @@
-<article>
-  <h3>User Box</h3>
-
-  <div *ngIf="enableImages == true" fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="1rem" class="assetPreview">
-    <div class="container">
-      <div class="row">
-        <section id="avatarCard" style="position: relative" class="card col-md-6 overflow-hidden">
-          <div class="card-body">
-            <h5 class="card-title">Avatar preview</h5>
-            <div class="avatarPreview">
-              <div *ngIf="showGuiGui == true" class="guiguiContainer">
-                <img id="avatarGuiGui" class="guiguiSVG" src="assets/turtle.svg">
-                <img class="avatarHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarHead|formatNumber:8}}.png">
-              </div>
-              <div *ngIf="showGuiGui == false" class="avatarContainer">
-                <img id="avatarFeet" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
-                <img id="avatarBody" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
-                <img id="avatarFace" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Face.webp">
-<!--                <img id="avatarArms" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Arms.png">-->
-                <img id="avatarLeftHand" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_LeftHand.webp">
-                <img id="avatarRightHand" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_RightHand.webp">
-                <img id="avatarWear" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarWear|formatNumber:8}}.png">
-                <img id="avatarHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarHead|formatNumber:8}}.png">
-                <img id="avatarFaceWear" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarFace|formatNumber:8}}.png">
-                <img id="avatarItemLeft" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarItem|formatNumber:8}}.png">
-                <img id="avatarItemRight" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarItem|formatNumber:8}}.png">
-                <img id="avatarBack" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarBack|formatNumber:8}}.png">
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="voiceCard" class="card col-md-6 col-md-3">
-          <div class="card-body">
-            <h5 class="card-title">System voice preview</h5>
-            <div fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="1rem">
-              <div class="container mt-3">
-                <span>Volume :</span>
-                <input class="form-range" type="range" [(ngModel)]="volume">
-                <div class="row mt-3">
-                  <div class="col-3 mb-1" style="height: 3rem" *ngFor="let item of systemVoicelines">
-                      <button class="audio-btn btn btn-outline-primary btn-sm w-100 h-100" (click)="item.click()" *ngIf="item.click">{{item.name}}</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+<h3 class="mb-4">{{'ChuniV2.UserBoxPage.Title' | translate}}</h3>
+<div class="row">
+  <div class="col-12 px-2 mb-2">
+    <div class="card p-0 overflow-hidden">
+      <div class="card-header item-title text-light d-flex justify-content-center align-items-center py-1">
+        <span class="m-0">{{'ChuniV2.UserBoxPage.Avatar' | translate}}</span>
       </div>
-    </div>
-  </div>
-
-  <div class="mt-5" fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="1rem">
-    <div class="container">
-      <div class="row">
-        <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4" *ngFor="let item of customable" style="position: relative">
-          <div class="card-body">
-            <h5 class="card-title">{{item.name}}</h5>
-            <div *ngIf="profile" [ngClass]="{'namePlate': item.name == 'Nameplate', 'mapIcon': item.name == 'Map Icon', 'systemVoice': item.name == 'System Voice', 'avatarIcon': item.name.match('Avatar')}">
-              <p class="text-truncate">{{item.value | async}}</p>
-              <div *ngIf="enableImages == true">
-                <img *ngIf="item.name == 'Nameplate'" src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{profile.nameplateId|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Map Icon'" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{profile.mapIconId|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'System Voice'" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{profile.voiceId|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Avatar Wear'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarWear|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Avatar Head'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarHead|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Avatar Face'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarFace|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Avatar Skin'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarSkin|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Avatar Item'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarItem|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Avatar Front'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarFront|formatNumber:8}}.png">
-                <img *ngIf="item.name == 'Avatar Back'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarBack|formatNumber:8}}.png">
-              </div>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" (click)="item.click()" style="position: absolute;bottom: 5%; left: 5%;" *ngIf="item.click">Change</button>
+      <div class="card-body">
+        <div class="avatarPreview" [ngSwitch]="showGuiGui">
+          <div *ngSwitchCase="true" class="guiguiContainer">
+            <img id="avatarGuiGui" class="guiguiSVG" src="assets/turtle.svg">
+            <img class="avatarHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarHead|formatNumber:8}}.png">
+          </div>
+          <div *ngSwitchDefault class="avatarContainer">
+            <img id="avatarFeet" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
+            <img id="avatarBody" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
+            <img id="avatarFace" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Face.webp">
+            <!-- <img id="avatarArms" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Arms.png"> -->
+            <img id="avatarLeftHand" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_LeftHand.webp">
+            <img id="avatarRightHand" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_RightHand.webp">
+            <img id="avatarWear" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarWear|formatNumber:8}}.png">
+            <img id="avatarHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarHead|formatNumber:8}}.png">
+            <img id="avatarFaceWear" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarFace|formatNumber:8}}.png">
+            <img id="avatarItemLeft" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarItem|formatNumber:8}}.png">
+            <img id="avatarItemRight" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarItem|formatNumber:8}}.png">
+            <img id="avatarBack" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarBack|formatNumber:8}}.png">
           </div>
         </div>
       </div>
     </div>
   </div>
-
-</article>
-
-
-
-
-
-
+  <div class="col-12 px-1">
+    <div class="row p-0 m-0 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
+      <div class="col px-1 pt-0 pb-2 m-0" *ngFor="let item of customable">
+        <div class="card p-0">
+          <div class="card-header item-title text-light d-flex justify-content-center align-items-center py-1">
+            <span class="m-0">{{'ChuniV2.UserBoxPage.' + item.name | translate}}</span>
+          </div>
+          <div class="card-body text-center">
+            <div>
+              <p class="text-truncate">{{item.value | async}}</p>
+            </div>
+            <div class="item-body" [ngSwitch]="item.name">
+              <img *ngSwitchCase="'Nameplate'" src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{profile.nameplateId|formatNumber:8}}.png">
+              <img *ngSwitchCase="'MapIcon'" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{profile.mapIconId|formatNumber:8}}.png">
+              <img *ngSwitchCase="'SystemVoice'" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{profile.voiceId|formatNumber:8}}.png">
+              <img *ngSwitchCase="'AvatarWear'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarWear|formatNumber:8}}.png">
+              <img *ngSwitchCase="'AvatarHead'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarHead|formatNumber:8}}.png">
+              <img *ngSwitchCase="'AvatarFace'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarFace|formatNumber:8}}.png">
+              <img *ngSwitchCase="'AvatarSkin'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarSkin|formatNumber:8}}.png">
+              <img *ngSwitchCase="'AvatarItem'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarItem|formatNumber:8}}.png">
+              <img *ngSwitchCase="'AvatarFront'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarFront|formatNumber:8}}.png">
+              <img *ngSwitchCase="'AvatarBack'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarBack|formatNumber:8}}.png">
+            </div>
+            <div class="hstack gap-2 mt-2">
+              <button class="btn btn-sm btn-change text-light" (click)="item.click()" *ngIf="item.click">{{'ChuniV2.UserBoxPage.Change' | translate}}</button>
+              <button class="btn btn-sm btn-change text-light" (click)="item.click()" *ngIf="item.name == 'SystemVoice'">{{'ChuniV2.UserBoxPage.Preview' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
