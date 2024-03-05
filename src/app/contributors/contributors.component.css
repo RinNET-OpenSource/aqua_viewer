@@ -1,5 +1,14 @@
-.sponsorme{
-  height: 2.5em
+.sponsor-me{
+  background: linear-gradient(90deg,#946ce6,#7e5fd9);
+  border-radius: .1em;
+  color: #fff;
+  padding: .5rem 2rem;
+  font-weight: bold;
+  font-size: small;
+}
+
+.sponsor-me:hover {
+  background: linear-gradient(90deg,#946ce6,#885fd9);
 }
 
 .webstorm-logo{
