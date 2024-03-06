@@ -33,8 +33,7 @@ export class V2UserBoxComponent implements OnInit {
   items: Observable<[]>;
   customable = [];
 
-  systemVoicelines = [];
-  volume: number;
+  systemVoiceIDs = [34, 0, 1, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 49, 50, 51];
   currentAvatarAcc: {category: number, accId: number} = {category: 0, accId: 0};
 
   dialogOptions: NgbModalOptions = {
@@ -81,45 +80,13 @@ export class V2UserBoxComponent implements OnInit {
     ];
   }
 
-  initSounds() {
-    this.systemVoicelines = [
-      { name: 'SEGA',       click: () => this.playAudio(34)},
-      { name: 'FULL COMBO', click: () => this.playAudio(0)},
-      { name: 'ALL JUSTICE', click: () => this.playAudio(1)},
-      { name: 'NEW RECORD', click: () => this.playAudio(8)},
-      { name: 'RANK D',     click: () => this.playAudio(10)},
-      { name: 'RANK C',     click: () => this.playAudio(11)},
-      { name: 'RANK B',     click: () => this.playAudio(12)},
-      { name: 'RANK BB',    click: () => this.playAudio(13)},
-      { name: 'RANK BBB',   click: () => this.playAudio(14)},
-      { name: 'RANK A',     click: () => this.playAudio(15)},
-      { name: 'RANK AA',    click: () => this.playAudio(16)},
-      { name: 'RANK AAA',   click: () => this.playAudio(17)},
-      { name: 'RANK S',     click: () => this.playAudio(18)},
-      { name: 'RANK S+',    click: () => this.playAudio(19)},
-      { name: 'RANK SS',    click: () => this.playAudio(20)},
-      { name: 'RANK SS+',   click: () => this.playAudio(21)},
-      { name: 'RANK SSS',   click: () => this.playAudio(22)},
-      { name: 'RANK SSS+',  click: () => this.playAudio(23)},
-      { name: 'DUEL INTRO', click: () => this.playAudio(24)},
-      { name: 'CONTINUE?',  click: () => this.playAudio(49)},
-      { name: 'CONTINUE!',  click: () => this.playAudio(50)},
-      { name: 'SEE YOU NEXT PLAY!', click: () => this.playAudio(51)},
-    ];
-  }
-
   playAudio(id: number)
   {
     const audio = new Audio();
     // tslint:disable-next-line:max-line-length
     audio.src = this.host + 'assets/chuni/systemVoice/systemvoice' + this.profile.voiceId.toString().padStart(4, '0') + '/000' + id.toString().padStart(2, '0') + '.wav';
     audio.load();
-    if (this.volume)
-    {
-      audio.volume = (this.volume / 100);
-    }else{
-      audio.volume = 0.20;
-    }
+    audio.volume = 0.20;
     audio.play();
   }
 
@@ -131,7 +98,6 @@ export class V2UserBoxComponent implements OnInit {
       data => {
         this.profile = data;
         this.initCustomable();
-        this.initSounds();
       },
       error => this.messageService.notice(error)
     );
@@ -259,5 +225,10 @@ export class V2UserBoxComponent implements OnInit {
   avatarAcc(category: number, accId: number) {
     this.openDialog({ itemKind: 11, itemId: accId, category });
     this.currentAvatarAcc = { category, accId };
+  }
+
+  voicePreview(){
+    const randomIndex= Math.floor(Math.random() * this.systemVoiceIDs.length);
+    this.playAudio(this.systemVoiceIDs[randomIndex]);
   }
 }

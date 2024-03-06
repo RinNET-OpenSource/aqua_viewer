@@ -61,78 +61,12 @@
         </ng-container>
         <ng-container *ngSwitchDefault>
           <div class="item-card col-12 my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">
-            <p class="card-subtitle text-truncate">{{ item.name | async}}</p>
+            <p class="card-subtitle text-truncate">{{ item.name}}</p>
           </div>
         </ng-container>
-<!--        <div class="item-card col-12 col-sm-6 col-lg-4 text-center my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
-<!--          <p class="card-subtitle text-truncate">{{ item.name }}</p>-->
-<!--          <div class="item-body">-->
-<!--            <div *ngSwitchDefault>{{item.name}}</div>-->
-<!--          </div>-->
-<!--        </div>-->
       </ng-container>
     </div>
     <ng-container *ngTemplateOutlet="pagination;"></ng-container>
     <button type="button" class="btn btn-sm btn-primary w-100 mt-2" (click)="parentComponent.handleApplyClick(this.data)">Apply</button>
-
-
-    <!--    <article *ngIf="enableImages == true" class="card">-->
-
-    <!--      <section class="card-body mapIcon" *ngIf="data.itemKind == 8">-->
-    <!--        <div class="container">-->
-    <!--          <div class="row">-->
-    <!--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList"-->
-    <!--                 (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
-    <!--              <p class="card-title text-truncate">{{item.name}}</p>-->
-    <!--              <img class="card-img"-->
-    <!--                   src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </section>-->
-
-    <!--      <section class="card-body systemVoice" *ngIf="data.itemKind == 9">-->
-    <!--        <div class="container">-->
-    <!--          <div class="row">-->
-    <!--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList"-->
-    <!--                 (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
-    <!--              <p class="card-title text-truncate">{{ item.name }}</p>-->
-    <!--              <img class="card-img"-->
-    <!--                   src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </section>-->
-
-    <!--      <section class="card-body avatar" *ngIf="data.itemKind == 11">-->
-    <!--        <div class="container">-->
-    <!--          <div class="row">-->
-    <!--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList"-->
-    <!--                 (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
-    <!--              <p class="card-title text-truncate">{{ item.name }}</p>-->
-    <!--              <img class="card-img"-->
-    <!--                   src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </section>-->
-
-
-    <!--      <section class="card-body" *ngIf="data.itemKind == 3 || data.itemKind == 2">-->
-    <!--        <select [(ngModel)]="data.itemId" size="20" class="form-select trophy-select" multiple-->
-    <!--                aria-label="multiple select example">-->
-    <!--          <option selected>Open this select menu</option>-->
-    <!--          <option *ngFor="let item of iList" value="{{item.itemId}}">{{ item.name }}</option>-->
-    <!--        </select>-->
-    <!--      </section>-->
-    <!--    </article>-->
-
-    <!--    <section class="card-body" *ngIf="enableImages == false">-->
-    <!--      <select [(ngModel)]="data.itemId" size="10" class="form-select frame-select" multiple="false"-->
-    <!--              aria-label="Default select example">-->
-    <!--        <option selected>Open this select menu</option>-->
-    <!--        <option *ngFor="let item of iList" value="{{item.itemId}}">{{ item.name }}</option>-->
-    <!--      </select>-->
-    <!--    </section>-->
   </div>
 </div>

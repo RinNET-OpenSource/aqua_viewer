@@ -12,6 +12,7 @@ import { ChusanNamePlate } from '../../model/ChusanNamePlate';
 import { ChusanSystemVoice } from '../../model/ChusanSystemVoice';
 import { ChusanMapIcon } from '../../model/ChusanMapIcon';
 import { ChusanAvatarAcc } from '../../model/ChusanAvatarAcc';
+import {ChusanFrame} from '../../model/ChusanFrame';
 
 @Component({
   selector: 'v2-userbox-setting-dialog',
@@ -38,48 +39,6 @@ export class V2UserBoxSettingDialog implements OnInit{
   ) {
   }
 
-  getNamePlateName(nameplateId: number) {
-    return new Promise( resolve => {
-      this.dbService.getByID<ChusanNamePlate>('chusanNamePlate', nameplateId).
-      subscribe(NamePlate => resolve(NamePlate.name ? NamePlate.name : 'Unknown'));
-    });
-  }
-
-  getFrameName(frameId: number) {
-    return new Promise( resolve => {
-      this.dbService.getByID<ChusanTrophy>('chusanFrame', frameId).
-      subscribe(frame => resolve(frame.name ? frame.name : 'Unknown'));
-    });
-  }
-
-  getMapIconName(mapiconId: number) {
-    return new Promise( resolve => {
-      this.dbService.getByID<ChusanMapIcon>('chusanMapIcon', mapiconId).
-      subscribe(mapicon => resolve(mapicon.name ? mapicon.name : 'Unknown'));
-    });
-  }
-
-  getSystemVoiceName(sysvoiceId: number) {
-    return new Promise( resolve => {
-      this.dbService.getByID<ChusanSystemVoice>('chusanSystemVoice', sysvoiceId).
-      subscribe(sysvoice => resolve(sysvoice.name ? sysvoice.name : 'Unknown'));
-    });
-  }
-
-  getAvatarAccName(avatarAccId: number) {
-    return new Promise( resolve => {
-      this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', avatarAccId).
-      subscribe(avatarAcc => resolve(avatarAcc.name ? avatarAcc.name : 'Unknown'));
-    });
-  }
-
-  getTrophyName(trophyId: number) {
-    return new Promise( resolve => {
-      this.dbService.getByID<ChusanTrophy>('chusanTrophy', trophyId).
-      subscribe(trophy => resolve(trophy.name ? trophy.name : 'Unknown'));
-    });
-  }
-
   pageChanged(page: number) {
     this.currentPage = page;
   }
@@ -93,9 +52,7 @@ export class V2UserBoxSettingDialog implements OnInit{
     if (this.data.itemKind === 11) {
       this.dbService.getAll<ChusanAvatarAcc>('chusanAvatarAcc').subscribe(avatarAccList => {
         this.iList = avatarAccList
-          .filter(avatarAcc => {
-            return avatarAcc.category === this.data.category;
-          })
+          .filter(avatarAcc => avatarAcc.category === this.data.category)
           .map(avatarAcc => {
           return {
             itemKind: 11, itemId: avatarAcc.id, stock: 1, name: avatarAcc.name ? avatarAcc.name : 'Unknown'
@@ -112,44 +69,70 @@ export class V2UserBoxSettingDialog implements OnInit{
     }
     else {
       this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
-        data => {
+        (data: V2Item[]) => {
           if (data) {
-            this.iList = data;
+            if (this.data.itemKind === 1){
+              this.dbService.getAll<ChusanNamePlate>('chusanNamePlate').subscribe(list => {
+                this.iList = list.
+                filter(item => {
+                  return data.some(d => d.itemId === item.id);
+                }).
+                map(item => {
+                  return {itemId: item.id, itemKind: 1, name: item.name, stock: 1};
+                });
+              });
+            }
+            else if (this.data.itemKind === 2){
+              this.dbService.getAll<ChusanFrame>('chusanFrame').subscribe(list => {
+                this.iList = list.
+                filter(item => {
+                  return data.some(d => d.itemId === item.id);
+                }).
+                map(item => {
+                  return {itemId: item.id, itemKind: 2, name: item.name, stock: 1};
+                });
+              });
+            }
+            else if (this.data.itemKind === 3){
+              this.dbService.getAll<ChusanTrophy>('chusanTrophy').subscribe(list => {
+                this.iList = list.
+                filter(item => {
+                  return data.some(d => d.itemId === item.id);
+                }).
+                map(item => {
+                  return {itemId: item.id, itemKind: 3, name: item.name, stock: 1};
+                });
+              });
+            }
+            else if (this.data.itemKind === 8){
+              this.dbService.getAll<ChusanMapIcon>('chusanMapIcon').subscribe(list => {
+                this.iList = list.
+                filter(item => {
+                  return data.some(d => d.itemId === item.id);
+                }).
+                map(item => {
+                  return {itemId: item.id, itemKind: 8, name: item.name, stock: 1};
+                });
+              });
+            }
+            else if (this.data.itemKind === 9){
+              this.dbService.getAll<ChusanSystemVoice>('chusanSystemVoice').subscribe(list => {
+                this.iList = list.
+                filter(item => {
+                  return data.some(d => d.itemId === item.id);
+                }).
+                map(item => {
+                  return {itemId: item.id, itemKind: 9, name: item.name, stock: 1};
+                });
+              });
+            }
+
             const currentIndex = this.iList.findIndex(item => {
               return item.itemId === this.data.itemId;
             });
-            if (currentIndex !== -1){
+            if (currentIndex !== -1) {
               this.pageChanged(Math.floor(currentIndex / 12) + 1);
             }
-            data.forEach(x => {
-              switch (this.data.itemKind) {
-                case 1: // Nameplate
-                  this.getNamePlateName(x.itemId).then(name => {
-                    x.name = name;
-                  });
-                  break;
-                case 2: // Frame
-                  this.getFrameName(x.itemId).then(name => {
-                    x.name = name;
-                  });
-                  break;
-                case 3: // Trophy
-                  x.name = this.getTrophyName(x.itemId);
-                  break;
-                case 8: // Map Icon
-                  this.getMapIconName(x.itemId).then(name => {
-                    x.name = name;
-                  });
-                  break;
-                case 9: // System Voice
-                  this.getSystemVoiceName(x.itemId).then(name => {
-                    x.name = name;
-                  });
-                  break;
-                default:
-                  break;
-              }
-            });
           }
         },
         error => this.messageService.notice(error)
