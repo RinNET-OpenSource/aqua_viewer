@@ -1,70 +1,138 @@
-    <div class="modal-content">
-      <div class="modal-body">
-        <h2>Change Item</h2>
-        <article *ngIf="enableImages == true" class="card">
-          <section class="card-body namePlate" *ngIf="data.itemKind == 1">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
-                  <p class="card-subtitle text-truncate">{{item.name}}</p>
-                  <img class="card-img" src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{item.itemId|formatNumber:8}}.png">
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="card-body mapIcon" *ngIf="data.itemKind == 8">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
-                  <p class="card-title text-truncate">{{item.name}}</p>
-                  <img class="card-img" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="card-body systemVoice" *ngIf="data.itemKind == 9">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
-                  <p class="card-title text-truncate">{{item.name}}</p>
-                  <img class="card-img" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="card-body avatar" *ngIf="data.itemKind == 11">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
-                  <p class="card-title text-truncate">{{item.name}}</p>
-                  <img class="card-img" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">
-                </div>
-              </div>
-            </div>
-          </section>
-
-
-          <section class="card-body" *ngIf="data.itemKind == 3 || data.itemKind == 2">
-            <select [(ngModel)]="data.itemId" size="20" class="form-select trophy-select" multiple aria-label="multiple select example">
-              <option selected>Open this select menu</option>
-              <option *ngFor="let item of iList" value="{{item.itemId}}">{{item.name}}</option>
-            </select>
-          </section>
-        </article>
-
-        <section class="card-body" *ngIf="enableImages == false">
-          <select [(ngModel)]="data.itemId" size="10" class="form-select frame-select" multiple="false" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option *ngFor="let item of iList" value="{{item.itemId}}">{{item.name}}</option>
-          </select>
-        </section>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.modalService.dismissAll()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="parentComponent.handleApplyClick(this.data)">Apply</button>
-      </div>
+<ng-template #pagination>
+  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center mb-1">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+<div class="modal-content">
+  <div class="modal-body">
+    <div class="p-2 mb-2">
+      <button type="button" class="btn-close shadow-none float-end" aria-label="Close" (click)="activeModal.dismiss();"></button>
+      <h3 class="modal-title">Change Item</h3>
     </div>
+    <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+    <div class="row p-2">
+      <ng-container *ngFor="let item of iList | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: iList.length }"
+                    [ngSwitch]="item.itemKind">
+        <ng-container *ngSwitchCase="1">
+          <div class="item-card col-12 col-sm-6 col-lg-4 text-center my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">
+            <p class="card-subtitle text-truncate">{{ item.name }}</p>
+            <div class="item-body">
+              <img src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{item.itemId|formatNumber:8}}.png">
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="8">
+          <div class="item-card col-6 col-sm-4 col-lg-3 text-center my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">
+            <p class="card-subtitle text-truncate">{{ item.name }}</p>
+            <div class="item-body">
+              <img src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="9">
+          <div class="item-card col-6 col-sm-4 col-lg-3 text-center my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">
+            <p class="card-subtitle text-truncate">{{ item.name }}</p>
+            <div class="item-body">
+              <img src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="11">
+          <div class="item-card col-6 col-sm-4 col-lg-3 text-center my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">
+            <p class="card-subtitle text-truncate">{{ item.name }}</p>
+            <div class="item-body">
+              <img src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <div class="item-card col-12 my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">
+            <p class="card-subtitle text-truncate">{{ item.name | async}}</p>
+          </div>
+        </ng-container>
+<!--        <div class="item-card col-12 col-sm-6 col-lg-4 text-center my-1" (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
+<!--          <p class="card-subtitle text-truncate">{{ item.name }}</p>-->
+<!--          <div class="item-body">-->
+<!--            <div *ngSwitchDefault>{{item.name}}</div>-->
+<!--          </div>-->
+<!--        </div>-->
+      </ng-container>
+    </div>
+    <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+    <button type="button" class="btn btn-sm btn-primary w-100 mt-2" (click)="parentComponent.handleApplyClick(this.data)">Apply</button>
+
+
+    <!--    <article *ngIf="enableImages == true" class="card">-->
+
+    <!--      <section class="card-body mapIcon" *ngIf="data.itemKind == 8">-->
+    <!--        <div class="container">-->
+    <!--          <div class="row">-->
+    <!--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList"-->
+    <!--                 (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
+    <!--              <p class="card-title text-truncate">{{item.name}}</p>-->
+    <!--              <img class="card-img"-->
+    <!--                   src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </section>-->
+
+    <!--      <section class="card-body systemVoice" *ngIf="data.itemKind == 9">-->
+    <!--        <div class="container">-->
+    <!--          <div class="row">-->
+    <!--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList"-->
+    <!--                 (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
+    <!--              <p class="card-title text-truncate">{{ item.name }}</p>-->
+    <!--              <img class="card-img"-->
+    <!--                   src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </section>-->
+
+    <!--      <section class="card-body avatar" *ngIf="data.itemKind == 11">-->
+    <!--        <div class="container">-->
+    <!--          <div class="row">-->
+    <!--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList"-->
+    <!--                 (click)="data.itemId = item.itemId" [ngClass]="{'selected': data.itemId == item.itemId}">-->
+    <!--              <p class="card-title text-truncate">{{ item.name }}</p>-->
+    <!--              <img class="card-img"-->
+    <!--                   src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </section>-->
+
+
+    <!--      <section class="card-body" *ngIf="data.itemKind == 3 || data.itemKind == 2">-->
+    <!--        <select [(ngModel)]="data.itemId" size="20" class="form-select trophy-select" multiple-->
+    <!--                aria-label="multiple select example">-->
+    <!--          <option selected>Open this select menu</option>-->
+    <!--          <option *ngFor="let item of iList" value="{{item.itemId}}">{{ item.name }}</option>-->
+    <!--        </select>-->
+    <!--      </section>-->
+    <!--    </article>-->
+
+    <!--    <section class="card-body" *ngIf="enableImages == false">-->
+    <!--      <select [(ngModel)]="data.itemId" size="10" class="form-select frame-select" multiple="false"-->
+    <!--              aria-label="Default select example">-->
+    <!--        <option selected>Open this select menu</option>-->
+    <!--        <option *ngFor="let item of iList" value="{{item.itemId}}">{{ item.name }}</option>-->
+    <!--      </select>-->
+    <!--    </section>-->
+  </div>
+</div>

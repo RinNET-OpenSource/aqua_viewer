@@ -14,6 +14,7 @@ import { ChusanNamePlate } from '../model/ChusanNamePlate';
 import { ChusanSystemVoice } from '../model/ChusanSystemVoice';
 import { ChusanMapIcon } from '../model/ChusanMapIcon';
 import { ChusanAvatarAcc } from '../model/ChusanAvatarAcc';
+import {UNKNOWN} from 'aegis-web-sdk/lib/packages/core/src';
 
 @Component({
   selector: 'app-v2-userbox',
@@ -38,7 +39,7 @@ export class V2UserBoxComponent implements OnInit {
 
   dialogOptions: NgbModalOptions = {
     centered: true,
-    size: 'xl',
+    size: 'lg',
   };
 
   showGuiGui = false;
@@ -139,42 +140,42 @@ export class V2UserBoxComponent implements OnInit {
   getNamePlateName(nameplateId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanNamePlate>('chusanNamePlate', nameplateId).
-      subscribe(NamePlate => resolve(nameplateId + ': ' + (NamePlate.name ? NamePlate.name : 'Unknown')));
+      subscribe(NamePlate => resolve(NamePlate.name ? NamePlate.name : 'Unknown'));
     });
   }
 
   getFrameName(frameId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanTrophy>('chusanFrame', frameId).
-      subscribe(frame => resolve(frameId + ': ' + (frame.name ? frame.name : 'Unknown')));
+      subscribe(frame => resolve(frame.name ? frame.name : 'Unknown'));
     });
   }
 
   getMapIconName(mapiconId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanMapIcon>('chusanMapIcon', mapiconId).
-      subscribe(mapicon => resolve(mapiconId + ': ' + (mapicon.name ? mapicon.name : 'Unknown')));
+      subscribe(mapicon => resolve(mapicon.name ? mapicon.name : 'Unknown'));
     });
   }
 
   getSystemVoiceName(sysvoiceId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanSystemVoice>('chusanSystemVoice', sysvoiceId).
-      subscribe(sysvoice => resolve(sysvoiceId + ': ' + (sysvoice.name ? sysvoice.name : 'Unknown')));
+      subscribe(sysvoice => resolve(sysvoice.name ? sysvoice.name : 'Unknown'));
     });
   }
 
   getAvatarAccName(avatarAccId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', avatarAccId).
-      subscribe(avatarAcc => resolve(avatarAccId + ': ' + (avatarAcc.name ? avatarAcc.name : 'Unknown')));
+      subscribe(avatarAcc => resolve(avatarAcc.name ? avatarAcc.name : 'Unknown'));
     });
   }
 
   getTrophyName(trophyId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanTrophy>('chusanTrophy', trophyId).
-      subscribe(trophy => resolve(trophyId + ': ' + (trophy.name ? trophy.name : 'Unknown')));
+      subscribe(trophy => resolve(trophy.name ? trophy.name : 'Unknown'));
     });
   }
 
@@ -215,8 +216,7 @@ export class V2UserBoxComponent implements OnInit {
           break;
         case 3: // Trophy
           apiURL = 'api/game/chuni/v2/profile/trophy';
-          const trophyId = Number(itemId[0]);
-          requestBody = { aimeId: this.aimeId, trophyId };
+          requestBody = { aimeId: this.aimeId, trophyId: itemId };
           break;
         case 8: // MapIcon
           apiURL = 'api/game/chuni/v2/profile/mapicon';

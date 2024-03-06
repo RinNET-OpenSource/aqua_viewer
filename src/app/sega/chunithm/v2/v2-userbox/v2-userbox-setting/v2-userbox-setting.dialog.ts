@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthenticationService} from '../../../../../auth/authentication.service';
 import {MessageService} from '../../../../../message.service';
 import {ApiService} from '../../../../../api.service';
@@ -25,6 +25,7 @@ export class V2UserBoxSettingDialog implements OnInit{
   aimeId: string;
   iList: V2Item[] = [];
   parentComponent: any;
+  currentPage: number;
   @Input() public data: V2UserBoxSettingData;
 
   constructor(
@@ -33,49 +34,54 @@ export class V2UserBoxSettingDialog implements OnInit{
     private auth: AuthenticationService,
     private dbService: NgxIndexedDBService,
     public modalService: NgbModal,
+    public activeModal: NgbActiveModal
   ) {
   }
 
   getNamePlateName(nameplateId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanNamePlate>('chusanNamePlate', nameplateId).
-      subscribe(NamePlate => resolve(nameplateId + ': ' + (NamePlate.name ? NamePlate.name : 'Unknown')));
+      subscribe(NamePlate => resolve(NamePlate.name ? NamePlate.name : 'Unknown'));
     });
   }
 
   getFrameName(frameId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanTrophy>('chusanFrame', frameId).
-      subscribe(frame => resolve(frameId + ': ' + (frame.name ? frame.name : 'Unknown')));
+      subscribe(frame => resolve(frame.name ? frame.name : 'Unknown'));
     });
   }
 
   getMapIconName(mapiconId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanMapIcon>('chusanMapIcon', mapiconId).
-      subscribe(mapicon => resolve(mapiconId + ': ' + (mapicon.name ? mapicon.name : 'Unknown')));
+      subscribe(mapicon => resolve(mapicon.name ? mapicon.name : 'Unknown'));
     });
   }
 
   getSystemVoiceName(sysvoiceId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanSystemVoice>('chusanSystemVoice', sysvoiceId).
-      subscribe(sysvoice => resolve(sysvoiceId + ': ' + (sysvoice.name ? sysvoice.name : 'Unknown')));
+      subscribe(sysvoice => resolve(sysvoice.name ? sysvoice.name : 'Unknown'));
     });
   }
 
   getAvatarAccName(avatarAccId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanAvatarAcc>('chusanAvatarAcc', avatarAccId).
-      subscribe(avatarAcc => resolve(avatarAccId + ': ' + (avatarAcc.name ? avatarAcc.name : 'Unknown')));
+      subscribe(avatarAcc => resolve(avatarAcc.name ? avatarAcc.name : 'Unknown'));
     });
   }
 
   getTrophyName(trophyId: number) {
     return new Promise( resolve => {
       this.dbService.getByID<ChusanTrophy>('chusanTrophy', trophyId).
-      subscribe(trophy => resolve(trophyId + ': ' + (trophy.name ? trophy.name : 'Unknown')));
+      subscribe(trophy => resolve(trophy.name ? trophy.name : 'Unknown'));
     });
+  }
+
+  pageChanged(page: number) {
+    this.currentPage = page;
   }
 
   ngOnInit() {
@@ -84,63 +90,67 @@ export class V2UserBoxSettingDialog implements OnInit{
     const param = new HttpParams().set('aimeId', this.aimeId);
 
     // Make all avatar accs available as there is no way to obtain them in game
-    if (this.data.itemKind == 11) {
+    if (this.data.itemKind === 11) {
       this.dbService.getAll<ChusanAvatarAcc>('chusanAvatarAcc').subscribe(avatarAccList => {
-        avatarAccList.forEach(avatarAcc => {
-          if (avatarAcc.category == this.data.category) {
-            const acc: V2Item = {
-              itemKind: 11, itemId: avatarAcc.id, stock: 1, name: avatarAcc.id + ': ' + (avatarAcc.name ? avatarAcc.name : 'Unknown')
-            };
-            this.iList.push(acc);
-            this.iList.sort((a, b) => a.itemId - b.itemId);
-          }
+        this.iList = avatarAccList
+          .filter(avatarAcc => {
+            return avatarAcc.category === this.data.category;
+          })
+          .map(avatarAcc => {
+          return {
+            itemKind: 11, itemId: avatarAcc.id, stock: 1, name: avatarAcc.name ? avatarAcc.name : 'Unknown'
+          };
         });
+
+        const currentIndex = this.iList.findIndex(item => {
+          return item.itemId === this.data.itemId;
+        });
+        if (currentIndex !== -1){
+          this.pageChanged(Math.floor(currentIndex / 12) + 1);
+        }
       });
-    } else {
+    }
+    else {
       this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
         data => {
-          data.forEach(x => {
-            switch (this.data.itemKind) {
-              case 1: // Nameplate
-                this.getNamePlateName(x.itemId).then(name => {
-                  x.name = name;
-                  this.iList.push(x);
-                  this.iList.sort((a, b) => a.itemId - b.itemId);
-                });
-                break;
-              case 2: // Frame
-                this.getFrameName(x.itemId).then(name => {
-                  x.name = name;
-                  this.iList.push(x);
-                  this.iList.sort((a, b) => a.itemId - b.itemId);
-                });
-                break;
-              case 3: // Trophy
-                console.log(111);
-                this.getTrophyName(x.itemId).then(name => {
-                  x.name = name;
-                  this.iList.push(x);
-                  this.iList.sort((a, b) => a.itemId - b.itemId);
-                });
-                break;
-              case 8: // Map Icon
-                this.getMapIconName(x.itemId).then(name => {
-                  x.name = name;
-                  this.iList.push(x);
-                  this.iList.sort((a, b) => a.itemId - b.itemId);
-                });
-                break;
-              case 9: // System Voice
-                this.getSystemVoiceName(x.itemId).then(name => {
-                  x.name = name;
-                  this.iList.push(x);
-                  this.iList.sort((a, b) => a.itemId - b.itemId);
-                });
-                break;
-              default:
-                break;
+          if (data) {
+            this.iList = data;
+            const currentIndex = this.iList.findIndex(item => {
+              return item.itemId === this.data.itemId;
+            });
+            if (currentIndex !== -1){
+              this.pageChanged(Math.floor(currentIndex / 12) + 1);
             }
-          });
+            data.forEach(x => {
+              switch (this.data.itemKind) {
+                case 1: // Nameplate
+                  this.getNamePlateName(x.itemId).then(name => {
+                    x.name = name;
+                  });
+                  break;
+                case 2: // Frame
+                  this.getFrameName(x.itemId).then(name => {
+                    x.name = name;
+                  });
+                  break;
+                case 3: // Trophy
+                  x.name = this.getTrophyName(x.itemId);
+                  break;
+                case 8: // Map Icon
+                  this.getMapIconName(x.itemId).then(name => {
+                    x.name = name;
+                  });
+                  break;
+                case 9: // System Voice
+                  this.getSystemVoiceName(x.itemId).then(name => {
+                    x.name = name;
+                  });
+                  break;
+                default:
+                  break;
+              }
+            });
+          }
         },
         error => this.messageService.notice(error)
       );

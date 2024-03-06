@@ -6,12 +6,14 @@
         <span class="m-0">{{'ChuniV2.UserBoxPage.Avatar' | translate}}</span>
       </div>
       <div class="card-body">
-        <div class="avatarPreview" [ngSwitch]="showGuiGui">
-          <div *ngSwitchCase="true" class="guiguiContainer">
-            <img id="avatarGuiGui" class="guiguiSVG" src="assets/turtle.svg">
-            <img class="avatarHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarHead|formatNumber:8}}.png">
-          </div>
-          <div *ngSwitchDefault class="avatarContainer">
+        <div class="avatarPreview">
+<!--          [ngSwitch]="showGuiGui"-->
+<!--          <div *ngSwitchCase="true" class="guiguiContainer">-->
+<!--            <img id="avatarGuiGui" class="guiguiSVG" src="assets/turtle.svg">-->
+<!--            <img class="avatarHead" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarHead|formatNumber:8}}.png">-->
+<!--          </div>-->
+<!--          *ngSwitchDefault-->
+          <div class="avatarContainer">
             <img id="avatarFeet" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
             <img id="avatarBody" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.png">
             <img id="avatarFace" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Face.webp">
@@ -53,8 +55,8 @@
               <img *ngSwitchCase="'AvatarBack'" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{profile.avatarBack|formatNumber:8}}.png">
             </div>
             <div class="hstack gap-2 mt-2">
-              <button class="btn btn-sm btn-change text-light" (click)="item.click()" *ngIf="item.click">{{'ChuniV2.UserBoxPage.Change' | translate}}</button>
-              <button class="btn btn-sm btn-change text-light" (click)="item.click()" *ngIf="item.name == 'SystemVoice'">{{'ChuniV2.UserBoxPage.Preview' | translate}}</button>
+              <button class="btn btn-primary btn-sm text-light" (click)="item.click()" *ngIf="item.click">{{'ChuniV2.UserBoxPage.Change' | translate}}</button>
+<!--              <button class="btn btn-primary btn-sm text-light" (click)="item.click()" *ngIf="item.name == 'SystemVoice'">{{'ChuniV2.UserBoxPage.Preview' | translate}}</button>-->
             </div>
           </div>
         </div>
