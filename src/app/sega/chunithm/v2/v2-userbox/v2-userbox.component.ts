@@ -14,7 +14,6 @@ import { ChusanNamePlate } from '../model/ChusanNamePlate';
 import { ChusanSystemVoice } from '../model/ChusanSystemVoice';
 import { ChusanMapIcon } from '../model/ChusanMapIcon';
 import { ChusanAvatarAcc } from '../model/ChusanAvatarAcc';
-import {UNKNOWN} from 'aegis-web-sdk/lib/packages/core/src';
 
 @Component({
   selector: 'app-v2-userbox',
@@ -40,9 +39,6 @@ export class V2UserBoxComponent implements OnInit {
     centered: true,
     size: 'lg',
   };
-
-  showGuiGui = false;
-  private showGuiGuiTimer;
 
   constructor(
     private api: ApiService,
@@ -153,18 +149,12 @@ export class V2UserBoxComponent implements OnInit {
 
   handleApplyClick(data) {
     const { itemKind, itemId } = data;
-    clearTimeout(this.showGuiGuiTimer);
     let apiURL = '';
     let requestBody = {};
     if (itemKind === 11) {
       const { category, accId } = this.currentAvatarAcc;
       this.api.put('api/game/chuni/v2/profile/avatar', { aimeId: this.aimeId, category, accId: itemId }).subscribe(
         (result) => {
-          const random = Math.floor(Math.random() * 10);
-          if (random === 5) {
-            this.showGuiGui = true;
-            this.showGuiGuiTimer = setTimeout(() => this.showGuiGui = false, 10000);
-          }
           this.messageService.notice('Successfully changed');
           this.refreshProfile();
           this.modalService.dismissAll();
