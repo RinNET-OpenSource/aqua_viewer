@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, forkJoin } from 'rxjs';
 import { ApiService } from '../api.service';
 import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
 import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
@@ -14,11 +14,9 @@ import { ChusanSystemVoice } from '../sega/chunithm/v2/model/ChusanSystemVoice';
 import { ChusanMapIcon } from '../sega/chunithm/v2/model/ChusanMapIcon';
 import { ChusanFrame } from '../sega/chunithm/v2/model/ChusanFrame';
 import { ChusanAvatarAcc } from '../sega/chunithm/v2/model/ChusanAvatarAcc';
-import { OngekiRival } from '../sega/ongeki/model/OngekiRival';
 import { HttpParams } from '@angular/common/http';
 import { AuthenticationService } from '../auth/authentication.service';
-import {StatusCode} from '../status-code';
-import {MessageService} from '../message.service';
+import { MessageService } from '../message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -81,8 +79,25 @@ export class PreloadService {
     this.loader<ChusanAvatarAcc>('chusanAvatarAcc', 'api/game/chuni/v2/data/avatar', this.chusanAvatarAcc);
   }
 
+  clearDb() {
+    return forkJoin([
+      this.dbService.clear('ongekiCard'),
+      this.dbService.clear('ongekiCharacter'),
+      this.dbService.clear('ongekiMusic'),
+      this.dbService.clear('ongekiSkill'),
+      this.dbService.clear('chusanMusic'),
+      this.dbService.clear('chusanCharacter'),
+      this.dbService.clear('chusanTrophy'),
+      this.dbService.clear('chusanNamePlate'),
+      this.dbService.clear('chusanSystemVoice'),
+      this.dbService.clear('chusanMapIcon'),
+      this.dbService.clear('chusanFrame'),
+      this.dbService.clear('chusanAvatarAcc'),
+    ]);
+  }
+
   reload() {
-    this.dbService.deleteDatabase().subscribe(
+    this.clearDb().subscribe(
       () => {
         localStorage.setItem('dbVersion', '0');
         window.location.reload();
@@ -97,7 +112,7 @@ export class PreloadService {
           const latestVersion = resp.version.major;
           this.dbVersionObservable.subscribe(version => {
             if (latestVersion > version){
-              this.dbService.deleteDatabase().subscribe(() => {
+              this.clearDb().subscribe(() => {
                 localStorage.setItem('dbVersion', latestVersion.toString());
                 window.location.reload();
               });
