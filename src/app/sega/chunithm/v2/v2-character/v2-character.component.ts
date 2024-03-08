@@ -44,30 +44,7 @@ export class V2CharacterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.load(this.currentPage);
-  }
-
-  load(page: number) {
-    const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
-    this.characters = this.api.get('api/game/chuni/v2/character', param).pipe(
-      tap(
-        data => {
-          this.totalElements = data.totalElements;
-          this.currentPage = page;
-        }
-      ),
-      map(
-        data => {
-          data.content.forEach(x => {
-            this.dbService.getByID<ChusanCharacter>('chusanCharacter', x.characterId).subscribe(
-              m => x.characterInfo = m
-            );
-          });
-          return data.content;
-        },
-        error => this.messageService.notice(error)
-      )
-    );
+    this.pageChanged(this.currentPage);
   }
 
   getEquippedCharaName() {
@@ -89,11 +66,30 @@ export class V2CharacterComponent implements OnInit {
       characterId,
       level: currentLevel + 1
     }).subscribe(data => {
-      this.load(this.currentPage);
+      this.pageChanged(this.currentPage);
     }, error => this.messageService.notice(error));
   }
 
   pageChanged(page: number) {
-    this.router.navigate(['chuni/v2/character'], {queryParams: {page}});
+    const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
+    this.characters = this.api.get('api/game/chuni/v2/character', param).pipe(
+      tap(
+        data => {
+          this.totalElements = data.totalElements;
+          this.currentPage = page;
+        }
+      ),
+      map(
+        data => {
+          data.content.forEach(x => {
+            this.dbService.getByID<ChusanCharacter>('chusanCharacter', x.characterId).subscribe(
+              m => x.characterInfo = m
+            );
+          });
+          return data.content;
+        },
+        error => this.messageService.notice(error)
+      )
+    );
   }
 }

@@ -19,7 +19,6 @@
     </ul>
   </pagination-template>
 </ng-template>
-
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
 
 <section class="card">
@@ -84,7 +83,4 @@
   </div>
 </article>
 
-<div class="pagination">
-  <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
-</div>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
