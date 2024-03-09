@@ -71,11 +71,16 @@ export class OngekiSongScoreRankingComponent {
       }
     );
     const param = new HttpParams().set('musicId', id).set('level', 3);
-    this.api.get('api/game/ongeki/musicScoreRanking', param).subscribe(
-      res => {
+    this.api.get("api/game/ongeki/musicScoreRanking", param).subscribe((res) => {
+      if (res.length > 0) {
         this.ranking = res;
+      } else {
+        const param = new HttpParams().set("musicId", id).set("level", 10);
+        this.api.get("api/game/ongeki/musicScoreRanking", param).subscribe((res) => {
+            this.ranking = res;
+          });
       }
-    );
+    });
   }
 
 
