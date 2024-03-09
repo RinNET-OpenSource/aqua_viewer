@@ -111,8 +111,13 @@
 .color-ultima {
   color: $black;
 }
-.bg-lunatic {
-  background: $white;
+
+.color-we {
+  color: $white;
+}
+
+.bg-we {
+  background: linear-gradient(to right, #CB00B0, #0BE9EE, #ACE559, #FCE116, #CB00B0, #0BE9EE, #ACE559, #FCE116);
 }
 
 .honor{

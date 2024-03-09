@@ -74,11 +74,16 @@ export class V2SongScoreRankingComponent {
       }
     );
     const param = new HttpParams().set('musicId', musicId).set('level', 3);
-    this.api.get('api/game/chuni/v2/musicScoreRanking', param).subscribe(
-      res => {
+    this.api.get("api/game/chuni/v2/musicScoreRanking", param).subscribe((res) => {
+      if (res.length > 0) {
         this.ranking = res;
+      } else {
+        const param = new HttpParams().set("musicId", musicId).set("level", 5);
+        this.api.get("api/game/chuni/v2/musicScoreRanking", param).subscribe((res) => {
+            this.ranking = res;
+          });
       }
-    );
+    });
   }
 
   handleTabButtonClick(level: number) {
