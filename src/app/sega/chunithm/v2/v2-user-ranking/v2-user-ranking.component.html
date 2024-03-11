@@ -1,0 +1,18 @@
+<h3>User Ranking</h3>
+
+<table class="table table-borderless table-striped align-middle mt-3">
+  <thead>
+  <th>Ranking</th>
+  <th>User Name</th>
+  <th>Now Rating</th>
+  <th>Highest Rating</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of v2UserRankings; let ranking = index">
+    <td>{{ ranking+1 }}</td>
+    <td>{{ item.userName }}</td>
+    <td>{{ (item.nowRating/100).toFixed(2) }}</td>
+    <td>{{ (item.highestRating/100).toFixed(2) }}</td>
+  </tr>
+  </tbody>
+</table>

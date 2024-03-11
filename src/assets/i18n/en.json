@@ -23,7 +23,8 @@
       "Card" : "Card",
       "Rival" : "Rival",
       "MusicRanking" : "Music Ranking",
-      "UserRanking" : "User Ranking",
+      "UserRanking" : "User Rating Ranking",
+      "PcRanking" : "Play Count Ranking",
       "Character" : "Character",
       "UserBox" : "User Box",
       "Setting" : "Setting"

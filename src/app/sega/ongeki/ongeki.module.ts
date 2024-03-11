@@ -28,6 +28,7 @@ import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component'
 import {OngekiMusicRankingComponent} from './ongeki-music-ranking/ongeki-music-ranking.component';
 import {MatSortModule} from '@angular/material/sort';
 import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
+import {OngekiPcRankingComponent} from './ongeki-pc-ranking/ongeki-pc-ranking.component';
 import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
 import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item.component';
 import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
@@ -57,6 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OngekiSongListComponent,
     OngekiBattlePointComponent,
     OngekiRatingComponent,
+    OngekiPcRankingComponent,
     OngekiRivalListComponent,
     OngekiMusicRankingComponent,
     OngekiUserRankingComponent,
