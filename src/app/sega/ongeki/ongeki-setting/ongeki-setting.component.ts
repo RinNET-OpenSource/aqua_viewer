@@ -6,6 +6,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {DisplayOngekiProfile} from '../model/OngekiProfile';
 import {environment} from '../../../../environments/environment';
+import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import {OngekiNameSettingComponent} from './ongeki-name-setting/ongeki-name-setting.component';
 
 @Component({
   selector: 'app-ongeki-setting',
@@ -19,13 +21,18 @@ export class OngekiSettingComponent implements OnInit {
   aimeId: string;
   apiServer: string;
 
+  dialogOptions: NgbModalOptions = {
+    centered: true,
+  };
+
   constructor(
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
+    private modalService: NgbModal,
     public dialog: MatDialog,
     private http: HttpClient,
-    private  authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService
   ) {
   }
 
@@ -40,10 +47,11 @@ export class OngekiSettingComponent implements OnInit {
       error => this.messageService.notice(error)
     );
   }
+
   downloadFile(): void {
     const url = this.apiServer + 'api/game/ongeki/export?aimeId=' + this.aimeId;
-    const headers = { Authorization: `Bearer ${this.authenticationService.currentAccountValue.accessToken}` };
-    this.http.get(url, { headers, responseType: 'blob' }).subscribe(blob => {
+    const headers = {Authorization: `Bearer ${this.authenticationService.currentAccountValue.accessToken}`};
+    this.http.get(url, {headers, responseType: 'blob'}).subscribe(blob => {
       const objectUrl = window.URL.createObjectURL(blob);
 
       const a = document.createElement('a');
@@ -55,6 +63,24 @@ export class OngekiSettingComponent implements OnInit {
 
       window.URL.revokeObjectURL(objectUrl);
     });
+  }
+
+  userName() {
+    const dialogRef = this.modalService.open(OngekiNameSettingComponent, this.dialogOptions);
+    dialogRef.componentInstance.data = {userName: this.profile.userName};
+    dialogRef.componentInstance.parentComponent = this;
+  }
+
+  handleUserNameApplyClick(data: { userName: string }) {
+    if (data.userName) {
+      this.api.post('api/game/ongeki/profile/userName', {userName: data.userName}).subscribe(
+        x => {
+          this.profile = x;
+          this.messageService.notice('Successfully changed');
+          this.modalService.dismissAll();
+        }, error => this.messageService.notice(error)
+      );
+    }
   }
 
 }

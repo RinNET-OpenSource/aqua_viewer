@@ -1,0 +1,13 @@
+<div class="modal-content">
+  <div class="modal-body">
+    <h2>Change User Name</h2>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Name</span>
+      <input [(ngModel)]="data.userName" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="this.modalService.dismissAll()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="parentComponent.handleUserNameApplyClick(this.data)">Apply</button>
+  </div>
+</div>

@@ -2,6 +2,19 @@
 
 <div class="card">
   <div class="card-body">
+    <h5 class="card-title mb-2">Username</h5>
+    <p class="card-subtitle mb-2">Warning - use full-width character</p>
+    <div *ngIf="profile">
+      <div class="content">{{profile.userName}}</div>
+      <div class="action mt-2">
+        <button type="button" class="btn btn-sm btn-primary" (click)="userName()">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-body">
     <h5 class="card-title mb-3">Export data</h5>
     <div class="action">
       <a (click)="downloadFile()" class="btn btn-sm btn-primary">Download</a>
