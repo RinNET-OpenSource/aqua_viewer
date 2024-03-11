@@ -87,6 +87,12 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 9,
+      name: 'PcRanking',
+      url: 'ongeki/pcRanking',
+      show: true,
+    },
+    {
+      id: 10,
       name: 'Setting',
       url: 'ongeki/setting',
       show: false,
@@ -140,6 +146,18 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 7,
+      name: 'UserRanking',
+      url: 'chuni/v2/userRanking',
+      show: true,
+    },
+    {
+      id: 8,
+      name: 'PcRanking',
+      url: 'chuni/v2/pcRanking',
+      show: true,
+    },
+    {
+      id: 9,
       name: 'Setting',
       url: 'chuni/v2/setting',
       show: false,
