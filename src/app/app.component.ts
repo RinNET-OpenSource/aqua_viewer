@@ -128,12 +128,18 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     },
     {
       id: 5,
+      name: 'Rival',
+      url: 'chuni/v2/rival',
+      show: false,
+    },
+    {
+      id: 6,
       name: 'UserBox',
       url: 'chuni/v2/userbox',
       show: false,
     },
     {
-      id: 6,
+      id: 7,
       name: 'Setting',
       url: 'chuni/v2/setting',
       show: false,

@@ -9,6 +9,7 @@ import {V2SongDetailComponent} from './v2-song-detail/v2-song-detail.component';
 import {V2SongPlaylogComponent} from './v2-song-playlog/v2-song-playlog.component';
 import {V2UserBoxComponent} from './v2-userbox/v2-userbox.component';
 import {V2SongScoreRankingComponent} from './v2-song-score-ranking/v2-song-score-ranking.component';
+import {V2RivalListComponent} from './v2-rival-list/v2-rival-list.component';
 
 const routes: Routes = [
   {path: 'profile', component: V2ProfileComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'song/:id', component: V2SongDetailComponent},
   {path: 'song/:id/:level', component: V2SongPlaylogComponent},
   {path: 'character', component: V2CharacterComponent},
+  {path: 'rival', component: V2RivalListComponent},
   {path: 'setting', component: V2SettingComponent},
   {path: 'userbox', component: V2UserBoxComponent},
   {path: 'song/ranking/:id/:level', component: V2SongScoreRankingComponent},

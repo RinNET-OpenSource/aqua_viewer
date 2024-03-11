@@ -1,0 +1,210 @@
+<h3 class="mb-4">{{'ChuniV2.RivalPage.Title' | translate}}</h3>
+
+<h6 class="mb-3 fw-bold">{{'ChuniV2.RivalPage.AddRival' | translate}}</h6>
+<div class="input-group">
+  <input type="text" class="form-control form-control mb-3" placeholder="{{'ChuniV2.RivalPage.IDInputPlaceholder' | translate}}" [(ngModel)]="inputAddRivalUserId">
+  <button class="btn btn-primary mb-3" type="button" (click)="addRival()">{{'ChuniV2.RivalPage.AddRival' | translate}}</button>
+</div>
+
+<h6 class="fw-bold mb-3">{{'ChuniV2.RivalPage.Me' | translate}}</h6>
+<h6 class="text-secondary ms-2">没有我</h6>
+
+<ng-container *ngIf="false">
+  <div class="card mb-3 placeholder-wave">
+    <div class="card-header">
+      <span class="placeholder" style="width: 6em;"></span>
+    </div>
+    <div class="card-body p-2">
+      <div class="hstack gap-2">
+        <img class="placeholder profile-icon">
+        <table class="profile-table">
+          <tbody>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 1em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 5em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 2em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 3em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 4em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 4em;"></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="float-end fw-bold small">
+        <span class="placeholder" style="width: 14em;"></span>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="myProfile" class="card mb-3">
+  <div class="card-header fw-bold">{{myProfile.rivalUserName | fullWidth}}</div>
+  <div class="card-body p-2">
+    <div class="profile-container hstack gap-2">
+      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{myProfile.rivalCardId}}.png">
+      <table class="profile-table">
+        <tbody>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.ID' | translate}}</th>
+          <td>{{10000000 + auth.currentAccountValue.currentCard.id}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.Level' | translate}}</th>
+          <td>{{myProfile.reincarnationNum * 100 + myProfile.level}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.Rating' | translate}}</th>
+          <td>{{myProfile.rivalNowRating | number: '1.2-2'}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.BattlePoint' | translate}}</th>
+          <td>{{myProfile.rivalBattleScore}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="float-end fw-bold small">
+      {{'ChuniV2.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(myProfile.lastPlayDate | toDate).toLocaleString()}}
+    </div>
+  </div>
+</div>
+
+<h6 class="fw-bold mb-3">{{'ChuniV2.RivalPage.RivalList' | translate}}</h6>
+
+<ng-container *ngIf="loadingRival">
+  <div class="card mb-3 placeholder-wave">
+    <div class="card-header">
+      <span class="placeholder" style="width: 6em;"></span>
+    </div>
+    <div class="card-body p-2">
+      <div class="hstack gap-2">
+        <img class="placeholder profile-icon" alt="" src="">
+        <table class="profile-table">
+          <tbody>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 1em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 5em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 2em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 3em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 3em;"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="placeholder" style="width: 4em;"></span>
+            </th>
+            <td>
+              <span class="placeholder" style="width: 4em;"></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="float-end fw-bold small">
+        <span class="placeholder" style="width: 14em;"></span>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="!loadingRival && rivalList.length == 0">
+  <span class="text-secondary ms-2">{{'ChuniV2.RivalPage.Empty' | translate}}</span>
+</div>
+
+<div *ngFor="let item of rivalList" class="card mb-3">
+  <div class="card-header fw-bold">{{item.rivalUserName | fullWidth}}</div>
+  <div class="card-body p-2">
+    <div class="profile-container hstack gap-2">
+      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{item.rivalCardId}}.png">
+      <table class="profile-table">
+        <tbody>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.ID' | translate}}</th>
+          <td>{{item.rivalUserId}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.Level' | translate}}</th>
+          <td>{{item.reincarnationNum *100 + item.level}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.Rating' | translate}}</th>
+          <td>{{item.rivalNowRating | number: '1.2-2'}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.BattlePoint' | translate}}</th>
+          <td>{{item.rivalBattleScore}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <ng-template #remove let-modal>
+      <div class="modal-header">
+        {{'ChuniV2.RivalPage.Remove' | translate}}
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="d-grid">
+            <p class="mb-3 ms-1">
+              {{'ChuniV2.RivalPage.RemoveTip' | translate}}
+            </p>
+            <button class="btn btn-danger btn-sm" (click)="removeRival(item.rivalUserId);modal.dismiss()">{{'Common.OK' | translate}}</button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+    <a class="float-start cursor-pointer text-danger fw-bold small" (click)="open(remove)">
+      {{'ChuniV2.RivalPage.Remove' | translate}}
+    </a>
+    <div class="float-end fw-bold small">
+      {{'ChuniV2.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(item.lastPlayDate | toDate).toLocaleString()}}
+    </div>
+  </div>
+</div>

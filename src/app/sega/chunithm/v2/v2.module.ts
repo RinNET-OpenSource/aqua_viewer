@@ -42,6 +42,7 @@ import {TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {HttpClient } from '@angular/common/http';
 import { V2SongScoreRankingComponent } from './v2-song-score-ranking/v2-song-score-ranking.component';
 import {NgIcon} from '@ng-icons/core';
+import { V2RivalListComponent } from './v2-rival-list/v2-rival-list.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -98,7 +99,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         V2SongPlaylogComponent,
         V2UserBoxComponent,
         V2UserBoxSettingDialog,
-        V2SongScoreRankingComponent
+        V2SongScoreRankingComponent,
+        V2RivalListComponent
     ]
 })
 export class V2Module {
