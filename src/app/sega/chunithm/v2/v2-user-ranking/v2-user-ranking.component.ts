@@ -18,9 +18,9 @@ export class V2UserRankingComponent implements OnInit {
   }
 
   private getData() {
-    this.api.get('/api/game/chuni/v2/data/userRatingRanking')
+    this.api.get('api/game/chuni/v2/data/userRatingRanking')
       .subscribe(data => {
-        this.v2UserRankings = data;
+        this.v2UserRankings = data.data;
       });
   }
 }

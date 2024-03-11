@@ -18,9 +18,9 @@ export class OngekiPcRankingComponent implements OnInit {
   }
 
   private getData() {
-    this.api.get('/api/game/ongeki/data/dailyPcRanking')
+    this.api.get('api/game/ongeki/data/dailyPcRanking')
       .subscribe(data => {
-        this.OngekiPcRankings = data;
+        this.OngekiPcRankings = data.data;
       });
   }
 }

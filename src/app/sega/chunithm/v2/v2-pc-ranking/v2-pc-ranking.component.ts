@@ -18,9 +18,9 @@ export class V2PcRankingComponent implements OnInit {
   }
 
   private getData() {
-    this.api.get('/api/game/v2/data/dailyPcRanking')
+    this.api.get('api/game/chuni/v2/data/dailyPcRanking')
       .subscribe(data => {
-        this.V2PcRankings = data;
+        this.V2PcRankings = data.data;
       });
   }
 }
