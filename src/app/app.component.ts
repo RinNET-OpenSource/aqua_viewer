@@ -262,8 +262,8 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   refreshMenus() {
     const map = new Map(
       [
-        ['ongeki', this.ongekiMenu.filter(m => ![4, 7, 8].includes(m.id))],
-        ['chusan', this.v2Menus.filter(m => m.id !== 3)],
+        ['ongeki', this.ongekiMenu.filter(m => ![4, 7, 8, 9].includes(m.id))],
+        ['chusan', this.v2Menus.filter(m => ![3, 7, 8].includes(m.id))],
         ['maimai2', this.mai2Menus]
       ]
     );
