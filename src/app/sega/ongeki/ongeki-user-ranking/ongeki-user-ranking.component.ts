@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {OngekiUserRanking} from '../model/OngekiUserRanking';
 import {ApiService} from '../../../api.service';
+import {OngekiPcRanking} from '../model/OngekiPcRanking';
 
 @Component({
   selector: 'app-ongeki-user-ranking',
@@ -10,17 +11,26 @@ import {ApiService} from '../../../api.service';
 })
 export class OngekiUserRankingComponent implements OnInit {
   ongekiUserRankings: OngekiUserRanking[] = [];
+  OngekiPcRankings: OngekiPcRanking[] = [];
+  tabBarBoolControl = true;
 
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    this.getData();
+    this.getUserRankingData();
   }
 
-  private getData() {
+  getUserRankingData() {
     this.api.get('api/game/ongeki/data/userRatingRanking')
       .subscribe(data => {
         this.ongekiUserRankings = data;
+      });
+  }
+
+  getDailyPcRankingData() {
+    this.api.get('api/game/ongeki/data/dailyPcRanking')
+      .subscribe(data => {
+        this.OngekiPcRankings = data.data;
       });
   }
 }

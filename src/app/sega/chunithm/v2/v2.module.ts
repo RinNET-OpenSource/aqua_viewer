@@ -35,7 +35,6 @@ import {V2SonglistComponent} from './v2-songlist/v2-songlist.component';
 import {V2SongDetailComponent} from './v2-song-detail/v2-song-detail.component';
 import {V2SongPlaylogComponent} from './v2-song-playlog/v2-song-playlog.component';
 import {V2UserRankingComponent} from './v2-user-ranking/v2-user-ranking.component';
-import {V2PcRankingComponent} from './v2-pc-ranking/v2-pc-ranking.component';
 import {V2UserBoxComponent} from './v2-userbox/v2-userbox.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ToolsModule} from '../../../util/tools.module';
@@ -103,7 +102,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         V2UserBoxSettingDialog,
         V2RatingComponent,
         V2UserRankingComponent,
-        V2PcRankingComponent,
         V2SongScoreRankingComponent,
         V2RivalListComponent
     ]

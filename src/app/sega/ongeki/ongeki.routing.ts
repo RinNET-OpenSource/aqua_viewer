@@ -11,7 +11,6 @@ import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component'
 import {OngekiRivalListComponent} from './ongeki-rival-list/ongeki-rival-list.component';
 import {OngekiMusicRankingComponent} from './ongeki-music-ranking/ongeki-music-ranking.component';
 import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
-import {OngekiPcRankingComponent} from './ongeki-pc-ranking/ongeki-pc-ranking.component';
 import {OngekiSongScoreRankingComponent} from './ongeki-song-score-ranking/ongeki-song-score-ranking.component';
 
 
@@ -27,7 +26,6 @@ const routes: Routes = [
   {path: 'rival', component: OngekiRivalListComponent},
   {path: 'musicRanking', component: OngekiMusicRankingComponent},
   {path: 'userRanking', component: OngekiUserRankingComponent},
-  {path: 'pcRanking', component: OngekiPcRankingComponent},
   {path: 'setting', component: OngekiSettingComponent},
   {path: 'song/ranking/:id/:level', component: OngekiSongScoreRankingComponent},
 ];
