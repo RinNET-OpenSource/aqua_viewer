@@ -7,9 +7,7 @@
 </div>
 
 <h6 class="fw-bold mb-3">{{'ChuniV2.RivalPage.Me' | translate}}</h6>
-<h6 class="text-secondary ms-2">没有我</h6>
-
-<ng-container *ngIf="false">
+<ng-container *ngIf="!chusanProfile">
   <div class="card mb-3 placeholder-wave">
     <div class="card-header">
       <span class="placeholder" style="width: 6em;"></span>
@@ -63,28 +61,28 @@
   </div>
 </ng-container>
 
-<div *ngIf="myProfile" class="card mb-3">
-  <div class="card-header fw-bold">{{myProfile.rivalUserName | fullWidth}}</div>
+<div *ngIf="chusanProfile" class="card mb-3">
+  <div class="card-header fw-bold">{{chusanProfile.userName | fullWidth}}</div>
   <div class="card-body p-2">
     <div class="profile-container hstack gap-2">
-      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{myProfile.rivalCardId}}.png">
+      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{chusanProfile.characterId / 10}}_00_02.png">
       <table class="profile-table">
         <tbody>
         <tr>
-          <th>{{'ChuniV2.RivalPage.ID' | translate}}</th>
+          <th>{{'Ongeki.RivalPage.ID' | translate}}</th>
           <td>{{10000000 + auth.currentAccountValue.currentCard.id}}</td>
         </tr>
         <tr>
-          <th>{{'ChuniV2.RivalPage.Level' | translate}}</th>
-          <td>{{myProfile.reincarnationNum * 100 + myProfile.level}}</td>
+          <th>{{'DashboardPage.Level' | translate}}</th>
+          <td>{{chusanProfile.reincarnationNum * 100 + chusanProfile.level}}</td>
         </tr>
         <tr>
-          <th>{{'ChuniV2.RivalPage.Rating' | translate}}</th>
-          <td>{{myProfile.rivalNowRating | number: '1.2-2'}}</td>
+          <th>{{'DashboardPage.Rating' | translate}}</th>
+          <td>{{chusanProfile.playerRating / 100 | number: '1.2-2'}}</td>
         </tr>
         <tr>
-          <th>{{'ChuniV2.RivalPage.BattlePoint' | translate}}</th>
-          <td>{{myProfile.rivalBattleScore}}</td>
+          <th>{{'DashboardPage.OverPower' | translate}}</th>
+          <td>{{chusanProfile.overPowerRate/ 100}}%</td>
         </tr>
         </tbody>
       </table>
@@ -92,7 +90,7 @@
   </div>
   <div class="card-footer">
     <div class="float-end fw-bold small">
-      {{'ChuniV2.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(myProfile.lastPlayDate | toDate).toLocaleString()}}
+      {{'ChuniV2.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(chusanProfile.lastPlayDate | toDate).toLocaleString()}}
     </div>
   </div>
 </div>
@@ -158,27 +156,15 @@
 </div>
 
 <div *ngFor="let item of rivalList" class="card mb-3">
-  <div class="card-header fw-bold">{{item.rivalUserName | fullWidth}}</div>
+  <div class="card-header fw-bold">{{item.rivalName | fullWidth}}</div>
   <div class="card-body p-2">
     <div class="profile-container hstack gap-2">
-      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{item.rivalCardId}}.png">
+      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_0000_00_02.png">
       <table class="profile-table">
         <tbody>
         <tr>
           <th>{{'ChuniV2.RivalPage.ID' | translate}}</th>
-          <td>{{item.rivalUserId}}</td>
-        </tr>
-        <tr>
-          <th>{{'ChuniV2.RivalPage.Level' | translate}}</th>
-          <td>{{item.reincarnationNum *100 + item.level}}</td>
-        </tr>
-        <tr>
-          <th>{{'ChuniV2.RivalPage.Rating' | translate}}</th>
-          <td>{{item.rivalNowRating | number: '1.2-2'}}</td>
-        </tr>
-        <tr>
-          <th>{{'ChuniV2.RivalPage.BattlePoint' | translate}}</th>
-          <td>{{item.rivalBattleScore}}</td>
+          <td>{{item.rivalId}}</td>
         </tr>
         </tbody>
       </table>
@@ -195,7 +181,7 @@
             <p class="mb-3 ms-1">
               {{'ChuniV2.RivalPage.RemoveTip' | translate}}
             </p>
-            <button class="btn btn-danger btn-sm" (click)="removeRival(item.rivalUserId);modal.dismiss()">{{'Common.OK' | translate}}</button>
+            <button class="btn btn-danger btn-sm" (click)="removeRival(item.rivalId);modal.dismiss()">{{'Common.OK' | translate}}</button>
           </div>
         </form>
       </div>
@@ -204,7 +190,7 @@
       {{'ChuniV2.RivalPage.Remove' | translate}}
     </a>
     <div class="float-end fw-bold small">
-      {{'ChuniV2.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(item.lastPlayDate | toDate).toLocaleString()}}
+<!--      {{'ChuniV2.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(item.lastPlayDate | toDate).toLocaleString()}}-->
     </div>
   </div>
 </div>

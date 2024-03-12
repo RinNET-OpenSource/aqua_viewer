@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
-import {ChusanRival} from '../model/ChusanRival';
+import {ChusanProfile, ChusanRival} from '../model/ChusanRival';
 import {ApiService} from '../../../../api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthenticationService} from '../../../../auth/authentication.service';
 import {MessageService} from '../../../../message.service';
 import {HttpParams} from '@angular/common/http';
-import {logger} from 'codelyzer/util/logger';
+import {StatusCode} from '../../../../status-code';
 
 @Component({
   selector: 'app-v2-rival-list',
@@ -16,7 +16,7 @@ import {logger} from 'codelyzer/util/logger';
 export class V2RivalListComponent {
   host = environment.assetsHost;
   rivalList: ChusanRival[] = [];
-  myProfile: ChusanRival;
+  chusanProfile: ChusanProfile;
   loadingProfile = true;
   loadingRival = true;
   aimeId: string;
@@ -34,7 +34,6 @@ export class V2RivalListComponent {
   ngOnInit() {
     this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
-    console.log(10000000 + this.auth.currentAccountValue.currentCard.id);
     this.api.get('api/game/chuni/v2/rival', param).subscribe(
       this.refreshFrom.bind(this),
       error => {
@@ -43,15 +42,20 @@ export class V2RivalListComponent {
       }
     );
 
-    // this.api.get(`api/game/chuni/v2/rival/${10000000 + this.auth.currentAccountValue.currentCard.id}`).subscribe(
-    //   (data: ChusanRival) => {
-    //     console.log(data);
-    //   },
-    //   (err) => {
-    //     this.messageService.notice(err);
-    //     this.loadingProfile = false;
-    //   }
-    // );
+    this.api.get('api/user/profiles').subscribe(
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            this.chusanProfile = resp.data.chusan;
+          }
+          else {
+            this.messageService.notice(resp.status.message);
+          }
+          this.loadingProfile = false;
+        }
+      }
+    );
   }
 
   refreshFrom(rivalList: ChusanRival[]) {
@@ -60,11 +64,25 @@ export class V2RivalListComponent {
   }
 
   addRival() {
-
+    const param = new HttpParams().set('rivalId', (Number).parseInt(this.inputAddRivalUserId)).set('aimeId', this.aimeId);
+    this.api.post('api/game/chuni/v2/rival', param).subscribe(
+      data => {
+        if (data) { this.ngOnInit(); }
+      },
+      error => this.messageService.notice(`add rival failed : ${error}`)
+    );
   }
 
-  removeRival(rivalUserId: number) {
-
+  removeRival(rivalUserId: string) {
+    const param = new HttpParams().set('rivalId', (Number).parseInt(rivalUserId)).set('aimeId', this.aimeId);
+    this.api.delete('api/game/chuni/v2/rival', param).subscribe(
+      () => {
+        const newList = this.rivalList.filter(item => item.rivalId !== rivalUserId);
+        this.messageService.notice(`(id:${rivalUserId}) delete successfully.`);
+        this.refreshFrom(newList);
+      },
+      error => this.messageService.notice(`remove rival failed : ${error}`)
+    );
   }
 
   open(content) {

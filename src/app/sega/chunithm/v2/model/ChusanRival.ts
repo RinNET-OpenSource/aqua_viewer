@@ -1,11 +1,15 @@
 export interface ChusanRival {
-  rivalUserId: number;
-  rivalUserName: string;
-  rivalNowRating: number;
-  rivalHighestRating: number;
-  rivalCardId: number;
-  lastPlayDate: string;
-  reincarnationNum: number;
-  rivalBattleScore: number;
+  rivalName: string;
+  rivalId: string;
+}
+
+export interface ChusanProfile {
+  userName: string;
   level: number;
+  reincarnationNum: number;
+  playerRating: number;
+  overPowerRate: number;
+  characterId: number;
+  lastPlayDate: string;
+  rivalId: string;
 }
