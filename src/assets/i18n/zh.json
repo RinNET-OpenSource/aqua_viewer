@@ -23,7 +23,8 @@
       "Card": "卡片",
       "Rival": "好友",
       "MusicRanking": "乐曲排行",
-      "UserRanking": "玩家排行",
+      "UserRanking": "玩家评级排行",
+      "PcRanking": "游玩次数排行",
       "Character": "伙伴",
       "UserBox": "收藏品",
       "Setting": "设定"

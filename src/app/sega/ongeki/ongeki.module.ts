@@ -28,6 +28,7 @@ import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component'
 import {OngekiMusicRankingComponent} from './ongeki-music-ranking/ongeki-music-ranking.component';
 import {MatSortModule} from '@angular/material/sort';
 import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
+import {OngekiPcRankingComponent} from './ongeki-pc-ranking/ongeki-pc-ranking.component';
 import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
 import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item.component';
 import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
@@ -42,7 +43,11 @@ import {NgIconsModule} from '@ng-icons/core';
 import {
   bootstrapStopFill
 } from '@ng-icons/bootstrap-icons';
+<<<<<<< HEAD
 import { OngekiNameSettingComponent } from './ongeki-setting/ongeki-name-setting/ongeki-name-setting.component';
+=======
+import {OngekiNameSettingComponent} from './ongeki-setting/ongeki-name-setting/ongeki-name-setting.component';
+>>>>>>> f3c0b02c7c39883203812245ddf6813cf85995c8
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -58,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OngekiSongListComponent,
     OngekiBattlePointComponent,
     OngekiRatingComponent,
+    OngekiPcRankingComponent,
     OngekiRivalListComponent,
     OngekiMusicRankingComponent,
     OngekiUserRankingComponent,
@@ -72,7 +78,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     OngekiCardLevelComponent,
     OngekiSongScoreRankingComponent,
     ToTechHonorSpritePipe,
+<<<<<<< HEAD
     OngekiNameSettingComponent
+=======
+    OngekiNameSettingComponent,
+>>>>>>> f3c0b02c7c39883203812245ddf6813cf85995c8
   ],
     exports: [
         OngekiCardComponent
