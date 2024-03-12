@@ -15,16 +15,10 @@ const routes: Routes = [
   {path: 'oauth-callback/github', component: GithubComponent},
   {path: 'cards', component: CardsComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
-  {path: 'import', component: ImporterComponent},
+  {path: 'import', component: ImporterComponent, canActivate: [AuthGuardService]},
   {path: 'contributors', component: ContributorsComponent},
-  {path: 'diva', loadChildren: () => import('./sega/diva/diva.module').then(mod => mod.DivaModule), canLoad: [AuthGuardService]},
   {path: 'ongeki', loadChildren: () => import('./sega/ongeki/ongeki.module').then(mod => mod.OngekiModule), canLoad: [AuthGuardService]},
   {path: 'mai2', loadChildren: () => import('./sega/maimai2/maimai2.module').then(mod => mod.Maimai2Module), canLoad: [AuthGuardService]},
-  {
-    path: 'chuni/v1',
-    loadChildren: () => import('./sega/chunithm/v1/v1.module').then(mod => mod.V1Module),
-    canLoad: [AuthGuardService]
-  },
   {
     path: 'chuni/v2',
     loadChildren: () => import('./sega/chunithm/v2/v2.module').then(mod => mod.V2Module),

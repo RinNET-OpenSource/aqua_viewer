@@ -63,7 +63,6 @@ import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER } from '@angular/core';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GithubComponent } from './auth/oauth-callback/github/github.component';
-import { StaffComponent } from './home/staff/staff.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 
 const aegis = new Aegis({
@@ -107,7 +106,6 @@ export function initializeApp(translateService: TranslateService) {
     CardsComponent,
     NotFoundComponent,
     GithubComponent,
-    StaffComponent,
     ContributorsComponent
    ],
   imports: [
