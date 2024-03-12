@@ -241,10 +241,10 @@
       "Empty": "没有好友",
       "ID": "ID",
       "Level": "等级",
-      "PlayerName": "玩家名",
       "Rating": "评级",
-      "BattlePoint": "战斗得分",
+      "OverPower" : "完成度",
       "LastPlay": "上次游玩",
+      "PlayerName": "玩家名",
       "Remove": "解除好友",
       "RemoveTip": "确定要解除好友关系吗？"
     }

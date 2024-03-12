@@ -205,7 +205,8 @@
       "BattlePoint" : "BattlePoint",
       "LastPlay" : "LastPlay",
       "PlayerName" : "PlayerName",
-      "Remove" : "Remove"
+      "Remove" : "Remove",
+      "RemoveTip": "Remove them as rival?"
     }
   },
   "ChuniV2" : {
@@ -229,6 +230,24 @@
       "Frame" :"Frame",
       "Change" : "Change",
       "Preview" : "Preview"
+    },
+    "RivalPage" : {
+      "Title" : "Rival",
+      "IDInputPlaceholder" : "Rival Card ID",
+      "Search" : "Search",
+      "AddRival" : "Add Rival",
+      "MyCardID" : "My Card ID",
+      "Me" : "Me",
+      "RivalList" : "Rival List",
+      "Empty" : "Empty",
+      "ID" : "ID",
+      "Level": "Level",
+      "Rating": "Rating",
+      "OverPower" : "OverPower",
+      "LastPlay" : "LastPlay",
+      "PlayerName" : "PlayerName",
+      "Remove" : "Remove",
+      "RemoveTip": "Remove them as rival?"
     }
   },
   "ContributorsPage" : {
