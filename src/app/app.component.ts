@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       id: 9,
       name: 'Setting',
       url: 'ongeki/setting',
-      show: false,
+      show: true,
     }
   ];
 
@@ -148,7 +148,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       id: 8,
       name: 'Setting',
       url: 'chuni/v2/setting',
-      show: false,
+      show: true,
     }
   ];
 
