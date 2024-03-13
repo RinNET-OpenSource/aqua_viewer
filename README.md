@@ -6,6 +6,13 @@ RinNET differs significantly from Aqua, additional development may be required t
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
+## Develop with CDN
+
+- Add the following rule to your hosts file: <br>
+`127.0.0.1 portal-dev.naominet.live`
+- Launch the development server with the command: <br>`$ npm run start `
+- Visit [http://portal-dev.naominet.live](http://portal-dev.naominet.live).
+
 ## How to Contribute
 
 You can write code, test it yourself, and submit a pull request. You can also improve translations [here](/src/assets/i18n).
