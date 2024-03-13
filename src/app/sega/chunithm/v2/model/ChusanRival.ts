@@ -1,6 +1,11 @@
 export interface ChusanRival {
   rivalName: string;
   rivalId: string;
+  playerRating: number;
+  characterId: number;
+  overPowerRate: number;
+  reincarnationNum: number;
+  level: number;
 }
 
 export interface ChusanProfile {

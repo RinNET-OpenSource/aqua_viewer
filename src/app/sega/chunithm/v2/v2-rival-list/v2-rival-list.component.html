@@ -73,15 +73,15 @@
           <td>{{10000000 + auth.currentAccountValue.currentCard.id}}</td>
         </tr>
         <tr>
-          <th>{{'ChuniV2.Level' | translate}}</th>
+          <th>{{'ChuniV2.RivalPage.Level' | translate}}</th>
           <td>{{chusanProfile.reincarnationNum * 100 + chusanProfile.level}}</td>
         </tr>
         <tr>
-          <th>{{'ChuniV2.Rating' | translate}}</th>
+          <th>{{'ChuniV2.RivalPage.Rating' | translate}}</th>
           <td>{{chusanProfile.playerRating / 100 | number: '1.2-2'}}</td>
         </tr>
         <tr>
-          <th>{{'ChuniV2.OverPower' | translate}}</th>
+          <th>{{'ChuniV2.RivalPage.OverPower' | translate}}</th>
           <td>{{chusanProfile.overPowerRate/ 100}}%</td>
         </tr>
         </tbody>
@@ -159,12 +159,24 @@
   <div class="card-header fw-bold">{{item.rivalName | fullWidth}}</div>
   <div class="card-body p-2">
     <div class="profile-container hstack gap-2">
-      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_0000_00_02.png">
+      <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{item.characterId / 10}}_00_02.png">
       <table class="profile-table">
         <tbody>
         <tr>
           <th>{{'ChuniV2.RivalPage.ID' | translate}}</th>
           <td>{{item.rivalId}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.Level' | translate}}</th>
+          <td>{{item.reincarnationNum *100 + item.level}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.Rating' | translate}}</th>
+          <td>{{item.playerRating / 100}}</td>
+        </tr>
+        <tr>
+          <th>{{'ChuniV2.RivalPage.OverPower' | translate}}</th>
+          <td>{{item.overPowerRate / 100}}%</td>
         </tr>
         </tbody>
       </table>
