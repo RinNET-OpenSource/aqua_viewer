@@ -252,9 +252,9 @@
   },
   "ContributorsPage" : {
     "Title": "Contributors",
-    "ProjectTeam": "Project Team",
     "Developers": "Developers",
     "CDNProvider": "CDN Provider",
+    "CommunityContributors": "Community Contributors",
     "Donations": "Donations",
     "SponsorMe": "Sponsor me",
     "SpecialThanks": "Special Thanks",

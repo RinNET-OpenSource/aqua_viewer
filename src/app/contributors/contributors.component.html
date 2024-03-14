@@ -1,16 +1,21 @@
 <h3 class="mb-3">{{"ContributorsPage.Title" | translate}}</h3>
 <div>
-  <h5 class="fw-bold mb-3">{{"ContributorsPage.ProjectTeam" | translate}}</h5>
-  <h6 class="fw-bold mb-3">{{"ContributorsPage.Developers" | translate}}</h6>
+  <h5 class="fw-bold mb-3">{{"ContributorsPage.Developers" | translate}}</h5>
   <div class="mb-2">
     <span class="hstack d-inline-block me-3 mb-1" *ngFor="let developer of shuffledDevelopers">
       <a class="text-decoration-none" target="_blank" href="{{developer.link}}"><img class="avator me-1" src="https://avatars.githubusercontent.com/u/{{developer.id}}">{{developer.name}}</a>
     </span>
   </div>
-  <h6 class="fw-bold mb-3">{{"ContributorsPage.CDNProvider" | translate}}</h6>
+  <h5 class="fw-bold mb-3">{{"ContributorsPage.CDNProvider" | translate}}</h5>
   <div class="mb-3">
     <div class="hstack d-inline-block">
       <a class="text-decoration-none" target="_blank" href="https://github.com/Steve0807"><img class="avator me-1" src="https://avatars.githubusercontent.com/u/104258961">Steve0807</a>
+    </div>
+  </div>
+  <h5 class="fw-bold mb-3">{{"ContributorsPage.CommunityContributors" | translate}}</h5>
+  <div class="mb-3">
+    <div class="hstack d-inline-block">
+      <a class="text-decoration-none" target="_blank" href="https://github.com/Eternal973"><img class="avator me-1" src="https://avatars.githubusercontent.com/u/51935482">Eternal973</a>
     </div>
   </div>
   <h5 class="fw-bold mb-3">{{"ContributorsPage.Donations" | translate}}</h5>
