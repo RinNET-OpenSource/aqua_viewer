@@ -55,7 +55,9 @@ import {
   bootstrapPencilSquare,
   bootstrapDatabase,
   bootstrapSun,
-  bootstrapStars
+  bootstrapStars,
+  bootstrapTranslate,
+  bootstrapCircleHalf
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -64,6 +66,8 @@ import { APP_INITIALIZER } from '@angular/core';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GithubComponent } from './auth/oauth-callback/github/github.component';
 import { ContributorsComponent } from './contributors/contributors.component';
+import { LanguageService } from './language.service';
+import { lastValueFrom } from 'rxjs';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -77,22 +81,13 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-export function initializeApp(translateService: TranslateService) {
-  return () => {
-    const supportedLangs = ['en', 'zh'];
-    let userLang = 'en';
-
-    const browserLangs = navigator.languages || [navigator.language];
-    for (const lang of browserLangs) {
-      const baseLang = lang.split('-')[0];
-      if (supportedLangs.includes(baseLang)) {
-        userLang = baseLang;
-        break;
-      }
-    }
-
-    return translateService.use(userLang).toPromise();
-  };
+export function initializeApp(
+  translateService: TranslateService,
+  languageService: LanguageService) {
+    return async () => {
+      const userLang = languageService.getCurrentLang();
+      await lastValueFrom(translateService.use(userLang));
+    };
 }
 
 @NgModule({
@@ -153,7 +148,9 @@ export function initializeApp(translateService: TranslateService) {
       bootstrapPencilSquare,
       bootstrapDatabase,
       bootstrapSun,
-      bootstrapStars
+      bootstrapStars,
+      bootstrapTranslate,
+      bootstrapCircleHalf
     }),
     TranslateModule.forRoot({
       loader: {
@@ -167,7 +164,7 @@ export function initializeApp(translateService: TranslateService) {
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true},
-    {provide: APP_INITIALIZER, useFactory: initializeApp, deps: [TranslateService], multi: true},
+    {provide: APP_INITIALIZER, useFactory: initializeApp, deps: [TranslateService, LanguageService], multi: true},
   ],
   bootstrap: [AppComponent]
 })

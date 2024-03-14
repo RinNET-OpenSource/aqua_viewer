@@ -1,3 +1,5 @@
+import { ThemeService } from './theme.service';
+import { LanguageService } from './language.service';
 import {ChangeDetectorRef, Component, HostListener, Inject, OnChanges, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
@@ -20,7 +22,7 @@ import { SwUpdate } from '@angular/service-worker';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
-  colorMode: string;
+  themes = ["Auto", "Light", "Dark"];
 
   title = 'aqua-viewer';
   host = environment.assetsHost;
@@ -177,6 +179,8 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     public toastService: ToastService,
     private translate: TranslateService,
     private renderer: Renderer2,
+    public languageService: LanguageService,
+    public themeService: ThemeService,
     updates: SwUpdate,
     @Inject(DOCUMENT) private document: Document,
   ) {
@@ -200,7 +204,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   private initializeApp() {
     this.account = this.authenticationService.currentAccountValue;
-    this.loadColorMode();
     if (this.account !== null) {
       this.preLoad.checkDbUpdate();
       this.loadUser();
@@ -306,28 +309,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     if (this.sidebarOffcanvasOpened) {
       this.hideSidebar();
     }
-  }
-
-  loadColorMode(){
-    let colorMode = localStorage.getItem('colorMode');
-    if (colorMode !== 'dark' && colorMode !== 'light'){
-      colorMode = 'dark';
-    }
-    this.colorMode = colorMode;
-    const body = this.document.body;
-    this.renderer.setAttribute(body, 'data-bs-theme', this.colorMode);
-  }
-
-  toggleColorMode(){
-    if (this.colorMode === 'dark') {
-      this.colorMode = 'light';
-    } else {
-      this.colorMode = 'dark';
-    }
-    localStorage.setItem('colorMode', this.colorMode);
-
-    const body = this.document.body;
-    this.renderer.setAttribute(body, 'data-bs-theme', this.colorMode);
   }
 }
 

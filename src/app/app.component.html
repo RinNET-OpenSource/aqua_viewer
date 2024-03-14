@@ -22,15 +22,6 @@
       </ng-template>
 
       <div class="hstack gap-1">
-        <button class="btn btn-icon py-0"
-                style="font-size: 1.2rem;"
-                type="button"
-                (click)="toggleColorMode()">
-                <ng-container [ngSwitch]="colorMode">
-                  <ng-icon *ngSwitchCase="'light'" name="bootstrap-sun"></ng-icon>
-                  <ng-icon *ngSwitchCase="'dark'" name="bootstrap-stars"></ng-icon>
-                </ng-container>
-        </button>
         <div *ngIf="account" class="vr my-2"></div>
         <button *ngIf="account"
                 class="btn btn-icon py-0"
@@ -161,19 +152,52 @@
     <app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 3.6rem"></app-toasts>
   </div>
 </div>
-<footer class="footer mt-3">
-  <div class="row justify-content-center small fw-bold p-4 mx-0 gy-2 gx-4 text-center">
-    <div class="col-auto">©2024 RinNET Team</div>
-    <div class="col-auto">
-      <a target="_blank" href="https://status.naominet.live/status/aquaserver">Status</a>
-      <a class="ms-4" target="_blank" href="https://github.com/mxihan/aqua_viewer">Github</a>
+
+<footer class="footer container mt-3">
+  <div class="d-flex justify-content-between flex-wrap py-3 column-gap-3">
+    <div class="row fw-bold my-2">
+      <div class="col-auto" ngbDropdown>
+        <a ngbDropdownToggle>
+          <ng-icon name="bootstrap-translate"></ng-icon>
+          <span class="ms-1">{{languageService.languages.get(languageService.getCurrentLang())}}</span>
+        </a>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <ng-container *ngFor="let key of languageService.languageKeys">
+            <button ngbDropdownItem class="small"
+            [class.active]="languageService.getCurrentLang() == key"
+            (click)="languageService.setCurrentLang(key)">{{languageService.languages.get(key)}}</button>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="col-auto" ngbDropdown>
+        <a ngbDropdownToggle>
+          <ng-container [ngSwitch]="themeService.getTheme()">
+            <ng-icon *ngSwitchCase="'auto'" name="bootstrap-circle-half"></ng-icon>
+            <ng-icon *ngSwitchCase="'light'" name="bootstrap-sun"></ng-icon>
+            <ng-icon *ngSwitchCase="'dark'" name="bootstrap-stars"></ng-icon>
+          </ng-container>
+          <span class="ms-1">{{"App.Footer.Theme" | translate}}</span>
+        </a>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <ng-container *ngFor="let item of themes">
+            <button ngbDropdownItem class="small"
+            [class.active]="themeService.getTheme() == item.toLowerCase()"
+            (click)="themeService.setTheme(item.toLowerCase())">{{('App.Footer.' + item) | translate}}</button>
+          </ng-container>
+        </div>
+      </div>
     </div>
-    <div class="col-auto">
-      Code Licensed
-      <a href="https://github.com/mxihan/aqua_viewer/blob/master/LICENSE" target="_blank">AGPL 3.0</a>
-    </div>
-    <div class="col-auto">
-      <a routerLink="contributors">Contributors</a>
+    <div class="row my-2">
+      <div class="col-auto">
+        <a target="_blank" href="https://status.naominet.live/status/aquaserver">{{"App.Footer.Status" | translate}}</a>
+        <a class="ms-4" target="_blank" href="https://github.com/mxihan/aqua_viewer">Github</a>
+      </div>
+      <div class="col-auto" [innerHTML]="'App.Footer.Licence' | translate"></div>
+      <div class="col-auto">
+        <a routerLink="contributors">{{"App.Footer.Contributors" | translate}}</a>
+      </div>
+      <div class="col-auto">{{"App.Footer.Copyright" | translate}}</div>
     </div>
   </div>
 </footer>

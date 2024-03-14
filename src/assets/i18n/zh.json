@@ -7,6 +7,16 @@
     "OK": "确定"
   },
   "App": {
+    "Footer": {
+      "Theme": "主题",
+      "Auto": "自动",
+      "Light": "浅色",
+      "Dark": "深色",
+      "Status": "服务状态",
+      "Licence": "<a href=\"https://github.com/mxihan/aqua_viewer/blob/master/LICENSE\" target=\"_blank\">开源许可协议</a>",
+      "Contributors": "贡献者",
+      "Copyright": "©2024 RinNET项目组"
+    },
     "UserPopup": {
       "MyCards": "卡包",
       "SignOut": "登出"

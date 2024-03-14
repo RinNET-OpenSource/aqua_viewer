@@ -49,14 +49,14 @@ mat-sidenav {
 .link-btn {
   padding: .3rem .5rem;
   color: var(--bs-body-color);
-  text-decoration: none;
+  text-decoration: none!important;
   cursor: pointer;
   transition: all 0.1s ease 0s;
 }
 
 .link-btn:hover,
 .link-btn.active {
-  color: #FFF;
+  color: #FFF!important;
   background-color: var(--bs-primary);
 }
 
@@ -120,18 +120,19 @@ mat-sidenav {
 
 .footer{
   width: 100%;
-  color: var(--bs-secondary);
+  color: var(--bs-body-color);
   font-size: small;
   //background-color: var(--bs-tertiary-bg);
 }
 
-.footer a{
-  color: var(--bs-secondary);
+::ng-deep .footer a{
+  color: var(--bs-body-color);
   text-decoration: none;
 }
 
-.footer a:hover{
-  color: var(--bs-secondary);
+::ng-deep .footer a:hover{
+  color: var(--bs-body-color);
+  cursor: pointer;
   text-decoration: underline;
 }
 

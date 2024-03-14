@@ -94,7 +94,6 @@ export class CardsComponent implements OnInit {
         if (resp?.status) {
           const statusCode: StatusCode = resp.status.code;
           if (statusCode === StatusCode.OK) {
-            location.reload(); // reload page to refresh nav bar
             this.loadCards();
           }
           else {
@@ -152,7 +151,6 @@ export class CardsComponent implements OnInit {
           if (statusCode === StatusCode.OK) {
             this.bindCardForm.reset();
             this.loadCards();
-            location.reload(); // reload page to refresh nav bar
           }
           else {
             this.messageService.notice(resp.status.message);
@@ -233,7 +231,6 @@ export class CardsComponent implements OnInit {
           const statusCode: StatusCode = resp.status.code;
           if (statusCode === StatusCode.OK) {
             this.loadCards();
-            location.reload(); // reload page to refresh nav bar
           }
           else {
             this.messageService.notice(resp.status.message);

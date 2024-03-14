@@ -7,6 +7,16 @@
     "OK" : "OK"
   },
   "App" : {
+    "Footer": {
+      "Theme": "Theme",
+      "Auto": "Auto",
+      "Light": "Light",
+      "Dark": "Dark",
+      "Status": "Status",
+      "Licence": "Code Licensed <a href=\"https://github.com/mxihan/aqua_viewer/blob/master/LICENSE\" target=\"_blank\">AGPL 3.0</a>",
+      "Contributors": "Contributors",
+      "Copyright": "©2024 RinNET Team"
+    },
     "UserPopup" : {
       "MyCards" : "My cards",
       "SignOut" : "Sign out"
