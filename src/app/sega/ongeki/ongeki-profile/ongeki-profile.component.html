@@ -1,4 +1,24 @@
 <h3 class="mat-display-1">{{'Ongeki.ProfilePage.Title' | translate}}</h3>
+
+<div class="row">
+  <div class="col-6 user-data-container">
+    <div class="user-icon-border">
+      <img class="user-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{profile.cardId}}.png">
+    </div>
+    <img class="rank-bg" src="assets/ongeki/gameUi/UI_CMN_Signage_UserRank_BG_07.png">
+    <div class="trophy-bg" [style.background-image]="'url(assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserTitle_00.png)'">
+
+    </div>
+    <div class="level-bg" [style.background-image]="'url(assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserLevel_BG_00.png)'">
+
+    </div>
+
+    <div class="name-border">
+
+    </div>
+  </div>
+</div>
+
 <div class="card">
   <div class="card-body">
     <h5 class="card-title mb-3">{{'Ongeki.ProfilePage.Overview' | translate}}</h5>

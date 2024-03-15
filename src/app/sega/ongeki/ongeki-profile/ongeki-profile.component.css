@@ -1,0 +1,51 @@
+.user-data-container{
+  position: relative;
+  aspect-ratio: 4.8;
+}
+
+.rank-bg{
+  position: absolute;
+  width: 18.3%;
+  top: -2%;
+}
+
+.user-icon-border{
+  position: absolute;
+  width: 16.25%;
+  aspect-ratio: 1;
+  background: linear-gradient(white, #DDD);
+  border: 1px solid #878787;
+  left: 19.3%;
+  top: 2%;
+}
+
+.user-icon{
+  height: 100%;
+  width: 100%;
+}
+
+.trophy-bg{
+  position: absolute;
+  width: 40%;
+  aspect-ratio: 6.75862068965517;
+  background-size: cover, auto;
+  left: 36%;
+}
+
+.level-bg{
+  position: absolute;
+  width: 12.5%;
+  aspect-ratio: 1.83908045977011;
+  background-size: cover;
+  left: 36%;
+  top: 28%;
+}
+
+.name-border{
+  position: absolute;
+  border: 2px solid #e0e0e0;
+  width: 27.2%;
+  height: 27%;
+  left: 48%;
+  top: 30%;
+}

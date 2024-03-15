@@ -1,8 +1,6 @@
-<div>
-  <div class="container">
-    <div class="pt-3">
-
-      <div class="row flex-sm-row-reverse justify-content-center px-0 px-md-4">
+<div class="container-xxl p-0">
+    <div class="pt-3 px-0 px-sm-3">
+      <div class="row flex-sm-row-reverse justify-content-center">
         <div class="logo-container col-sm position-relative">
           <div #faultLogo [ngClass]="{'logo-bg': logoIsShow}" class="logo-box" (click)="fault($event)">
             <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle"/>
@@ -61,7 +59,7 @@
           </div>
         </div>
       </div>
-      <div class="px-0 px-md-4">
+      <div>
         <hr>
         <div class="mb-3 ps-0 fw-semibold h3">
           {{'HomePage.Connect' | translate}}
@@ -111,5 +109,4 @@ default = aqua.naominet.live</code></pre>
         </div>
       </div>
     </ng-template>
-  </div>
 </div>

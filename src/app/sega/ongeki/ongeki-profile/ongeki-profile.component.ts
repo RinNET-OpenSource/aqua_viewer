@@ -7,6 +7,7 @@ import { DisplayOngekiProfile } from '../model/OngekiProfile';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { OngekiCard } from '../model/OngekiCard';
 import { OngekiCharacter } from '../model/OngekiCharacter';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-ongeki-profile',
@@ -17,6 +18,7 @@ export class OngekiProfileComponent implements OnInit {
 
   profile: DisplayOngekiProfile;
   aimeId: string;
+  host = environment.assetsHost;
 
   constructor(
     private api: ApiService,

@@ -153,8 +153,8 @@
   </div>
 </div>
 
-<footer class="footer container mt-3">
-  <div class="d-flex justify-content-between flex-wrap py-3 column-gap-3">
+<footer class="footer container-xxl mt-3">
+  <div class="d-flex justify-content-between flex-wrap px-2 px-lg-3 py-3 column-gap-3">
     <div class="row fw-bold my-2">
       <div class="col-auto" ngbDropdown>
         <a ngbDropdownToggle>
@@ -163,7 +163,7 @@
         </a>
         <div class="dropdown-menu" ngbDropdownMenu>
           <ng-container *ngFor="let key of languageService.languageKeys">
-            <button ngbDropdownItem class="small"
+            <button ngbDropdownItem class="small my-1"
             [class.active]="languageService.getCurrentLang() == key"
             (click)="languageService.setCurrentLang(key)">{{languageService.languages.get(key)}}</button>
           </ng-container>
@@ -177,11 +177,11 @@
             <ng-icon *ngSwitchCase="'light'" name="bootstrap-sun"></ng-icon>
             <ng-icon *ngSwitchCase="'dark'" name="bootstrap-stars"></ng-icon>
           </ng-container>
-          <span class="ms-1">{{"App.Footer.Theme" | translate}}</span>
+          <span class="ms-1">{{("App.Footer." + (themeService.getTheme() | titlecase)) | translate}}</span>
         </a>
         <div class="dropdown-menu" ngbDropdownMenu>
           <ng-container *ngFor="let item of themes">
-            <button ngbDropdownItem class="small"
+            <button ngbDropdownItem class="small my-1"
             [class.active]="themeService.getTheme() == item.toLowerCase()"
             (click)="themeService.setTheme(item.toLowerCase())">{{('App.Footer.' + item) | translate}}</button>
           </ng-container>
