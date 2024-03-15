@@ -108,7 +108,7 @@ export class PreloadService {
     this.checkingUpdate.next(true);
     this.api.get('api/static/dbVersion').subscribe(
       resp => {
-        if (resp?.state === 'SUCCESS') {
+        if (resp?.state.toLowerCase().includes('success')) {
           const latestVersion = resp.version.major;
           this.dbVersionObservable.subscribe(version => {
             if (latestVersion > version){
