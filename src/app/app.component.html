@@ -22,7 +22,6 @@
       </ng-template>
 
       <div class="hstack gap-1">
-        <div *ngIf="account" class="vr my-2"></div>
         <button *ngIf="account"
                 class="btn btn-icon py-0"
                 style="font-size: 1.2rem;"
@@ -170,7 +169,7 @@
         </div>
       </div>
 
-      <div class="col-auto" ngbDropdown>
+      <div class="col-auto" ngbDropdown >
         <a ngbDropdownToggle>
           <ng-container [ngSwitch]="themeService.getTheme()">
             <ng-icon *ngSwitchCase="'auto'" name="bootstrap-circle-half"></ng-icon>
