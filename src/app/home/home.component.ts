@@ -18,19 +18,27 @@ export class HomeComponent implements OnInit, OnDestroy {
   popupStatus = 0;
   logoIsShow = true;
   ongekiAvatarIconHeadArr: string[] = ['06202101', '06202201', '06202301', '06202401', '06202501', '06202601', '06202701', '06202801', '06202901', '06203001', '06203101', '06203201'];
-  ongekiAvatarHeadId;
+  ongekiAvatarHeadId: any;
   ongekiAvatarHeadData = [
-    {
+    { // 星咲
       id: '06202101',
       color: ['#fca2c8', '#ea81b6', '#bf0477'],
     },
-    {
+    { // 柚子
       id: '06202201',
       color: ['#ffef5d', '#efc75b', '#f48a00'],
     },
-    {
+    { // 葵
       id: '06202301',
       color: ['#67667c', '#594f66', '#141219'],
+    },
+    { // 小星
+      id: '06202901',
+      color: ['#feefd5', '#94F453FF', '#669139'],
+    },
+    {
+      id: '06203001',
+      color: ['#fdebdf', '#ced1d9', '#c4e9f4']
     }
   ];
 
@@ -44,6 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // this.transformLogo = Math.round(Math.random() * 6);
     this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[Math.floor(Math.random() * this.ongekiAvatarHeadData.length)];
+    this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[4];
   }
 
   ngOnDestroy(): void {
