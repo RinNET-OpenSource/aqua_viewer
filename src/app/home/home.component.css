@@ -1,3 +1,7 @@
+.cannot-drag {
+  -webkit-user-drag: none;
+}
+
 .logo-container {
   position: relative;
   display: flex;
@@ -65,8 +69,8 @@
 
 @media only screen and (max-width: 575px) {
   .logo-container .ongekiHead {
-    width: 79%;
-    top: 18.5%;
-    left: -17.4%;
+    width: 84%;
+    top: 5.5%;
+    left: -19.1%;
   }
 }
