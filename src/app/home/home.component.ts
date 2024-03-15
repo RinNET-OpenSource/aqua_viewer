@@ -52,7 +52,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // this.transformLogo = Math.round(Math.random() * 6);
     this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[Math.floor(Math.random() * this.ongekiAvatarHeadData.length)];
-    this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[4];
   }
 
   ngOnDestroy(): void {
