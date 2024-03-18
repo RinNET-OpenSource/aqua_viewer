@@ -11,7 +11,8 @@
         </button>
         <ng-template #unbindCard let-modal>
           <div class="modal-header">
-            {{'CardsPage.UnbindCard' | translate}}
+            <h6 class="modal-title">{{'CardsPage.UnbindCard' | translate}}</h6>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
           </div>
           <div class="modal-body">
             <form>
@@ -43,7 +44,8 @@
         </div>
         <ng-template #changeAccesscode let-modal>
           <div class="modal-header">
-            {{'CardsPage.ChangeAccessCode' | translate}}
+            <h6 class="modal-title">{{'CardsPage.ChangeAccessCode' | translate}}</h6>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
           </div>
           <div class="modal-body">
             <form (ngSubmit)="onChangeAccesscode(card.extId, modal)" [formGroup]="changeAccessCodeForm">
@@ -102,7 +104,8 @@
     </div>
     <ng-template #addAccessCode let-modal>
       <div class="modal-header">
-        {{'CardsPage.AddAlias' | translate}}
+        <h6 class="modal-title">{{'CardsPage.AddAlias' | translate}}</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
       </div>
       <div class="modal-body">
         <form (ngSubmit)="onAddAccessCode(card.extId, modal)" [formGroup]="addAccessCodeForm">
@@ -121,7 +124,8 @@
 </div>
 <ng-template #bindCard let-modal>
   <div class="modal-header">
-    {{'CardsPage.BindCard' | translate}}
+    <h6 class="modal-title">{{'CardsPage.BindCard' | translate}}</h6>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
   </div>
   <div class="modal-body">
     <form (ngSubmit)="onBindCard(modal)" [formGroup]="bindCardForm">

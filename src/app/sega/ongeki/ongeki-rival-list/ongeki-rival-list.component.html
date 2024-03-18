@@ -181,7 +181,8 @@
   <div class="card-footer">
     <ng-template #remove let-modal>
       <div class="modal-header">
-        {{'Ongeki.RivalPage.Remove' | translate}}
+        <h6 class="modal-title">{{'Ongeki.RivalPage.Remove' | translate}}</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
       </div>
       <div class="modal-body">
         <form>
