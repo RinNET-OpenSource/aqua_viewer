@@ -24,3 +24,9 @@ table {
 .profile-table td{
   width: 50%;
 }
+
+.friend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

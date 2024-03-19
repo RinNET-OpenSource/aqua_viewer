@@ -4,6 +4,7 @@ export interface ChusanRival {
   playerRating: number;
   characterId: number;
   overPowerRate: number;
+  isFavorite: boolean;
   reincarnationNum: number;
   level: number;
 }

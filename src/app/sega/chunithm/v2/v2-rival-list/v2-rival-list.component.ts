@@ -8,6 +8,13 @@ import {MessageService} from '../../../../message.service';
 import {HttpParams} from '@angular/common/http';
 import {StatusCode} from '../../../../status-code';
 
+enum V2RivalAPI {
+  Rival = 'api/game/chuni/v2/rival',
+  Friend = 'api/game/chuni/v2/friend',
+  Profiles = 'api/user/profiles',
+  ToggleFavorite = 'api/game/chuni/v2/toggleFavorite',
+}
+
 @Component({
   selector: 'app-v2-rival-list',
   templateUrl: './v2-rival-list.component.html',
@@ -15,7 +22,7 @@ import {StatusCode} from '../../../../status-code';
 })
 export class V2RivalListComponent {
   host = environment.assetsHost;
-  rivalList: ChusanRival[] = [];
+  friendList: ChusanRival[] = [];
   chusanProfile: ChusanProfile;
   loadingProfile = true;
   loadingRival = true;
@@ -34,15 +41,18 @@ export class V2RivalListComponent {
   ngOnInit() {
     this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
-    this.api.get('api/game/chuni/v2/rival', param).subscribe(
-      this.refreshFrom.bind(this),
+
+    this.api.get(V2RivalAPI.Friend, param).subscribe(
+      (data) => {
+        this.refreshFrom(data);
+        console.log('friend:', data);
+      },
       error => {
-        this.messageService.notice(`get rival list failed : ${error}`);
-        this.loadingRival = false;
+        this.messageService.notice(`get friend list failed: ${error}`);
       }
     );
 
-    this.api.get('api/user/profiles').subscribe(
+    this.api.get(V2RivalAPI.Profiles).subscribe(
       resp => {
         if (resp?.status) {
           const statusCode: StatusCode = resp.status.code;
@@ -58,30 +68,40 @@ export class V2RivalListComponent {
     );
   }
 
-  refreshFrom(rivalList: ChusanRival[]) {
-    this.rivalList = rivalList;
+  refreshFrom(friendList: ChusanRival[]) {
+    this.friendList = friendList;
     this.loadingRival = false;
   }
 
-  addRival() {
-    const param = new HttpParams().set('rivalId', (Number).parseInt(this.inputAddRivalUserId)).set('aimeId', this.aimeId);
-    this.api.post('api/game/chuni/v2/rival', param).subscribe(
+  addFriend() {
+    const param = new HttpParams().set('friendId', (Number).parseInt(this.inputAddRivalUserId)).set('aimeId', this.aimeId);
+    this.api.post(V2RivalAPI.Friend, param).subscribe(
       data => {
         if (data) { this.ngOnInit(); }
       },
-      error => this.messageService.notice(`add rival failed : ${error}`)
+      error => this.messageService.notice(`add rival failed: ${error}`)
     );
   }
 
-  removeRival(rivalUserId: string) {
-    const param = new HttpParams().set('rivalId', (Number).parseInt(rivalUserId)).set('aimeId', this.aimeId);
-    this.api.delete('api/game/chuni/v2/rival', param).subscribe(
+  removeFriend(rivalUserId: string) {
+    const param = new HttpParams().set('friendId', (Number).parseInt(rivalUserId)).set('aimeId', this.aimeId);
+    this.api.delete(V2RivalAPI.Friend, param).subscribe(
       () => {
-        const newList = this.rivalList.filter(item => item.rivalId !== rivalUserId);
+        const newList = this.friendList.filter(item => item.rivalId !== rivalUserId);
         this.messageService.notice(`(id:${rivalUserId}) delete successfully.`);
         this.refreshFrom(newList);
       },
-      error => this.messageService.notice(`remove rival failed : ${error}`)
+      error => this.messageService.notice(`remove rival failed: ${error}`)
+    );
+  }
+
+  toggleFavorite(rivalUserId: string) {
+    console.log(rivalUserId);
+    const param = new HttpParams().set('friendId', (Number).parseInt(rivalUserId)).set('aimeId', this.aimeId);
+    this.api.get(V2RivalAPI.ToggleFavorite, param).subscribe(
+      (data) => {
+        this.messageService.notice(`id: ${rivalUserId} toggle Favorite Over!`);
+      }
     );
   }
 

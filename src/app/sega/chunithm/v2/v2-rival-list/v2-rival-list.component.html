@@ -3,7 +3,7 @@
 <h6 class="mb-3 fw-bold">{{'ChuniV2.RivalPage.AddRival' | translate}}</h6>
 <div class="input-group">
   <input type="text" class="form-control form-control mb-3" placeholder="{{'ChuniV2.RivalPage.IDInputPlaceholder' | translate}}" [(ngModel)]="inputAddRivalUserId">
-  <button class="btn btn-primary mb-3" type="button" (click)="addRival()">{{'ChuniV2.RivalPage.AddRival' | translate}}</button>
+  <button class="btn btn-primary mb-3" type="button" (click)="addFriend()">{{'ChuniV2.RivalPage.AddRival' | translate}}</button>
 </div>
 
 <h6 class="fw-bold mb-3">{{'ChuniV2.RivalPage.Me' | translate}}</h6>
@@ -151,12 +151,18 @@
   </div>
 </ng-container>
 
-<div *ngIf="!loadingRival && rivalList.length == 0">
+<div *ngIf="!loadingRival && friendList.length == 0">
   <span class="text-secondary ms-2">{{'ChuniV2.RivalPage.Empty' | translate}}</span>
 </div>
 
-<div *ngFor="let item of rivalList" class="card mb-3">
-  <div class="card-header fw-bold">{{item.rivalName | fullWidth}}</div>
+<div *ngFor="let item of friendList" class="card mb-3">
+  <div class="friend-header card-header fw-bold">
+    <span>{{item.rivalName | fullWidth}}</span>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="item.isFavorite" (change)="toggleFavorite(item.rivalId)">
+      <label class="form-check-label" for="flexSwitchCheckDefault">登录喜爱</label>
+    </div>
+  </div>
   <div class="card-body p-2">
     <div class="profile-container hstack gap-2">
       <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{item.characterId / 10}}_00_02.png">
@@ -194,7 +200,7 @@
             <p class="mb-3 ms-1">
               {{'ChuniV2.RivalPage.RemoveTip' | translate}}
             </p>
-            <button class="btn btn-danger btn-sm" (click)="removeRival(item.rivalId);modal.dismiss()">{{'Common.OK' | translate}}</button>
+            <button class="btn btn-danger btn-sm" (click)="removeFriend(item.rivalId);modal.dismiss()">{{'Common.OK' | translate}}</button>
           </div>
         </form>
       </div>
