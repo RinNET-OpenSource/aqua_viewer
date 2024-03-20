@@ -42,7 +42,8 @@
 .logo-container .ongekiHead {
   width: 89%;
   position: absolute;
-  top: 4.5%;
+  /*top: 4.5%;*/
+  top: 3.6%;
   left: -22.4%;
   z-index: 99;
 }

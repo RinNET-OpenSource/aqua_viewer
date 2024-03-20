@@ -20,26 +20,42 @@ export class HomeComponent implements OnInit, OnDestroy {
   ongekiAvatarIconHeadArr: string[] = ['06202101', '06202201', '06202301', '06202401', '06202501', '06202601', '06202701', '06202801', '06202901', '06203001', '06203101', '06203201'];
   ongekiAvatarHeadId: any;
   ongekiAvatarHeadData = [
-    { // 星咲
+    { // Akari
       id: '06202101',
       color: ['#fca2c8', '#ea81b6', '#bf0477'],
     },
-    { // 柚子
+    { // Yuzu
       id: '06202201',
       color: ['#ffef5d', '#efc75b', '#f48a00'],
     },
-    { // 葵
+    { // Rio
       id: '06202301',
       color: ['#67667c', '#594f66', '#141219'],
     },
-    { // 小星
+    { // Koboshi
       id: '06202901',
       color: ['#feefd5', '#94F453FF', '#669139'],
     },
-    {
+    { // Saki
       id: '06203001',
       color: ['#fdebdf', '#ced1d9', '#c4e9f4']
-    }
+    },
+    { // Riku
+      id: '06202501',
+      color: ['#fe99e1', '#434343', '#7dc8d6'],
+    },
+    { // Tsubaki
+      id: '06202601',
+      color: ['#fee1d2', '#17836b', '#18526b']
+    },
+    { // Tsubaki
+      id: '06202601',
+      color: ['#50bfa3', '#3d4750', '#18526b']
+    },
+    // { // Ayaka
+    //   id: '06202401',
+    //   color: ['#d169ed']
+    // }
   ];
 
   constructor(private modalService: NgbModal,
@@ -50,8 +66,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.transformLogo = Math.round(Math.random() * 6);
     this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[Math.floor(Math.random() * this.ongekiAvatarHeadData.length)];
+    // this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[6];
   }
 
   ngOnDestroy(): void {
