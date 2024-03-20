@@ -75,3 +75,9 @@
     left: -19.1%;
   }
 }
+
+.game-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

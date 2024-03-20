@@ -22,19 +22,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   ongekiAvatarHeadData = [
     { // Akari
       id: '06202101',
-      color: ['#fca2c8', '#ea81b6', '#bf0477'],
+      color: ['#f2bfc6', '#ea81b6', '#bf0477'],
     },
     { // Yuzu
       id: '06202201',
-      color: ['#ffef5d', '#efc75b', '#f48a00'],
+      color: ['#e8daa9', '#efc75b', '#f48a00'],
     },
-    { // Rio
+    { // Aoi
       id: '06202301',
-      color: ['#67667c', '#594f66', '#141219'],
+      color: ['#7d7d92', '#2e2f31', '#86a1d7'],
     },
     { // Koboshi
       id: '06202901',
-      color: ['#feefd5', '#94F453FF', '#669139'],
+      color: ['#fdfce8', '#66bb66', '#a0d086'],
     },
     { // Saki
       id: '06203001',
@@ -46,16 +46,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
     { // Tsubaki
       id: '06202601',
-      color: ['#fee1d2', '#17836b', '#18526b']
+      color: ['#90b9b1', '#373737', '#b85366']
     },
-    { // Tsubaki
-      id: '06202601',
-      color: ['#50bfa3', '#3d4750', '#18526b']
+    { // Rio
+      id: '06202401',
+      color: ['#9d99bc', '#1d1f1e', '#4c4d4f']
     },
-    // { // Ayaka
-    //   id: '06202401',
-    //   color: ['#d169ed']
-    // }
+    { // Akane
+      id: '06203201',
+      color: ['#cf4d67', '#535154', '#eecb78']
+    },
+    { // Ayaka
+      id: '06202801',
+      color: ['#f7c274', '#9161aa', '#554f5b']
+    },
+    { // Haruna
+      id: '06202701',
+      color: ['#fcecd3', '#ffffff', '#fad0d1']
+    },
+    { // Kaede
+      id: '06203101',
+      color: ['#7d7e81', '#4b4b6f', '#ffffff']
+    }
   ];
 
   constructor(private modalService: NgbModal,
