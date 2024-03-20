@@ -99,7 +99,11 @@
     </ng-container>
     <ng-container *ngIf="ongekiProfile">
       <div class="card mb-3">
-        <div class="card-header fw-bold">{{ongekiProfile.userName | fullWidth}}</div>
+        <div class="card-header fw-bold d-flex align-items-center gap-2">
+          <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+            <use href="assets/ongeki.svg#icon"/>
+          </svg>
+          {{ongekiProfile.userName | fullWidth}}</div>
         <div class="card-body p-2">
           <div class="hstack gap-2">
             <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{ongekiProfile.cardId}}.png">
@@ -131,7 +135,12 @@
 
     <ng-container *ngIf="chusanProfile">
       <div class="card mb-3">
-        <div class="card-header fw-bold">{{chusanProfile.userName | fullWidth}}</div>
+        <div class="card-header fw-bold d-flex align-items-center gap-2">
+          <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+            <use href="assets/chunithm.svg#icon"/>
+          </svg>
+          {{chusanProfile.userName | fullWidth}}
+        </div>
         <div class="card-body p-2">
           <div class="hstack gap-2">
             <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{chusanProfile.characterId / 10}}_00_02.png">
