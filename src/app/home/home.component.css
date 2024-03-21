@@ -40,11 +40,11 @@
 }
 
 .logo-container .ongekiHead {
-  width: 89%;
+  width: 92%;
   position: absolute;
   /*top: 4.5%;*/
-  top: 3.6%;
-  left: -22.4%;
+  top: 3.5%;
+  left: -24%;
   z-index: 99;
 }
 
@@ -66,14 +66,6 @@
 .logo-img_fault::before{
   transform: translateX(2%);
   background-color: #00f;
-}
-
-@media only screen and (max-width: 575px) {
-  .logo-container .ongekiHead {
-    width: 84%;
-    top: 5.5%;
-    left: -19.1%;
-  }
 }
 
 .game-item{
