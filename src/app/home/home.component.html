@@ -4,8 +4,7 @@
         <div class="logo-container col-sm position-relative">
           <div #faultLogo [ngClass]="{'logo-bg': logoIsShow}" class="logo-box" (click)="fault($event)">
             <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle"/>
-            <svg *ngIf="!logoIsShow" class="logo" id="Layer_2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+            <svg *ngIf="!logoIsShow" class="logo" viewBox="0 0 128 128">
               <g [style]="'fill:' + ongekiAvatarHeadId.color[0]">
                 <use href="assets/turtle.svg#body"/>
               </g>

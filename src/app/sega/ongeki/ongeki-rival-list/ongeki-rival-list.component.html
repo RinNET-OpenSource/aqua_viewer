@@ -89,7 +89,7 @@
   </div>
   <div class="card-footer">
     <div class="float-end fw-bold small">
-      {{'Ongeki.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{formatTime(myProfile.lastPlayDate, 'YYYY/MM/DD HH:mm:ss')}}
+      {{'Ongeki.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(myProfile.lastPlayDate | toDate).toLocaleDateString()}}
     </div>
   </div>
 </div>
@@ -199,7 +199,7 @@
       {{'Ongeki.RivalPage.Remove' | translate}}
     </a>
     <div class="float-end fw-bold small">
-      {{'Ongeki.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(item.lastPlayDate | toDate).toLocaleString()}}
+      {{'Ongeki.RivalPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(item.lastPlayDate | toDate).toLocaleDateString()}}
     </div>
   </div>
 </div>

@@ -6,8 +6,8 @@ import * as dayjs from 'dayjs';
 })
 export class ToDatePipe implements PipeTransform {
 
-  transform(value: string): string {
-    return dayjs(value).format('YYYY/MM/DD');
+  transform(value: string): Date {
+    return new Date(value);
   }
 
 }
