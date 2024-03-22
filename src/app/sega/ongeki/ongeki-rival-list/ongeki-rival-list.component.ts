@@ -8,7 +8,6 @@ import { MessageService } from '../../../message.service';
 import { environment } from '../../../../environments/environment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {StatusCode} from '../../../status-code';
-import {formatTime} from '../../../util/format-time';
 
 @Component({
   selector: 'app-ongeki-rival-list',
@@ -106,6 +105,4 @@ export class OngekiRivalListComponent implements OnInit {
   open(content) {
     this.modalService.open(content, {centered: true});
   }
-
-  protected readonly formatTime = formatTime;
 }

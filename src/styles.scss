@@ -252,11 +252,11 @@ pagination-template {
 
 .card-btn {
   cursor: pointer;
-  transition: ease-in-out, border-color .15s;
+  transition: ease-in-out, background-color .15s;
 }
 
 .card-btn:hover {
-  border-color: var(--bs-secondary);
+  background-color: var(--bs-card-cap-bg);
 }
 
 .v-hidden{
