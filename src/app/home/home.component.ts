@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   host = environment.assetsHost;
   popupStatus = 0;
   logoIsShow = true;
-  ongekiAvatarIconHeadArr: string[] = ['06202101', '06202201', '06202301', '06202401', '06202501', '06202601', '06202701', '06202801', '06202901', '06203001', '06203101', '06203201'];
   ongekiAvatarHeadId: any;
   ongekiAvatarHeadData = [
     { // Akari
@@ -87,6 +86,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     { // Setsuna
       id: '06203701',
       color: ['#bea9f2', '#444444', '#f8f8f8']
+    },
+    { // Myimu
+      id: '06205001',
+      color: ['#f0dae6', '#e07bcd', '#ffd1ff']
     },
   ];
 
