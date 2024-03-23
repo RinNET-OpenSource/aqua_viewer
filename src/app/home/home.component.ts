@@ -52,10 +52,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: '06202401',
       color: ['#9d99bc', '#1d1f1e', '#4c4d4f']
     },
-    { // Akane
-      id: '06203201',
-      color: ['#cf4d67', '#535154', '#eecb78']
-    },
     { // Ayaka
       id: '06202801',
       color: ['#f7c274', '#9161aa', '#554f5b']
@@ -67,7 +63,31 @@ export class HomeComponent implements OnInit, OnDestroy {
     { // Kaede
       id: '06203101',
       color: ['#7d7e81', '#4b4b6f', '#ffffff']
-    }
+    },
+    { // Akane
+      id: '06203201',
+      color: ['#cf4d67', '#535154', '#eecb78']
+    },
+    { // Arisu
+      id: '06203301',
+      color: ['#fdeada', '#aedef8', '#587ebc']
+    },
+    { // Mia
+      id: '06203401',
+      color: ['#e9c98b', '#ffffff', '#f5afca']
+    },
+    { // Chinatsu
+      id: '06203501',
+      color: ['#ed817b', '#e05663', '#f4e683']
+    },
+    { // Tsumugi
+      id: '06203601',
+      color: ['#f0948f', '#444547', '#4e96a4']
+    },
+    { // Setsuna
+      id: '06203701',
+      color: ['#bea9f2', '#444444', '#f8f8f8']
+    },
   ];
 
   constructor(private modalService: NgbModal,
