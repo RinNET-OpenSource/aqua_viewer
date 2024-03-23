@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.avatarHeadId = this.avatarHeadData[Math.floor(Math.random() * this.avatarHeadData.length)];
-    this.avatarHeadId = this.avatarHeadData[18];
+    // this.avatarHeadId = this.avatarHeadData[18];
   }
 
   ngOnDestroy(): void {

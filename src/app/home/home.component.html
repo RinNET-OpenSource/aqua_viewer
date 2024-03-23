@@ -16,7 +16,7 @@
               </g>
               <use href="assets/turtle.svg#face"/>
             </svg>
-            <img *ngIf="!logoIsShow" class="ongekiHead cannot-drag" src="assets/chuni/avatar/CHU_UI_Avatar_Tex_{{avatarHeadId.id}}.png" alt="">
+            <img *ngIf="!logoIsShow" class="ongekiHead cannot-drag" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{avatarHeadId.id}}.png" alt="">
           </div>
           <div #faultLogo class="h-100 w-100 position-absolute">
             <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle" (click)="fault($event)"/>
