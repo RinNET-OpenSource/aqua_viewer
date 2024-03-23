@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   host = environment.assetsHost;
   popupStatus = 0;
   logoIsShow = true;
-  ongekiAvatarHeadId: any;
-  ongekiAvatarHeadData = [
+  avatarHeadId: any;
+  avatarHeadData = [
     { // Akari
       id: '06202101',
       color: ['#f2bfc6', '#ea81b6', '#bf0477'],
@@ -91,6 +91,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: '06205001',
       color: ['#f0dae6', '#e07bcd', '#ffd1ff']
     },
+    { // Myimu - 古き終焉の奏者
+      id: 'Custom_00000001',
+      color: ['#ffe0f2', '#422c42', '#e451b5']
+    },
   ];
 
   constructor(private modalService: NgbModal,
@@ -101,8 +105,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[Math.floor(Math.random() * this.ongekiAvatarHeadData.length)];
-    // this.ongekiAvatarHeadId = this.ongekiAvatarHeadData[6];
+    this.avatarHeadId = this.avatarHeadData[Math.floor(Math.random() * this.avatarHeadData.length)];
+    this.avatarHeadId = this.avatarHeadData[18];
   }
 
   ngOnDestroy(): void {
