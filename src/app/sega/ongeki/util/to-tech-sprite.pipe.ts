@@ -31,7 +31,7 @@ export class ToTechSpritePipe implements PipeTransform {
       case 'SSS':
         return 'SB_RES_ScoreRank_SSS.png';
       case 'SSS1':
-        return 'SB_RES_ScoreRank_SSS+.png';
+        return 'SB_RES_ScoreRank_SSS%2B.png';
     }
     return null;
   }
