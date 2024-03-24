@@ -56,6 +56,7 @@ export class DashboardComponent implements OnInit {
     this.addStatusSubscribe(this.preload.ongekiCharacterState);
     this.addStatusSubscribe(this.preload.ongekiMusicState);
     this.addStatusSubscribe(this.preload.ongekiSkillState);
+    this.addStatusSubscribe(this.preload.ongekiTrophyState);
     this.addStatusSubscribe(this.preload.chusanMusicState);
     this.addStatusSubscribe(this.preload.chusanCharacterState);
     this.addStatusSubscribe(this.preload.chusanTrophyState);

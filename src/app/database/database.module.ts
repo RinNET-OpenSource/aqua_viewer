@@ -2,54 +2,25 @@ import {NgModule} from '@angular/core';
 import {DBConfig, NgxIndexedDBModule} from 'ngx-indexed-db';
 
 export function migrationFactory() {
-  return {};
+  return {
+    3: (db: IDBDatabase, transaction: IDBTransaction) => {
+      db.deleteObjectStore("divaPv");
+      db.deleteObjectStore("divaModule");
+      db.deleteObjectStore("divaCustomize");
+      db.deleteObjectStore("chuniMusic");
+      db.deleteObjectStore("chuniCharacter");
+      db.deleteObjectStore("chuniSkill");
+      const ongekiTrophyStore = db.createObjectStore("ongekiTrophy", {keyPath: 'id', autoIncrement: false});
+      ongekiTrophyStore.createIndex('name', 'name', {unique: false})
+      ongekiTrophyStore.createIndex('rarityType', 'rarityType', {unique: false})
+    }
+  };
 }
 const dbConfig: DBConfig = {
   name: 'Aqua',
-  version: 2,
+  version: 3,
   objectStoresMeta: [
     {
-      store: 'divaPv',
-      storeConfig: {keyPath: 'pvId', autoIncrement: false},
-      storeSchema: [
-        {name: 'bpm', keypath: 'bpm', options: {unique: false}},
-        {name: 'date', keypath: 'date', options: {unique: false}},
-        {name: 'songName', keypath: 'songName', options: {unique: false}},
-        {name: 'songNameEng', keypath: 'songNameEng', options: {unique: false}},
-        {name: 'songNameReading', keypath: 'songNameReading', options: {unique: false}},
-        {name: 'arranger', keypath: 'arranger', options: {unique: false}},
-        {name: 'illustrator', keypath: 'illustrator', options: {unique: false}},
-        {name: 'lyrics', keypath: 'lyrics', options: {unique: false}},
-        {name: 'music', keypath: 'music', options: {unique: false}},
-        {name: 'difficulty', keypath: 'difficulty', options: {unique: false}},
-        {name: 'performerNumber', keypath: 'performerNumber', options: {unique: false}}
-      ]
-    }, {
-      store: 'divaModule',
-      storeConfig: {keyPath: 'id', autoIncrement: false},
-      storeSchema: [
-        {name: 'name', keypath: 'name', options: {unique: false}},
-        {name: 'price', keypath: 'price', options: {unique: false}}
-      ]
-    }, {
-      store: 'divaCustomize',
-      storeConfig: {keyPath: 'id', autoIncrement: false},
-      storeSchema: [
-        {name: 'name', keypath: 'name', options: {unique: false}},
-        {name: 'price', keypath: 'price', options: {unique: false}}
-      ]
-    }, {
-      store: 'chuniMusic',
-      storeConfig: {keyPath: 'musicId', autoIncrement: false},
-      storeSchema: [
-        {name: 'name', keypath: 'name', options: {unique: false}},
-        {name: 'sortName', keypath: 'sortName', options: {unique: false}},
-        {name: 'copyright', keypath: 'copyright', options: {unique: false}},
-        {name: 'artistName', keypath: 'artistName', options: {unique: false}},
-        {name: 'genre', keypath: 'genre', options: {unique: false}},
-        {name: 'releaseVersion', keypath: 'releaseVersion', options: {unique: false}}
-      ]
-    }, {
       store: 'ongekiCard',
       storeConfig: {keyPath: 'id', autoIncrement: false},
       storeSchema: [
@@ -100,23 +71,11 @@ const dbConfig: DBConfig = {
         {name: 'info', keypath: 'info', options: {unique: false}}
       ]
     }, {
-      store: 'chuniCharacter',
+      store: 'ongekiTrophy',
       storeConfig: {keyPath: 'id', autoIncrement: false},
       storeSchema: [
         {name: 'name', keypath: 'name', options: {unique: false}},
-        {name: 'releaseTag', keypath: 'releaseTag', options: {unique: false}},
-        {name: 'worksName', keypath: 'worksName', options: {unique: false}},
-        {name: 'illustratorName', keypath: 'illustratorName', options: {unique: false}},
-        {name: 'firstSkillId', keypath: 'firstSkillId', options: {unique: false}},
-        {name: 'skills', keypath: 'skills', options: {unique: false}},
-        {name: 'addImages', keypath: 'addImages', options: {unique: false}}
-      ]
-    }, {
-      store: 'chuniSkill',
-      storeConfig: {keyPath: 'id', autoIncrement: false},
-      storeSchema: [
-        {name: 'name', keypath: 'name', options: {unique: false}},
-        {name: 'category', keypath: 'category', options: {unique: false}}
+        {name: 'rarityType', keypath: 'rarityType', options: {unique: false}},
       ]
     }, {
       store: 'chusanMusic',

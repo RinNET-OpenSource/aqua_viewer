@@ -6,6 +6,7 @@ import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
 import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
 import { OngekiMusic } from '../sega/ongeki/model/OngekiMusic';
 import { OngekiSkill } from '../sega/ongeki/model/OngekiSkill';
+import { OngekiTrophy } from '../sega/ongeki/model/OngekiTrophy';
 import { ChusanMusic } from '../sega/chunithm/v2/model/ChusanMusic';
 import { ChusanCharacter } from '../sega/chunithm/v2/model/ChusanCharacter';
 import { ChusanTrophy } from '../sega/chunithm/v2/model/ChusanTrophy';
@@ -30,6 +31,8 @@ export class PreloadService {
   ongekiMusicState = this.ongekiMusic.asObservable();
   private ongekiSkill = new ReplaySubject<string>();
   ongekiSkillState = this.ongekiSkill.asObservable();
+  private ongekiTrophy = new ReplaySubject<string>();
+  ongekiTrophyState = this.ongekiTrophy.asObservable();
 
   private chusanMusic = new ReplaySubject<string>();
   chusanMusicState = this.chusanMusic.asObservable();
@@ -69,6 +72,7 @@ export class PreloadService {
     this.loader<OngekiCharacter>('ongekiCharacter', 'api/game/ongeki/data/charaList', this.ongekiCharacter);
     this.loader<OngekiMusic>('ongekiMusic', 'api/game/ongeki/data/musicList', this.ongekiMusic);
     this.loader<OngekiSkill>('ongekiSkill', 'api/game/ongeki/data/skillList', this.ongekiSkill);
+    this.loader<OngekiTrophy>('ongekiTrophy', 'api/game/ongeki/data/trophyList', this.ongekiTrophy);
     this.loader<ChusanMusic>('chusanMusic', 'api/game/chuni/v2/data/music', this.chusanMusic);
     this.loader<ChusanCharacter>('chusanCharacter', 'api/game/chuni/v2/data/character', this.chusanCharacter);
     this.loader<ChusanTrophy>('chusanTrophy', 'api/game/chuni/v2/data/trophy', this.chusanTrophy);
@@ -85,6 +89,7 @@ export class PreloadService {
       this.dbService.clear('ongekiCharacter'),
       this.dbService.clear('ongekiMusic'),
       this.dbService.clear('ongekiSkill'),
+      this.dbService.clear('ongekiTrophy'),
       this.dbService.clear('chusanMusic'),
       this.dbService.clear('chusanCharacter'),
       this.dbService.clear('chusanTrophy'),
