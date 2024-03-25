@@ -5,7 +5,7 @@
        [ngClass]="{'active': tabBarBoolControl}"
        (click)="tabBarBoolControl = true"
        aria-current="page"
-    >User Ranking</a>
+    >Rating Ranking</a>
   </li>
   <li class="nav-item" style="cursor: pointer">
     <a class="nav-link"
@@ -27,8 +27,8 @@
     <tr *ngFor="let item of ongekiUserRankings">
       <td>{{ item.ranking }}</td>
       <td>{{ item.userName }}</td>
-      <td>{{ item.nowRating }}</td>
-      <td>{{ item.highestRating }}</td>
+      <td>{{ item.nowRating.toFixed(2) }}</td>
+      <td>{{ item.highestRating.toFixed(2) }}</td>
     </tr>
     </tbody>
   </table>
