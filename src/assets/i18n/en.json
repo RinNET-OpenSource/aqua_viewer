@@ -179,7 +179,9 @@
   "Ongeki" : {
     "ProfilePage" : {
       "Title" : "Profile",
-      "Overview" : "Overview"
+      "TotalPlayCount" : "Total Play Count",
+      "Money" : "Money",
+      "Medal" : "Medal"
     },
     "RecentPage" : {
       "Title" : "Play Record",

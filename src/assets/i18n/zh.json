@@ -179,7 +179,9 @@
   "Ongeki": {
     "ProfilePage": {
       "Title": "档案",
-      "Overview": "概览"
+      "TotalPlayCount" : "游玩乐曲数",
+      "Money" : "金币",
+      "Medal" : "奖章"
     },
     "RecentPage": {
       "Title": "游玩记录",

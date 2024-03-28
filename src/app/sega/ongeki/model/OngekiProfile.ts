@@ -1,5 +1,6 @@
 import {OngekiCard} from './OngekiCard';
 import {OngekiCharacter} from './OngekiCharacter';
+import {OngekiTrophy} from './OngekiTrophy';
 
 export interface DisplayOngekiProfile {
   userName: string;
@@ -12,15 +13,17 @@ export interface DisplayOngekiProfile {
   playCount: number;
   jewelCount: number;
   totalJewelCount: number;
+  medalCount: number;
   playerRating: number;
   highestRating: number;
   battlePoint: number;
+  rankId: number;
+  rankPattern: number;
   nameplateId: number;
   trophyId: number;
+  trophy: OngekiTrophy;
   cardId: number;
-  card?: OngekiCard;
   characterId: number;
-  character: OngekiCharacter;
   sumTechHighScore: number;
   sumTechBasicHighScore: number;
   sumTechAdvancedHighScore: number;

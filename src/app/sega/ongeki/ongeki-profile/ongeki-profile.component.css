@@ -1,21 +1,33 @@
 .user-data-container{
   position: relative;
-  aspect-ratio: 4.8;
+  aspect-ratio: 4.6;
+  container: user-data-container / inline-size;
+  user-select: none;
 }
 
 .rank-bg{
   position: absolute;
-  width: 18.3%;
-  top: -2%;
+  transform: translate(-50%, -50%);
+  width: 24.5%;
+  top: 66%;
+  left: 8.8%
+}
+
+.rank{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 17.5%;
+  top: 72%;
+  left: 8.8%;
 }
 
 .user-icon-border{
   position: absolute;
-  width: 16.25%;
+  width: 21%;
   aspect-ratio: 1;
   background: linear-gradient(white, #DDD);
   border: 1px solid #878787;
-  left: 19.3%;
+  left: 19.0%;
   top: 2%;
 }
 
@@ -26,26 +38,203 @@
 
 .trophy-bg{
   position: absolute;
-  width: 40%;
+  width: 62.5%;
   aspect-ratio: 6.75862068965517;
   background-size: cover, auto;
-  left: 36%;
+  left: 39%;
+  top: -3%
 }
 
 .level-bg{
   position: absolute;
-  width: 12.5%;
+  width: 17.2%;
   aspect-ratio: 1.83908045977011;
   background-size: cover;
-  left: 36%;
-  top: 28%;
+  left: 39.2%;
+  top: 35%;
 }
 
-.name-border{
+.name-bg{
   position: absolute;
-  border: 2px solid #e0e0e0;
-  width: 27.2%;
-  height: 27%;
-  left: 48%;
-  top: 30%;
+  background-size: cover;
+  aspect-ratio: 5.75;
+  width: 45.5%;
+  left: 55%;
+  top: 36.5%;
+}
+
+.rating-header{
+  position: absolute;
+  width: 17.2%;
+  aspect-ratio: 3.52173913043478;
+  background-size: cover;
+  left: 39.8%;
+  bottom: -1%;
+}
+
+.rebirth-bg{
+  position: absolute;
+  background-size: cover;
+  aspect-ratio: 1;
+  width: 26%;
+  left: 12%;
+  top: 8%;
+}
+
+.trophy{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 2.5cqw;
+  font-weight: bold;
+  color: black;
+}
+
+.rebirth{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 2cqw;
+  font-weight: bold;
+  color: black;
+}
+
+.level{
+  position: absolute;
+  font-size: 6cqw;
+  color: white;
+  transform: translate(0, -50%);
+  top: 48%;
+  left: 41%;
+}
+
+.battle-point{
+  color: black;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 111%;
+  left: 8.8%;
+  font-size: 3.2cqw;
+  font-weight: bold;
+}
+
+.name{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 5cqw;
+  color: var(--bs-dark);
+}
+
+.rating{
+  position: absolute;
+  width: 10%;
+  height: 30%;
+  left: 57%;
+  bottom: -2%;
+  display: flex;
+  align-items: end;
+}
+
+.rating-num-integer{
+  height: 110%;
+  margin-inline: -12%;
+}
+
+.rating-num-dot{
+  height: 90%;
+  margin-left: -15%;
+  margin-right: -20%;
+}
+
+.rating-num-fractional{
+  height: 90%;
+  margin-inline: -10%;
+  margin-bottom: 4%;
+}
+
+.rating-highest{
+  font-size: 3cqw;
+  white-space:nowrap;
+  margin-bottom: .5cqw;
+  margin-left: 1cqw;
+}
+
+.rank-00{
+  padding-bottom: 12%;
+}
+
+.bp-00{
+  padding-bottom: 14.5%;
+}
+
+.rank-01{
+  padding-bottom: 8%;
+}
+
+.bp-01{
+  padding-bottom: 9%;
+}
+
+.rank-02{
+  padding-bottom: 4%;
+}
+
+.bp-02{
+  padding-bottom: 2%;
+}
+
+.rank-03{
+  padding-bottom: 4%;
+}
+
+.bp-03{
+  padding-bottom: 2%;
+}
+
+.chara-container{
+  z-index: -1;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.chara-back{
+  width: 100%;
+  aspect-ratio: 1.05960264900662;
+  background-size: cover;
+  text-align: center;
+  border-radius: 2% 2% 0 0;
+}
+
+.chara-img{
+  position: absolute;
+  width: 100%;
+  height: 92%;
+  left: 0;
+  top: 8%;
+  object-fit: cover;
+  object-position: top;
+  z-index: 0;
+}
+
+.profile-table{
+  position: relative;
+  top: 0;
+  font-weight: 500;
+  box-shadow: 0 -.4rem .4rem rgba(.5, .5, .5, .1);
+  --bs-table-bg: rgba(var(--bs-body-bg-rgb), 0.9);
+}
+
+.profile-table th{
+  font-weight: 500;
 }
