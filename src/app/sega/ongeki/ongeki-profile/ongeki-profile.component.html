@@ -31,8 +31,8 @@
       </div>
     </div>
     <div class="chara-container">
-      <img class="chara-img" src="assets/ongeki/character/{{profile.characterId}}.png">
-      <div class="chara-back" [style.background-image]="'url(/assets/ongeki/back_character.png)'"></div>
+      <img class="chara-img" src="{{host}}assets/ongeki/character/{{profile.characterId}}.png">
+      <div class="chara-back" [style.background-image]="'url(' + host + 'assets/ongeki/back_character.png)'"></div>
       <table *ngIf="profile" class="profile-table table table-borderless m-0">
         <tbody>
         <tr>
