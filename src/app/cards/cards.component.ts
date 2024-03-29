@@ -89,24 +89,23 @@ export class CardsComponent implements OnInit {
   setDefault(card: Card) {
     const extId = card.extId;
     const body = {extId};
-    this.api.post('api/user/setDefaultCard', body).subscribe(
-      resp => {
-        if (resp?.status) {
-          const statusCode: StatusCode = resp.status.code;
-          if (statusCode === StatusCode.OK) {
-            this.loadCards();
-          }
-          else {
-            this.messageService.notice(resp.status.message);
-          }
+    this.api.post('api/user/setDefaultCard', body).subscribe(resp => {
+      if (resp?.status) {
+        const statusCode: StatusCode = resp.status.code;
+        if (statusCode === StatusCode.OK) {
+          this.loadCards();
         }
-        else{
-          this.messageService.notice('Set default card failed.');
+        else {
+          this.messageService.notice(resp.status.message);
         }
-      },
-      error => {
-        this.messageService.notice(error);
-      });
+      }
+      else{
+        this.messageService.notice('Set default card failed.');
+      }
+    },
+    error => {
+      this.messageService.notice(error);
+    });
   }
 
   onRemoveExternal(external: CardExternal, modal) {

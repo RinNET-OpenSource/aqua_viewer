@@ -126,7 +126,6 @@
       }
     }
   },
-  "defaultProject": "aqua-viewer",
   "cli": {
     "analytics": "947c6d1e-782c-4286-b689-978e312612ae"
   }

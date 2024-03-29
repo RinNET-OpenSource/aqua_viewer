@@ -57,7 +57,10 @@ import {
   bootstrapSun,
   bootstrapStars,
   bootstrapTranslate,
-  bootstrapCircleHalf
+  bootstrapCircleHalf,
+  bootstrapExclamationTriangleFill,
+  bootstrapClipboard,
+  bootstrapPlusSquareDotted
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -68,6 +71,8 @@ import { GithubComponent } from './auth/oauth-callback/github/github.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { LanguageService } from './language.service';
 import { lastValueFrom } from 'rxjs';
+import { KeychipComponent } from './keychip/keychip.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -101,7 +106,8 @@ export function initializeApp(
     CardsComponent,
     NotFoundComponent,
     GithubComponent,
-    ContributorsComponent
+    ContributorsComponent,
+    KeychipComponent
    ],
   imports: [
     BrowserModule,
@@ -150,7 +156,10 @@ export function initializeApp(
       bootstrapSun,
       bootstrapStars,
       bootstrapTranslate,
-      bootstrapCircleHalf
+      bootstrapCircleHalf,
+      bootstrapExclamationTriangleFill,
+      bootstrapClipboard,
+      bootstrapPlusSquareDotted
     }),
     TranslateModule.forRoot({
       loader: {
@@ -158,7 +167,8 @@ export function initializeApp(
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       }
-    })
+    }),
+    ClipboardModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},

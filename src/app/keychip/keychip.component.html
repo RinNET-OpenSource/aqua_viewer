@@ -1,0 +1,177 @@
+<h3 class="mb-4">{{'KeychipPage.Title' | translate}}</h3>
+<div class="callout callout-info">
+  <h5>{{'KeychipPage.Lead' | translate}}</h5>
+  <p [innerHTML]="'KeychipPage.LeadDesc' | translate"></p>
+  <pre class="m-0 " style="text-wrap: inherit"><code data-lang="ini">[keychip]
+id = XXXX-XXXXXXXXXXX</code></pre>
+</div>
+<div class="hstack alert alert-warning" role="alert">
+  <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+  <div>{{'KeychipPage.Warning1' | translate}}</div>
+</div>
+<div class="hstack alert alert-warning" role="alert">
+  <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+  <div>{{'KeychipPage.Warning2' | translate}}</div>
+</div>
+<h4 class="fw-bold mb-3">{{'KeychipPage.MyKeychips' | translate}}</h4>
+<div class="hstack alert alert-warning" role="alert">
+  <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+  <div>{{'KeychipPage.Warning3' | translate}}</div>
+</div>
+<div class="row px-2 mb-3">
+  <div *ngFor="let keychip of this.keychips" class="col-lg-6 p-1">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="float-start">
+          {{keychip.id}}{{"Common.Colon" | translate}}{{keychip.placeName}}
+        </div>
+        <div class="float-end">
+          <button class="btn btn-close"
+                  (click)="modalService.open(removeKeychip, {centered: true})">
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="mb-2 fw-bold">
+          {{'KeychipPage.KeychipId' | translate}}{{'Common.Colon' | translate}}
+        </div>
+        <div class="hstack mb-2">
+          <div class="font-monospace">
+            {{keychip.keychipId.displayValue}}
+          </div>
+          <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="keychip.keychipId.hidden = !keychip.keychipId.hidden">
+            <ng-icon *ngIf="keychip.keychipId.hidden" name="bootstrap-eye"></ng-icon>
+            <ng-icon *ngIf="!keychip.keychipId.hidden" name="bootstrap-eye-slash"></ng-icon>
+          </div>
+          <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="copyKeychip(keychip)">
+            <ng-icon name="bootstrap-clipboard"></ng-icon>
+          </div>
+        </div>
+        <div>
+          <a class="card-link user-select-none cursor-pointer" (click)="renameForm.setValue({name: keychip.placeName});modalService.open(rename, {centered: true})" >{{'KeychipPage.Rename' | translate}}</a>
+        </div>
+      </div>
+      <ng-template #removeKeychip let-modal>
+        <div class="modal-header">
+          {{'KeychipPage.Destroy' | translate}}
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="d-grid">
+              <p class="mb-3 ms-1">
+                {{'KeychipPage.DestroyMessage' | translate}}
+              </p>
+              <button class="btn btn-danger btn-sm" (click)="onRemoveKeychip(keychip, modal)">{{'Common.OK' | translate}}</button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+      <ng-template #rename let-modal>
+        <div class="modal-header">
+          <h6 class="modal-title">{{'KeychipPage.Rename' | translate}}</h6>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onRenameSubmit(keychip, modal)" [formGroup]="renameForm">
+            <div class="d-grid">
+              <input type="text" class="form-control mb-3" formControlName="name" placeholder="机台名">
+              <button type="submit" class="btn btn-primary btn-sm">{{'Common.OK' | translate}}</button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div *ngIf="loaded" class="col p-1">
+    <div class="card h-100 card-btn" (click)="genKeychip()">
+      <div class="card-body d-flex justify-content-center align-items-center fs-4 text-secondary">
+        <ng-icon class="me-2" name="bootstrap-plus-square-dotted"></ng-icon>
+        <div>{{'KeychipPage.Generate' | translate}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h4 class="fw-bold mb-3">{{'KeychipPage.TrustedKeychips' | translate}}</h4>
+<div class="hstack alert alert-warning" role="alert">
+  <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+  <div>{{'KeychipPage.Warning4' | translate}}</div>
+</div>
+<div class="row px-2 mb-3">
+  <div *ngFor="let keychip of this.trustKeychips" class="col-lg-6 p-1">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="float-start">
+          {{keychip.id}}{{"Common.Colon" | translate}}{{keychip.placeName}}
+        </div>
+        <div class="float-end">
+          <button class="btn btn-close"
+                  (click)="modalService.open(untrustKeychip, {centered: true})">
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="mb-2 fw-bold">
+          {{'KeychipPage.KeychipId' | translate}}{{'Common.Colon' | translate}}
+        </div>
+        <div class="mb-3 hstack align-items-center">
+          <div class="font-monospace align-middle">
+            {{keychip.keychipId.displayValue}}
+          </div>
+          <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="keychip.keychipId.hidden = !keychip.keychipId.hidden">
+            <ng-icon *ngIf="keychip.keychipId.hidden" name="bootstrap-eye"></ng-icon>
+            <ng-icon *ngIf="!keychip.keychipId.hidden" name="bootstrap-eye-slash"></ng-icon>
+          </div>
+          <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="copyKeychip(keychip)">
+            <ng-icon name="bootstrap-clipboard"></ng-icon>
+          </div>
+        </div>
+        <div class="mb-2 fw-bold">
+          {{'KeychipPage.Owner' | translate}}{{'Common.Colon' | translate}}
+        </div>
+        <div class="hstack align-items-center">
+          <div class="font-monospace align-middle">
+            {{keychip.user.name}}
+          </div>
+        </div>
+      </div>
+      <ng-template #untrustKeychip let-modal>
+        <div class="modal-header">
+          取消信任
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="d-grid">
+              <p class="mb-3 ms-1">
+               不再信任这个机台吗？
+              </p>
+              <button class="btn btn-danger btn-sm" (click)="onUntrustKeychip(keychip, modal)">{{'Common.OK' | translate}}</button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div *ngIf="loaded" class="col p-1">
+    <div class="card h-100 card-btn" (click)="modalService.open(bindCard, {centered: true})">
+      <div class="card-body d-flex justify-content-center align-items-center fs-4 text-secondary">
+        <ng-icon class="me-2" name="bootstrap-plus-square-dotted"></ng-icon>
+        <div>添加信任</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #bindCard let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title">添加信任</h6>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onTrustKeychipSubmit(modal)" [formGroup]="trustKeychipForm">
+      <div class="d-grid">
+        <input type="text" class="form-control mb-3" formControlName="keychipId" placeholder="KeychipId">
+        <button type="submit" class="btn btn-primary btn-sm">{{'Common.OK' | translate}}</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

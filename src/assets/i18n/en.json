@@ -19,6 +19,7 @@
     },
     "UserPopup" : {
       "MyCards" : "My cards",
+      "Keychip": "Keychip",
       "SignOut" : "Sign out"
     },
     "Sidebar" : {
@@ -172,6 +173,9 @@
     "AddAlias" : "Add Alias",
     "SetDefault" : "Set Default",
     "BindCard" : "Bind Card"
+  },
+  "KeychipPage": {
+    "Title": "Keychip"
   },
   "ImportPage" : {
     "Title" : "Import"

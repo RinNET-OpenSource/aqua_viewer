@@ -32,14 +32,14 @@
         {{'CardsPage.AccessCode' | translate}}{{'Common.Colon' | translate}}
       </div>
       <div class="mb-3 hstack">
-        <div class="font-monospace align-middle">
+        <div class="font-monospace">
           {{card.luid.displayValue}}
         </div>
-        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="toggleLuidVisibility(card.luid)">
+        <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="toggleLuidVisibility(card.luid)">
           <ng-icon *ngIf="card.luid.hidden" name="bootstrap-eye"></ng-icon>
           <ng-icon *ngIf="!card.luid.hidden" name="bootstrap-eye-slash"></ng-icon>
         </div>
-        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="open(changeAccesscode)">
+        <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="changeAccessCodeForm.setValue({accessCode: card.luid.full});open(changeAccesscode)">
           <ng-icon name="bootstrap-pencil-square"></ng-icon>
         </div>
         <ng-template #changeAccesscode let-modal>

@@ -19,6 +19,7 @@
     },
     "UserPopup": {
       "MyCards": "卡包",
+      "Keychip": "机台",
       "SignOut": "登出"
     },
     "Sidebar": {
@@ -167,11 +168,28 @@
     "UnbindCardTip": "确定要解除这张卡的绑定吗？",
     "AccessCode": "卡号",
     "ChangeAccessCode": "变更卡号",
-    "Aliases": "别名",
+    "Aliases": "已关联卡片",
     "None": "无",
-    "AddAlias": "添加别名",
+    "AddAlias": "添加",
     "SetDefault": "设为默认",
     "BindCard": "绑定卡片"
+  },
+  "KeychipPage": {
+    "Title": "机台",
+    "Lead": "如何使用机台序列号",
+    "MyKeychips": "我的机台",
+    "KeychipId": "序列号",
+    "Rename": "重命名",
+    "Generate": "创建机台",
+    "Destroy": "删除机台",
+    "DestroyMessage": "确定要删除这个机台吗？",
+    "TrustedKeychips": "受信任的机台",
+    "Owner": "所有者",
+    "LeadDesc": "在<code>segatools.ini</code>中添加或修改如下部分，id后的内容请按需替换为你的机台序列号。",
+    "Warning1": "你的卡片将只能在以下列表及RinNET白名单内的机台使用，以防止未经授权的访问。",
+    "Warning2": "如果攻击者同时掌握你的机台序列号与卡号，将可以随意处置你的游戏数据，如果发现二者遭到泄漏请及时修改它们，如果已经造成一定损失请及时联系管理员挽回。",
+    "Warning3": "如果对方不需要在你的机台上游玩，请不要发送给他。",
+    "Warning4": "如果你不在对方的机台上游玩，请不要添加到信任。"
   },
   "ImportPage": {
     "Title": "导入"
