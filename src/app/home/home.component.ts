@@ -95,6 +95,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'Custom_00000001',
       color: ['#ffe0f2', '#422c42', '#e451b5']
     },
+    { // Miliam
+      id: 'Custom_00000002',
+      color: ['#8ca460', '#605a65', '#454b22']
+    },
+    {
+      id: 'Custom_00000003',
+      color: ['#655e84', '#525152', '#e41075']
+    },
   ];
 
   constructor(private modalService: NgbModal,
@@ -106,7 +114,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.avatarHeadId = this.avatarHeadData[Math.floor(Math.random() * this.avatarHeadData.length)];
-    // this.avatarHeadId = this.avatarHeadData[18];
+    // this.avatarHeadId = this.avatarHeadData[19];
   }
 
   ngOnDestroy(): void {

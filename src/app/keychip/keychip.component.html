@@ -48,7 +48,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
           </div>
         </div>
         <div>
-          <a class="card-link user-select-none cursor-pointer" (click)="renameForm.setValue({name: keychip.placeName});modalService.open(rename, {centered: true})" >{{'KeychipPage.Rename' | translate}}</a>
+          <a class="card-link cursor-pointer" (click)="renameForm.setValue({name: keychip.placeName});modalService.open(rename, {centered: true})" >{{'KeychipPage.Rename' | translate}}</a>
         </div>
       </div>
       <ng-template #removeKeychip let-modal>
@@ -90,6 +90,10 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </div>
     </div>
   </div>
+</div>
+<div class="callout callout-info">
+  <h5>我是经营者或bot开发者</h5>
+  <p class="m-0"><a href="#">联系管理员</a>申请白名单</p>
 </div>
 <h4 class="fw-bold mb-3">{{'KeychipPage.TrustedKeychips' | translate}}</h4>
 <div class="hstack alert alert-warning" role="alert">
