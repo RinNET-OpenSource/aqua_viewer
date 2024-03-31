@@ -18,12 +18,13 @@ id = XXXX-XXXXXXXXXXX</code></pre>
   <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
   <div>{{'KeychipPage.Warning3' | translate}}</div>
 </div>
-<div class="row px-2 mb-3">
+<div *ngIf="keychipLoaded" class="row px-2 mb-3">
   <div *ngFor="let keychip of this.keychips" class="col-lg-6 p-1">
     <div class="card">
       <div class="card-header d-flex align-items-center justify-content-between">
-        <div class="float-start">
+        <div class="float-start d-flex align-items-center">
           {{keychip.id}}{{"Common.Colon" | translate}}{{keychip.placeName}}
+          <span *ngIf="keychip.whiteListed" class="badge text-bg-primary ms-2">{{'KeychipPage.Whitelisted' | translate}}</span>
         </div>
         <div class="float-end">
           <button class="btn btn-close"
@@ -53,13 +54,13 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </div>
       <ng-template #removeKeychip let-modal>
         <div class="modal-header">
-          {{'KeychipPage.Destroy' | translate}}
+          {{'KeychipPage.Remove' | translate}}
         </div>
         <div class="modal-body">
           <form>
             <div class="d-grid">
               <p class="mb-3 ms-1">
-                {{'KeychipPage.DestroyMessage' | translate}}
+                {{'KeychipPage.RemoveMessage' | translate}}
               </p>
               <button class="btn btn-danger btn-sm" (click)="onRemoveKeychip(keychip, modal)">{{'Common.OK' | translate}}</button>
             </div>
@@ -82,9 +83,9 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </ng-template>
     </div>
   </div>
-  <div *ngIf="loaded" class="col p-1">
+  <div class="col p-1">
     <div class="card h-100 card-btn" (click)="genKeychip()">
-      <div class="card-body d-flex justify-content-center align-items-center fs-4 text-secondary">
+      <div class="card-body d-flex justify-content-center align-items-center fs-4 text-secondary user-select-none">
         <ng-icon class="me-2" name="bootstrap-plus-square-dotted"></ng-icon>
         <div>{{'KeychipPage.Generate' | translate}}</div>
       </div>
@@ -92,15 +93,15 @@ id = XXXX-XXXXXXXXXXX</code></pre>
   </div>
 </div>
 <div class="callout callout-info">
-  <h5>我是经营者或bot开发者</h5>
-  <p class="m-0"><a href="#">联系管理员</a>申请白名单</p>
+  <h5>{{'KeychipPage.WhitelistTipHeader' | translate}}</h5>
+  <p class="m-0" [innerHTML]="'KeychipPage.WhitelistTipContent' | translate"></p>
 </div>
 <h4 class="fw-bold mb-3">{{'KeychipPage.TrustedKeychips' | translate}}</h4>
 <div class="hstack alert alert-warning" role="alert">
   <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
   <div>{{'KeychipPage.Warning4' | translate}}</div>
 </div>
-<div class="row px-2 mb-3">
+<div *ngIf="trustKeychipLoaded" class="row px-2 mb-3">
   <div *ngFor="let keychip of this.trustKeychips" class="col-lg-6 p-1">
     <div class="card">
       <div class="card-header d-flex align-items-center justify-content-between">
@@ -140,13 +141,13 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </div>
       <ng-template #untrustKeychip let-modal>
         <div class="modal-header">
-          取消信任
+          {{'KeychipPage.Untrust' | translate}}
         </div>
         <div class="modal-body">
           <form>
             <div class="d-grid">
               <p class="mb-3 ms-1">
-               不再信任这个机台吗？
+                {{'KeychipPage.UntrustMessage' | translate}}
               </p>
               <button class="btn btn-danger btn-sm" (click)="onUntrustKeychip(keychip, modal)">{{'Common.OK' | translate}}</button>
             </div>
@@ -155,11 +156,11 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </ng-template>
     </div>
   </div>
-  <div *ngIf="loaded" class="col p-1">
+  <div class="col p-1">
     <div class="card h-100 card-btn" (click)="modalService.open(bindCard, {centered: true})">
-      <div class="card-body d-flex justify-content-center align-items-center fs-4 text-secondary">
+      <div class="card-body d-flex justify-content-center align-items-center fs-4 text-secondary user-select-none">
         <ng-icon class="me-2" name="bootstrap-plus-square-dotted"></ng-icon>
-        <div>添加信任</div>
+        <div>{{'KeychipPage.AddToTrust' | translate}}</div>
       </div>
     </div>
   </div>
@@ -167,7 +168,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
 
 <ng-template #bindCard let-modal>
   <div class="modal-header">
-    <h6 class="modal-title">添加信任</h6>
+    <h6 class="modal-title">{{'KeychipPage.AddToTrust' | translate}}</h6>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
   </div>
   <div class="modal-body">

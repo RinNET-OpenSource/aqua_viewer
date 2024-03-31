@@ -175,7 +175,27 @@
     "BindCard" : "Bind Card"
   },
   "KeychipPage": {
-    "Title": "Keychip"
+    "Title": "Keychip",
+    "Lead": "Navigating the Use of Keychip IDs",
+    "MyKeychips": "My Keychips",
+    "Whitelisted": "Whitelisted",
+    "KeychipId": "Keychip ID",
+    "Rename": "Rename",
+    "Generate": "Generate Keychip",
+    "Remove": "Remove Keychip",
+    "RemoveMessage": "Are you certain you wish to remove this keychip?",
+    "WhitelistTipHeader": "I am an Operator or Bot Developer",
+    "WhitelistTipContent": "<a href=\"https://wj.qq.com/s2/14399591/ca04/\" target=\"_blank\">Contact the Administrator</a> to apply for whitelisting",
+    "TrustedKeychips": "Trusted Keychips",
+    "AddToTrust": "Add to Trust",
+    "Owner": "Owner",
+    "Untrust": "Revoke Trust",
+    "UntrustMessage": "Do you wish to revoke trust in this keychip?",
+    "LeadDesc": "In the <code>segatools.ini</code> file, add or modify the following section, replacing the content after 'id' as needed with your keychip ID.",
+    "Warning1": "Your card will only be usable on the keychips listed below and those whitelisted on RinNET, to prevent unauthorized access.",
+    "Warning2": "Should an attacker gain access to both your keychip ID and your card number, they could manipulate your game data at will. Should you discover a breach, modify them promptly and contact an administrator if loss has occurred.",
+    "Warning3": "Do not share it with others if there is no need for them to play on your machine.",
+    "Warning4": "Do not add to trust if you do not intend to play on their machine."
   },
   "ImportPage" : {
     "Title" : "Import"

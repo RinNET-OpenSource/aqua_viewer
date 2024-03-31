@@ -13,7 +13,8 @@ import {Clipboard} from '@angular/cdk/clipboard';
   styleUrls: ['./keychip.component.css']
 })
 export class KeychipComponent implements OnInit {
-  loaded = false;
+  keychipLoaded = false;
+  trustKeychipLoaded = false;
   keychips: Keychip[];
   trustKeychips: Keychip[];
   trustKeychipForm: FormGroup;
@@ -66,7 +67,7 @@ export class KeychipComponent implements OnInit {
         } else {
           this.messageService.notice('Load keychips failed.');
         }
-        this.loaded = true;
+        this.keychipLoaded = true;
       },
       error => {
         this.messageService.notice(error);
@@ -87,7 +88,7 @@ export class KeychipComponent implements OnInit {
         } else {
           this.messageService.notice('Load keychips failed.');
         }
-        this.loaded = true;
+        this.trustKeychipLoaded = true;
       },
       error => {
         this.messageService.notice(error);
