@@ -1,4 +1,4 @@
-<h3>Play Record</h3>
+<h1 class="page-heading">Play Record</h1>
 
 <div *ngIf="recent" class="record">
   <div class="card mt-3" *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"

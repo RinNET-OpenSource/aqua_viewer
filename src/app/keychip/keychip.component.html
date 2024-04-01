@@ -1,4 +1,4 @@
-<h3 class="mb-4">{{'KeychipPage.Title' | translate}}</h3>
+<h1 class="page-heading">{{'KeychipPage.Title' | translate}}</h1>
 <div class="callout callout-info">
   <h5>{{'KeychipPage.Lead' | translate}}</h5>
   <p [innerHTML]="'KeychipPage.LeadDesc' | translate"></p>
@@ -13,7 +13,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
   <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
   <div>{{'KeychipPage.Warning2' | translate}}</div>
 </div>
-<h4 class="fw-bold mb-3">{{'KeychipPage.MyKeychips' | translate}}</h4>
+<h2 class="mb-3 mt-4">{{'KeychipPage.MyKeychips' | translate}}</h2>
 <div class="hstack alert alert-warning" role="alert">
   <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
   <div>{{'KeychipPage.Warning3' | translate}}</div>
@@ -54,7 +54,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </div>
       <ng-template #removeKeychip let-modal>
         <div class="modal-header">
-          {{'KeychipPage.Remove' | translate}}
+          <h4 class="modal-title">{{'KeychipPage.Remove' | translate}}</h4>
         </div>
         <div class="modal-body">
           <form>
@@ -69,7 +69,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </ng-template>
       <ng-template #rename let-modal>
         <div class="modal-header">
-          <h6 class="modal-title">{{'KeychipPage.Rename' | translate}}</h6>
+          <h4 class="modal-title">{{'KeychipPage.Rename' | translate}}</h4>
           <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
         </div>
         <div class="modal-body">
@@ -96,7 +96,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
   <h5>{{'KeychipPage.WhitelistTipHeader' | translate}}</h5>
   <p class="m-0" [innerHTML]="'KeychipPage.WhitelistTipContent' | translate"></p>
 </div>
-<h4 class="fw-bold mb-3">{{'KeychipPage.TrustedKeychips' | translate}}</h4>
+<h2 class="mb-3 mt-4">{{'KeychipPage.TrustedKeychips' | translate}}</h2>
 <div class="hstack alert alert-warning" role="alert">
   <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
   <div>{{'KeychipPage.Warning4' | translate}}</div>
@@ -141,7 +141,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
       </div>
       <ng-template #untrustKeychip let-modal>
         <div class="modal-header">
-          {{'KeychipPage.Untrust' | translate}}
+          <h4 class="modal-title">{{'KeychipPage.Untrust' | translate}}</h4>
         </div>
         <div class="modal-body">
           <form>
@@ -168,7 +168,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
 
 <ng-template #bindCard let-modal>
   <div class="modal-header">
-    <h6 class="modal-title">{{'KeychipPage.AddToTrust' | translate}}</h6>
+    <h4 class="modal-title">{{'KeychipPage.AddToTrust' | translate}}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
   </div>
   <div class="modal-body">

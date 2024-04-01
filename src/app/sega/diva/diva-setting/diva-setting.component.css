@@ -1,9 +1,0 @@
-mat-card-content {
-  display: flex;
-}
-
-.content {
-  word-break: break-all;
-  word-break-cjk: break-all;
-  width: 80%;
-}

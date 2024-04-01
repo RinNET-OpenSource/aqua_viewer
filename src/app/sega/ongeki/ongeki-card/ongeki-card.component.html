@@ -1,4 +1,4 @@
-<h3 class="mb-2">{{'Ongeki.CardPage.Title' | translate}}</h3>
+<h1 class="page-heading">{{'Ongeki.CardPage.Title' | translate}}</h1>
 
 <ng-template #pagination>
   <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
@@ -46,7 +46,7 @@
       <div class="w-100">
         <ng-template #content let-modal>
           <div class="modal-header">
-            <h5 class="modal-title">{{'Ongeki.CardPage.Details' | translate}}</h5>
+            <h4 class="modal-title">{{'Ongeki.CardPage.Details' | translate}}</h4>
             <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
           </div>
           <div class="modal-body">

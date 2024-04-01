@@ -1,12 +1,9 @@
-<h3 class="mb-4">{{'Ongeki.RivalPage.Title' | translate}}</h3>
+<h1 class="page-heading">{{'Ongeki.RivalPage.Title' | translate}}</h1>
 
-<h6 class="mb-3 fw-bold">{{'Ongeki.RivalPage.AddRival' | translate}}</h6>
 <div class="input-group">
   <input type="text" class="form-control form-control mb-3" placeholder="{{'Ongeki.RivalPage.IDInputPlaceholder' | translate}}" [(ngModel)]="inputAddRivalUserId">
   <button class="btn btn-primary mb-3" type="button" (click)="addRival()">{{'Ongeki.RivalPage.AddRival' | translate}}</button>
 </div>
-
-<h6 class="fw-bold mb-3">{{'Ongeki.RivalPage.Me' | translate}}</h6>
 <ng-container *ngIf="loadingProfile">
   <div class="card mb-3 placeholder-wave">
     <div class="card-header">
@@ -94,8 +91,7 @@
   </div>
 </div>
 
-<h6 class="fw-bold mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h6>
-
+<h3 class="mb-3">{{'Ongeki.RivalPage.RivalList' | translate}}</h3>
 <ng-container *ngIf="loadingRival">
   <div class="card mb-3 placeholder-wave">
     <div class="card-header">
@@ -181,7 +177,7 @@
   <div class="card-footer">
     <ng-template #remove let-modal>
       <div class="modal-header">
-        <h6 class="modal-title">{{'Ongeki.RivalPage.Remove' | translate}}</h6>
+        <h4 class="modal-title">{{'Ongeki.RivalPage.Remove' | translate}}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
       </div>
       <div class="modal-body">

@@ -1,122 +1,122 @@
 <div class="container-xxl p-0">
-    <div class="pt-3 px-0 px-sm-3">
-      <div class="row flex-sm-row-reverse justify-content-center">
-        <div class="logo-container col-sm position-relative">
-          <div #faultLogo [ngClass]="{'logo-bg': logoIsShow}" class="logo-box" (click)="fault($event)">
-            <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle"/>
-            <svg *ngIf="!logoIsShow" class="logo" viewBox="0 0 128 128">
-              <g [style]="'fill:' + avatarHeadId.color[0]">
-                <use href="assets/turtle.svg#body"/>
-              </g>
-              <g [style]="'fill:' + avatarHeadId.color[1]">
-                <use href="assets/turtle.svg#shell"/>
-              </g>
-              <g [style]="'fill:' + avatarHeadId.color[2]">
-                <use href="assets/turtle.svg#lines"/>
-              </g>
-              <use href="assets/turtle.svg#face"/>
-            </svg>
-            <img *ngIf="!logoIsShow" class="ongekiHead cannot-drag" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{avatarHeadId.id}}.png" alt="">
-          </div>
-          <div #faultLogo class="h-100 w-100 position-absolute">
-            <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle" (click)="fault($event)"/>
-          </div>
+  <div class="pt-3 px-0 px-sm-3">
+    <div class="row flex-sm-row-reverse justify-content-center">
+      <div class="logo-container col-sm position-relative">
+        <div #faultLogo [ngClass]="{'logo-bg': logoIsShow}" class="logo-box" (click)="fault($event)">
+          <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle"/>
+          <svg *ngIf="!logoIsShow" class="logo" viewBox="0 0 128 128">
+            <g [style]="'fill:' + avatarHeadId.color[0]">
+              <use href="assets/turtle.svg#body"/>
+            </g>
+            <g [style]="'fill:' + avatarHeadId.color[1]">
+              <use href="assets/turtle.svg#shell"/>
+            </g>
+            <g [style]="'fill:' + avatarHeadId.color[2]">
+              <use href="assets/turtle.svg#lines"/>
+            </g>
+            <use href="assets/turtle.svg#face"/>
+          </svg>
+          <img *ngIf="!logoIsShow" class="ongekiHead cannot-drag" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{avatarHeadId.id}}.png" alt="">
         </div>
-        <div class="col-12 col-sm-6">
-          <div class="text-center text-sm-start mb-0">
-            <h1 class="display-1 fw-semibold">RinNET</h1>
-          </div>
-          <div class="text-center text-sm-start mb-3">
-            <h2 class="lead text-secondary">{{'HomePage.Description' | translate}}</h2>
-          </div>
-          <div class="text-center text-sm-start mb-3">
-            <button *ngIf="authenticationService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto" routerLink="/dashboard">
-              {{'HomePage.Dashboard' | translate}}
-            </button>
-            <button *ngIf="!authenticationService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto"
-                    (click)="popupStatus=0;showPopup(content)">{{'HomePage.SignIn' | translate}}
-            </button>
-          </div>
+        <div #faultLogo class="h-100 w-100 position-absolute">
+          <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle" (click)="fault($event)"/>
         </div>
       </div>
-      <hr>
-      <div class="mb-5">
-        <h2 class="mb-3 ps-0 fw-bold">
-          {{'HomePage.Connect' | translate}}
-        </h2>
-        <p [innerHTML]="'HomePage.EditSegatools' | translate"></p>
-        <div class="card align-middle bg-body-tertiary">
-          <div class="card-body">
-            <pre class="m-0 " style="text-wrap: inherit"><code data-lang="ini">[DNS]
-default = aqua.naominet.live</code></pre>
-          </div>
+      <div class="col-12 col-sm-6">
+        <div class="text-center text-sm-start mb-0">
+          <h1 class="display-1 fw-semibold">RinNET</h1>
+        </div>
+        <div class="text-center text-sm-start mb-3">
+          <h2 class="lead text-secondary">{{'HomePage.Description' | translate}}</h2>
+        </div>
+        <div class="text-center text-sm-start mb-3">
+          <button *ngIf="authenticationService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto" routerLink="/dashboard">
+            {{'HomePage.Dashboard' | translate}}
+          </button>
+          <button *ngIf="!authenticationService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto"
+                  (click)="popupStatus=0;showPopup(content)">{{'HomePage.SignIn' | translate}}
+          </button>
         </div>
       </div>
-      <h2 class="mb-3 ps-0 fw-bold">
-        {{'HomePage.SupportedGames' | translate}}
-      </h2>
-      <p>{{'HomePage.SupportedGamesDesc' | translate}}</p>
-      <ul class="row mb-5 px-3">
-        <div class="col-12 col-lg-6">
-          <li class="mb-3 ps-0 fw-bold">{{'HomePage.FullSupport' | translate}}</li>
-          <p>{{'HomePage.FullSupportDesc' | translate}}</p>
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item game-item">
-              O.N.G.E.K.I.
-              <span class="badge bg-primary rounded-pill">Bright Memory Act.3</span>
-            </li>
-            <li class="list-group-item game-item">
-              CHUNITHM NEW
-              <span class="badge bg-primary rounded-pill">Luminous</span>
-            </li>
-            <li class="list-group-item game-item">
-              Maimai DX
-              <span class="badge bg-primary rounded-pill">Buddies</span>
-            </li>
-          </ul>
-        </div>
-        <div class="col-12 col-lg-6">
-          <li class="mb-3 ps-0 fw-bold">{{'HomePage.LimitedSupport' | translate}}</li>
-          <p>{{'HomePage.LimitedSupportDesc' | translate}}</p>
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Card Maker
-              <span class="badge bg-secondary rounded-pill">1.34</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              CHUNITHM
-              <span class="badge bg-primary rounded-pill">Paradise Lost</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Project DIVA Arcade
-              <span class="badge bg-primary rounded-pill">Future Tone</span>
-            </li>
-          </ul>
-        </div>
-      </ul>
     </div>
-    <ng-template #content let-modal>
-      <button type="button" class="btn-close shadow-none position-absolute end-0 top-0 m-4" aria-label="Close"
-              (click)="modal.dismiss()"></button>
-      <div *ngIf="popupStatus == 0">
-        <app-login (onForgotPassword)="popupStatus = 2"></app-login>
-        <div class="text-center my-3 small">
-          {{'HomePage.SignUpTip' | translate}}
-          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 1">{{'HomePage.SignUp' | translate}}</button>
+    <hr>
+    <div class="mb-5">
+      <h2 class="mb-3 ps-0 fw-bold">
+        {{'HomePage.Connect' | translate}}
+      </h2>
+      <p [innerHTML]="'HomePage.EditSegatools' | translate"></p>
+      <div class="card align-middle bg-body-tertiary">
+        <div class="card-body">
+          <pre class="m-0 " style="text-wrap: inherit"><code data-lang="ini">[DNS]
+default = aqua.naominet.live</code></pre>
         </div>
       </div>
-      <div *ngIf="popupStatus == 1">
-        <app-sign-up (registrationComplete)="handleRegistrationComplete($event)"></app-sign-up>
-        <div class="text-center my-3 small">
-          {{'HomePage.SignInTip' | translate}}
-          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.SignIn' | translate}}</button>
-        </div>
+    </div>
+    <h2 class="mb-3 ps-0 fw-bold">
+      {{'HomePage.SupportedGames' | translate}}
+    </h2>
+    <p>{{'HomePage.SupportedGamesDesc' | translate}}</p>
+    <ul class="row mb-5 px-3">
+      <div class="col-12 col-lg-6">
+        <li class="mb-3 ps-0 fw-bold">{{'HomePage.FullSupport' | translate}}</li>
+        <p>{{'HomePage.FullSupportDesc' | translate}}</p>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item game-item">
+            O.N.G.E.K.I.
+            <span class="badge bg-primary rounded-pill">Bright Memory Act.3</span>
+          </li>
+          <li class="list-group-item game-item">
+            CHUNITHM NEW
+            <span class="badge bg-primary rounded-pill">Luminous</span>
+          </li>
+          <li class="list-group-item game-item">
+            Maimai DX
+            <span class="badge bg-primary rounded-pill">Buddies</span>
+          </li>
+        </ul>
       </div>
-      <div *ngIf="popupStatus == 2">
-        <app-password-reset></app-password-reset>
-        <div class="text-center my-3 small">
-          <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.Back' | translate}}</button>
-        </div>
+      <div class="col-12 col-lg-6">
+        <li class="mb-3 ps-0 fw-bold">{{'HomePage.LimitedSupport' | translate}}</li>
+        <p>{{'HomePage.LimitedSupportDesc' | translate}}</p>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Card Maker
+            <span class="badge bg-secondary rounded-pill">1.34</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            CHUNITHM
+            <span class="badge bg-primary rounded-pill">Paradise Lost</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Project DIVA Arcade
+            <span class="badge bg-primary rounded-pill">Future Tone</span>
+          </li>
+        </ul>
       </div>
-    </ng-template>
+    </ul>
+  </div>
+  <ng-template #content let-modal>
+    <button type="button" class="btn-close shadow-none position-absolute end-0 top-0 m-4" aria-label="Close"
+            (click)="modal.dismiss()"></button>
+    <div *ngIf="popupStatus == 0">
+      <app-login (onForgotPassword)="popupStatus = 2"></app-login>
+      <div class="text-center my-3 small">
+        {{'HomePage.SignUpTip' | translate}}
+        <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 1">{{'HomePage.SignUp' | translate}}</button>
+      </div>
+    </div>
+    <div *ngIf="popupStatus == 1">
+      <app-sign-up (registrationComplete)="handleRegistrationComplete($event)"></app-sign-up>
+      <div class="text-center my-3 small">
+        {{'HomePage.SignInTip' | translate}}
+        <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.SignIn' | translate}}</button>
+      </div>
+    </div>
+    <div *ngIf="popupStatus == 2">
+      <app-password-reset></app-password-reset>
+      <div class="text-center my-3 small">
+        <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.Back' | translate}}</button>
+      </div>
+    </div>
+  </ng-template>
 </div>

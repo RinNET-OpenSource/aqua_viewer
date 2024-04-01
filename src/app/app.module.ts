@@ -19,8 +19,6 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MessageModule} from './message/message.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {DivaModule} from './sega/diva/diva.module';
-import {V1Module} from './sega/chunithm/v1/v1.module';
 import {V2Module} from './sega/chunithm/v2/v2.module';
 import {DatabaseModule} from './database/database.module';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -121,8 +119,6 @@ export function initializeApp(
     AppRoutingModule,
     DashboardModule,
     ImporterModule,
-    DivaModule,
-    V1Module,
     V2Module,
     OngekiModule,
     Maimai2Module,

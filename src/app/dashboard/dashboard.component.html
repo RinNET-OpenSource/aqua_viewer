@@ -1,43 +1,28 @@
-<h3 class="mb-4">{{'DashboardPage.Title' | translate}}</h3>
-
-<!--<mat-card>-->
-<!--  <mat-card-content>-->
-<!--    Welcome to Aqua Viewer, the web interface for Aqua server.<br>-->
-<!--    This instance configured to {{enableImages ? 'use image assets.' : 'not to use image assets.'}}-->
-<!--  </mat-card-content>-->
-<!--</mat-card>-->
-<!-- <div class="card mb-3">
-  <div class="card-body">
-    Welcome to RinNET
-  </div>
-</div> -->
+<h1 class="page-heading">{{'DashboardPage.Title' | translate}}</h1>
 <div class="row">
   <div class="col-12 col-lg-8">
-    <h6 class="fw-bold mb-3">
+    <h3 class="mb-3">
       {{'DashboardPage.LatestAnnouncement' | translate}}
-    </h6>
+    </h3>
     <div class="card-btn card mb-3 user-select-none" (click)="showAnnouncement(announcement)">
       <div class="card-body py-2">
         <div *ngIf="loadingAnnouncement" class="placeholder-glow my-1">
           <div>
-            <div class="placeholder small fw-light text-secondary" style="width: 8em;"></div>
+            <div class="placeholder fw-light text-secondary" style="width: 8em;"></div>
           </div>
           <div>
-            <div class="placeholder" href="#" style="width: 12em;"></div>
+            <h4 class="placeholder" style="width: 12em;"></h4>
           </div>
         </div>
         <div *ngIf="!loadingAnnouncement" class="my-1">
-          <div class="small fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
-          <span class="announcements-title">{{announcement.title}}</span>
+          <div class="fw-light text-secondary">{{announcement.expirationDate.toLocaleDateString()}}</div>
+          <h4>{{announcement.title}}</h4>
         </div>
       </div>
     </div>
-    <!-- <div class="mb-3 ps-2">
-      <a routerLink="/">更多</a>
-    </div> -->
-    <h6 class="fw-bold mb-3">
+    <h3 class="mb-3">
       {{'DashboardPage.Profiles' | translate}}
-    </h6>
+    </h3>
     <ng-container *ngIf="loadingProfile">
       <div class="card mb-3 placeholder-wave">
         <div class="card-header">
@@ -178,9 +163,9 @@
     </ng-container>
   </div>
   <div class="col-12 col-lg-4">
-    <h6 class="fw-bold mb-3">
+    <h3 class="mb-3">
       {{'DashboardPage.GameData' | translate}}
-    </h6>
+    </h3>
     <div class="card mb-3">
       <div class="card-body">
         <div *ngIf="checkingUpdate || (loadingDatabase && downloadingPreloadTaskCount == 0)" class="mb-2">
@@ -208,27 +193,3 @@
     </div>
   </div>
 </div>
-
-
-<!-- <div class="card mb-3">
-  <div class="card-header">
-    Status
-  </div>
-  <div class="card-body">
-    Ongeki Card List: {{ongekiCard}}<br>
-    Ongeki Character List: {{ongekiCharacter}}<br>
-    Ongeki Music List: {{ongekiMusic}}<br>
-    Ongeki Skill List: {{ongekiSkill}}<br>
-    Chunithm New Music List: {{chusanMusic}}<br>
-    Chunithm New Character List: {{chusanCharacter}}<br>
-    Chunithm New Trophy List: {{chusanTrophy}}<br>
-    Chunithm New Nameplate List: {{chusanNamePlate}}<br>
-    Chunithm New System Voice List: {{chusanSystemVoice}}<br>
-    Chunithm New Map Icon List: {{chusanMapIcon}}<br>
-    Chunithm New Frame List: {{chusanFrame}}<br>
-    Chunithm New Avatar Accessory List: {{chusanAvatarAcc}}<br>
-  </div>
-  <div class="card-body">
-    <button class="btn btn-danger btn-sm mt-1" (click)="reload()">Clean Cache</button>
-  </div>
-</div> -->

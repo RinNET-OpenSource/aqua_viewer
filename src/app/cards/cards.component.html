@@ -1,4 +1,4 @@
-<h3>{{'CardsPage.Title' | translate}}</h3>
+<h1 class="page-heading">{{'CardsPage.Title' | translate}}</h1>
 <div>
   <div *ngFor="let card of this.cards" class="card mt-3">
     <div class="card-header d-flex align-items-center justify-content-between">
@@ -11,7 +11,7 @@
         </button>
         <ng-template #unbindCard let-modal>
           <div class="modal-header">
-            <h6 class="modal-title">{{'CardsPage.UnbindCard' | translate}}</h6>
+            <h4 class="modal-title">{{'CardsPage.UnbindCard' | translate}}</h4>
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
           </div>
           <div class="modal-body">
@@ -44,7 +44,7 @@
         </div>
         <ng-template #changeAccesscode let-modal>
           <div class="modal-header">
-            <h6 class="modal-title">{{'CardsPage.ChangeAccessCode' | translate}}</h6>
+            <h4 class="modal-title">{{'CardsPage.ChangeAccessCode' | translate}}</h4>
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
           </div>
           <div class="modal-body">
@@ -77,7 +77,7 @@
         </div>
         <ng-template #removeExternal let-modal>
           <div class="modal-header">
-            Remove Alias
+            <h4 class="modal-title">Remove Alias</h4>
           </div>
           <div class="modal-body">
             <form>
@@ -104,7 +104,7 @@
     </div>
     <ng-template #addAccessCode let-modal>
       <div class="modal-header">
-        <h6 class="modal-title">{{'CardsPage.AddAlias' | translate}}</h6>
+        <h4 class="modal-title">{{'CardsPage.AddAlias' | translate}}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
       </div>
       <div class="modal-body">
@@ -124,7 +124,7 @@
 </div>
 <ng-template #bindCard let-modal>
   <div class="modal-header">
-    <h6 class="modal-title">{{'CardsPage.BindCard' | translate}}</h6>
+    <h4 class="modal-title">{{'CardsPage.BindCard' | translate}}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
   </div>
   <div class="modal-body">
