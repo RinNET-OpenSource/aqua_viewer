@@ -1,19 +1,19 @@
-<h3 class="mb-3">{{"ContributorsPage.Title" | translate}}</h3>
+<h1 class="mb-4">{{"ContributorsPage.Title" | translate}}</h1>
 <div>
-  <h5 class="fw-bold mb-3">{{"ContributorsPage.Developers" | translate}}</h5>
-  <div class="mb-2">
+  <h2 class="mb-3">{{"ContributorsPage.Developers" | translate}}</h2>
+  <div class="mb-4">
     <span class="hstack d-inline-block me-3 mb-1" *ngFor="let developer of shuffledDevelopers">
       <a class="text-decoration-none" target="_blank" href="{{developer.link}}"><img class="avator me-1" src="https://avatars.githubusercontent.com/u/{{developer.id}}">{{developer.name}}</a>
     </span>
   </div>
-  <h5 class="fw-bold mb-3">{{"ContributorsPage.CDNProvider" | translate}}</h5>
-  <div class="mb-3">
+  <h2 class="mb-3">{{"ContributorsPage.CDNProvider" | translate}}</h2>
+  <div class="mb-4">
     <div class="hstack d-inline-block">
       <a class="text-decoration-none" target="_blank" href="https://github.com/Steve0807"><img class="avator me-1" src="https://avatars.githubusercontent.com/u/104258961">Steve0807</a>
     </div>
   </div>
-  <h5 class="fw-bold mb-3">{{"ContributorsPage.CommunityContributors" | translate}}</h5>
-  <div class="mb-2 lh-lg">
+  <h2 class="mb-3">{{"ContributorsPage.CommunityContributors" | translate}}</h2>
+  <div class="mb-4 lh-lg">
     <span class="hstack d-inline-block me-3 mb-1">
       <a class="text-decoration-none" target="_blank" href="https://github.com/Eternal973"><img class="avator me-1" src="https://avatars.githubusercontent.com/u/51935482">Eternal973</a>
     </span>
@@ -21,22 +21,22 @@
       <a class="text-decoration-none" target="_blank" href="https://github.com/DGCtanuki"><img class="avator me-1" src="https://avatars.githubusercontent.com/u/164617811">DGCtanuki</a>
     </span>
   </div>
-  <h5 class="fw-bold mb-3">{{"ContributorsPage.Donations" | translate}}</h5>
-  <div class="mb-2 lh-lg">
+  <h2 class="mb-3">{{"ContributorsPage.Donations" | translate}}</h2>
+  <div class="mb-3 lh-lg">
     <span class="hstack d-inline-block me-3 mb-1" [class.fw-bold]="sponsor.CurrentPlan && sponsor.CurrentPlan !== ''" *ngFor="let sponsor of sponsors">
       <a class="text-decoration-none" target="_blank" href="https://afdian.net/u/{{sponsor.UserId}}"><img class="avator me-1" src="{{sponsor.AvatarUrl}}">{{sponsor.Name}}</a>
     </span>
   </div>
-  <div class="mb-3">
-    <a class="btn sponsor-me" href="https://afdian.net/a/rinnet">
+  <div class="mb-4">
+    <a class="btn sponsor-me" target="_blank" href="https://afdian.net/a/rinnet">
       {{"ContributorsPage.SponsorMe" | translate}}
     </a>
   </div>
-  <h5 class="fw-bold mb-3">{{"ContributorsPage.SpecialThanks" | translate}}</h5>
-  <div class="mb-3">
+  <h2 class="mb-3">{{"ContributorsPage.SpecialThanks" | translate}}</h2>
+  <div class="mb-4">
     <div class="mb-3">{{"ContributorsPage.ThanksSamnyan" | translate}}</div>
     <div class="mb-3" [innerHTML]="'ContributorsPage.ThanksJetbrain' | translate"></div>
-    <a href="https://www.jetbrains.com/webstorm/">
+    <a href="https://www.jetbrains.com/webstorm/" target="_blank">
       <img class="webstorm-logo bg-white" src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm.svg" alt="">
     </a>
   </div>

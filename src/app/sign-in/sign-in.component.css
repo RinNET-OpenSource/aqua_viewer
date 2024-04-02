@@ -10,4 +10,9 @@
 .oauth-icon {
   width: 1.5em;
   height: 1.5em;
+  transition: filter 0.05s ease;
+}
+
+.oauth-icon:hover {
+  filter: contrast(70%);
 }

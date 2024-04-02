@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xxl-6">
+    <div class="container pt-2 pt-sm-4 px-3 px-sm-5 mb-3">
+      <div class="my-3">
+        <h1>{{'HomePage.SignInModal.Title' | translate}}</h1>
+      </div>
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <div class="d-grid gap-2">
+          <div class="position-relative">
+            <label for="usernameOrEmail" class="form-label small">{{'HomePage.SignInModal.UsernameOrEmail' | translate}}</label>
+            <input type="text" class="form-control form-control-sm" id="usernameOrEmail"
+                   formControlName="usernameOrEmail" placeholder=""
+                   [class.is-invalid]="usernameOrEmail.touched && !usernameOrEmail.valid && usernameOrEmail.errors">
+          </div>
+          <div class="position-relative">
+            <label for="password" class="form-label small">{{'HomePage.SignInModal.Password' | translate}}</label>
+            <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
+                   placeholder=""
+                   [class.is-invalid]="password.touched && !password.valid && password.errors">
+          </div>
+          <div class="text-end">
+            <button type="button" class="btn btn-link text-decoration-none btn-sm" routerLink="/password-reset">{{'HomePage.SignInModal.ResetPasswordTip' | translate}}</button>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm mb-3" [class.disabled]="signInForm.disabled">
+            {{'HomePage.SignInModal.SignIn' | translate}}
+          </button>
+          <div class="row justify-content-center align-items-center m-0 mb-3">
+            <hr class="col m-0">
+            <div class="col-auto">
+              其他方式登录
+            </div>
+            <hr class="col m-0">
+          </div>
+          <div class="hstack m-0 justify-content-center gap-5">
+            <a class="cursor-pointer text-body" (click)="oauth.getSignInUrl('github')">
+              <svg class="oauth-icon" viewBox="0 0 16 16">
+                <use href="assets/github.svg#icon"/>
+              </svg>
+            </a>
+            <a class="cursor-pointer" (click)="oauth.getSignInUrl('microsoft')">
+              <svg class="oauth-icon" viewBox="0 0 16 16">
+                <use href="assets/microsoft.svg#icon"/>
+              </svg>
+            </a>
+            <a class="cursor-pointer" (click)="oauth.getSignInUrl('gitlab')">
+              <svg class="oauth-icon" viewBox="0 -10 256 256">
+                <use href="assets/gitlab.svg#icon"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="mb-5 small d-flex align-items-center justify-content-center">
+      {{'HomePage.SignUpTip' | translate}}
+      <button class="btn btn-link btn-sm text-decoration-none p-0" routerLink="/sign-up">{{'HomePage.SignUp' | translate}}</button>
+    </div>
+  </div>
+</div>

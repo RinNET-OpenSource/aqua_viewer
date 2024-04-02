@@ -1,18 +1,19 @@
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../../auth/authentication.service';
+import {AuthenticationService} from '../auth/authentication.service';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MessageService} from '../../message.service';
-import {StatusCode} from '../../status-code';
-import { TranslateService } from '@ngx-translate/core';
-import {environment} from '../../../environments/environment';
+import {MessageService} from '../message.service';
+import {StatusCode} from '../status-code';
+import {TranslateService} from '@ngx-translate/core';
+import {environment} from '../../environments/environment';
+import {OAuthService} from 'src/app/auth/oauth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.css']
 })
-export class LoginComponent implements OnInit {
+export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   @Output() onForgotPassword = new EventEmitter<any>();
 
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     public messageService: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    protected oauth: OAuthService,
   ) {
   }
 
@@ -80,4 +82,5 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
 }

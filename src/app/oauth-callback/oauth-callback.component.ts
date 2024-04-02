@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {MessageService} from '../../message.service';
-import {AuthenticationService} from '../../auth/authentication.service';
-import {StatusCode} from '../../status-code';
+import {environment} from '../../environments/environment';
+import {MessageService} from '../message.service';
+import {AuthenticationService} from '../auth/authentication.service';
+import {StatusCode} from '../status-code';
 
 @Component({
   selector: 'app-oauth-callback',

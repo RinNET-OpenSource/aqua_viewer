@@ -1,21 +1,20 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {first, take} from 'rxjs/operators';
-import {MessageService} from '../../message.service';
-import {AuthenticationService} from '../../auth/authentication.service';
+import {MessageService} from '../message.service';
+import {AuthenticationService} from '../auth/authentication.service';
 import {Router} from '@angular/router';
 import {interval, Subscription, timer} from 'rxjs';
-import {StatusCode} from '../../status-code';
+import {StatusCode} from '../status-code';
+import {OAuthService} from '../auth/oauth.service';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit, OnDestroy {
-  @Output() registrationComplete = new EventEmitter<{email: string, password: string}>();
-
+export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   getVerifyCodeForm: FormGroup;
   isButtonDisabled = false;
@@ -27,7 +26,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
     public router: Router,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    protected oauth: OAuthService) {
 
   }
 
@@ -247,7 +247,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
               const statusCode: StatusCode = resp.status.code;
               if (statusCode === StatusCode.OK){
                 this.messageService.notice('Sign up success.');
-                this.registrationComplete.emit({email: this.email.value, password: this.password.value});
+                this.onRegistrationComplete({email: this.email.value, password: this.password.value});
               }
               else if(statusCode === StatusCode.EMAIL_ALREADY_IN_USE){
                 this.translate.get("HomePage.SignUpModal.Messages.EmailInvailable").subscribe((res: string) => {
@@ -279,6 +279,31 @@ export class SignUpComponent implements OnInit, OnDestroy {
             }
             this.signUpForm.enable();
             console.warn('Sign up failed.', error);
+          }
+        }
+      );
+  }
+
+  onRegistrationComplete(loginInfo: {email: string, password: string}) {
+    this.authenticationService.login(loginInfo.email, loginInfo.password)
+      .subscribe(
+        {
+          next: (resp) => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK && resp.data) {
+                this.messageService.notice(resp.status.message);
+                location.reload();
+              }
+              else if (statusCode === StatusCode.LOGIN_FAILED){
+                this.translate.get('HomePage.SignInModal.LoginFailedMessage').subscribe((res: string) => {
+                  this.messageService.notice(res, 'danger');
+                });
+              }
+              else{
+                this.messageService.notice(resp.status.message);
+              }
+            }
           }
         }
       );
