@@ -8,13 +8,7 @@ export const environment = {
   // apiServer: 'http://127.0.0.1/',
   production: false,
   enableImages: true,
-  assetsHost: 'https://rinnet.stehp.cn/',
-  oauth: {
-    github: {
-      client_id: 'e076e7aebe1ca5b0b2b5',
-      scoop: 'user:email'
-    }
-  }
+  assetsHost: 'https://rinnet.stehp.cn/'
 };
 
 /*
