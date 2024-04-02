@@ -21,12 +21,12 @@ id = XXXX-XXXXXXXXXXX</code></pre>
 <div *ngIf="keychipLoaded" class="row px-2 mb-3">
   <div *ngFor="let keychip of this.keychips" class="col-lg-6 p-1">
     <div class="card">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <div class="float-start d-flex align-items-center">
-          {{keychip.id}}{{"Common.Colon" | translate}}{{keychip.placeName}}
-          <span *ngIf="keychip.whiteListed" class="badge text-bg-primary ms-2">{{'KeychipPage.Whitelisted' | translate}}</span>
+      <div class="card-header keychip-card-header">
+        <div class="keychip-card-title">
+          <span>{{keychip.id}}{{"Common.Colon" | translate}}{{keychip.placeName}}</span>
         </div>
-        <div class="float-end">
+        <span *ngIf="keychip.whiteListed" class="badge text-bg-primary ms-2">{{'KeychipPage.Whitelisted' | translate}}</span>
+        <div class="ms-auto">
           <button class="btn btn-close"
                   (click)="modalService.open(removeKeychip, {centered: true})">
           </button>
@@ -104,11 +104,11 @@ id = XXXX-XXXXXXXXXXX</code></pre>
 <div *ngIf="trustKeychipLoaded" class="row px-2 mb-3">
   <div *ngFor="let keychip of this.trustKeychips" class="col-lg-6 p-1">
     <div class="card">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <div class="float-start">
+      <div class="card-header keychip-card-header">
+        <div class="keychip-card-title">
           {{keychip.id}}{{"Common.Colon" | translate}}{{keychip.placeName}}
         </div>
-        <div class="float-end">
+        <div class="ms-auto">
           <button class="btn btn-close"
                   (click)="modalService.open(untrustKeychip, {centered: true})">
           </button>

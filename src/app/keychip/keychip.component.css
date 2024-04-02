@@ -1,0 +1,14 @@
+.keychip-card-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: .5rem;
+}
+
+.keychip-card-title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
