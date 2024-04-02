@@ -77,8 +77,8 @@
             "browserTarget": "aqua-viewer:build",
             "disableHostCheck": true,
             "ssl": true,
-            "sslCert": "ssl/portal-beta.naominet.live.crt",
-            "sslKey": "ssl/portal-beta.naominet.live.key",
+            "sslCert": "ssl/naominet.live.crt",
+            "sslKey": "ssl/naominet.live.key",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
