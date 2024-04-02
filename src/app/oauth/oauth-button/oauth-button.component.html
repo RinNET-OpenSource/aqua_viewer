@@ -1,0 +1,4 @@
+<button (click)="getSignInUrl()" [class]="classes">
+  <i *ngIf="content.startsWith('icon-')" [class]="content"></i>
+  <span *ngIf="!content.startsWith('icon-')">{{ content }}</span>
+</button>

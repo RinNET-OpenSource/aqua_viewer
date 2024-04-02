@@ -70,6 +70,8 @@ import { LanguageService } from './language.service';
 import { lastValueFrom } from 'rxjs';
 import { KeychipComponent } from './keychip/keychip.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { OauthButtonComponent } from './oauth/oauth-button/oauth-button.component';
+import { OauthCallbackComponent } from './oauth/oauth-callback/oauth-callback.component';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -103,7 +105,9 @@ export function initializeApp(
     CardsComponent,
     NotFoundComponent,
     ContributorsComponent,
-    KeychipComponent
+    KeychipComponent,
+    OauthButtonComponent,
+    OauthCallbackComponent
    ],
   imports: [
     BrowserModule,

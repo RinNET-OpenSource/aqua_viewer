@@ -9,6 +9,7 @@ import {CardsComponent} from './cards/cards.component';
 import {KeychipComponent} from './keychip/keychip.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {ContributorsComponent} from './contributors/contributors.component';
+import {OauthCallbackComponent} from './oauth/oauth-callback/oauth-callback.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
     loadChildren: () => import('./sega/chunithm/v2/v2.module').then(mod => mod.V2Module),
     canLoad: [AuthGuardService]
   },
+  {path: 'oauth-callback/:type', component: OauthCallbackComponent },
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', redirectTo: '/not-found'}
 ];

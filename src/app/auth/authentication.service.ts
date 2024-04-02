@@ -67,7 +67,7 @@ export class AuthenticationService {
   }
 
   loginWithOAuth(oauthCode: string, type: string) {
-    return this.http.post<any>(`${environment.apiServer}api/auth/signin/oauth2/code/${type}`, { code: oauthCode })
+    return this.http.post<any>(`${environment.apiServer}api/auth/signin/oauth2/${oauthCode}/${type}`, null)
       .pipe(
         mergeMap(loginResp => {
           const loginStatusCode: StatusCode = loginResp?.status?.code;

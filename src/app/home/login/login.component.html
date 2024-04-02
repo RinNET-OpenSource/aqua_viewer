@@ -22,6 +22,9 @@
       <button type="submit" class="btn btn-primary btn-sm" [class.disabled]="signInForm.disabled">
         {{'HomePage.SignInModal.SignIn' | translate}}
       </button>
+      <app-oauth-button classes="btn btn-secondary btn-sm w-100" type="github" content="Login via Github" />
+      <app-oauth-button classes="btn btn-secondary btn-sm w-100" type="microsoft" content="Login via Microsoft" />
+      <app-oauth-button classes="btn btn-secondary btn-sm w-100" type="gitlab" content="Login via Gitlab" />
     </div>
   </form>
 </div>
