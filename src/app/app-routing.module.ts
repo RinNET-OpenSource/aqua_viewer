@@ -8,12 +8,10 @@ import {HomeComponent} from './home/home.component';
 import {CardsComponent} from './cards/cards.component';
 import {KeychipComponent} from './keychip/keychip.component';
 import {NotFoundComponent} from './not-found/not-found.component';
-import {GithubComponent} from './auth/oauth-callback/github/github.component';
 import {ContributorsComponent} from './contributors/contributors.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'oauth-callback/github', component: GithubComponent},
   {path: 'cards', component: CardsComponent, canActivate: [AuthGuardService]},
   {path: 'keychip', component: KeychipComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},

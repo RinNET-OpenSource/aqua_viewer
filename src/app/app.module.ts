@@ -65,7 +65,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER } from '@angular/core';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { GithubComponent } from './auth/oauth-callback/github/github.component';
 import { ContributorsComponent } from './contributors/contributors.component';
 import { LanguageService } from './language.service';
 import { lastValueFrom } from 'rxjs';
@@ -103,7 +102,6 @@ export function initializeApp(
     PasswordResetComponent,
     CardsComponent,
     NotFoundComponent,
-    GithubComponent,
     ContributorsComponent,
     KeychipComponent
    ],

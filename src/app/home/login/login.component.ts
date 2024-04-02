@@ -6,7 +6,6 @@ import {MessageService} from '../../message.service';
 import {StatusCode} from '../../status-code';
 import { TranslateService } from '@ngx-translate/core';
 import {environment} from '../../../environments/environment';
-import {GithubOauth2Service} from '../../auth/oauth/github-oauth2.service';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +21,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     public messageService: MessageService,
-    private translate: TranslateService,
-    protected githubOAuth2Service: GithubOauth2Service
+    private translate: TranslateService
   ) {
   }
 
