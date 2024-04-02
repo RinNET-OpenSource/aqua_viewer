@@ -17,15 +17,17 @@ export class OauthCallbackComponent {
               private router: Router,
               private authenticationService: AuthenticationService) { }
 
+  protected type: string;
+
   ngOnInit(): void {
     // 从URL中获取type、code和state参数
-    const type = this.route.snapshot.paramMap.get('type');
+    this.type = this.route.snapshot.paramMap.get('type');
     const code = this.route.snapshot.queryParamMap.get('code');
     const state = this.route.snapshot.queryParamMap.get('state');
 
     // 调用登录API
-    if (code && type && state) {
-      this.login(code, type, state);
+    if (code && this.type && state) {
+      this.login(code, this.type, state);
     }
   }
 
