@@ -100,21 +100,21 @@ default = aqua.naominet.live</code></pre>
             (click)="modal.dismiss()"></button>
     <div *ngIf="popupStatus == 0">
       <app-login (onForgotPassword)="popupStatus = 2"></app-login>
-      <div class="text-center my-3 small">
+      <div class="my-3 small d-flex align-items-center justify-content-center">
         {{'HomePage.SignUpTip' | translate}}
         <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 1">{{'HomePage.SignUp' | translate}}</button>
       </div>
     </div>
     <div *ngIf="popupStatus == 1">
       <app-sign-up (registrationComplete)="handleRegistrationComplete($event)"></app-sign-up>
-      <div class="text-center my-3 small">
+      <div class="my-3 small d-flex align-items-center justify-content-center">
         {{'HomePage.SignInTip' | translate}}
         <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.SignIn' | translate}}</button>
       </div>
     </div>
     <div *ngIf="popupStatus == 2">
       <app-password-reset></app-password-reset>
-      <div class="text-center my-3 small">
+      <div class="my-3 small d-flex align-items-center justify-content-center">
         <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="popupStatus = 0">{{'HomePage.Back' | translate}}</button>
       </div>
     </div>

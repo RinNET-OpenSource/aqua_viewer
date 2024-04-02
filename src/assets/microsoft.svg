@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-microsoft" viewBox="0 0 16 16">
+  <g id="icon">
+    <path fill="#f45326" d="M7.462 0H0v7.462h7.462V0z"/>
+    <path fill="#82bc06" d="M16 0H8.538v7.462H16V0z"/>
+    <path fill="#05a6f1" d="M7.462 8.538H0V16h7.462V8.538z"/>
+    <path fill="#feba08" d="M8.538 8.538H8.538V16H16V8.538z"/>
+  </g>
+</svg>
