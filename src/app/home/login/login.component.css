@@ -6,3 +6,8 @@
 .login-card {
   min-width: 120px;
 }
+
+.oauth-icon {
+  width: 1.5em;
+  height: 1.5em;
+}
