@@ -138,7 +138,8 @@ export class DashboardComponent implements OnInit {
           if (statusCode === StatusCode.OK && resp.data) {
             this.announcement = {
               ...resp.data,
-              expirationDate: new Date(resp.data.expirationDate)
+              expirationDate: new Date(resp.data.expirationDate),
+              updatedAt: new Date(resp.data.updatedAt)
             };
           }
           else{
@@ -206,5 +207,6 @@ export interface Announcement {
   title: string;
   content: string;
   expirationDate: Date;
+  updatedAt: Date;
   status: string;
 }
