@@ -32,9 +32,13 @@ export class DashboardComponent implements OnInit {
   loadingAnnouncement = true;
   loadingDatabase = true;
   loadingProfile = true;
+  loadingKeychip = true;
+  loadingTrustedKeychip = true;
   checkingUpdate = true;
   dbVersion = 0;
   noCard = false;
+  hasKeychip = false;
+  hasTrustedKeychip = false;
   protected ongekiProfile;
   protected chusanProfile;
   protected mai2Profile;
@@ -73,6 +77,8 @@ export class DashboardComponent implements OnInit {
     });
 
     this.getProfiles();
+    this.loadKeychip();
+    this.loadTrustedKeychip();
   }
 
   getProfiles(){
@@ -145,6 +151,48 @@ export class DashboardComponent implements OnInit {
         this.messageService.notice(error);
         this.loadingAnnouncement = false;
       });
+  }
+
+  loadKeychip(){
+    this.api.get('api/user/keychip').subscribe(
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            this.hasKeychip = resp.data.length > 0;
+          } else {
+            this.messageService.notice(resp.status.message);
+          }
+        } else {
+          this.messageService.notice('Load keychips failed.');
+        }
+        this.loadingKeychip = false;
+      },
+      error => {
+        this.messageService.notice(error);
+      }
+    );
+  }
+
+  loadTrustedKeychip(){
+    this.api.get('api/user/keychip/trustKeychip').subscribe(
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            this.hasTrustedKeychip = resp.data.length > 0;
+          } else {
+            this.messageService.notice(resp.status.message);
+          }
+        } else {
+          this.messageService.notice('Load trusted keychips failed.');
+        }
+        this.loadingTrustedKeychip = false;
+      },
+      error => {
+        this.messageService.notice(error);
+      }
+    );
   }
 
   showAnnouncement(announcement: Announcement) {

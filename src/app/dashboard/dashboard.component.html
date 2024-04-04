@@ -20,6 +20,18 @@
         </div>
       </div>
     </div>
+    <ng-container *ngIf="!loadingKeychip && !loadingTrustedKeychip && !hasKeychip && !hasTrustedKeychip">
+      <div class="hstack alert alert-danger" role="alert">
+        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+        <div>{{'DashboardPage.NoKeychipMessage' | translate}}<a routerLink="/keychip">{{'DashboardPage.GoToKeychipPage' | translate}}</a></div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="hasTrustedKeychip">
+      <div class="hstack alert alert-warning" role="alert">
+        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+        <div>{{'DashboardPage.HasTrustedKeychipMessage' | translate}}<a routerLink="/keychip">{{'DashboardPage.GoToKeychipPage' | translate}}</a></div>
+      </div>
+    </ng-container>
     <h3 class="mb-3">
       {{'DashboardPage.Profiles' | translate}}
     </h3>

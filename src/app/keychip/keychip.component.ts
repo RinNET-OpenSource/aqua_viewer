@@ -41,7 +41,7 @@ export class KeychipComponent implements OnInit {
         Validators.maxLength(20)]]
     });
     this.loadKeychip();
-    this.loadTrustKeychip();
+    this.loadTrustedKeychip();
   }
 
   checkKeychipId(control: AbstractControl){
@@ -75,7 +75,7 @@ export class KeychipComponent implements OnInit {
     );
   }
 
-  loadTrustKeychip(){
+  loadTrustedKeychip(){
     this.api.get('api/user/keychip/trustKeychip').subscribe(
       resp => {
         if (resp?.status) {
