@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {OngekiUserRanking} from '../model/OngekiUserRanking';
 import {ApiService} from '../../../api.service';
 import {OngekiPcRanking} from '../model/OngekiPcRanking';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-ongeki-user-ranking',
@@ -13,6 +14,7 @@ export class OngekiUserRankingComponent implements OnInit {
   ongekiUserRankings: OngekiUserRanking[] = [];
   OngekiPcRankings: OngekiPcRanking[] = [];
   tabBarBoolControl = true;
+  host = environment.assetsHost;
 
   constructor(private api: ApiService) { }
 

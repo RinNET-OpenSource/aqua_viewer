@@ -1,8 +1,17 @@
 table {
-  width: 100%;
+  width: 95%;
+  margin-left: 2.2rem;
 }
 
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+
+.medal {
+  position: absolute;
+  top: 3px;
+  left: -40px;
+  width: 1.4rem;
+  z-index: 10;
 }
