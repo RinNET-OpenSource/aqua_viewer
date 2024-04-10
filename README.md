@@ -10,8 +10,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - Add the following rule to your hosts file: <br>
 `127.0.0.1 portal-dev.naominet.live`
+- Change `proxy.conf.json` if needed
 - Launch the development server with the command: <br>`$ npm run start `
-- Visit [http://portal-dev.naominet.live](http://portal-dev.naominet.live).
+- Visit [http://portal-dev.naominet.live](https://portal-dev.naominet.live).
 
 ## How to Contribute
 
