@@ -6,6 +6,7 @@ import {MessageService} from '../message.service';
 import {SHA256, enc} from 'crypto-js';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clipboard} from '@angular/cdk/clipboard';
+import {WebauthnService} from '../auth/webauthn.service';
 
 @Component({
   selector: 'app-keychip',
@@ -25,7 +26,8 @@ export class KeychipComponent implements OnInit {
     private messageService: MessageService,
     protected modalService: NgbModal,
     private api: ApiService,
-    protected clipboard: Clipboard) {
+    protected clipboard: Clipboard,
+    protected webAuthnService: WebauthnService) {
   }
 
   ngOnInit() {
