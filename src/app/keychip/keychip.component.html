@@ -17,7 +17,7 @@ id = XXXX-XXXXXXXXXXX</code></pre>
 <div class="hstack alert alert-warning" role="alert">
   <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
   <div>{{'KeychipPage.Warning3' | translate}}</div>
-  <button name="TestForWebAuthn" (click)="webAuthnService.register()"></button>
+  <button name="TestForWebAuthn" (click)="webAuthnService.login()">测试WebAuthn</button>
 </div>
 <div *ngIf="keychipLoaded" class="row px-2 mb-3">
   <div *ngFor="let keychip of this.keychips" class="col-lg-6 p-1">
