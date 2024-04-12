@@ -20,6 +20,17 @@ export class WebauthnService {
           if (options) {
             options.user.id = this.base64UrlToByteArray(options.user.id);
             options.challenge = this.base64UrlToByteArray(options.challenge);
+            const excludeCredentials = options.excludeCredentials as Array<PublicKeyCredentialDescriptor>;
+            const rawExcludeCredentials: Array<PublicKeyCredentialDescriptor> = [];
+            excludeCredentials.forEach((excludeCredential: PublicKeyCredentialDescriptor) => {
+              {
+                rawExcludeCredentials.push({
+                  type: excludeCredential.type,
+                  id: this.base64UrlToByteArray(excludeCredential.id)
+                });
+              }
+            });
+            options.excludeCredentials = rawExcludeCredentials;
             const publicKeyCredential = await navigator.credentials.create({publicKey: options}) as PublicKeyCredential;
             const registrationResponse = publicKeyCredential.response as AuthenticatorAttestationResponse;
 
