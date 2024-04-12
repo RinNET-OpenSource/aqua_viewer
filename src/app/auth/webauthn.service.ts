@@ -9,7 +9,7 @@ import { StatusCode } from '../status-code';
 export class WebauthnService {
   constructor(private http: HttpClient) {}
 
-  register() {
+  register(nick: string) {
     this.http.get(environment.apiServer + 'api/user/webauthn/startRegister').subscribe({
       next: async (response: any) => {
         const statusCode: StatusCode = response?.status?.code;
@@ -38,7 +38,10 @@ export class WebauthnService {
             const registrationResponseJSON = JSON.stringify(registrationResponseInB64Url);
             console.log(registrationResponseJSON);
             this.http.post(environment.apiServer + 'api/user/webauthn/finishRegister',
-              { credentialCreateJson: registrationResponseJSON })
+              {
+                nick,
+                credentialCreateJson: registrationResponseJSON
+              })
               .subscribe({
               next: async (resp: any) => {
                 console.log(resp);
@@ -54,8 +57,8 @@ export class WebauthnService {
     });
   }
 
-  login() {
-    this.http.get(environment.apiServer + 'api/auth/webauthn/startAuth?userName=' + 'hoshimirin').subscribe({
+  login(userName: string) {
+    this.http.get(environment.apiServer + 'api/auth/webauthn/startAuth?userName=' + userName).subscribe({
       next: async (response: any) => {
         const statusCode: StatusCode = response?.status?.code;
         if (statusCode !== StatusCode.OK) {
@@ -104,7 +107,7 @@ export class WebauthnService {
             // Start Finish Authentication
             console.log(assertionJson);
             this.http.post(environment.apiServer + 'api/auth/webauthn/finishAuth', {
-              userName: 'hoshimirin',
+              userName,
               credentialGetJson: assertionJson
             }).subscribe({
               next: async (step2Resp: any) => {
