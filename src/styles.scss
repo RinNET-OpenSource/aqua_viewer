@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import '@angular/material/prebuilt-themes/indigo-pink.css';*/
-
+@import "/node_modules/bootstrap/scss/functions";
+@import "/node_modules/bootstrap/scss/variables";
+@import "/node_modules/bootstrap/scss/mixins/breakpoints";
+@import "/node_modules/bootstrap/scss/bootstrap-grid";
 
 
 html, body {
@@ -273,19 +276,19 @@ pagination-template {
 }
 
 .callout-info {
-  --bd-callout-color: var(--bs-info-text);
+  --bd-callout-color: var(--bs-info-text-emphasis);
   --bd-callout-bg: var(--bs-info-bg-subtle);
   --bd-callout-border: var(--bs-info-border-subtle);
 }
 
 .callout-warning {
-  --bd-callout-color: var(--bs-warning-text);
+  --bd-callout-color: var(--bs-warning-text-emphasis);
   --bd-callout-bg: var(--bs-warning-bg-subtle);
   --bd-callout-border: var(--bs-warning-border-subtle);
 }
 
 .callout-danger {
-  --bd-callout-color: var(--bs-danger-text);
+  --bd-callout-color: var(--bs-danger-text-emphasis);
   --bd-callout-bg: var(--bs-danger-bg-subtle);
   --bd-callout-border: var(--bs-danger-border-subtle);
 }
@@ -318,4 +321,40 @@ h5 {
 }
 h6 {
   font-size: 100%
+}
+
+.authorization-card {
+  margin-top: 5rem !important;
+  max-width: 36rem;
+  box-shadow: $box-shadow;
+}
+@include media-breakpoint-down(lg) {
+  .authorization-card {
+    border: 0 !important;
+    margin-top: 1rem !important;
+    box-shadow: none;
+  }
+}
+
+.btn-theme{
+  display:flex;
+  align-items: center;
+}
+
+[data-bs-theme=light] .btn-theme{
+  --bs-btn-color: #{$gray-800};
+  --bs-btn-bg: #{$white};
+  --bs-btn-border-color: #{$gray-300};
+  --bs-btn-hover-color: #{$gray-800};
+  --bs-btn-hover-bg: #{shade-color($white, 10%)};
+  --bs-btn-hover-border-color: #{shade-color($gray-300, 10%)};
+}
+
+[data-bs-theme=dark] .btn-theme{
+  --bs-btn-color: #{$gray-200};
+  --bs-btn-bg: #{$gray-900};
+  --bs-btn-border-color: #{$gray-700};
+  --bs-btn-hover-color: #{$gray-200};
+  --bs-btn-hover-bg: #{tint-color($gray-900, 10%)};
+  --bs-btn-hover-border-color: #{tint-color($gray-700, 10%)};
 }

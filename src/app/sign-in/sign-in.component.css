@@ -1,18 +1,9 @@
-.full-width {
-  width: 100%;
-  margin-bottom: 1em;
-}
-
-.login-card {
-  min-width: 120px;
+.form-label{
+  margin-inline-start: 0.2em;
 }
 
 .oauth-icon {
-  width: 1.5em;
-  height: 1.5em;
-  transition: filter 0.05s ease;
-}
-
-.oauth-icon:hover {
-  filter: contrast(70%);
+  height: 1.4em;
+  width: 1.4em;
+  margin-inline: 1em;
 }

@@ -34,9 +34,6 @@ export class OauthCallbackComponent {
   private login(code: string, type: string, state: string): void {
     const storedState = localStorage.getItem('oauth_state');
 
-    // remove stored oauth state
-    localStorage.removeItem('oauth_state');
-
     // verify state
     if (state && state === storedState){
       this.authenticationService.loginWithOAuth(code, type)
@@ -46,18 +43,25 @@ export class OauthCallbackComponent {
               if (resp?.status) {
                 const statusCode: StatusCode = resp.status.code;
                 if (statusCode === StatusCode.OK && resp.data) {
+                  localStorage.removeItem('oauth_state');
                   this.messageService.notice(resp.status.message);
                   this.router.navigate(['/']);
                 } else if (statusCode === StatusCode.OAUTH_USER_NOT_REGISTERED) {
-                  // Need More Process To Register A User
                   this.messageService.notice(resp.status.message);
+                  const token = resp.data.token;
+                  const name = resp.data.name;
+                  const username = resp.data.userName;
+                  const email = resp.data.email;
+                  this.router.navigate(['/sign-up'], {queryParams:{token, type, name, username, email}});
                 } else {
+                  localStorage.removeItem('oauth_state');
                   this.messageService.notice(resp.status.message);
                   this.router.navigate(['/']).then(r => true);
                 }
               }
             },
             error: (errorBackend) => {
+              localStorage.removeItem('oauth_state');
               this.messageService.notice(errorBackend);
               this.router.navigate(['/']).then(r => true);
             }

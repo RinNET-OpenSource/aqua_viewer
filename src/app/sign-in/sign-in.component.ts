@@ -1,4 +1,4 @@
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../auth/authentication.service';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -15,9 +15,11 @@ import {OAuthService} from 'src/app/auth/oauth.service';
 })
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
-  @Output() onForgotPassword = new EventEmitter<any>();
+  token: string;
+  type: string;
 
   constructor(
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -43,6 +45,35 @@ export class SignInComponent implements OnInit {
     if (this.authenticationService.currentAccountValue) {
       this.router.navigateByUrl('/dashboard');
     }
+    this.route.queryParams.subscribe(params => {
+      if(this.oauth.tokenTypes.has(params.type) && params['token'].length ==32){
+        this.token = params['token'];
+        this.type = params["type"];
+      }
+      if(params["email"]){
+        this.usernameOrEmail.setValue(params["email"]);
+      }
+      else if(params["username"]){
+        this.usernameOrEmail.setValue(params["username"]);
+      }
+    });
+  }
+
+  navigateToSignUp(){
+    var queryParams:any = {};
+    if(this.usernameOrEmail.value){
+      if(!Validators.email(this.usernameOrEmail)){
+        queryParams.email = this.usernameOrEmail.value;
+      }
+      else{
+        queryParams.username = this.usernameOrEmail.value;
+      }
+    }
+    if(this.token && this.type){
+      queryParams.token = this.token;
+      queryParams.type = this.type;
+    }
+    this.router.navigate(['/sign-up'], {queryParams});
   }
 
   onSubmit() {
@@ -64,7 +95,7 @@ export class SignInComponent implements OnInit {
                 location.reload();
               }
               else if (statusCode === StatusCode.LOGIN_FAILED){
-                this.translate.get("HomePage.SignInModal.LoginFailedMessage").subscribe((res: string) => {
+                this.translate.get("SignInPage.LoginFailedMessage").subscribe((res: string) => {
                   this.messageService.notice(res, 'danger');
                 });
               }

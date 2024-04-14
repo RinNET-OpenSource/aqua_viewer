@@ -74,66 +74,7 @@
     "LimitedSupportDesc" : "No related content available on the portal.",
     "Dashboard" : "Dashboard",
     "SignIn": "Sign in",
-    "SignUp": "Sign up",
     "Back": "Back",
-    "SignUpTip": "Don't have an account?",
-    "SignInTip": "Already have an account?",
-    "SignInModal" : {
-      "Title" : "Sign in to your account",
-      "UsernameOrEmail" : "User name or Email",
-      "Password" : "Password",
-      "ResetPasswordTip" : "Forgot password?",
-      "SignIn" : "Sign in",
-      "SignInWithGithub": "SignInWithGithub",
-      "LoginFailedMessage" : "Invalid username/email or password. Please try again."
-    },
-    "SignUpModal" : {
-      "Title" : "Sign up to RinNET",
-      "Nickname" : "Nickname",
-      "Username" : "Username",
-      "EmailAddress" : "Email address",
-      "VerificationCode" : "Verification code",
-      "Password" : "Password",
-      "ConfirmPassword" : "Confirm password",
-      "SignUp" : "Sign up",
-      "Check" : "Check",
-      "Send" : "Send",
-      "NicknameErrors" : {
-        "Required" : "Nickname is required.",
-        "Minlength" : "Nickname must be at least 4 characters long.",
-        "Maxlength" : "Nickname must be at most 40 characters long."
-      },
-      "UsernameErrors" : {
-        "Required" : "Username is required.",
-        "Minlength" : "Username must be at least 3 characters long.",
-        "Maxlength" : "Username must be at most 15 characters long.",
-        "Pattern" : "Only letters, numbers, and underscores are allowed."
-      },
-      "EmailErrors" : {
-        "Required" : "Email address is required.",
-        "Maxlength" : "Email address must be at most 40 characters long.",
-        "Email" : "Invalid email address."
-      },
-      "VerificationCodeErrors" : {
-        "Required" : "Verification code is required.",
-        "Length" : "Verification code must be 8 characters long."
-      },
-      "PasswordErrors" : {
-        "Required" : "Password is required.",
-        "Minlength" : "Password must be at least 8 characters long.",
-        "Maxlength" : "Password must be at most 100 characters long.",
-        "Confirm" : "Passwords don't match."
-      },
-      "Messages" : {
-        "SendCodeSuccess" : "Send verify code success.",
-        "SendCodeTooFast" : "Verify code send too fast.",
-        "EmailAvailable" : "Email is available.",
-        "EmailInvailable" : "Email already in use.",
-        "UsernameAvailable" : "Username is available.",
-        "UsernameAlreadyTaken" : "Username already taken.",
-        "CodeIncorrect" : "Verification code incorrect."
-      }
-    },
     "ResetPasswordModal" : {
       "Title" : "Reset your password",
       "EmailAddress" : "Email address",
@@ -160,6 +101,68 @@
         "SendCodeTooFast" : "Verify code send too fast.",
         "CodeIncorrect" : "Verification code incorrect."
       }
+    }
+  },
+  "SignInPage" : {
+    "Title" : "Sign in to your account",
+    "BindTip": "Sign in to link your {{type}} account",
+    "UsernameOrEmail" : "User name or Email",
+    "Password" : "Password",
+    "ResetPasswordTip" : "Forgot password?",
+    "SignIn" : "Sign in",
+    "SignUpTip": "Don't have an account?",
+    "SignUp": "Sign up",
+    "Or": "Or",
+    "LoginFailedMessage" : "Invalid username/email or password. Please try again."
+  },
+  "SignUpPage" : {
+    "Title" : "Sign up an account",
+    "BindTip": "Sign up and link your {{type}} account",
+    "Nickname" : "Nickname",
+    "Username" : "Username",
+    "EmailAddress" : "Email address",
+    "VerificationCode" : "Verification code",
+    "Password" : "Password",
+    "ConfirmPassword" : "Confirm password",
+    "SignInTip": "Already have an account?",
+    "SignUp": "Sign up",
+    "SignIn": "Sign in",
+    "Check" : "Check",
+    "Send" : "Send",
+    "NicknameErrors" : {
+      "Required" : "Nickname is required.",
+      "Minlength" : "Nickname must be at least 4 characters long.",
+      "Maxlength" : "Nickname must be at most 40 characters long."
+    },
+    "UsernameErrors" : {
+      "Required" : "Username is required.",
+      "Minlength" : "Username must be at least 3 characters long.",
+      "Maxlength" : "Username must be at most 15 characters long.",
+      "Pattern" : "Only letters, numbers, and underscores are allowed."
+    },
+    "EmailErrors" : {
+      "Required" : "Email address is required.",
+      "Maxlength" : "Email address must be at most 40 characters long.",
+      "Email" : "Invalid email address."
+    },
+    "VerificationCodeErrors" : {
+      "Required" : "Verification code is required.",
+      "Length" : "Verification code must be 8 characters long."
+    },
+    "PasswordErrors" : {
+      "Required" : "Password is required.",
+      "Minlength" : "Password must be at least 8 characters long.",
+      "Maxlength" : "Password must be at most 100 characters long.",
+      "Confirm" : "Passwords don't match."
+    },
+    "Messages" : {
+      "SendCodeSuccess" : "Send verify code success.",
+      "SendCodeTooFast" : "Verify code send too fast.",
+      "EmailAvailable" : "Email is available.",
+      "EmailInvailable" : "Email already in use.",
+      "UsernameAvailable" : "Username is available.",
+      "UsernameAlreadyTaken" : "Username already taken.",
+      "CodeIncorrect" : "Verification code incorrect."
     }
   },
   "CardsPage" : {
@@ -297,6 +300,7 @@
     "ThanksJetbrain": "Developed using <a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>, provided by JetBrains with an <a href=\"https://jb.gg/OpenSourceSupport\">open source license</a>."
   },
   "OAuth" : {
+    "ContinueWith": "Continue with {{type}}",
     "Github": {
       "githubLogin": "GitHub Login",
       "githubLoginProcessing": "Validating your GitHub login information, please wait...",

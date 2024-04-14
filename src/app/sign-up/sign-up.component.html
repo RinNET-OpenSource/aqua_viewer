@@ -1,126 +1,133 @@
 <div class="d-flex justify-content-center">
-  <div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xxl-6">
-    <div class="container pt-2 pt-sm-4 px-3 px-sm-5 mb-3">
-      <div class="my-3">
-        <h1>{{'HomePage.SignUpModal.Title' | translate}}</h1>
+  <div class="card authorization-card col-12 mb-5">
+    <div class="pt-2 pt-lg-4 px-3 px-sm-5 mb-3">
+      <div class="mb-4">
+        <div class="fs-1 fw-bold">RinNET</div>
+        <div class="fs-5 fw-bold">{{'SignUpPage.Title' | translate}}</div>
       </div>
-      <form  [formGroup]="signUpForm">
-        <div class="d-grid gap-2">
+      <div *ngIf="type && token" class="callout callout-info py-3" role="alert">
+        {{'SignUpPage.BindTip' | translate: {type: oauth.tokenTypes.get(type)} }}
+      </div>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="d-grid gap-1 small fw-bold mb-3">
           <div class="position-relative">
-            <label for="name" class="form-label small">{{'HomePage.SignUpModal.Nickname' | translate}}</label>
+            <label for="name" class="form-label small">{{'SignUpPage.Nickname' | translate}}</label>
             <input type="text" class="form-control form-control-sm" id="name" formControlName="name" placeholder=""
                    [class.is-invalid]="name.touched && !name.valid && name.errors">
             <div *ngIf="name.errors" class="invalid-tooltip">
-              <div *ngIf="name.errors.required">{{'HomePage.SignUpModal.NicknameErrors.Required' | translate}}</div>
-              <div *ngIf="name.errors.minlength">{{'HomePage.SignUpModal.NicknameErrors.Minlength' | translate}}</div>
-              <div *ngIf="name.errors.maxlength">{{'HomePage.SignUpModal.NicknameErrors.Maxlength' | translate}}</div>
+              <div *ngIf="name.errors.required">{{'SignUpPage.NicknameErrors.Required' | translate}}</div>
+              <div *ngIf="name.errors.minlength">{{'SignUpPage.NicknameErrors.Minlength' | translate}}</div>
+              <div *ngIf="name.errors.maxlength">{{'SignUpPage.NicknameErrors.Maxlength' | translate}}</div>
             </div>
           </div>
 
           <div>
-            <label for="username" class="form-label small">{{'HomePage.SignUpModal.Username' | translate}}</label>
+            <label for="username" class="form-label small">{{'SignUpPage.Username' | translate}}</label>
             <div class="input-group input-group-sm has-validation">
               <input type="text" class="form-control form-control-sm" id="userName" formControlName="username"
                      placeholder=""
                      [class.is-invalid]="username.touched && !username.valid && username.errors">
               <div *ngIf="username.errors" class="invalid-tooltip">
-                <div *ngIf="username.errors.required">{{'HomePage.SignUpModal.UsernameErrors.Required' | translate}}</div>
-                <div *ngIf="username.errors.minlength">{{'HomePage.SignUpModal.UsernameErrors.Minlength' | translate}}</div>
-                <div *ngIf="username.errors.maxlength">{{'HomePage.SignUpModal.UsernameErrors.Maxlength' | translate}}</div>
-                <div *ngIf="username.errors.pattern">{{'HomePage.SignUpModal.UsernameErrors.Pattern' | translate}}</div>
+                <div *ngIf="username.errors.required">{{'SignUpPage.UsernameErrors.Required' | translate}}</div>
+                <div *ngIf="username.errors.minlength">{{'SignUpPage.UsernameErrors.Minlength' | translate}}</div>
+                <div *ngIf="username.errors.maxlength">{{'SignUpPage.UsernameErrors.Maxlength' | translate}}</div>
+                <div *ngIf="username.errors.pattern">{{'SignUpPage.UsernameErrors.Pattern' | translate}}</div>
               </div>
-              <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="checkUsername()">{{'HomePage.SignUpModal.Check' | translate}}</button>
+              <button class="btn  btn-primary input-group-btn" type="button" (click)="checkUsername()">{{'SignUpPage.Check' | translate}}</button>
             </div>
           </div>
 
           <div>
-            <label for="email" class="form-label small">{{'HomePage.SignUpModal.EmailAddress' | translate}}</label>
+            <label for="email" class="form-label small">{{'SignUpPage.EmailAddress' | translate}}</label>
             <div class="input-group input-group-sm has-validation">
               <input type="email" class="form-control form-control-sm" id="email" formControlName="email"
                      placeholder=""
                      [class.is-invalid]="email.touched && !email.valid && email.errors">
               <div *ngIf="email.errors" class="invalid-tooltip">
-                <div *ngIf="email.errors.required">{{'HomePage.SignUpModal.EmailErrors.Required' | translate}}</div>
-                <div *ngIf="email.errors.maxlength">{{'HomePage.SignUpModal.EmailErrors.Maxlength' | translate}}</div>
-                <div *ngIf="email.errors.email">{{'HomePage.SignUpModal.EmailErrors.Email' | translate}}</div>
+                <div *ngIf="email.errors.required">{{'SignUpPage.EmailErrors.Required' | translate}}</div>
+                <div *ngIf="email.errors.maxlength">{{'SignUpPage.EmailErrors.Maxlength' | translate}}</div>
+                <div *ngIf="email.errors.email">{{'SignUpPage.EmailErrors.Email' | translate}}</div>
               </div>
-              <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="checkEmail()">{{'HomePage.SignUpModal.Check' | translate}}</button>
+              <button class="btn btn-primary input-group-btn" type="button" (click)="checkEmail()">{{'SignUpPage.Check' | translate}}</button>
             </div>
           </div>
 
           <div>
-            <label for="verifyCode" class="form-label small">{{'HomePage.SignUpModal.VerificationCode' | translate}}</label>
+            <label for="verifyCode" class="form-label small">{{'SignUpPage.VerificationCode' | translate}}</label>
             <div class="input-group input-group-sm has-validation">
               <input type="text" class="form-control form-control-sm" id="verifyCode" formControlName="verifyCode"
                      placeholder=""
                      [class.is-invalid]="verifyCode.touched && !verifyCode.valid && verifyCode.errors">
               <div *ngIf="verifyCode.errors" class="invalid-tooltip">
-                <div *ngIf="verifyCode.errors.required">{{'HomePage.SignUpModal.VerificationCodeErrors.Required' | translate}}</div>
-                <div *ngIf="verifyCode.errors.minlength">{{'HomePage.SignUpModal.VerificationCodeErrors.Length' | translate}}</div>
-                <div *ngIf="verifyCode.errors.maxlength">{{'HomePage.SignUpModal.VerificationCodeErrors.Length' | translate}}</div>
+                <div *ngIf="verifyCode.errors.required">{{'SignUpPage.VerificationCodeErrors.Required' | translate}}</div>
+                <div *ngIf="verifyCode.errors.minlength">{{'SignUpPage.VerificationCodeErrors.Length' | translate}}</div>
+                <div *ngIf="verifyCode.errors.maxlength">{{'SignUpPage.VerificationCodeErrors.Length' | translate}}</div>
               </div>
-              <button class="btn btn-outline-secondary input-group-btn" type="button" (click)="getVerifyCode()" [disabled]="isButtonDisabled">
-                {{ isButtonDisabled ? remainingTime : ('HomePage.SignUpModal.Send' | translate) }}
+              <button class="btn  btn-primary input-group-btn" type="button" (click)="getVerifyCode()" [disabled]="isButtonDisabled">
+                {{ isButtonDisabled ? remainingTime : ('SignUpPage.Send' | translate) }}
               </button>
             </div>
           </div>
 
           <div>
-            <label for="password" class="form-label small">{{'HomePage.SignUpModal.Password' | translate}}</label>
+            <label for="password" class="form-label small">{{'SignUpPage.Password' | translate}}</label>
             <div class="input-group input-group-sm has-validation">
               <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
                      placeholder=""
                      [class.is-invalid]="password.touched && !password.valid && password.errors">
               <div *ngIf="password.errors" class="invalid-tooltip">
-                <div *ngIf="password.errors.required">{{'HomePage.SignUpModal.PasswordErrors.Required' | translate}}</div>
-                <div *ngIf="password.errors.minlength">{{'HomePage.SignUpModal.PasswordErrors.Minlength' | translate}}</div>
-                <div *ngIf="password.errors.maxlength">{{'HomePage.SignUpModal.PasswordErrors.Maxlength' | translate}}</div>
+                <div *ngIf="password.errors.required">{{'SignUpPage.PasswordErrors.Required' | translate}}</div>
+                <div *ngIf="password.errors.minlength">{{'SignUpPage.PasswordErrors.Minlength' | translate}}</div>
+                <div *ngIf="password.errors.maxlength">{{'SignUpPage.PasswordErrors.Maxlength' | translate}}</div>
               </div>
             </div>
           </div>
           <div>
-            <label for="confirmPassword" class="form-label small">{{'HomePage.SignUpModal.ConfirmPassword' | translate}}</label>
+            <label for="confirmPassword" class="form-label small">{{'SignUpPage.ConfirmPassword' | translate}}</label>
             <div class="input-group input-group-sm has-validation">
               <input type="password" class="form-control form-control-sm" id="confirmPassword"
                      formControlName="confirmPassword"
                      placeholder=""
                      [class.is-invalid]="confirmPassword.touched && signUpForm.hasError('notSame') && !password.errors">
               <div *ngIf="confirmPassword.touched && signUpForm.hasError('notSame') && !password.errors" class="invalid-tooltip">
-                <div>{{'HomePage.SignUpModal.PasswordErrors.Confirm' | translate}}</div>
+                <div>{{'SignUpPage.PasswordErrors.Confirm' | translate}}</div>
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-sm mt-4" (click)="onSubmit()">{{'HomePage.SignUpModal.SignUp' | translate}}</button>
-          <div class="row justify-content-center align-items-center m-0 mb-3">
-            <hr class="col m-0">
-            <div class="col-auto">
-              其他方式登录
-            </div>
-            <hr class="col m-0">
+          <button type="submit" class="btn btn-primary btn-sm my-2" (click)="onSubmit()">{{'SignUpPage.SignUp' | translate}}</button>
+          <div class="fw-normal d-flex align-items-center justify-content-center">
+            {{'SignUpPage.SignInTip' | translate}}
+            <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="navigateToSignIn()">{{'SignUpPage.SignIn' | translate}}</button>
           </div>
-          <div class="hstack m-0 justify-content-center gap-5">
-            <a class="cursor-pointer text-body" (click)="oauth.getSignInUrl('github')">
-              <svg class="oauth-icon" viewBox="0 0 16 16">
-                <use href="assets/github.svg#icon"/>
-              </svg>
-            </a>
-            <a class="cursor-pointer" (click)="oauth.getSignInUrl('microsoft')">
+          <ng-container *ngIf="!type || !token">
+            <div class="row justify-content-center align-items-center m-0 mb-2">
+              <hr class="col m-0">
+              <div class="col-auto">
+                {{'SignInPage.Or' | translate}}
+              </div>
+              <hr class="col m-0">
+            </div>
+            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('microsoft')">
               <svg class="oauth-icon" viewBox="0 0 16 16">
                 <use href="assets/microsoft.svg#icon"/>
               </svg>
-            </a>
-            <a class="cursor-pointer" (click)="oauth.getSignInUrl('gitlab')">
+              {{'OAuth.ContinueWith' | translate: {type: 'Microsoft'} }}
+            </button>
+            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('github')">
+              <svg class="oauth-icon" viewBox="0 0 16 16">
+                <use href="assets/github.svg#icon"/>
+              </svg>
+              {{'OAuth.ContinueWith' | translate: {type: 'GitHub'} }}
+            </button>
+            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('gitlab')">
               <svg class="oauth-icon" viewBox="0 -10 256 256">
                 <use href="assets/gitlab.svg#icon"/>
               </svg>
-            </a>
-          </div>
+              {{'OAuth.ContinueWith' | translate: {type: 'GitLab'} }}
+            </button>
+          </ng-container>
         </div>
       </form>
-    </div>
-    <div class="mb-5 small d-flex align-items-center justify-content-center">
-      {{'HomePage.SignInTip' | translate}}
-      <button class="btn btn-link btn-sm text-decoration-none p-0" routerLink="/sign-in">{{'HomePage.SignIn' | translate}}</button>
     </div>
   </div>
 </div>

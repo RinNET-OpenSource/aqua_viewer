@@ -8,6 +8,11 @@ import {environment} from 'src/environments/environment';
   providedIn: 'root'
 })
 export class OAuthService {
+  public tokenTypes = new Map([
+    ["microsoft", "Microsoft"],
+    ["github", "GitHub"],
+    ["gitlab", "GitLab"]
+  ]);
 
   constructor(
     private http: HttpClient,
