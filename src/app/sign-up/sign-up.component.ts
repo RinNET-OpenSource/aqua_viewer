@@ -266,7 +266,7 @@ export class SignUpComponent implements OnInit {
     this.signUpForm.disable();
     const value = this.signUpForm.value;
 
-    this.authenticationService.signUp(value.name, value.username, value.email, value.verifyCode, value.password).pipe(first())
+    this.authenticationService.signUp(value.name, value.username, value.email, value.verifyCode, value.password, this.token).pipe(first())
       .subscribe(
         {
           next: (resp) => {
@@ -274,7 +274,7 @@ export class SignUpComponent implements OnInit {
               const statusCode: StatusCode = resp.status.code;
               if (statusCode === StatusCode.OK){
                 this.messageService.notice('Sign up success.');
-                this.onRegistrationComplete({email: this.email.value, password: this.password.value});
+                location.reload();
               }
               else if(statusCode === StatusCode.EMAIL_ALREADY_IN_USE){
                 this.translate.get("SignUpPage.Messages.EmailInvailable").subscribe((res: string) => {
@@ -306,31 +306,6 @@ export class SignUpComponent implements OnInit {
             }
             this.signUpForm.enable();
             console.warn('Sign up failed.', error);
-          }
-        }
-      );
-  }
-
-  onRegistrationComplete(loginInfo: {email: string, password: string}) {
-    this.authenticationService.login(loginInfo.email, loginInfo.password)
-      .subscribe(
-        {
-          next: (resp) => {
-            if (resp?.status) {
-              const statusCode: StatusCode = resp.status.code;
-              if (statusCode === StatusCode.OK && resp.data) {
-                this.messageService.notice(resp.status.message);
-                location.reload();
-              }
-              else if (statusCode === StatusCode.LOGIN_FAILED){
-                this.translate.get('SignInPage.LoginFailedMessage').subscribe((res: string) => {
-                  this.messageService.notice(res, 'danger');
-                });
-              }
-              else{
-                this.messageService.notice(resp.status.message);
-              }
-            }
           }
         }
       );

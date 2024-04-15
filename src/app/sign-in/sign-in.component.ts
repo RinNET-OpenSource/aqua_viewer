@@ -42,9 +42,6 @@ export class SignInComponent implements OnInit {
       usernameOrEmail: ['', Validators.required],
       password: ['', Validators.required]
     });
-    if (this.authenticationService.currentAccountValue) {
-      this.router.navigateByUrl('/dashboard');
-    }
     this.route.queryParams.subscribe(params => {
       if(this.oauth.tokenTypes.has(params.type) && params['token'].length ==32){
         this.token = params['token'];
@@ -84,7 +81,7 @@ export class SignInComponent implements OnInit {
     this.signInForm.disable();
     const value = this.signInForm.value;
 
-    this.authenticationService.login(value.usernameOrEmail, value.password)
+    this.authenticationService.login(value.usernameOrEmail, value.password, this.token)
       .subscribe(
         {
           next: (resp) => {
