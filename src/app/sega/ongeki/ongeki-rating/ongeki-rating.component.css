@@ -1,42 +1,30 @@
-.rating-info {
-  font-size: 1.2em;
+.rating-card{
+}
+.jacket{
+  width: 5.6rem;
+  aspect-ratio: 1;
 }
 
-.battle-point-table {
-  width: 100%;
-  text-align: center;
+.difficulty {
+  font-size: 12px;
 }
 
-.battle-point-table th {
-  text-align: center;
+.difficulty-basic {
+  background: var(--bs-green);
 }
 
-.battle-point-table h3 {
-  font-size: 20px;
-  text-align: center;
+.difficulty-advanced {
+  background: var(--bs-yellow);
 }
 
-.table img {
-  width: 3rem;
-  height: 3rem;
+.difficulty-expert {
+  background: var(--bs-red);
 }
 
-.battle-point-table td {
-  max-width: 130px;
+.difficulty-master {
+  background: var(--bs-purple);
 }
 
-.music-img {
-  width: 3rem;
-}
-
-.music-title {
-  text-align: left;
-}
-
-@media only screen and (max-width: 599px) {
-
-  .battle-point-table img {
-    width: 18px;
-    height: 18px;
-  }
+.difficulty-lunatic {
+  background: #FFFFFF;
 }

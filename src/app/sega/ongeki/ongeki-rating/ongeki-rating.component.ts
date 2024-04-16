@@ -21,8 +21,6 @@ export class OngekiRatingComponent implements OnInit {
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 
-  aimeId = '';
-
   profile: DisplayOngekiProfile;
 
   bestList: PlayerRatingItem[] = [];
@@ -31,8 +29,6 @@ export class OngekiRatingComponent implements OnInit {
   newNextList: PlayerRatingItem[] = [];
   hotBestList: PlayerRatingItem[] = [];
   hotNextList: PlayerRatingItem[] = [];
-
-  allArray = [this.bestList, this.nextList, this.newBestList, this.newNextList, this.hotBestList, this.hotNextList];
 
   difficulty = Difficulty;
   attribute = AttributeType;
@@ -46,22 +42,18 @@ export class OngekiRatingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
-    const param = new HttpParams().set('aimeId', this.aimeId);
+    const param = new HttpParams();
     this.api.get('api/game/ongeki/profile', param).subscribe(
       data => this.profile = data,
       error => this.messageService.notice(error)
     );
     this.load('rating_base_best', this.bestList);
-    this.load('rating_base_next', this.nextList);
     this.load('rating_base_new_best', this.newBestList);
-    this.load('rating_base_new_next', this.newNextList);
     this.load('rating_base_hot_best', this.hotBestList);
-    this.load('rating_base_hot_next', this.hotNextList);
   }
 
   load(key: string, list: PlayerRatingItem[]) {
-    const param = new HttpParams().set('aimeId', this.aimeId).set('key', key);
+    const param = new HttpParams().set('key', key);
     this.api.get('api/game/ongeki/general', param).subscribe(
       (data: PropertyEntry) => {
         if (data.propertyValue.indexOf(',') < 0) {

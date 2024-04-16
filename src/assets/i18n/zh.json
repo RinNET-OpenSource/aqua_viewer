@@ -210,6 +210,18 @@
       "Money" : "金币",
       "Medal" : "奖章"
     },
+    "RatingPage": {
+      "Title": "评级",
+      "TipLead": "单曲评级由谱面定数与得分经过计算得出，玩家评级由55个单曲评级取平均数得出，其中包含：",
+      "Tip1": "来自当前版本的15个最高评级的谱面",
+      "Tip2": "来自以往版本的30个最高评级的谱面",
+      "Tip3": "30次最近游玩记录中的10个最高评级（不计入Lunatic难度）",
+      "PlayerRating": "玩家评级",
+      "HighestRating": "最高评级",
+      "New": "当前版本",
+      "Best": "以往版本",
+      "Recent": "最近"
+    },
     "RecentPage": {
       "Title": "游玩记录",
       "UnknownArtist": "未知艺术家",

@@ -210,6 +210,18 @@
       "Money" : "Money",
       "Medal" : "Medal"
     },
+    "RatingPage": {
+      "Title": "Rating",
+      "TipLead": "Single track ratings are calculated from fumen constants and scores. Player rating is the average of 55 unique fumen ratings, including:",
+      "Tip1": "15 highest ratings from new version fumens",
+      "Tip2": "30 highest ratings from old version fumens",
+      "Tip3": "10 highest ratings from recent plays, excluding Lunatic difficulty",
+      "PlayerRating": "Player Rating",
+      "HighestRating": "Highest Rating",
+      "New": "Current Version",
+      "Best": "Highest Rating",
+      "Recent": "Recent"
+    },
     "RecentPage" : {
       "Title" : "Play Record",
       "UnknownArtist " : "Unknown artist",
