@@ -26,99 +26,67 @@ export class AuthenticationService {
     this.currentAccountSubject.next(account);
   }
 
-  login(usernameOrEmail: string, password: string) {
-    return this.http.post<any>(environment.apiServer + 'api/auth/signin', {usernameOrEmail, password})
+  login(usernameOrEmail: string, password: string, token: string) {
+    var params: any = {usernameOrEmail, password};
+    if(token){
+      params.oAuth2Token = token;
+    }
+    return this.http.post<any>(environment.apiServer + 'api/auth/signin', params)
       .pipe(
         map(
           resp => {
             return resp;
           }
         ),
-        mergeMap(loginResp => {
-          const loginStatusCode: StatusCode = loginResp?.status?.code;
-          if (loginStatusCode !== StatusCode.OK || !loginResp.data) {
-            return of(loginResp);
-          }
-          const account: Account = loginResp.data;
-          const headers = {Authorization: `${loginResp.data.tokenType} ${loginResp.data.accessToken}`};
-          return this.http.get<any>(environment.apiServer + 'api/user/me', {headers})
-            .pipe(
-              map(
-                resp => {
-                  if (resp?.status) {
-                    const statusCode: StatusCode = resp.status.code;
-                    if (statusCode === StatusCode.OK && resp.data) {
-                      account.name = resp.data.name;
-                      for (const card of resp.data.cards) {
-                        if (card.default) {
-                          account.currentCard = card;
-                          break;
-                        }
-                      }
-                      account.games = resp.data.games;
-                    }
-                    this.currentAccountValue = account;
-                    return resp;
-                  }
-                }
-              )
-            );
-        }));
+        mergeMap(this.procLoginResp));
   }
 
   loginWithOAuth(oauthCode: string, type: string) {
-    return this.http.post<any>(`${environment.apiServer}api/auth/signin/oauth2/code/${type}`, { code: oauthCode })
+    return this.http.post<any>(`${environment.apiServer}api/auth/signin/oauth2/${oauthCode}/${type}`, null)
+      .pipe(mergeMap(this.procLoginResp));
+  }
+
+  signUp(name: string, username: string, email: string, verifyCode: string, password: string, token: string) {
+    var params: any = {name, username, email, verifyCode, password};
+    if(token){
+      params.oAuth2Token = token;
+    }
+    return this.http.post<any>(environment.apiServer + 'api/auth/signup', params)
       .pipe(
-        mergeMap(loginResp => {
-          const loginStatusCode: StatusCode = loginResp?.status?.code;
-          if (loginStatusCode !== StatusCode.OK || !loginResp.data) {
-            return of(loginResp);
+        map(
+          resp => {
+            return resp;
           }
-          const account: Account = loginResp.data;
-          const headers = {Authorization: `${loginResp.data.tokenType} ${loginResp.data.accessToken}`};
-          return this.http.get<any>(environment.apiServer + 'api/user/me', {headers})
-            .pipe(
-              map(
-                resp => {
-                  if (resp?.status) {
-                    const statusCode: StatusCode = resp.status.code;
-                    if (statusCode === StatusCode.OK && resp.data) {
-                      account.name = resp.data.name;
-                      for (const card of resp.data.cards) {
-                        if (card.default) {
-                          account.currentCard = card;
-                          break;
-                        }
-                      }
-                      account.games = resp.data.games;
-                    }
-                    this.currentAccountValue = account;
-                    return resp;
+        ),
+        mergeMap(this.procLoginResp));
+  }
+
+  procLoginResp = (loginResp) =>{
+    const loginStatusCode: StatusCode = loginResp?.status?.code;
+    if (loginStatusCode !== StatusCode.OK || !loginResp.data) {
+      return of(loginResp);
+    }
+    const account: Account = loginResp.data;
+    const headers = {Authorization: `${loginResp.data.tokenType} ${loginResp.data.accessToken}`};
+    return this.http.get<any>(environment.apiServer + 'api/user/me', {headers})
+      .pipe(
+        map(
+          resp => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK && resp.data) {
+                account.name = resp.data.name;
+                for (const card of resp.data.cards) {
+                  if (card.default) {
+                    account.currentCard = card;
+                    break;
                   }
                 }
-              )
-            );
-        })
-      );
-  }
-
-  signUp(name: string, username: string, email: string, verifyCode: string, password: string) {
-    return this.http.post<any>(environment.apiServer + 'api/auth/signup', {name, username, email, verifyCode, password})
-      .pipe(
-        map(
-          resp => {
-            return resp;
-          }
-        )
-      );
-  }
-
-  signUpWithOAuth(token: string){
-    return this.http.post<any>(environment.apiServer + 'api/auth/signup/oauth2', {token})
-      .pipe(
-        map(
-          resp => {
-            return resp;
+                account.games = resp.data.games;
+              }
+              this.currentAccountValue = account;
+              return resp;
+            }
           }
         )
       );

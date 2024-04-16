@@ -1,8 +1,8 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first, take} from 'rxjs/operators';
-import {AuthenticationService} from '../../auth/authentication.service';
-import {MessageService} from '../../message.service';
+import {AuthenticationService} from '../auth/authentication.service';
+import {MessageService} from '../message.service';
 import {interval, Subscription} from 'rxjs';
 import {StatusCode} from 'src/app/status-code';
 import {TranslateService} from '@ngx-translate/core';
@@ -12,7 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './password-reset.component.html',
   styleUrls: ['./password-reset.component.css']
 })
-export class PasswordResetComponent implements OnDestroy {
+export class PasswordResetComponent  implements OnInit, OnDestroy {
 
   resetPasswordForm: FormGroup;
   getVerifyCodeForm: FormGroup;

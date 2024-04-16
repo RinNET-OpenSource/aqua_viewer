@@ -5,7 +5,7 @@ import {Account, AuthenticationService} from './auth/authentication.service';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {NavigationEnd, Router} from '@angular/router';
 import {PreloadService} from './database/preload.service';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, Subscription, filter, map} from 'rxjs';
 import {ApiService, LoadingState} from './api.service';
 import {ToastService} from './toast-service';
 import * as bootstrap from 'bootstrap';
@@ -30,6 +30,8 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   sidebarOffcanvas: bootstrap.Offcanvas;
   sidebarOffcanvasOpened = false;
   account: Account;
+
+  disableSidebar = false;
 
   loading$: Observable<boolean>;
   ongekiMenu: Menu[] = [
@@ -94,8 +96,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       show: false,
     }
   ];
-
-  mobileQuery: MediaQueryList;
 
   v2Menus: Menu[] = [
     {
@@ -177,8 +177,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private preLoad: PreloadService,
     private messageService: MessageService,
     public toastService: ToastService,
-    private translate: TranslateService,
-    private renderer: Renderer2,
     public languageService: LanguageService,
     public themeService: ThemeService,
     updates: SwUpdate,
@@ -196,6 +194,22 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
           updates.activateUpdate().then(() => document.location.reload());
         });
     }
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => {
+        let currentRoute = this.router.routerState.root;
+        while (currentRoute.firstChild) {
+          currentRoute = currentRoute.firstChild;
+        }
+        return currentRoute;
+      }),
+      filter(route => route.outlet === 'primary'),
+      map(route => route.snapshot),
+      map(snapshot => snapshot.data['disableSidebar'])
+    ).subscribe((disableSidebar) => {
+      this.disableSidebar = disableSidebar;
+    });
   }
 
   ngOnInit(): void {
@@ -283,6 +297,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   hideSidebar(){
     this.sidebarOffcanvas?.hide();
   }
+
   showSidebar(){
     if (!this.sidebarOffcanvas){
       const offcanvasElement = document.getElementById('sidebar');

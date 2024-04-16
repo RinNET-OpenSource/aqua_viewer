@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="card authorization-card col-12 mb-5">
+    <div class="pt-2 pt-lg-4 px-3 px-sm-5 mb-3">
+      <div class="mb-4">
+        <div class="fs-1 fw-bold">RinNET</div>
+        <div class="fs-5 fw-bold">{{'SignInPage.Title' | translate}}</div>
+      </div>
+      <div *ngIf="type && token" class="callout callout-info py-3" role="alert">
+        {{'SignInPage.BindTip' | translate: {type: oauth.tokenTypes.get(type)} }}
+      </div>
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <div class="d-grid gap-1 small fw-bold">
+          <div class="position-relative">
+            <label for="usernameOrEmail" class="form-label small">{{'SignInPage.UsernameOrEmail' | translate}}</label>
+            <input type="text" class="form-control form-control-sm" id="usernameOrEmail"
+                   formControlName="usernameOrEmail" placeholder=""
+                   [class.is-invalid]="usernameOrEmail.touched && !usernameOrEmail.valid && usernameOrEmail.errors">
+          </div>
+          <div class="position-relative">
+            <label for="password" class="form-label small">{{'SignInPage.Password' | translate}}</label>
+            <input type="password" class="form-control form-control-sm" id="password" formControlName="password"
+                   placeholder=""
+                   [class.is-invalid]="password.touched && !password.valid && password.errors">
+          </div>
+          <div class="text-end">
+            <button type="button" class="btn btn-link text-decoration-none btn-sm" routerLink="/password-reset">{{'SignInPage.ResetPasswordTip' | translate}}</button>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm mb-2" [class.disabled]="signInForm.disabled">
+            {{'SignInPage.SignIn' | translate}}
+          </button>
+          <div class="fw-normal d-flex align-items-center justify-content-center">
+            {{'SignInPage.SignUpTip' | translate}}
+            <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="navigateToSignUp()">{{'SignInPage.SignUp' | translate}}</button>
+          </div>
+          <ng-container *ngIf="!type || !token">
+            <div class="row justify-content-center align-items-center m-0 mb-2">
+              <hr class="col m-0">
+              <div class="col-auto">
+                {{'SignInPage.Or' | translate}}
+              </div>
+              <hr class="col m-0">
+            </div>
+            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('microsoft')">
+              <svg class="oauth-icon" viewBox="0 0 16 16">
+                <use href="assets/microsoft.svg#icon"/>
+              </svg>
+              {{'OAuth.ContinueWith' | translate: {type: 'Microsoft'} }}
+            </button>
+            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('github')">
+              <svg class="oauth-icon" viewBox="0 0 16 16">
+                <use href="assets/github.svg#icon"/>
+              </svg>
+              {{'OAuth.ContinueWith' | translate: {type: 'GitHub'} }}
+            </button>
+            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('gitlab')">
+              <svg class="oauth-icon" viewBox="0 -10 256 256">
+                <use href="assets/gitlab.svg#icon"/>
+              </svg>
+              {{'OAuth.ContinueWith' | translate: {type: 'GitLab'} }}
+            </button>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

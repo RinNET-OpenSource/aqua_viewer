@@ -35,13 +35,10 @@ import {
 
 import Aegis from 'aegis-web-sdk';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {SignUpComponent} from './home/sign-up/sign-up.component';
-import {LoginComponent} from './home/login/login.component';
 import {TokenInterceptorService} from './auth/token-interceptor.service';
 import {NgIconsModule} from '@ng-icons/core';
 import {HomeComponent} from './home/home.component';
 import {ToastsContainer} from './toasts-container.component';
-import {PasswordResetComponent} from './home/password-reset/password-reset.component';
 import {CardsComponent} from './cards/cards.component';
 import {
   bootstrapChevronDown,
@@ -59,7 +56,8 @@ import {
   bootstrapExclamationTriangleFill,
   bootstrapClipboard,
   bootstrapPlusSquareDotted,
-  bootstrapInfoCircleFill
+  bootstrapInfoCircleFill,
+  bootstrapGithub
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -71,6 +69,10 @@ import { LanguageService } from './language.service';
 import { lastValueFrom } from 'rxjs';
 import { KeychipComponent } from './keychip/keychip.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { OauthCallbackComponent } from './oauth-callback/oauth-callback.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -98,13 +100,14 @@ export function initializeApp(
     AppComponent,
     Maimai2UploadUserPortraitDialog,
     SignUpComponent,
-    LoginComponent,
     HomeComponent,
     PasswordResetComponent,
     CardsComponent,
     NotFoundComponent,
     ContributorsComponent,
-    KeychipComponent
+    KeychipComponent,
+    OauthCallbackComponent,
+    SignInComponent
    ],
   imports: [
     BrowserModule,
@@ -155,7 +158,8 @@ export function initializeApp(
       bootstrapExclamationTriangleFill,
       bootstrapClipboard,
       bootstrapPlusSquareDotted,
-      bootstrapInfoCircleFill
+      bootstrapInfoCircleFill,
+      bootstrapGithub
     }),
     TranslateModule.forRoot({
       loader: {

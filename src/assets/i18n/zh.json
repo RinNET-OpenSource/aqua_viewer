@@ -77,66 +77,7 @@
     "LimitedSupportDesc" : "在网站上没有相关内容",
     "Dashboard": "仪表板",
     "SignIn": "登录",
-    "SignUp": "注册",
     "Back": "返回",
-    "SignUpTip": "没有账号？",
-    "SignInTip": "已有账号？",
-    "SignInModal": {
-      "Title": "登录",
-      "UsernameOrEmail": "登录名或电子邮箱",
-      "Password": "密码",
-      "ResetPasswordTip": "忘记密码？",
-      "SignIn": "登录",
-      "SignInWithGithub": "使用Github登录",
-      "LoginFailedMessage": "用户名或密码错误。"
-    },
-    "SignUpModal": {
-      "Title": "注册RinNET账号",
-      "Nickname": "昵称",
-      "Username": "登录名",
-      "EmailAddress": "电子邮箱",
-      "VerificationCode": "验证码",
-      "Password": "密码",
-      "ConfirmPassword": "确认密码",
-      "SignUp": "注册",
-      "Check": "检查",
-      "Send": "发送",
-      "NicknameErrors": {
-        "Required": "必须填写昵称。",
-        "Minlength": "昵称至少包含4个字符。",
-        "Maxlength": "昵称不得超过40个字符。"
-      },
-      "UsernameErrors": {
-        "Required": "必须填写登录名",
-        "Minlength": "登录名至少包含3个字符。",
-        "Maxlength": "登录名不得超过15个字符。",
-        "Pattern": "只允许使用字母、数字和下划线。"
-      },
-      "EmailErrors": {
-        "Required": "必须填写电子邮箱。",
-        "Maxlength": "电子邮箱不得超过40个字符。",
-        "Email": "不是正确的电子邮箱。"
-      },
-      "VerificationCodeErrors": {
-        "Required": "必须填写验证码。",
-        "Length": "验证码必须是8个字符。"
-      },
-      "PasswordErrors": {
-        "Required": "必须填写密码。",
-        "Minlength": "密码至少包含8个字符。",
-        "Maxlength": "密码不得超过100个字符。",
-        "Confirm": "两次输入的密码不相同。"
-      },
-      "Messages": {
-        "SendCodeSuccess": "验证码发送成功。",
-        "SendCodeTooFast": "验证码发送过于频繁。",
-        "EmailAvailable": "邮箱没有被使用。",
-        "EmailInvailable": "邮箱已被使用。",
-        "UsernameAvailable": "用户名没有被使用。",
-        "UsernameAlreadyTaken": "用户名已被使用。",
-        "CodeIncorrect": "验证码错误。"
-      }
-    },
     "ResetPasswordModal": {
       "Title": "重设密码",
       "EmailAddress": "电子邮箱",
@@ -163,6 +104,68 @@
         "SendCodeTooFast": "验证码发送过于频繁。",
         "CodeIncorrect": "验证码错误。"
       }
+    }
+  },
+  "SignInPage": {
+    "Title": "登录",
+    "BindTip": "登录以绑定{{type}}账号",
+    "UsernameOrEmail": "登录名或电子邮箱",
+    "Password": "密码",
+    "ResetPasswordTip": "忘记密码？",
+    "SignIn": "登录",
+    "SignUpTip": "没有账号？",
+    "SignUp": "注册",
+    "Or": "或者",
+    "LoginFailedMessage": "用户名或密码错误。"
+  },
+  "SignUpPage": {
+    "Title": "注册账号",
+    "BindTip": "注册并绑定{{type}}账号",
+    "Nickname": "昵称",
+    "Username": "登录名",
+    "EmailAddress": "电子邮箱",
+    "VerificationCode": "验证码",
+    "Password": "密码",
+    "ConfirmPassword": "确认密码",
+    "SignInTip": "已有账号？",
+    "SignUp": "注册",
+    "SignIn": "登录",
+    "Check": "检查",
+    "Send": "发送",
+    "NicknameErrors": {
+      "Required": "必须填写昵称。",
+      "Minlength": "昵称至少包含4个字符。",
+      "Maxlength": "昵称不得超过40个字符。"
+    },
+    "UsernameErrors": {
+      "Required": "必须填写登录名",
+      "Minlength": "登录名至少包含3个字符。",
+      "Maxlength": "登录名不得超过15个字符。",
+      "Pattern": "只允许使用字母、数字和下划线。"
+    },
+    "EmailErrors": {
+      "Required": "必须填写电子邮箱。",
+      "Maxlength": "电子邮箱不得超过40个字符。",
+      "Email": "不是正确的电子邮箱。"
+    },
+    "VerificationCodeErrors": {
+      "Required": "必须填写验证码。",
+      "Length": "验证码必须是8个字符。"
+    },
+    "PasswordErrors": {
+      "Required": "必须填写密码。",
+      "Minlength": "密码至少包含8个字符。",
+      "Maxlength": "密码不得超过100个字符。",
+      "Confirm": "两次输入的密码不相同。"
+    },
+    "Messages": {
+      "SendCodeSuccess": "验证码发送成功。",
+      "SendCodeTooFast": "验证码发送过于频繁。",
+      "EmailAvailable": "邮箱没有被使用。",
+      "EmailInvailable": "邮箱已被使用。",
+      "UsernameAvailable": "用户名没有被使用。",
+      "UsernameAlreadyTaken": "用户名已被使用。",
+      "CodeIncorrect": "验证码错误。"
     }
   },
   "CardsPage": {
@@ -312,6 +315,7 @@
     "ThanksJetbrain": "使用<a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>开发，由Jetbrains提供<a href=\"https://jb.gg/OpenSourceSupport\">开源许可证</a>。"
   },
   "OAuth": {
+    "ContinueWith": "使用 {{type}} 继续",
     "Github": {
       "githubLogin": "GitHub登录",
       "githubLoginProcessing": "正在验证您的GitHub登录信息，请稍候...",

@@ -75,7 +75,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "aqua-viewer:build",
-            "disableHostCheck": true
+            "disableHostCheck": true,
+            "ssl": true,
+            "sslCert": "ssl/naominet.live.crt",
+            "sslKey": "ssl/naominet.live.key",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
