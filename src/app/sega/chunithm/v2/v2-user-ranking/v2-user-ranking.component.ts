@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {V2UserRanking} from '../model/V2UserRanking';
 import {ApiService} from '../../../../api.service';
 import {V2PcRanking} from '../model/V2PcRanking';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-v2-user-ranking',
@@ -13,6 +14,7 @@ export class V2UserRankingComponent implements OnInit {
   chusanUserRankings: V2UserRanking[] = [];
   chusanUserPcRankings: V2PcRanking[] = [];
   tabBarBoolControl = true;
+  host = environment.assetsHost;
 
   constructor(private api: ApiService) { }
 
