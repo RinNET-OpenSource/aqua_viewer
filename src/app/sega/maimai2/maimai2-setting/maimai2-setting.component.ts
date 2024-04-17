@@ -8,6 +8,7 @@ import {DisplayMaimai2Profile} from '../model/Maimai2Profile';
 import { Maimai2NameSettingDialog } from './maimai2-name-setting/maimai2-name-setting.dialog';
 import { Maimai2UploadUserPortraitDialog } from './maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
 import {environment} from '../../../../environments/environment';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-maimai2-setting',
@@ -24,14 +25,14 @@ export class Maimai2SettingComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     public dialog: MatDialog
   ) {
   }
 
   ngOnInit(): void {
-    this.aimeId = this.auth.currentAccountValue.currentCard.extId;
+    this.aimeId = this.userService.currentUser.defaultCard.extId;
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/maimai2/profile', param).subscribe(
@@ -66,7 +67,7 @@ export class Maimai2SettingComponent implements OnInit {
 
   openUploadUserPortraitDialog() {
     this.dialog.open(Maimai2UploadUserPortraitDialog, {
-      data: { aimeId: String(this.auth.currentAccountValue.currentCard.extId), divMaxLength: this.divMaxLength },
+      data: { aimeId: String(this.userService.currentUser.defaultCard.extId), divMaxLength: this.divMaxLength },
       width: "500px",
     });
   }

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../api.service';
-import {AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {environment} from '../../../../environments/environment';
@@ -13,6 +12,7 @@ import {AttributeType, Difficulty} from '../model/OngekiEnums';
 import {OngekiCard} from '../model/OngekiCard';
 import {OngekiCharacter} from '../model/OngekiCharacter';
 import {ActivatedRoute, Router} from '@angular/router';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-ongeki-recent',
@@ -37,7 +37,7 @@ export class OngekiRecentComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
     public route: ActivatedRoute,
@@ -46,7 +46,7 @@ export class OngekiRecentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.loading = true;
     this.route.queryParams.subscribe((data) => {
       if (data.page) {

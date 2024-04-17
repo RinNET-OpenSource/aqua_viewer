@@ -13,6 +13,7 @@ import { ChusanSystemVoice } from '../../model/ChusanSystemVoice';
 import { ChusanMapIcon } from '../../model/ChusanMapIcon';
 import { ChusanAvatarAcc } from '../../model/ChusanAvatarAcc';
 import {ChusanFrame} from '../../model/ChusanFrame';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'v2-userbox-setting-dialog',
@@ -32,7 +33,7 @@ export class V2UserBoxSettingDialog implements OnInit{
   constructor(
     private api: ApiService,
     private messageService: MessageService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private dbService: NgxIndexedDBService,
     public modalService: NgbModal,
     public activeModal: NgbActiveModal
@@ -45,7 +46,7 @@ export class V2UserBoxSettingDialog implements OnInit{
 
   ngOnInit() {
     // if (this.enableImages == true && this.data.itemKind != 2 && this.data.itemKind != 3) {this.dialogRef.updateSize('80%', '80%');}
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
 
     // Make all avatar accs available as there is no way to obtain them in game

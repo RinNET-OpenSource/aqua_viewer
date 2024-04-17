@@ -6,6 +6,7 @@ import {AuthenticationService} from '../../../../auth/authentication.service';
 import {MessageService} from '../../../../message.service';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
+import { UserService } from 'src/app/user.service';
 
 interface ISongData {
   musicId: number;
@@ -53,7 +54,7 @@ export class V2SongScoreRankingComponent {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     public messageService: MessageService,
     public offcanvasService: NgbOffcanvas,
   ) {
@@ -63,7 +64,7 @@ export class V2SongScoreRankingComponent {
     console.log(this.music);
     this.hasUltima = this.music.levels['4'].enable;
     const {musicId} = this.music;
-    this.api.get(`api/game/chuni/v2/song/${musicId}?aimeId=${String(this.auth.currentAccountValue.currentCard.extId)}`).subscribe(
+    this.api.get(`api/game/chuni/v2/song/${musicId}?aimeId=${String(this.userService.currentUser.defaultCard.extId)}`).subscribe(
       res => {
         const songData = {};
         for (const data of res) {

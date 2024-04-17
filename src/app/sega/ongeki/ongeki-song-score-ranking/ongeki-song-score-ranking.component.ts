@@ -6,6 +6,7 @@ import {environment} from '../../../../environments/environment';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
 import {AuthenticationService} from '../../../auth/authentication.service';
+import { UserService } from 'src/app/user.service';
 
 interface Ranking {
   level?: number;
@@ -53,7 +54,7 @@ export class OngekiSongScoreRankingComponent {
   @Input() public music: OngekiMusic;
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     public messageService: MessageService,
     public offcanvasService: NgbOffcanvas,
   ) {
@@ -61,7 +62,7 @@ export class OngekiSongScoreRankingComponent {
 
   ngOnInit() {
     const { id } = this.music;
-    this.api.get(`api/game/ongeki/song/${id}?aimeId=${String(this.auth.currentAccountValue.currentCard.extId)}`).subscribe(
+    this.api.get(`api/game/ongeki/song/${id}?aimeId=${String(this.userService.currentUser.defaultCard.extId)}`).subscribe(
       res => {
         const songData = {};
         for (const data of res) {

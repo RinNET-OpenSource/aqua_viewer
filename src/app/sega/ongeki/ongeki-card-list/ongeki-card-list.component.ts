@@ -10,6 +10,7 @@ import {OngekiCharacter} from '../model/OngekiCharacter';
 import {ActivatedRoute, Router} from '@angular/router';
 import {forkJoin, lastValueFrom} from 'rxjs';
 import {map, take} from 'rxjs/operators';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-ongeki-card-list',
@@ -27,7 +28,7 @@ export class OngekiCardListComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     public route: ActivatedRoute,
     private dbService: NgxIndexedDBService,
@@ -65,7 +66,7 @@ export class OngekiCardListComponent implements OnInit {
   }
 
   insertCard(cardId: number) {
-    const aimeId = this.auth.currentAccountValue.currentCard.extId;
+    const aimeId = this.userService.currentUser.defaultCard.extId;
     this.api.post('api/game/ongeki/card', {
       aimeId,
       cardId

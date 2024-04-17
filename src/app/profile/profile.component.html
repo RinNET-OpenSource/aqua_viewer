@@ -1,0 +1,38 @@
+<h1 class="page-heading">档案</h1>
+<h2 class="mb-3 mt-4">个人信息</h2>
+<div *ngIf="userService.currentUser" class="card">
+  <div class="card-body row g-2">
+    <div class="col-container col-12">
+      <div class="row col-content">
+          <div class="col-sm-auto"><span class="col-lead">昵称</span></div>
+          <div class="col col-value">{{userService.currentUser.name}}</div>
+      </div>
+      <a class="col-action" href="#">编辑昵称</a>
+    </div>
+    <div class="col-container col-12">
+      <div class="row col-content">
+        <div class="col-sm-auto"><span class="col-lead">电子邮箱</span></div>
+        <div class="col col-value">没返回</div>
+      </div>
+    </div>
+    <div class="col-container col-12">
+      <div class="row col-content">
+          <div class="col-sm-auto"><span class="col-lead">密码</span></div>
+          <div class="col col-value">********</div>
+      </div>
+      <a class="col-action" href="#">变更密码</a>
+    </div>
+  </div>
+</div>
+<h2 class="mb-3 mt-4">已关联的账户</h2>
+<div *ngIf="userService.currentUser" class="card">
+  <div class="card-body row g-2">
+    <div *ngFor="let oauth2 of userService.currentUser.oauth2s" class="col-container col-12">
+      <div class="row col-content">
+        <div class="col-sm-auto"><span class="col-lead">{{oAuthService.tokenTypes.get(oauth2.provider)}}</span></div>
+        <div class="col col-value">{{oauth2.email}}</div>
+      </div>
+      <a class="col-action" href="#">解除关联</a>
+    </div>
+  </div>
+</div>

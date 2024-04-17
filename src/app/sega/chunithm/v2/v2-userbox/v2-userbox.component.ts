@@ -14,6 +14,7 @@ import { ChusanNamePlate } from '../model/ChusanNamePlate';
 import { ChusanSystemVoice } from '../model/ChusanSystemVoice';
 import { ChusanMapIcon } from '../model/ChusanMapIcon';
 import { ChusanAvatarAcc } from '../model/ChusanAvatarAcc';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-v2-userbox',
@@ -42,7 +43,7 @@ export class V2UserBoxComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
     private modalService: NgbModal,
@@ -87,7 +88,7 @@ export class V2UserBoxComponent implements OnInit {
   }
 
   refreshProfile() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/chuni/v2/profile', param).subscribe(

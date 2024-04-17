@@ -4,6 +4,7 @@ import {ApiService} from '../../../../api.service';
 import {HttpParams} from '@angular/common/http';
 import {AuthenticationService} from '../../../../auth/authentication.service';
 import {environment} from '../../../../../environments/environment';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-v2-rating',
@@ -22,13 +23,13 @@ export class V2RatingComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService
   ) {
   }
 
   ngOnInit() {
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    const aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v2/rating', param).subscribe(
       data => {

@@ -4,6 +4,7 @@ import {V2Profile} from '../model/V2Profile';
 import {ApiService} from '../../../../api.service';
 import {AuthenticationService} from '../../../../auth/authentication.service';
 import {HttpParams} from '@angular/common/http';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-v2-profile',
@@ -16,10 +17,10 @@ export class V2ProfileComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
   ) {
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    const aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v2/profile', param).subscribe(
       data => {

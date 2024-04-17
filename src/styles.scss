@@ -183,14 +183,27 @@ pagination-template {
   --bd-callout-border: var(--bs-danger-border-subtle);
 }
 
-ng-icon{
-  display: inline-flex!important;
+ng-icon svg{
+  vertical-align:unset;
+}
+
+ng-icon svg{
+  display: flex;
   align-items: center;
-  padding: 1px;
 }
 
 .page-heading {
   margin-bottom: 1.5rem !important;
+}
+
+.page-heading::after {
+  width: 1.2em;
+  height: 4px;
+  content: "";
+  display: block;
+  margin-top: 9px;
+  border-radius: 2px;
+  background-color: var(--bs-yellow);
 }
 
 h1 {

@@ -11,6 +11,7 @@ import {PropertyEntry} from '../../../model/PropertyEntry';
 import {AttributeType, Difficulty} from '../model/OngekiEnums';
 import {OngekiCard} from '../model/OngekiCard';
 import {DisplayOngekiProfile} from '../model/OngekiProfile';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-ongeki-battle-point',
@@ -33,14 +34,14 @@ export class OngekiBattlePointComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
   ) {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/ongeki/profile', param).subscribe(
       data => this.profile = data,

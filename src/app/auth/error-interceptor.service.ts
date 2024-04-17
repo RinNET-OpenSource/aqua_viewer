@@ -2,23 +2,24 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {AuthenticationService} from './authentication.service';
+import {AccountService} from './account.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptorService implements HttpInterceptor {
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(
+    private accountService: AccountService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
       console.log(err);
       const error = err.error.message ? err.error.message : `${err.status} ${err.statusText}`;
-      if (err.status === 401 && this.authenticationService.currentAccountValue)
+      if (err.status === 401 && this.accountService.currentAccountValue)
       {
-        this.authenticationService.logout();
+        this.accountService.clear();
         location.reload();
       }
       return throwError(error);

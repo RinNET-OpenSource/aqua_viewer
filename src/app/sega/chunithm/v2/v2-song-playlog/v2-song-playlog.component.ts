@@ -8,6 +8,7 @@ import {AuthenticationService} from '../../../../auth/authentication.service';
 import {MessageService} from '../../../../message.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {ActivatedRoute} from '@angular/router';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-v2-song-playlog',
@@ -27,7 +28,7 @@ export class V2SongPlaylogComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
@@ -37,7 +38,7 @@ export class V2SongPlaylogComponent implements OnInit {
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.level = Number(this.route.snapshot.paramMap.get('level'));
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    const aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/chuni/v2/song/' + this.id + '/' + this.level, param).subscribe(
       data => {

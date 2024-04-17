@@ -30,10 +30,10 @@
           <h2 class="lead text-secondary">{{'HomePage.Description' | translate}}</h2>
         </div>
         <div class="text-center text-sm-start mb-3">
-          <button *ngIf="authenticationService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto" routerLink="/dashboard">
+          <button *ngIf="accountService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto" routerLink="/dashboard">
             {{'HomePage.Dashboard' | translate}}
           </button>
-          <button *ngIf="!authenticationService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto" routerLink="/sign-in">{{'HomePage.SignIn' | translate}}
+          <button *ngIf="!accountService.currentAccountValue" class="btn btn-primary col-12 col-sm-auto" routerLink="/sign-in">{{'HomePage.SignIn' | translate}}
           </button>
         </div>
       </div>

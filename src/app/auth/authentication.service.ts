@@ -1,29 +1,21 @@
-import {BehaviorSubject, from, mergeMap, of} from 'rxjs';
+import {mergeMap, of} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {StatusCode} from '../status-code';
-import {Card} from '../cards/cards.component';
+import {UserService} from '../user.service';
+import {Account, AccountService} from './account.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentAccountSubject: BehaviorSubject<Account>;
-
   constructor(
-    private http: HttpClient) {
-    this.currentAccountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('currentAccount')));
-  }
-
-  public get currentAccountValue(): Account {
-    return this.currentAccountSubject.value;
-  }
-
-  public set currentAccountValue(account: Account) {
-    localStorage.setItem('currentAccount', JSON.stringify(account));
-    this.currentAccountSubject.next(account);
+    private accountService: AccountService,
+    private http: HttpClient,
+    private userService: UserService
+) {
   }
 
   login(usernameOrEmail: string, password: string, token: string) {
@@ -32,18 +24,24 @@ export class AuthenticationService {
       params.oAuth2Token = token;
     }
     return this.http.post<any>(environment.apiServer + 'api/auth/signin', params)
-      .pipe(
-        map(
-          resp => {
-            return resp;
-          }
-        ),
-        mergeMap(this.procLoginResp));
+    .pipe(
+      map(
+        resp => {
+          return resp;
+        }
+      ),
+      mergeMap(this.procLoginResp));
   }
 
   loginWithOAuth(oauthCode: string, type: string) {
     return this.http.post<any>(`${environment.apiServer}api/auth/signin/oauth2/${oauthCode}/${type}`, null)
-      .pipe(mergeMap(this.procLoginResp));
+    .pipe(
+      map(
+        resp => {
+          return resp;
+        }
+      ),
+      mergeMap(this.procLoginResp));
   }
 
   signUp(name: string, username: string, email: string, verifyCode: string, password: string, token: string) {
@@ -52,13 +50,13 @@ export class AuthenticationService {
       params.oAuth2Token = token;
     }
     return this.http.post<any>(environment.apiServer + 'api/auth/signup', params)
-      .pipe(
-        map(
-          resp => {
-            return resp;
-          }
-        ),
-        mergeMap(this.procLoginResp));
+    .pipe(
+      map(
+        resp => {
+          return resp;
+        }
+      ),
+      mergeMap(this.procLoginResp));
   }
 
   procLoginResp = (loginResp) =>{
@@ -67,29 +65,12 @@ export class AuthenticationService {
       return of(loginResp);
     }
     const account: Account = loginResp.data;
-    const headers = {Authorization: `${loginResp.data.tokenType} ${loginResp.data.accessToken}`};
-    return this.http.get<any>(environment.apiServer + 'api/user/me', {headers})
-      .pipe(
-        map(
-          resp => {
-            if (resp?.status) {
-              const statusCode: StatusCode = resp.status.code;
-              if (statusCode === StatusCode.OK && resp.data) {
-                account.name = resp.data.name;
-                for (const card of resp.data.cards) {
-                  if (card.default) {
-                    account.currentCard = card;
-                    break;
-                  }
-                }
-                account.games = resp.data.games;
-              }
-              this.currentAccountValue = account;
-              return resp;
-            }
-          }
-        )
-      );
+    return this.userService.load().then(
+      resp =>{
+        this.accountService.currentAccountValue = account;
+        return resp;
+      }
+    );
   }
 
   resetPassword(emailAddress: string, verifyCode: string, password: string) {
@@ -148,16 +129,8 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('currentAccount');
-    this.currentAccountSubject.next(null);
+    this.accountService.clear();
   }
 
 }
 
-export class Account {
-  name: string;
-  tokenType: string;
-  accessToken: string;
-  currentCard: Card;
-  games: string[];
-}

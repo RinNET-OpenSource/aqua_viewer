@@ -11,6 +11,7 @@ import {map, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-score-ranking.component';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-v2-recent',
@@ -32,7 +33,7 @@ export class V2RecentComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
     private offcanvasService: NgbOffcanvas,
@@ -40,7 +41,7 @@ export class V2RecentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.load(this.currentPage);
   }
 

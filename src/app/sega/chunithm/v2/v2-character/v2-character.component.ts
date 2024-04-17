@@ -11,6 +11,7 @@ import {V2Character} from '../model/V2Character';
 import {ChusanCharacter} from '../model/ChusanCharacter';
 import {environment} from '../../../../../environments/environment';
 import {Router} from '@angular/router';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-v2-character',
@@ -34,12 +35,12 @@ export class V2CharacterComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
     public router: Router
   ) {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.getEquippedCharaName();
   }
 

@@ -5,6 +5,7 @@ import {ApiService} from '../../../api.service';
 import {AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-ongeki-card-gacha',
@@ -25,7 +26,7 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
   ) {
   }
 
@@ -42,7 +43,7 @@ export class OngekiCardGachaComponent implements OnInit, AfterViewInit {
     this.submitSuccessful = 0;
 
     const requestData: GachaRequest = {
-      aimeId: this.auth.currentAccountValue.currentCard.extId.toString(),
+      aimeId: this.userService.currentUser.defaultCard.extId.toString(),
       count,
     };
     this.api.post('api/game/ongeki/gacha', requestData).subscribe(res => {

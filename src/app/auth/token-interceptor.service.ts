@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -6,20 +6,22 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthenticationService} from './authentication.service';
 import {environment} from 'src/environments/environment';
+import {AccountService} from './account.service';
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
-  constructor(public auth: AuthenticationService) {}
+  constructor(
+    private accountService: AccountService) {
+    }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (
       request.url.startsWith(environment.apiServer) &&
-      this.auth.currentAccountValue &&
-      this.auth.currentAccountValue.tokenType &&
-      this.auth.currentAccountValue.accessToken){
+      this.accountService.currentAccountValue &&
+      this.accountService.currentAccountValue.tokenType &&
+      this.accountService.currentAccountValue.accessToken){
       request = request.clone({
         setHeaders: {
-          Authorization: `${this.auth.currentAccountValue.tokenType} ${this.auth.currentAccountValue.accessToken}`
+          Authorization: `${this.accountService.currentAccountValue.tokenType} ${this.accountService.currentAccountValue.accessToken}`
         }
       });
     }

@@ -2,18 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {PreloadService} from '../database/preload.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {environment} from '../../environments/environment';
-import {map} from 'rxjs/operators';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs';
 import {MessageService} from '../message.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Account, AuthenticationService} from '../auth/authentication.service';
-import {HttpParams} from '@angular/common/http';
+import {AuthenticationService} from '../auth/authentication.service';
 import {StatusCode} from '../status-code';
 import {Router} from '@angular/router';
-import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
-import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
 import {AnnouncementComponent} from './announcement/announcement.component';
 
 @Component({

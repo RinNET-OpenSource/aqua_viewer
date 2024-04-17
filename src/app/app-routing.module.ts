@@ -13,9 +13,11 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginGuardService } from './auth/login-guard.service';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: { disableSidebar: true }},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   {path: 'cards', component: CardsComponent, canActivate: [AuthGuardService]},
   {path: 'keychip', component: KeychipComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},

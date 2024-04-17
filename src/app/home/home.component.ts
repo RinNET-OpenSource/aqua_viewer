@@ -5,6 +5,7 @@ import {AuthenticationService} from '../auth/authentication.service';
 import {environment} from '../../environments/environment';
 import {StatusCode} from '../status-code';
 import {TranslateService} from '@ngx-translate/core';
+import { AccountService } from '../auth/account.service';
 
 @Component({
   selector: 'app-home',
@@ -105,6 +106,7 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor(public messageService: MessageService,
+              public accountService: AccountService,
               public authenticationService: AuthenticationService,
               private renderer: Renderer2,
               private translate: TranslateService) {

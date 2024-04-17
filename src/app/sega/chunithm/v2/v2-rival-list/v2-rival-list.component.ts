@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../../../auth/authentication.service';
 import {MessageService} from '../../../../message.service';
 import {HttpParams} from '@angular/common/http';
 import {StatusCode} from '../../../../status-code';
+import { UserService } from 'src/app/user.service';
 
 enum V2RivalAPI {
   Rival = 'api/game/chuni/v2/rival',
@@ -33,13 +34,13 @@ export class V2RivalListComponent {
   constructor(
     private api: ApiService,
     private modalService: NgbModal,
-    protected auth: AuthenticationService,
+    protected userService: UserService,
     private messageService: MessageService,
   ) {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', this.aimeId);
 
     this.api.get(V2RivalAPI.Friend, param).subscribe(

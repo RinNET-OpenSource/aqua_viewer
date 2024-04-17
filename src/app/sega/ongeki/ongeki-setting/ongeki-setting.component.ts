@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../api.service';
-import {Account, AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {MatDialog} from '@angular/material/dialog';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
@@ -8,6 +7,8 @@ import {DisplayOngekiProfile} from '../model/OngekiProfile';
 import {environment} from '../../../../environments/environment';
 import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {OngekiNameSettingComponent} from './ongeki-name-setting/ongeki-name-setting.component';
+import {UserService} from 'src/app/user.service';
+import {AccountService} from 'src/app/auth/account.service';
 
 @Component({
   selector: 'app-ongeki-setting',
@@ -27,17 +28,17 @@ export class OngekiSettingComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private modalService: NgbModal,
     public dialog: MatDialog,
     private http: HttpClient,
-    private authenticationService: AuthenticationService
+    private accountService: AccountService
   ) {
   }
 
   ngOnInit(): void {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/ongeki/profile', param).subscribe(
@@ -50,7 +51,7 @@ export class OngekiSettingComponent implements OnInit {
 
   downloadFile(): void {
     const url = this.apiServer + 'api/game/ongeki/export?aimeId=' + this.aimeId;
-    const headers = {Authorization: `Bearer ${this.authenticationService.currentAccountValue.accessToken}`};
+    const headers = {Authorization: `Bearer ${this.accountService.currentAccountValue.accessToken}`};
     this.http.get(url, {headers, responseType: 'blob'}).subscribe(blob => {
       const objectUrl = window.URL.createObjectURL(blob);
 

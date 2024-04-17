@@ -8,6 +8,7 @@ import { MessageService } from '../../../message.service';
 import { environment } from '../../../../environments/environment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {StatusCode} from '../../../status-code';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-ongeki-rival-list',
@@ -28,7 +29,7 @@ export class OngekiRivalListComponent implements OnInit {
     private dbService: NgxIndexedDBService,
     private api: ApiService,
     private modalService: NgbModal,
-    protected auth: AuthenticationService,
+    protected userService: UserService,
     private messageService: MessageService,
   ) {
   }
@@ -43,7 +44,7 @@ export class OngekiRivalListComponent implements OnInit {
       }
     );
 
-    this.api.get(`api/game/ongeki/rival/${10000000 + this.auth.currentAccountValue.currentCard.id}`).subscribe(
+    this.api.get(`api/game/ongeki/rival/${10000000 + this.userService.currentUser.defaultCard.id}`).subscribe(
       (data: OngekiRival) => {
         this.myProfile = data;
         this.loadingProfile = false;

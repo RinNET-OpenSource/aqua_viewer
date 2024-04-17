@@ -73,6 +73,7 @@ import { OauthCallbackComponent } from './oauth-callback/oauth-callback.componen
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -107,7 +108,8 @@ export function initializeApp(
     ContributorsComponent,
     KeychipComponent,
     OauthCallbackComponent,
-    SignInComponent
+    SignInComponent,
+    ProfileComponent
    ],
   imports: [
     BrowserModule,

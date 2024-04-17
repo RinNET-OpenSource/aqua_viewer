@@ -1,6 +1,6 @@
 <h1 class="page-heading">{{'CardsPage.Title' | translate}}</h1>
-<div>
-  <div *ngFor="let card of this.cards" class="card mt-3">
+<div *ngIf="userService?.currentUser">
+  <div *ngFor="let card of userService.currentUser.cards" class="card mt-3">
     <div class="card-header d-flex align-items-center justify-content-between">
       <div class="float-start">
           No.{{card.id}}
@@ -33,13 +33,13 @@
       </div>
       <div class="mb-3 hstack">
         <div class="font-monospace">
-          {{card.luid.displayValue}}
+          {{luids.get(card.luid).displayValue}}
         </div>
-        <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="toggleLuidVisibility(card.luid)">
-          <ng-icon *ngIf="card.luid.hidden" name="bootstrap-eye"></ng-icon>
-          <ng-icon *ngIf="!card.luid.hidden" name="bootstrap-eye-slash"></ng-icon>
+        <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="toggleLuidVisibility(luids.get(card.luid))">
+          <ng-icon *ngIf="luids.get(card.luid).hidden" name="bootstrap-eye"></ng-icon>
+          <ng-icon *ngIf="!luids.get(card.luid).hidden" name="bootstrap-eye-slash"></ng-icon>
         </div>
-        <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="changeAccessCodeForm.setValue({accessCode: card.luid.full});open(changeAccesscode)">
+        <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="changeAccessCodeForm.setValue({accessCode: card.luid});open(changeAccesscode)">
           <ng-icon name="bootstrap-pencil-square"></ng-icon>
         </div>
         <ng-template #changeAccesscode let-modal>
@@ -66,11 +66,11 @@
 
       <div *ngFor="let item of card.cardExternalList" class="mb-3 hstack">
         <div class="font-monospace align-middle">
-          {{item.luid.displayValue}}
+          {{luids.get(item.luid).displayValue}}
         </div>
-        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="toggleLuidVisibility(item.luid)">
-          <ng-icon *ngIf="item.luid.hidden" name="bootstrap-eye"></ng-icon>
-          <ng-icon *ngIf="!item.luid.hidden" name="bootstrap-eye-slash"></ng-icon>
+        <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="toggleLuidVisibility(luids.get(item.luid))">
+          <ng-icon *ngIf="luids.get(item.luid).hidden" name="bootstrap-eye"></ng-icon>
+          <ng-icon *ngIf="!luids.get(item.luid).hidden" name="bootstrap-eye-slash"></ng-icon>
         </div>
         <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="open(removeExternal)">
           <ng-icon name="bootstrap-trash"></ng-icon>
@@ -97,8 +97,8 @@
     </div>
     <div class="card-footer">
       <button class="btn btn-link p-0"
-              [class.disabled]="card.extId == authenticationService.currentAccountValue.currentCard.extId"
-              [class.link-secondary]="card.extId == authenticationService.currentAccountValue.currentCard.extId"
+              [class.disabled]="card.default"
+              [class.link-secondary]="card.default"
               (click)="setDefault(card)">{{'CardsPage.SetDefault' | translate}}
       </button>
     </div>

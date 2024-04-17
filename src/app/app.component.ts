@@ -1,20 +1,19 @@
-import { ThemeService } from './theme.service';
-import { LanguageService } from './language.service';
-import {ChangeDetectorRef, Component, HostListener, Inject, OnChanges, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {Account, AuthenticationService} from './auth/authentication.service';
-import {MediaMatcher} from '@angular/cdk/layout';
+import {ThemeService} from './theme.service';
+import {LanguageService} from './language.service';
+import {Component, HostListener, Inject, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {AuthenticationService} from './auth/authentication.service';
 import {NavigationEnd, Router} from '@angular/router';
 import {PreloadService} from './database/preload.service';
-import {Observable, Subscription, filter, map} from 'rxjs';
-import {ApiService, LoadingState} from './api.service';
+import {Observable, filter, map} from 'rxjs';
+import {ApiService} from './api.service';
 import {ToastService} from './toast-service';
 import * as bootstrap from 'bootstrap';
 import {MessageService} from './message.service';
 import {environment} from '../environments/environment';
-import {StatusCode} from './status-code';
-import { TranslateService } from '@ngx-translate/core';
-import { DOCUMENT } from '@angular/common';
-import { SwUpdate } from '@angular/service-worker';
+import {DOCUMENT} from '@angular/common';
+import {SwUpdate} from '@angular/service-worker';
+import {UserService} from './user.service';
+import {Account, AccountService} from './auth/account.service';
 
 @Component({
   selector: 'app-root',
@@ -171,14 +170,16 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
 
   constructor(
-    public authenticationService: AuthenticationService,
+    protected authenticationService: AuthenticationService,
+    private accountService: AccountService,
+    protected userService: UserService,
     protected router: Router,
     private api: ApiService,
     private preLoad: PreloadService,
     private messageService: MessageService,
-    public toastService: ToastService,
-    public languageService: LanguageService,
-    public themeService: ThemeService,
+    protected toastService: ToastService,
+    protected languageService: LanguageService,
+    protected themeService: ThemeService,
     updates: SwUpdate,
     @Inject(DOCUMENT) private document: Document,
   ) {
@@ -217,7 +218,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private initializeApp() {
-    this.account = this.authenticationService.currentAccountValue;
+    this.account = this.accountService.currentAccountValue;
     if (this.account !== null) {
       this.preLoad.checkDbUpdate();
       this.loadUser();
@@ -226,38 +227,13 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadUser() {
-    this.api.get('api/user/me').subscribe(
-      resp => {
-        if (resp?.status) {
-          const statusCode: StatusCode = resp.status.code;
-          if (statusCode === StatusCode.OK && resp.data) {
-            this.authenticationService.currentAccountValue.name = resp.data.name;
-            let hasDefault = false;
-            for (const card of resp.data.cards) {
-              if (card.default) {
-                this.authenticationService.currentAccountValue.currentCard = card;
-                hasDefault = true;
-              }
-            }
-            if (!hasDefault){
-              this.authenticationService.currentAccountValue.currentCard = null;
-            }
-            this.authenticationService.currentAccountValue.games = resp.data.games;
-            this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
-            this.refreshMenus();
-          }
-          else{
-            this.messageService.notice(resp.status.message);
-          }
-        }
-      },
-      error => {
-        this.messageService.notice(error);
-      });
+    this.userService.load().then(resp => {
+      this.refreshMenus();
+    });
   }
 
   ngOnChanges(): void {
-    this.account = this.authenticationService.currentAccountValue;
+    this.account = this.accountService.currentAccountValue;
   }
 
   ngOnDestroy(): void {
@@ -276,9 +252,11 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     map.forEach((menu, _) => {
       menu.forEach(m => m.show = false);
     });
-    this.authenticationService.currentAccountValue.games.forEach(game => {
-      map.get(game).forEach(menu => menu.show = true);
-    });
+    if(this.userService?.currentUser){
+      this.userService.currentUser.games.forEach(game => {
+        map.get(game).forEach(menu => menu.show = true);
+      });
+    }
   }
   logout() {
     this.authenticationService.logout();

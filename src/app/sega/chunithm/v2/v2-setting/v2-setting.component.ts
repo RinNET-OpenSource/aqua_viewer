@@ -1,3 +1,4 @@
+import {AccountService} from 'src/app/auth/account.service';
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../../api.service';
@@ -8,6 +9,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {V2NameSettingDialog} from './v2-name-setting/v2-name-setting.dialog';
 import {V2VersionSettingDialog} from './v2-version-setting/v2-version-setting.dialog';
 import {environment} from '../../../../../environments/environment';
+import {UserService} from 'src/app/user.service';
 
 @Component({
   selector: 'app-v2-setting',
@@ -27,15 +29,16 @@ export class V2SettingComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private accountService: AccountService,
     private messageService: MessageService,
     private modalService: NgbModal,
     private http: HttpClient,
+    private userService: UserService,
     private renderer: Renderer2
   ) { }
 
   ngOnInit() {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.apiServer = environment.apiServer;
     const param = new HttpParams().set('aimeId', this.aimeId);
     this.api.get('api/game/chuni/v2/profile', param).subscribe(
@@ -98,7 +101,7 @@ export class V2SettingComponent implements OnInit {
 
   downloadFile() {
     const url = this.apiServer + 'api/game/chuni/v2/export?aimeId=' + this.aimeId;
-    const headers = { Authorization: `Bearer ${this.auth.currentAccountValue.accessToken}` };
+    const headers = { Authorization: `Bearer ${this.accountService.currentAccountValue.accessToken}` };
     this.http.get(url, { headers, responseType: 'blob' }).subscribe(blob => {
       const objUrl = window.URL.createObjectURL(blob);
       const a = document.createElement('a');

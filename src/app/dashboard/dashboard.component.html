@@ -22,7 +22,7 @@
     </div>
     <ng-container *ngIf="!loadingKeychip && !loadingTrustedKeychip && !hasKeychip && !hasTrustedKeychip">
       <div class="hstack alert alert-danger" role="alert">
-        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill" size="1em"></ng-icon>
         <div>{{'DashboardPage.NoKeychipMessage' | translate}}<a routerLink="/keychip">{{'DashboardPage.GoToKeychipPage' | translate}}</a></div>
       </div>
     </ng-container>

@@ -2,11 +2,11 @@
   <div class="flex-grow-1">
     <nav ngbNav #nav="ngbNav" class="app-navbar navbar navbar-expand-lg position-fixed shadow w-100">
       <div class="container-xxl">
-        <button [class.v-hidden]="disableSidebar || !account" (click)="showSidebar()" class="navbar-toggler"
-                style="--bs-navbar-toggler-focus-width: 0; --bs-navbar-toggler-border-color: transparent;font-size: 1.2rem;"
+        <button [class.v-hidden]="disableSidebar || !account" (click)="showSidebar()"
+                class="btn btn-icon d-flex align-items-center"
                 type="button">
 
-          <ng-icon name="bootstrap-list"></ng-icon>
+          <ng-icon name="bootstrap-list" size="1.4rem"></ng-icon>
         </button>
         <a class="navbar-brand sm-center" routerLink="">
           <img src="{{host}}assets/turtle.svg" alt="turtle" width="30" height="24"
@@ -15,8 +15,9 @@
         </a>
         <ng-template #userPopContent>
           <div class="user-popover vstack">
-            <label class="text-start mx-2 h5">{{authenticationService.currentAccountValue.name}}</label>
+            <label class="text-start mx-2 h5">{{userService.currentUser.name}}</label>
             <hr class="my-2 border">
+            <a class="link-btn rounded mb-2" [class.active]="isActive('/profile')" routerLink="/profile">{{'App.UserPopup.Profile' | translate}}</a>
             <a class="link-btn rounded mb-2" [class.active]="isActive('/cards')" routerLink="/cards">{{'App.UserPopup.MyCards' | translate}}</a>
             <a class="link-btn rounded mb-2" [class.active]="isActive('/keychip')" routerLink="/keychip">{{'App.UserPopup.Keychip' | translate}}</a>
             <a class="link-btn link-btn-danger rounded" (click)="logout()">{{'App.UserPopup.SignOut' | translate}}</a>
@@ -25,13 +26,12 @@
 
         <div class="hstack gap-1">
           <button *ngIf="account"
-                  class="btn btn-icon py-0 d-flex align-items-center"
-                  style="font-size: 1.4rem;"
+                  class="btn btn-icon d-flex align-items-center"
                   container="body"
                   placement="bottom-right"
                   [ngbPopover]="userPopContent"
                   type="button">
-            <ng-icon name="bootstrap-person"></ng-icon>
+            <ng-icon name="bootstrap-person" size="1.4rem"></ng-icon>
           </button>
         </div>
       </div>

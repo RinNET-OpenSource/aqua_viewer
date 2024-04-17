@@ -15,6 +15,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ArrayUtils} from 'src/app/util/array-utils';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-ongeki-card',
@@ -112,7 +113,7 @@ export class OngekiCardComponent implements OnInit {
   constructor(
     private api: ApiService,
     public route: ActivatedRoute,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
     public router: Router,
@@ -260,7 +261,7 @@ export class OngekiCardComponent implements OnInit {
   }
 
   load(page: number) {
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    const aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', aimeId).set('page', String(page - 1)).set('size', 12);
     this.cardList = this.api.get('api/game/ongeki/card', param).pipe(
       tap(
@@ -296,7 +297,7 @@ export class OngekiCardComponent implements OnInit {
   }
 
   kaika(cardId: number, type: string) {
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    const aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.post('api/game/ongeki/card/' + cardId + '/' + type, param).subscribe(
       data => {

@@ -7,6 +7,7 @@ import { DisplayOngekiProfile } from '../model/OngekiProfile';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import {environment} from '../../../../environments/environment';
 import {OngekiTrophy} from '../model/OngekiTrophy';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-ongeki-profile',
@@ -22,15 +23,15 @@ export class OngekiProfileComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
   ) {
-    this.aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
   }
 
   ngOnInit() {
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    const aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/ongeki/profile', param).subscribe(
       data => {

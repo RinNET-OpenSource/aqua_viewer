@@ -6,6 +6,7 @@ import {AuthenticationService} from '../auth/authentication.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Time} from '@angular/common';
 import {StatusCode} from '../status-code';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-cards',
@@ -16,16 +17,16 @@ export class CardsComponent implements OnInit {
   bindCardForm: FormGroup;
   addAccessCodeForm: FormGroup;
   changeAccessCodeForm: FormGroup;
-  cards: Card[];
+  luids = new Map();
   loaded = false;
 
   constructor(
     private fb: FormBuilder,
+    protected userService: UserService,
     private messageService: MessageService,
     private api: ApiService,
     private modalService: NgbModal,
     public authenticationService: AuthenticationService) {
-    this.cards = [];
   }
 
   ngOnInit() {
@@ -44,38 +45,17 @@ export class CardsComponent implements OnInit {
   }
 
   loadCards() {
-    this.api.get('api/user/me').subscribe(
-      resp => {
-        if (resp?.status) {
-          const statusCode: StatusCode = resp.status.code;
-          if (statusCode === StatusCode.OK && resp.data) {
-            const data = resp.data;
-            this.authenticationService.currentAccountValue.name = data.name;
-            this.cards = data.cards.map(card => {
-              card.luid = new Luid(card.luid);
-              card.cardExternalList = card.cardExternalList.map(cardExt => {
-                cardExt.luid = new Luid(cardExt.luid);
-                return cardExt;
-              });
-              if (card.default) {
-                this.authenticationService.currentAccountValue.currentCard = card;
-              }
-              return card;
-            });
-            this.authenticationService.currentAccountValue.games = resp.data.games;
-            this.authenticationService.currentAccountValue = this.authenticationService.currentAccountValue;
-          } else {
-            this.messageService.notice(resp.status.message);
-          }
-        } else {
-          this.messageService.notice('Load cards failed.');
-        }
-        this.loaded = true;
-      },
-      error => {
-        this.messageService.notice(error);
-      }
-    );
+    this.loaded = false;
+    this.userService.load().then(resp => {
+      const user = this.userService.currentUser;
+      user.cards.forEach(card => {
+        this.luids.set(card.luid, new Luid(card.luid));
+        card.cardExternalList.forEach(cardExt => {
+          this.luids.set(cardExt.luid, new Luid(cardExt.luid));
+        });
+      });
+      this.loaded = true;
+    })
   }
 
   toggleLuidVisibility(luid: Luid) {
@@ -109,7 +89,7 @@ export class CardsComponent implements OnInit {
   }
 
   onRemoveExternal(external: CardExternal, modal) {
-    const accessCode = external.luid.full;
+    const accessCode = external.luid;
     const body = {accessCode};
     this.api.delete('api/user/removeCardExternal', null, body).subscribe(
       resp => {
@@ -222,7 +202,7 @@ export class CardsComponent implements OnInit {
   }
 
   onUnbindCard(card: Card, modal) {
-    const accessCode = card.luid.full;
+    const accessCode = card.luid;
     const params = {accessCode};
     this.api.post('api/user/unbindCard/', params).subscribe(
       resp => {

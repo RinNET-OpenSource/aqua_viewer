@@ -6,6 +6,7 @@ import {HttpParams} from '@angular/common/http';
 import {DisplayMaimai2Profile} from '../model/Maimai2Profile';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {UdemaeName, ClassName} from '../model/Maimai2Enums';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-maimai2-profile',
@@ -20,14 +21,14 @@ export class Maimai2ProfileComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private auth: AuthenticationService,
+    private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService
   ) {
   }
 
   ngOnInit() {
-    const aimeId = String(this.auth.currentAccountValue.currentCard.extId);
+    const aimeId = String(this.userService.currentUser.defaultCard.extId);
     const param = new HttpParams().set('aimeId', aimeId);
     this.api.get('api/game/maimai2/profile', param).subscribe(
       data => {

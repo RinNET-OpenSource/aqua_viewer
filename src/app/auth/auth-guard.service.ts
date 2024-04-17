@@ -1,4 +1,4 @@
-import {AuthenticationService} from './authentication.service';
+import {AccountService} from 'src/app/auth/account.service';
 import {Injectable} from '@angular/core';
 import {CanLoad, CanActivate, ActivatedRouteSnapshot, Router, RouterStateSnapshot, Route} from '@angular/router';
 
@@ -9,12 +9,12 @@ export class AuthGuardService implements CanLoad, CanActivate {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private accountService: AccountService
   ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const currentUser = this.authenticationService.currentAccountValue;
+    const currentUser = this.accountService.currentAccountValue;
     if (currentUser) {
       return true;
     }
@@ -24,7 +24,7 @@ export class AuthGuardService implements CanLoad, CanActivate {
   }
 
   canLoad(route: Route) {
-    const currentUser = this.authenticationService.currentAccountValue;
+    const currentUser = this.accountService.currentAccountValue;
     if (currentUser) {
       return true;
     }
