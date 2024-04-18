@@ -80,10 +80,11 @@ export class UserService {
   }
 }
 
-interface User {
+export interface User {
   id: number;
   username: string;
   name: string;
+  email: string;
   roles: Role[];
   cards: Card[];
   defaultCard: Card;
@@ -93,12 +94,12 @@ interface User {
   oauth2s: OAuth2[];
 }
 
-interface Role {
+export interface Role {
   id: number;
   name: string;
 }
 
-interface Card {
+export interface Card {
   id: number;
   extId: number;
   luid: string;
@@ -108,12 +109,12 @@ interface Card {
   default: boolean;
 }
 
-interface CardExternal {
+export interface CardExternal {
   id: number;
   luid: string;
 }
 
-interface Keychip {
+export interface Keychip {
   id: number;
   keychipId: string;
   placeName: string;
@@ -121,18 +122,18 @@ interface Keychip {
   user: SimpleUser;
 }
 
-interface SimpleUser {
+export interface SimpleUser {
   id: number;
   name: string;
 }
 
-interface UserTrustKeychip {
+export interface UserTrustKeychip {
   id: number;
   userId: number;
   keychip: KeychipDetail;
 }
 
-interface KeychipDetail {
+export interface KeychipDetail {
   id: number;
   keychipId: string;
   placeName: string;
@@ -140,7 +141,7 @@ interface KeychipDetail {
   user: SimpleUser;
 }
 
-interface OAuth2 {
+export interface OAuth2 {
   id: number;
   provider: string;
   email: string;

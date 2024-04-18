@@ -6,6 +6,8 @@ import {MessageService} from '../message.service';
 import {interval, Subscription} from 'rxjs';
 import {StatusCode} from 'src/app/status-code';
 import {TranslateService} from '@ngx-translate/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {OAuthService} from '../auth/oauth.service';
 
 @Component({
   selector: 'app-password-reset',
@@ -19,12 +21,17 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
   isButtonDisabled = false;
   remainingTime = 0;
   private timerSubscription!: Subscription;
+  token: string;
+  type: string;
 
   constructor(
+    private route: ActivatedRoute,
     private fb: FormBuilder,
+    public router: Router,
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    protected oauth: OAuthService) {
   }
 
   ngOnInit(): void {
@@ -47,6 +54,14 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
         Validators.required,
         Validators.email,
         Validators.maxLength(40)]]
+    });
+
+    this.route.queryParams.subscribe(params => {
+      if(this.oauth.tokenTypes.has(params.type) && params['token'].length ==32){
+        this.token = params['token'];
+        this.type = params["type"];
+      }
+      this.email.setValue(params["email"]);
     });
   }
 
@@ -83,13 +98,13 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
             if (resp?.status) {
               const statusCode: StatusCode = resp.status.code;
               if (statusCode === StatusCode.OK){
-                this.translate.get("HomePage.ResetPasswordModal.Messages.SendCodeSuccess").subscribe((res: string) => {
+                this.translate.get("ResetPasswordPage.Messages.SendCodeSuccess").subscribe((res: string) => {
                   this.messageService.notice(res, 'success');
                 });
                 this.disableButtonForInterval(60);
               }
               else if(statusCode === StatusCode.VERIFY_CODE_SEND_TOO_FAST){
-                this.translate.get("HomePage.ResetPasswordModal.Messages.SendCodeTooFast").subscribe((res: string) => {
+                this.translate.get("ResetPasswordPage.Messages.SendCodeTooFast").subscribe((res: string) => {
                   this.messageService.notice(res, 'warning');
                 });
               }
@@ -129,7 +144,7 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
                 window.location.reload();
               }
               else if(statusCode === StatusCode.VERIFY_CODE_NOT_CORRECT){
-                this.translate.get("HomePage.ResetPasswordModal.Messages.CodeIncorrect").subscribe((res: string) => {
+                this.translate.get("ResetPasswordPage.Messages.CodeIncorrect").subscribe((res: string) => {
                   this.messageService.notice(res, 'danger');
                 });
               }
@@ -164,4 +179,15 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
     );
   }
 
+  navigateToSignIn(){
+    var queryParams:any = {};
+    if(this.email.valid){
+      queryParams.email = this.email.value;
+    }
+    if(this.token && this.type){
+      queryParams.token = this.token;
+      queryParams.type = this.type;
+    }
+    this.router.navigate(['/sign-in'], {queryParams});
+  }
 }

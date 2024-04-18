@@ -76,35 +76,7 @@
     "LimitedSupport" : "Limited Support",
     "LimitedSupportDesc" : "No related content available on the portal.",
     "Dashboard" : "Dashboard",
-    "SignIn": "Sign in",
-    "Back": "Back",
-    "ResetPasswordModal" : {
-      "Title" : "Reset your password",
-      "EmailAddress" : "Email address",
-      "VerificationCode" : "Verification code",
-      "Password" : "Password",
-      "Send" : "Send",
-      "Reset" : "Reset",
-      "EmailErrors" : {
-        "Required" : "Email address is required.",
-        "Maxlength" : "Email address must be at most 40 characters long.",
-        "Email" : "Invalid email address."
-      },
-      "VerificationCodeErrors" : {
-        "Required" : "Verification code is required.",
-        "Length" : "Verification code must be 8 characters long."
-      },
-      "PasswordErrors" : {
-        "Required" : "Password is required.",
-        "Minlength" : "Password must be at least 8 characters long.",
-        "Maxlength" : "Password must be at most 100 characters long."
-      },
-      "Messages" : {
-        "SendCodeSuccess" : "Send verify code success.",
-        "SendCodeTooFast" : "Verify code send too fast.",
-        "CodeIncorrect" : "Verification code incorrect."
-      }
-    }
+    "SignIn": "Sign in"
   },
   "SignInPage" : {
     "Title" : "Sign in to your account",
@@ -165,6 +137,34 @@
       "EmailInvailable" : "Email already in use.",
       "UsernameAvailable" : "Username is available.",
       "UsernameAlreadyTaken" : "Username already taken.",
+      "CodeIncorrect" : "Verification code incorrect."
+    }
+  },
+  "ResetPasswordPage" : {
+    "Title" : "Reset your password",
+    "EmailAddress" : "Email address",
+    "VerificationCode" : "Verification code",
+    "Password" : "Password",
+    "Send" : "Send",
+    "Reset" : "Reset",
+    "Back": "Back",
+    "EmailErrors" : {
+      "Required" : "Email address is required.",
+      "Maxlength" : "Email address must be at most 40 characters long.",
+      "Email" : "Invalid email address."
+    },
+    "VerificationCodeErrors" : {
+      "Required" : "Verification code is required.",
+      "Length" : "Verification code must be 8 characters long."
+    },
+    "PasswordErrors" : {
+      "Required" : "Password is required.",
+      "Minlength" : "Password must be at least 8 characters long.",
+      "Maxlength" : "Password must be at most 100 characters long."
+    },
+    "Messages" : {
+      "SendCodeSuccess" : "Send verify code success.",
+      "SendCodeTooFast" : "Verify code send too fast.",
       "CodeIncorrect" : "Verification code incorrect."
     }
   },

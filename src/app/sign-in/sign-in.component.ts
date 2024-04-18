@@ -73,6 +73,18 @@ export class SignInComponent implements OnInit {
     this.router.navigate(['/sign-up'], {queryParams});
   }
 
+  navigateToPasswordReset(){
+    var queryParams:any = {};
+    if(this.usernameOrEmail.value && !Validators.email(this.usernameOrEmail)){
+      queryParams.email = this.usernameOrEmail.value;
+    }
+    if(this.token && this.type){
+      queryParams.token = this.token;
+      queryParams.type = this.type;
+    }
+    this.router.navigate(['/password-reset'], {queryParams});
+  }
+
   onSubmit() {
     if (this.signInForm.invalid) {
       this.signInForm.markAllAsTouched();

@@ -12,7 +12,7 @@
     <div class="col-container col-12">
       <div class="row col-content">
         <div class="col-sm-auto"><span class="col-lead">电子邮箱</span></div>
-        <div class="col col-value">没返回</div>
+        <div class="col col-value">{{userService.currentUser.email}}</div>
       </div>
     </div>
     <div class="col-container col-12">
@@ -20,7 +20,7 @@
           <div class="col-sm-auto"><span class="col-lead">密码</span></div>
           <div class="col col-value">********</div>
       </div>
-      <a class="col-action" href="#">变更密码</a>
+      <a class="col-action" routerLink="/password-reset">变更密码</a>
     </div>
   </div>
 </div>
@@ -37,9 +37,13 @@
             Microsoft
           </span>
         </div>
-        <div class="col col-value">尚未关联</div>
+        <ng-container *ngIf="userService.currentUser.oauth2s.find(findMicrosoft) let oauth else emptyOAuthBlock">
+          <div class="col col-value">{{oauth.email}}</div>
+        </ng-container>
       </div>
-      <a class="col-action" href="#">解除关联</a>
+      <ng-container *ngIf="userService.currentUser.oauth2s.find(findMicrosoft) else linkMicrosoft">
+        <a class="col-action" href="#">解除关联</a>
+      </ng-container>
     </div>
     <div class="col-container col-12">
       <div class="row col-content">
@@ -51,9 +55,13 @@
             GitHub
           </span>
         </div>
-        <div class="col col-value">尚未关联</div>
+        <ng-container *ngIf="userService.currentUser.oauth2s.find(findGitHub) let oauth else emptyOAuthBlock">
+          <div class="col col-value">{{oauth.email}}</div>
+        </ng-container>
       </div>
-      <a class="col-action" href="#">解除关联</a>
+      <ng-container *ngIf="userService.currentUser.oauth2s.find(findGitHub) else linkGitHub">
+        <a class="col-action" href="#">解除关联</a>
+      </ng-container>
     </div>
     <div class="col-container col-12">
       <div class="row col-content">
@@ -65,9 +73,27 @@
             GitLab
           </span>
         </div>
-        <div class="col col-value">尚未关联</div>
+        <ng-container *ngIf="userService.currentUser.oauth2s.find(findGitLab) let oauth else emptyOAuthBlock">
+          <div class="col col-value">{{oauth.email}}</div>
+        </ng-container>
       </div>
-      <a class="col-action" href="#">解除关联</a>
+      <ng-container *ngIf="userService.currentUser.oauth2s.find(findGitLab) else linkGitLab">
+        <a class="col-action" href="#">解除关联</a>
+      </ng-container>
     </div>
   </div>
 </div>
+
+<ng-template #emptyOAuthBlock>
+  <div class="col col-value">尚未关联</div>
+</ng-template>
+
+<ng-template #linkMicrosoft>
+  <a class="col-action" href="#">关联账号</a>
+</ng-template>
+<ng-template #linkGitHub>
+  <a class="col-action" href="#">关联账号</a>
+</ng-template>
+<ng-template #linkGitLab>
+  <a class="col-action" href="#">关联账号</a>
+</ng-template>

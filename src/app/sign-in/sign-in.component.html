@@ -23,7 +23,7 @@
                    [class.is-invalid]="password.touched && !password.valid && password.errors">
           </div>
           <div class="text-end">
-            <button type="button" class="btn btn-link text-decoration-none btn-sm" routerLink="/password-reset">{{'SignInPage.ResetPasswordTip' | translate}}</button>
+            <button type="button" class="btn btn-link text-decoration-none btn-sm" (click)="navigateToPasswordReset()">{{'SignInPage.ResetPasswordTip' | translate}}</button>
           </div>
           <button type="submit" class="btn btn-primary btn-sm mb-2" [class.disabled]="signInForm.disabled">
             {{'SignInPage.SignIn' | translate}}

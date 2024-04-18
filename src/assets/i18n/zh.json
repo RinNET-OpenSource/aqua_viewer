@@ -70,41 +70,13 @@
     "Connect": "连接到RinNET",
     "EditSegatools": "在<code>segatools.ini</code>中添加以下文本",
     "SupportedGames": "支持的游戏",
-    "SupportedGamesDesc" : "RinNET为以下游戏提供服务",
-    "FullSupport" : "全力支持",
-    "FullSupportDesc" : "持续更新服务，并在网站上提供额外的支援",
-    "LimitedSupport" : "有限支持",
-    "LimitedSupportDesc" : "在网站上没有相关内容",
+    "SupportedGamesDesc": "RinNET为以下游戏提供服务",
+    "FullSupport": "全力支持",
+    "FullSupportDesc": "持续更新服务，并在网站上提供额外的支援",
+    "LimitedSupport": "有限支持",
+    "LimitedSupportDesc": "在网站上没有相关内容",
     "Dashboard": "仪表板",
-    "SignIn": "登录",
-    "Back": "返回",
-    "ResetPasswordModal": {
-      "Title": "重设密码",
-      "EmailAddress": "电子邮箱",
-      "VerificationCode": "验证码",
-      "Password": "密码",
-      "Send": "发送",
-      "Reset": "重设",
-      "EmailErrors": {
-        "Required": "必须填写电子邮箱。",
-        "Maxlength": "电子邮箱不得超过40个字符。",
-        "Email": "不是正确的电子邮箱。"
-      },
-      "VerificationCodeErrors": {
-        "Required": "必须填写验证码。",
-        "Length": "验证码必须是8个字符。"
-      },
-      "PasswordErrors": {
-        "Required": "必须填写密码。",
-        "Minlength": "密码至少包含8个字符。",
-        "Maxlength": "密码不得超过100个字符。"
-      },
-      "Messages": {
-        "SendCodeSuccess": "验证码发送成功。",
-        "SendCodeTooFast": "验证码发送过于频繁。",
-        "CodeIncorrect": "验证码错误。"
-      }
-    }
+    "SignIn": "登录"
   },
   "SignInPage": {
     "Title": "登录",
@@ -168,6 +140,34 @@
       "CodeIncorrect": "验证码错误。"
     }
   },
+  "ResetPasswordPage": {
+    "Title": "重设密码",
+    "EmailAddress": "电子邮箱",
+    "VerificationCode": "验证码",
+    "Password": "密码",
+    "Send": "发送",
+    "Reset": "重设",
+    "Back": "返回",
+    "EmailErrors": {
+      "Required": "必须填写电子邮箱。",
+      "Maxlength": "电子邮箱不得超过40个字符。",
+      "Email": "不是正确的电子邮箱。"
+    },
+    "VerificationCodeErrors": {
+      "Required": "必须填写验证码。",
+      "Length": "验证码必须是8个字符。"
+    },
+    "PasswordErrors": {
+      "Required": "必须填写密码。",
+      "Minlength": "密码至少包含8个字符。",
+      "Maxlength": "密码不得超过100个字符。"
+    },
+    "Messages": {
+      "SendCodeSuccess": "验证码发送成功。",
+      "SendCodeTooFast": "验证码发送过于频繁。",
+      "CodeIncorrect": "验证码错误。"
+    }
+  },
   "CardsPage": {
     "Title": "卡包",
     "UnbindCard": "解绑卡片",
@@ -209,9 +209,9 @@
   "Ongeki": {
     "ProfilePage": {
       "Title": "档案",
-      "TotalPlayCount" : "游玩乐曲数",
-      "Money" : "金币",
-      "Medal" : "奖章"
+      "TotalPlayCount": "游玩乐曲数",
+      "Money": "金币",
+      "Medal": "奖章"
     },
     "RatingPage": {
       "Title": "评级",
@@ -296,7 +296,7 @@
       "ID": "ID",
       "Level": "等级",
       "Rating": "评级",
-      "OverPower" : "完成度",
+      "OverPower": "完成度",
       "LastPlay": "上次游玩",
       "PlayerName": "玩家名",
       "Remove": "解除好友",
