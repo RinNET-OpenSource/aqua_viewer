@@ -3,9 +3,11 @@
     <nav ngbNav #nav="ngbNav" class="app-navbar navbar navbar-expand-lg position-fixed shadow w-100">
       <div class="container-xxl">
         <button [class.v-hidden]="disableSidebar || !accountService.currentAccountValue" (click)="showSidebar()"
-                class="btn btn-icon d-flex align-items-center"
+                class="navbar-toggler btn btn-icon"
                 type="button">
-          <ng-icon name="bootstrap-list" size="1.4rem"></ng-icon>
+          <div class="d-flex align-items-center">
+            <ng-icon name="bootstrap-list" size="1.4rem"></ng-icon>
+          </div>
         </button>
         <a class="navbar-brand sm-center" routerLink="">
           <img src="{{host}}assets/turtle.svg" alt="turtle" width="30" height="24"

@@ -118,7 +118,11 @@ pagination-template {
 
 .btn-icon{
   border-width: 0!important;
-  --bs-btn-border-width: 0;
+  --bs-btn-border-width: 0!important;
+}
+
+.navbar-toggler{
+  --bs-navbar-toggler-focus-width: 0;
 }
 
 .btn-icon:hover{
