@@ -25,8 +25,7 @@ export class CardsComponent implements OnInit {
     protected userService: UserService,
     private messageService: MessageService,
     private api: ApiService,
-    private modalService: NgbModal,
-    public authenticationService: AuthenticationService) {
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -45,7 +44,6 @@ export class CardsComponent implements OnInit {
   }
 
   loadCards() {
-    this.loaded = false;
     this.userService.load().then(resp => {
       const user = this.userService.currentUser;
       user.cards.forEach(card => {

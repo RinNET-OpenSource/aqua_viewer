@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {StatusCode} from '../status-code';
 import {UserService} from '../user.service';
-import {Account, AccountService} from './account.service';
+import {AccountService} from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,8 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail: string, password: string, token: string) {
-    var params: any = {usernameOrEmail, password};
-    if(token){
+    const params: any = {usernameOrEmail, password};
+    if (token){
       params.oAuth2Token = token;
     }
     return this.http.post<any>(environment.apiServer + 'api/auth/signin', params)
@@ -45,8 +45,8 @@ export class AuthenticationService {
   }
 
   signUp(name: string, username: string, email: string, verifyCode: string, password: string, token: string) {
-    var params: any = {name, username, email, verifyCode, password};
-    if(token){
+    const params: any = {name, username, email, verifyCode, password};
+    if (token){
       params.oAuth2Token = token;
     }
     return this.http.post<any>(environment.apiServer + 'api/auth/signup', params)
@@ -59,7 +59,7 @@ export class AuthenticationService {
       mergeMap(this.procLoginResp));
   }
 
-  procLoginResp = (loginResp) =>{
+  procLoginResp = (loginResp) => {
     const loginStatusCode: StatusCode = loginResp?.status?.code;
     if (loginStatusCode !== StatusCode.OK || !loginResp.data) {
       return of(loginResp);
@@ -129,6 +129,7 @@ export class AuthenticationService {
 
   logout() {
     this.accountService.clear();
+    this.userService.clear();
   }
 
 }

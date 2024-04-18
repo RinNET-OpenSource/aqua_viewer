@@ -3,6 +3,8 @@ import {StatusCode} from './status-code';
 import {MessageService} from './message.service';
 import {ApiService} from './api.service';
 import {AccountService} from './auth/account.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ import {AccountService} from './auth/account.service';
 export class UserService {
   currentUser: User;
   private loadPromise: Promise<any | null> | null = null;
+  private cancelRequest: Subject<void>;
 
   constructor(
     private api: ApiService,
@@ -25,47 +28,55 @@ export class UserService {
     }
   }
 
-  public clear(){
-    localStorage.removeItem('currentUser');
-    this.currentUser = null;
-  }
-
   public load(forceReload: boolean = false): Promise<any | null> {
     if (this.loadPromise && !forceReload) {
       return this.loadPromise;
     }
+
     if (forceReload) {
       this.clear();
     }
 
+    this.cancelRequest = new Subject<void>();
     this.loadPromise = new Promise((resolve, reject) => {
-      this.api.get('api/user/me').subscribe(
-        resp => {
-          if (resp?.status) {
-            const statusCode: StatusCode = resp.status.code;
-            if (statusCode === StatusCode.OK && resp.data) {
-              this.currentUser = resp.data;
-              this.currentUser.cards.forEach(card => {
-                if (card.default){
-                  this.currentUser.defaultCard = card;
-                }
-              });
-              localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-            } else {
-              this.messageService.notice(resp.status.message);
+      this.api.get('api/user/me')
+        .pipe(takeUntil(this.cancelRequest))
+        .subscribe(
+          resp => {
+            if (resp?.status) {
+              const statusCode: StatusCode = resp.status.code;
+              if (statusCode === StatusCode.OK && resp.data) {
+                this.currentUser = resp.data;
+                this.currentUser.cards.forEach(card => {
+                  if (card.default){
+                    this.currentUser.defaultCard = card;
+                  }
+                });
+                localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+              } else {
+                this.messageService.notice(resp.status.message);
+              }
             }
+            resolve(resp);
+          },
+          error => {
+            this.messageService.notice(error);
+            reject(error);
           }
-          resolve(resp);
-        },
-        error => {
-          this.messageService.notice(error);
-          reject(error);
-        }
-      ).add(() => {
-        this.loadPromise = null;
-      });
+        )
+        .add(() => {
+          this.loadPromise = null;
+          this.cancelRequest = null;
+        });
     });
+
     return this.loadPromise;
+  }
+
+  public clear() {
+    this.cancelRequest?.next();
+    localStorage.removeItem('currentUser');
+    this.currentUser = null;
   }
 }
 
