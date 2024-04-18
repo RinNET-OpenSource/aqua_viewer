@@ -1,7 +1,7 @@
 <h1 class="page-heading">档案</h1>
 <h2 class="mb-3 mt-4">个人信息</h2>
 <div *ngIf="userService.currentUser" class="card">
-  <div class="card-body row g-2">
+  <div class="card-body row g-3">
     <div class="col-container col-12">
       <div class="row col-content">
           <div class="col-sm-auto"><span class="col-lead">昵称</span></div>
@@ -24,13 +24,48 @@
     </div>
   </div>
 </div>
-<h2 class="mb-3 mt-4">已关联的账户</h2>
+<h2 class="mb-3 mt-4">关联账户</h2>
 <div *ngIf="userService.currentUser" class="card">
-  <div class="card-body row g-2">
-    <div *ngFor="let oauth2 of userService.currentUser.oauth2s" class="col-container col-12">
+  <div class="card-body row g-3">
+    <div class="col-container col-12">
       <div class="row col-content">
-        <div class="col-sm-auto"><span class="col-lead">{{oAuthService.tokenTypes.get(oauth2.provider)}}</span></div>
-        <div class="col col-value">{{oauth2.email}}</div>
+        <div class="col-sm-auto">
+          <span class="col-lead m-0">
+            <svg class="oauth-icon" viewBox="0 0 16 16">
+              <use href="assets/microsoft.svg#icon"/>
+            </svg>
+            Microsoft
+          </span>
+        </div>
+        <div class="col col-value">尚未关联</div>
+      </div>
+      <a class="col-action" href="#">解除关联</a>
+    </div>
+    <div class="col-container col-12">
+      <div class="row col-content">
+        <div class="col-sm-auto">
+          <span class="col-lead">
+            <svg class="oauth-icon" viewBox="0 0 16 16">
+              <use href="assets/github.svg#icon"/>
+            </svg>
+            GitHub
+          </span>
+        </div>
+        <div class="col col-value">尚未关联</div>
+      </div>
+      <a class="col-action" href="#">解除关联</a>
+    </div>
+    <div class="col-container col-12">
+      <div class="row col-content">
+        <div class="col-sm-auto">
+          <span class="col-lead">
+            <svg class="oauth-icon" viewBox="0 -10 256 256">
+              <use href="assets/gitlab.svg#icon"/>
+            </svg>
+            GitLab
+          </span>
+        </div>
+        <div class="col col-value">尚未关联</div>
       </div>
       <a class="col-action" href="#">解除关联</a>
     </div>

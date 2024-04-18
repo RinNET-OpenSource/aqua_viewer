@@ -15,13 +15,14 @@
   flex-grow: 1;
   align-items: center;
   justify-content: space-between;
+  gap: .2rem;
 }
 
 .col-lead{
-  display: inline-block;
+  display: inline-flex;
+  vertical-align: middle;
   font-size: small;
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-secondary-rgb),var(--bs-text-opacity));
   width: 8em;
 }
 
@@ -41,4 +42,11 @@
 
 .col-action:hover {
   text-decoration: underline;
+}
+
+.oauth-icon {
+  height: 1.4em;
+  width: 1.4em;
+  margin-inline-end: .6em;
+  color: var(--bs-body-color);
 }
