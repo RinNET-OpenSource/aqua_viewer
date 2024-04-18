@@ -2,10 +2,9 @@
   <div class="flex-grow-1">
     <nav ngbNav #nav="ngbNav" class="app-navbar navbar navbar-expand-lg position-fixed shadow w-100">
       <div class="container-xxl">
-        <button [class.v-hidden]="disableSidebar || !account" (click)="showSidebar()"
+        <button [class.v-hidden]="disableSidebar || !accountService.currentAccountValue" (click)="showSidebar()"
                 class="btn btn-icon d-flex align-items-center"
                 type="button">
-
           <ng-icon name="bootstrap-list" size="1.4rem"></ng-icon>
         </button>
         <a class="navbar-brand sm-center" routerLink="">
@@ -25,7 +24,7 @@
         </ng-template>
 
         <div class="hstack gap-1">
-          <button *ngIf="account"
+          <button *ngIf="accountService.currentAccountValue"
                   class="btn btn-icon d-flex align-items-center"
                   container="body"
                   placement="bottom-right"
@@ -47,7 +46,7 @@
       </div>
       <div class="d-lg-grid container-xxl" style="grid-template-areas: 'sidebar main'; grid-template-columns: auto 1fr">
         <aside #sidebar class="sidebar d-block overflow-y-auto position-sticky"
-               [class.d-none]="disableSidebar || !account">
+               [class.d-none]="disableSidebar || !accountService.currentAccountValue">
           <div id="sidebar" class="offcanvas-lg offcanvas-start" tabindex="-1">
             <div class="offcanvas-header" style="height: 3.6rem">
               <h5 class="offcanvas-title" id="offcanvasExampleLabel">Navigation</h5>

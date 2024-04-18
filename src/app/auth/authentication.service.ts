@@ -64,10 +64,9 @@ export class AuthenticationService {
     if (loginStatusCode !== StatusCode.OK || !loginResp.data) {
       return of(loginResp);
     }
-    const account: Account = loginResp.data;
-    return this.userService.load().then(
-      resp =>{
-        this.accountService.currentAccountValue = account;
+    this.accountService.currentAccountValue = loginResp.data;
+    return this.userService.load(true).then(
+      resp => {
         return resp;
       }
     );

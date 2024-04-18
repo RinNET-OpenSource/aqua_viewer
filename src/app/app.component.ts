@@ -20,15 +20,14 @@ import {Account, AccountService} from './auth/account.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnChanges, OnDestroy {
-  themes = ["Auto", "Light", "Dark"];
+export class AppComponent implements OnInit, OnDestroy {
+  themes = ['Auto', 'Light', 'Dark'];
 
   title = 'aqua-viewer';
   host = environment.assetsHost;
 
   sidebarOffcanvas: bootstrap.Offcanvas;
   sidebarOffcanvasOpened = false;
-  account: Account;
 
   disableSidebar = false;
 
@@ -171,7 +170,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     protected authenticationService: AuthenticationService,
-    private accountService: AccountService,
+    protected accountService: AccountService,
     protected userService: UserService,
     protected router: Router,
     private api: ApiService,
@@ -207,7 +206,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       }),
       filter(route => route.outlet === 'primary'),
       map(route => route.snapshot),
-      map(snapshot => snapshot.data['disableSidebar'])
+      map(snapshot => snapshot.data.disableSidebar)
     ).subscribe((disableSidebar) => {
       this.disableSidebar = disableSidebar;
     });
@@ -218,8 +217,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private initializeApp() {
-    this.account = this.accountService.currentAccountValue;
-    if (this.account !== null) {
+    if (this.accountService.currentAccountValue) {
       this.preLoad.checkDbUpdate();
       this.loadUser();
       this.refreshMenus();
@@ -232,16 +230,12 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  ngOnChanges(): void {
-    this.account = this.accountService.currentAccountValue;
-  }
-
   ngOnDestroy(): void {
     this.toastService.clear();
   }
 
   refreshMenus() {
-    const map = new Map(
+    const menuMap = new Map(
       [
         ['ongeki', this.ongekiMenu.filter(m => ![4, 7, 8].includes(m.id))],
         ['chusan', this.v2Menus.filter(m => ![3, 7].includes(m.id))],
@@ -249,12 +243,12 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       ]
     );
     // 先全部设置为false再调
-    map.forEach((menu, _) => {
+    menuMap.forEach((menu, _) => {
       menu.forEach(m => m.show = false);
     });
     if(this.userService?.currentUser){
       this.userService.currentUser.games.forEach(game => {
-        map.get(game).forEach(menu => menu.show = true);
+        menuMap.get(game).forEach(menu => menu.show = true);
       });
     }
   }

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { StatusCode } from './status-code';
-import { ApiService } from './api.service';
-import { MessageService } from './message.service';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {StatusCode} from './status-code';
+import {MessageService} from './message.service';
+import {ApiService} from './api.service';
+import {AccountService} from './auth/account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,29 @@ export class UserService {
 
   constructor(
     private api: ApiService,
+    account: AccountService,
     private messageService: MessageService,
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.load();
+    if (account.currentAccountValue){
+      this.load();
+    }
+    else{
+      this.clear();
+    }
   }
 
-  public load(): Promise<any | null> {
-    if (this.loadPromise) {
+  public clear(){
+    localStorage.removeItem('currentUser');
+    this.currentUser = null;
+  }
+
+  public load(forceReload: boolean = false): Promise<any | null> {
+    if (this.loadPromise && !forceReload) {
       return this.loadPromise;
+    }
+    if (forceReload) {
+      this.clear();
     }
 
     this.loadPromise = new Promise((resolve, reject) => {
@@ -31,6 +45,11 @@ export class UserService {
             const statusCode: StatusCode = resp.status.code;
             if (statusCode === StatusCode.OK && resp.data) {
               this.currentUser = resp.data;
+              this.currentUser.cards.forEach(card => {
+                if (card.default){
+                  this.currentUser.defaultCard = card;
+                }
+              });
               localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
             } else {
               this.messageService.notice(resp.status.message);
