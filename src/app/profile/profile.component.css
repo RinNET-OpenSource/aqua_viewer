@@ -19,8 +19,8 @@
 }
 
 .col-lead{
-  display: inline-flex;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
   font-size: small;
   --bs-text-opacity: 1;
   width: 8em;
@@ -42,6 +42,7 @@
 
 .col-action:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .oauth-icon {

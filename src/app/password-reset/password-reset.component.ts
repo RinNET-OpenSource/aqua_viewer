@@ -14,7 +14,7 @@ import {OAuthService} from '../auth/oauth.service';
   templateUrl: './password-reset.component.html',
   styleUrls: ['./password-reset.component.css']
 })
-export class PasswordResetComponent  implements OnInit, OnDestroy {
+export class PasswordResetComponent  implements OnDestroy {
 
   resetPasswordForm: FormGroup;
   getVerifyCodeForm: FormGroup;
@@ -23,46 +23,50 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
   private timerSubscription!: Subscription;
   token: string;
   type: string;
+  name: string;
+  username: string;
 
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     public router: Router,
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
     private translate: TranslateService,
     protected oauth: OAuthService) {
-  }
+      this.resetPasswordForm = this.fb.group({
+        email: ['', [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(40)]],
+        verifyCode: ['', [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8)]],
+        password: ['', [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(100)]]
+      });
+      this.getVerifyCodeForm = this.fb.group({
+        email: ['', [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(40)]]
+      });
 
-  ngOnInit(): void {
-    this.resetPasswordForm = this.fb.group({
-      email: ['', [
-        Validators.required,
-        Validators.email,
-        Validators.maxLength(40)]],
-      verifyCode: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(8)]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(100)]]
-    });
-    this.getVerifyCodeForm = this.fb.group({
-      email: ['', [
-        Validators.required,
-        Validators.email,
-        Validators.maxLength(40)]]
-    });
-
-    this.route.queryParams.subscribe(params => {
-      if(this.oauth.tokenTypes.has(params.type) && params['token'].length ==32){
-        this.token = params['token'];
-        this.type = params["type"];
+      const state = this.router.getCurrentNavigation().extras.state;
+      if (state) {
+        if(this.oauth.tokenTypes.has(state.type) && state.token.length ==32){
+          this.token = state.token;
+          this.type = state.type;
+        }
+        if(state.email){
+          this.email.setValue(state.email);
+        }
+        this.username = state.username;
+        this.name = state.name;
+        history.replaceState({}, document.title);
       }
-      this.email.setValue(params["email"]);
-    });
   }
 
   ngOnDestroy(): void {
@@ -141,7 +145,7 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
             if (resp?.status) {
               const statusCode: StatusCode = resp.status.code;
               if (statusCode === StatusCode.OK){
-                window.location.reload();
+                this.navigateToSignIn();
               }
               else if(statusCode === StatusCode.VERIFY_CODE_NOT_CORRECT){
                 this.translate.get("ResetPasswordPage.Messages.CodeIncorrect").subscribe((res: string) => {
@@ -180,14 +184,16 @@ export class PasswordResetComponent  implements OnInit, OnDestroy {
   }
 
   navigateToSignIn(){
-    var queryParams:any = {};
+    var state:any = {};
     if(this.email.valid){
-      queryParams.email = this.email.value;
+      state.email = this.email.value;
     }
     if(this.token && this.type){
-      queryParams.token = this.token;
-      queryParams.type = this.type;
+      state.token = this.token;
+      state.type = this.type;
     }
-    this.router.navigate(['/sign-in'], {queryParams});
+    state.username = this.username;
+    state.name = this.name;
+    this.router.navigate(['/sign-in'], {state});
   }
 }

@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {MessageService} from '../message.service';
 import {AuthenticationService} from '../auth/authentication.service';
 import {StatusCode} from '../status-code';
+import {AccountService} from '../auth/account.service';
 
 @Component({
   selector: 'app-oauth-callback',
@@ -15,7 +16,8 @@ export class OauthCallbackComponent {
   constructor(private route: ActivatedRoute,
               private messageService: MessageService,
               private router: Router,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private accountService: AccountService) { }
 
   protected type: string;
 
@@ -25,49 +27,64 @@ export class OauthCallbackComponent {
     const code = this.route.snapshot.queryParamMap.get('code');
     const state = this.route.snapshot.queryParamMap.get('state');
 
-    // 调用登录API
+    const storedState = localStorage.getItem('oauth_state');
+    if(state && state !== storedState) {
+      this.messageService.notice('Invalid state parameter');
+      if(this.accountService.currentAccountValue){
+        this.router.navigate(['/profile']);
+      }
+      else{
+        this.router.navigate(['/login']);
+      }
+      return;
+    }
+
     if (code && this.type && state) {
+      // 调用登录API
       this.login(code, this.type, state);
     }
   }
 
   private login(code: string, type: string, state: string): void {
-    const storedState = localStorage.getItem('oauth_state');
-
-    // verify state
-    if (state && state === storedState){
-      this.authenticationService.loginWithOAuth(code, type)
-        .subscribe(
-          {
-            next: (resp) => {
-              if (resp?.status) {
-                const statusCode: StatusCode = resp.status.code;
-                if (statusCode === StatusCode.OK && resp.data) {
-                  localStorage.removeItem('oauth_state');
-                  this.messageService.notice(resp.status.message);
-                  this.router.navigate(['/']);
-                } else if (statusCode === StatusCode.OAUTH_USER_NOT_REGISTERED) {
-                  this.messageService.notice(resp.status.message);
-                  const token = resp.data.token;
-                  const name = resp.data.name;
-                  const username = resp.data.userName;
-                  const email = resp.data.email;
-                  this.router.navigate(['/sign-up'], {queryParams:{token, type, name, username, email}});
-                } else {
-                  localStorage.removeItem('oauth_state');
-                  this.messageService.notice(resp.status.message);
-                  this.router.navigate(['/']).then(r => true);
-                }
-              }
-            },
-            error: (errorBackend) => {
-              localStorage.removeItem('oauth_state');
-              this.messageService.notice(errorBackend);
-              this.router.navigate(['/']).then(r => true);
+    this.authenticationService.loginWithOAuth(code, type).subscribe({
+      next: (resp) => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            localStorage.removeItem('oauth_state');
+            this.messageService.notice(resp.status.message);
+            this.router.navigate(['/']);
+          }
+          else if (statusCode === StatusCode.OAUTH_USER_NOT_REGISTERED) {
+            if(!this.accountService.currentAccountValue){
+              this.messageService.notice(resp.status.message);
+              const token = resp.data.token;
+              const name = resp.data.name;
+              const username = resp.data.userName;
+              const email = resp.data.email;
+              this.router.navigate(['/sign-up'], {state:{token, type, name, username, email}});
             }
-          });
-    } else {
-      this.messageService.notice('Invalid state parameter');
-    }
+            else{
+              const token = resp.data.token;
+              const email = resp.data.email;
+              this.router.navigate(['/profile'], {state:{token, type, email}});
+            }
+          }
+          else if (statusCode === StatusCode.OAUTH_ALREADY_REGISTERED) {
+            this.router.navigate(['/profile']);
+          }
+          else {
+            localStorage.removeItem('oauth_state');
+            this.messageService.notice(resp.status.message);
+            this.router.navigate(['/']).then(r => true);
+          }
+        }
+      },
+      error: (errorBackend) => {
+        localStorage.removeItem('oauth_state');
+        this.messageService.notice(errorBackend);
+        this.router.navigate(['/']).then(r => true);
+      }
+    });
   }
 }

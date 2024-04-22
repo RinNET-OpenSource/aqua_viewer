@@ -31,13 +31,11 @@ export class OAuthService {
         else{
           console.error('Failed to get OAuth2 response data');
           this.messageService.notice('Failed to get OAuth2 response data');
-          this.router.navigate(['/sign-in']);
         }
       },
       error: (error) => {
         console.error('OAuth Sign In Error:', error);
         this.messageService.notice('OAuth2 Sign In Error');
-        this.router.navigate(['/sign-in']);
       }
     });
   }

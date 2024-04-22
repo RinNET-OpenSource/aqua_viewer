@@ -20,7 +20,8 @@
     "UserPopup": {
       "MyCards": "卡包",
       "Keychip": "机台",
-      "SignOut": "登出"
+      "SignOut": "登出",
+      "Profile": "档案"
     },
     "Sidebar": {
       "Dashboard": "仪表板",
@@ -167,6 +168,20 @@
       "SendCodeTooFast": "验证码发送过于频繁。",
       "CodeIncorrect": "验证码错误。"
     }
+  },
+  "ProfilePage": {
+    "Title": "档案",
+    "PersonalInformation": "个人信息",
+    "Username": "登录名",
+    "Nickname": "昵称",
+    "Email": "电子邮箱",
+    "Password": "密码",
+    "LinkedAccounts": "关联的账户",
+    "NotLinked": "尚未关联",
+    "Unlink": "解除关联",
+    "UnlinkTip": "确定解除关联吗？",
+    "Link": "关联账户",
+    "LinkTip": "要关联到 <span class=\"fw-bold small\">{{type}}</span> 账户 <span class=\"fw-bold small\">{{email}}</span> 吗？"
   },
   "CardsPage": {
     "Title": "卡包",

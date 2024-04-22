@@ -1,11 +1,10 @@
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthenticationService} from '../auth/authentication.service';
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../message.service';
 import {StatusCode} from '../status-code';
 import {TranslateService} from '@ngx-translate/core';
-import {environment} from '../../environments/environment';
 import {OAuthService} from 'src/app/auth/oauth.service';
 
 @Component({
@@ -13,13 +12,15 @@ import {OAuthService} from 'src/app/auth/oauth.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   signInForm: FormGroup;
   token: string;
   type: string;
+  name: string;
+  username: string;
+  email: string;
 
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -27,6 +28,28 @@ export class SignInComponent implements OnInit {
     private translate: TranslateService,
     protected oauth: OAuthService,
   ) {
+    this.signInForm = this.fb.group({
+      usernameOrEmail: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+    const state = this.router.getCurrentNavigation().extras.state;
+    if (state) {
+      if(this.oauth.tokenTypes.has(state.type) && state.token.length ==32){
+        this.token = state.token;
+        this.type = state.type;
+      }
+      if(state.email){
+        this.usernameOrEmail.setValue(state.email);
+      }
+      else if(state.username){
+        this.usernameOrEmail.setValue(state.username);
+      }
+      this.email = state.email;
+      this.username = state.username;
+      this.name = state.name;
+      history.replaceState({}, document.title);
+    }
   }
 
   get usernameOrEmail() {
@@ -37,52 +60,42 @@ export class SignInComponent implements OnInit {
     return this.signInForm.get('password');
   }
 
-  ngOnInit() {
-    this.signInForm = this.fb.group({
-      usernameOrEmail: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-    this.route.queryParams.subscribe(params => {
-      if(this.oauth.tokenTypes.has(params.type) && params['token'].length ==32){
-        this.token = params['token'];
-        this.type = params["type"];
-      }
-      if(params["email"]){
-        this.usernameOrEmail.setValue(params["email"]);
-      }
-      else if(params["username"]){
-        this.usernameOrEmail.setValue(params["username"]);
-      }
-    });
-  }
-
   navigateToSignUp(){
-    var queryParams:any = {};
+    var state:any = {};
     if(this.usernameOrEmail.value){
       if(!Validators.email(this.usernameOrEmail)){
-        queryParams.email = this.usernameOrEmail.value;
+        state.email = this.usernameOrEmail.value;
+        state.username = this.username;
       }
       else{
-        queryParams.username = this.usernameOrEmail.value;
+        state.username = this.usernameOrEmail.value;
+        state.email = this.email;
       }
     }
-    if(this.token && this.type){
-      queryParams.token = this.token;
-      queryParams.type = this.type;
+    else{
+      state.username = this.username;
+      state.email = this.email;
     }
-    this.router.navigate(['/sign-up'], {queryParams});
+    if(this.token && this.type){
+      state.token = this.token;
+      state.type = this.type;
+    }
+    state.name = this.name;
+    this.router.navigate(['/sign-up'], {state});
   }
 
   navigateToPasswordReset(){
-    var queryParams:any = {};
+    var state:any = {};
     if(this.usernameOrEmail.value && !Validators.email(this.usernameOrEmail)){
-      queryParams.email = this.usernameOrEmail.value;
+      state.email = this.usernameOrEmail.value;
     }
     if(this.token && this.type){
-      queryParams.token = this.token;
-      queryParams.type = this.type;
+      state.token = this.token;
+      state.type = this.type;
     }
-    this.router.navigate(['/password-reset'], {queryParams});
+    state.username = this.username;
+    state.name = this.name;
+    this.router.navigate(['/password-reset'], {state});
   }
 
   onSubmit() {

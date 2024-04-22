@@ -1,11 +1,11 @@
 import {TranslateService} from '@ngx-translate/core';
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {first, take} from 'rxjs/operators';
 import {MessageService} from '../message.service';
 import {AuthenticationService} from '../auth/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {interval, Subscription, timer} from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 import {StatusCode} from '../status-code';
 import {OAuthService} from '../auth/oauth.service';
 
@@ -14,7 +14,7 @@ import {OAuthService} from '../auth/oauth.service';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnDestroy {
   signUpForm: FormGroup;
   getVerifyCodeForm: FormGroup;
   isButtonDisabled = false;
@@ -31,20 +31,18 @@ export class SignUpComponent implements OnInit {
     public router: Router,
     private translate: TranslateService,
     protected oauth: OAuthService) {
-
-  }
-
-  ngOnInit(): void {
-    this.initForm();
-    this.route.queryParams.subscribe(params => {
-      if(this.oauth.tokenTypes.has(params.type) && params['token'].length ==32){
-        this.token = params['token'];
-        this.type = params["type"];
+      this.initForm();
+      const state = this.router.getCurrentNavigation().extras.state;
+      if (state) {
+        if(this.oauth.tokenTypes.has(state.type) && state.token.length ==32){
+          this.token = state.token;
+          this.type = state.type;
+        }
+        this.name.setValue(state.name);
+        this.username.setValue(state.username);
+        this.email.setValue(state.email);
+        history.replaceState({}, document.title);
       }
-      this.name.setValue(params['name']);
-      this.username.setValue(params["username"]);
-      this.email.setValue(params["email"]);
-    });
   }
 
   private initForm(): void {
@@ -119,18 +117,21 @@ export class SignUpComponent implements OnInit {
   }
 
   navigateToSignIn(){
-    var queryParams:any = {};
+    var state:any = {};
     if(this.email.valid){
-      queryParams.email = this.email.value;
+      state.email = this.email.value;
     }
-    else if(this.username.valid){
-      queryParams.username = this.username.value;
+    if(this.username.valid){
+      state.username = this.username.value;
+    }
+    if(this.name.valid){
+      state.name = this.name.value;
     }
     if(this.token && this.type){
-      queryParams.token = this.token;
-      queryParams.type = this.type;
+      state.token = this.token;
+      state.type = this.type;
     }
-    this.router.navigate(['/sign-in'], {queryParams});
+    this.router.navigate(['/sign-in'], {state});
   }
 
   checkPasswords: ValidatorFn = (g: FormGroup) => {

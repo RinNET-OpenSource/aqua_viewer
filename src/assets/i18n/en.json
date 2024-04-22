@@ -1,12 +1,12 @@
 {
-  "Common" : {
-    "Ongeki" : "O.N.G.E.K.I.",
-    "ChuniV2" : "CHUNITHM NEW",
-    "Mai2" : "Maimai DX",
-    "Colon" : ": ",
-    "OK" : "OK"
+  "Common": {
+    "Ongeki": "O.N.G.E.K.I.",
+    "ChuniV2": "CHUNITHM NEW",
+    "Mai2": "Maimai DX",
+    "Colon": ": ",
+    "OK": "OK"
   },
-  "App" : {
+  "App": {
     "Footer": {
       "Theme": "Theme",
       "Auto": "Auto",
@@ -17,31 +17,32 @@
       "Contributors": "Contributors",
       "Copyright": "©2024 RinNET Team"
     },
-    "UserPopup" : {
-      "MyCards" : "My cards",
+    "UserPopup": {
+      "MyCards": "My cards",
       "Keychip": "Keychip",
-      "SignOut" : "Sign out"
+      "SignOut": "Sign out",
+      "Profile": "Profile"
     },
-    "Sidebar" : {
-      "Dashboard" : "Dashboard",
-      "Import" : "Import",
-      "Status" : "Status",
-      "Profile" : "Profile",
-      "BattlePoint" : "Battle Point",
-      "Rating" : "Rating",
-      "PlayRecord" : "Play Record",
-      "MusicList" : "Music List",
-      "Card" : "Card",
-      "Rival" : "Rival",
-      "MusicRanking" : "Music Ranking",
-      "UserRanking" : "Player Ranking",
-      "Character" : "Character",
-      "UserBox" : "User Box",
-      "Setting" : "Setting"
+    "Sidebar": {
+      "Dashboard": "Dashboard",
+      "Import": "Import",
+      "Status": "Status",
+      "Profile": "Profile",
+      "BattlePoint": "Battle Point",
+      "Rating": "Rating",
+      "PlayRecord": "Play Record",
+      "MusicList": "Music List",
+      "Card": "Card",
+      "Rival": "Rival",
+      "MusicRanking": "Music Ranking",
+      "UserRanking": "Player Ranking",
+      "Character": "Character",
+      "UserBox": "User Box",
+      "Setting": "Setting"
     }
   },
-  "DashboardPage" : {
-    "Title" : "Dashboard",
+  "DashboardPage": {
+    "Title": "Dashboard",
     "LatestAnnouncement": "Latest Announcement",
     "Profiles": "Profiles",
     "GameData": "Game Data",
@@ -50,135 +51,149 @@
     "GoToKeychipPage": "Go to Keychip Page",
     "NoCardMessage": "You don't have a card, click to go to the card page",
     "NoProfileMessage": "You have no profile",
-    "Downloading" : "Downloading",
-    "DownloadFailed" : "Download failed",
-    "CheckingUpdate" : "Checking update",
-    "Version" : "Version",
-    "Reload" : "Reload",
-    "Level" : "Level",
-    "BattlePoint" : "BattlePoint",
-    "Rating" : "Rating",
-    "OverPower" : "OverPower",
-    "LastPlay" : "Last play",
-    "AnnouncementModal" : {
-      "Title" : "Announcement"
+    "Downloading": "Downloading",
+    "DownloadFailed": "Download failed",
+    "CheckingUpdate": "Checking update",
+    "Version": "Version",
+    "Reload": "Reload",
+    "Level": "Level",
+    "BattlePoint": "BattlePoint",
+    "Rating": "Rating",
+    "OverPower": "OverPower",
+    "LastPlay": "Last play",
+    "AnnouncementModal": {
+      "Title": "Announcement"
     }
   },
   "HomePage": {
     "Title": "Home",
     "Description": "Multipurpose online service for ALL.Net based games",
-    "Connect" : "Connect to RinNET",
-    "EditSegatools" : "Edit <code>segatools.ini</code> with the following text",
-    "SupportedGames" : "Supported Games",
-    "SupportedGamesDesc" : "RinNET serves the following games",
-    "FullSupport" : "Full Support",
-    "FullSupportDesc" : "We continuously update our services and offer additional support on the portal.",
-    "LimitedSupport" : "Limited Support",
-    "LimitedSupportDesc" : "No related content available on the portal.",
-    "Dashboard" : "Dashboard",
+    "Connect": "Connect to RinNET",
+    "EditSegatools": "Edit <code>segatools.ini</code> with the following text",
+    "SupportedGames": "Supported Games",
+    "SupportedGamesDesc": "RinNET serves the following games",
+    "FullSupport": "Full Support",
+    "FullSupportDesc": "We continuously update our services and offer additional support on the portal.",
+    "LimitedSupport": "Limited Support",
+    "LimitedSupportDesc": "No related content available on the portal.",
+    "Dashboard": "Dashboard",
     "SignIn": "Sign in"
   },
-  "SignInPage" : {
-    "Title" : "Sign in to your account",
+  "SignInPage": {
+    "Title": "Sign in to your account",
     "BindTip": "Sign in to link your {{type}} account",
-    "UsernameOrEmail" : "User name or Email",
-    "Password" : "Password",
-    "ResetPasswordTip" : "Forgot password?",
-    "SignIn" : "Sign in",
+    "UsernameOrEmail": "User name or Email",
+    "Password": "Password",
+    "ResetPasswordTip": "Forgot password?",
+    "SignIn": "Sign in",
     "SignUpTip": "Don't have an account?",
     "SignUp": "Sign up",
     "Or": "Or",
-    "LoginFailedMessage" : "Invalid username/email or password. Please try again."
+    "LoginFailedMessage": "Invalid username/email or password. Please try again."
   },
-  "SignUpPage" : {
-    "Title" : "Sign up an account",
+  "SignUpPage": {
+    "Title": "Sign up an account",
     "BindTip": "Sign up and link your {{type}} account",
-    "Nickname" : "Nickname",
-    "Username" : "Username",
-    "EmailAddress" : "Email address",
-    "VerificationCode" : "Verification code",
-    "Password" : "Password",
-    "ConfirmPassword" : "Confirm password",
+    "Nickname": "Nickname",
+    "Username": "Username",
+    "EmailAddress": "Email address",
+    "VerificationCode": "Verification code",
+    "Password": "Password",
+    "ConfirmPassword": "Confirm password",
     "SignInTip": "Already have an account?",
     "SignUp": "Sign up",
     "SignIn": "Sign in",
-    "Check" : "Check",
-    "Send" : "Send",
-    "NicknameErrors" : {
-      "Required" : "Nickname is required.",
-      "Minlength" : "Nickname must be at least 4 characters long.",
-      "Maxlength" : "Nickname must be at most 40 characters long."
+    "Check": "Check",
+    "Send": "Send",
+    "NicknameErrors": {
+      "Required": "Nickname is required.",
+      "Minlength": "Nickname must be at least 4 characters long.",
+      "Maxlength": "Nickname must be at most 40 characters long."
     },
-    "UsernameErrors" : {
-      "Required" : "Username is required.",
-      "Minlength" : "Username must be at least 3 characters long.",
-      "Maxlength" : "Username must be at most 15 characters long.",
-      "Pattern" : "Only letters, numbers, and underscores are allowed."
+    "UsernameErrors": {
+      "Required": "Username is required.",
+      "Minlength": "Username must be at least 3 characters long.",
+      "Maxlength": "Username must be at most 15 characters long.",
+      "Pattern": "Only letters, numbers, and underscores are allowed."
     },
-    "EmailErrors" : {
-      "Required" : "Email address is required.",
-      "Maxlength" : "Email address must be at most 40 characters long.",
-      "Email" : "Invalid email address."
+    "EmailErrors": {
+      "Required": "Email address is required.",
+      "Maxlength": "Email address must be at most 40 characters long.",
+      "Email": "Invalid email address."
     },
-    "VerificationCodeErrors" : {
-      "Required" : "Verification code is required.",
-      "Length" : "Verification code must be 8 characters long."
+    "VerificationCodeErrors": {
+      "Required": "Verification code is required.",
+      "Length": "Verification code must be 8 characters long."
     },
-    "PasswordErrors" : {
-      "Required" : "Password is required.",
-      "Minlength" : "Password must be at least 8 characters long.",
-      "Maxlength" : "Password must be at most 100 characters long.",
-      "Confirm" : "Passwords don't match."
+    "PasswordErrors": {
+      "Required": "Password is required.",
+      "Minlength": "Password must be at least 8 characters long.",
+      "Maxlength": "Password must be at most 100 characters long.",
+      "Confirm": "Passwords don't match."
     },
-    "Messages" : {
-      "SendCodeSuccess" : "Send verify code success.",
-      "SendCodeTooFast" : "Verify code send too fast.",
-      "EmailAvailable" : "Email is available.",
-      "EmailInvailable" : "Email already in use.",
-      "UsernameAvailable" : "Username is available.",
-      "UsernameAlreadyTaken" : "Username already taken.",
-      "CodeIncorrect" : "Verification code incorrect."
+    "Messages": {
+      "SendCodeSuccess": "Send verify code success.",
+      "SendCodeTooFast": "Verify code send too fast.",
+      "EmailAvailable": "Email is available.",
+      "EmailInvailable": "Email already in use.",
+      "UsernameAvailable": "Username is available.",
+      "UsernameAlreadyTaken": "Username already taken.",
+      "CodeIncorrect": "Verification code incorrect."
     }
   },
-  "ResetPasswordPage" : {
-    "Title" : "Reset your password",
-    "EmailAddress" : "Email address",
-    "VerificationCode" : "Verification code",
-    "Password" : "Password",
-    "Send" : "Send",
-    "Reset" : "Reset",
+  "ResetPasswordPage": {
+    "Title": "Reset your password",
+    "EmailAddress": "Email address",
+    "VerificationCode": "Verification code",
+    "Password": "Password",
+    "Send": "Send",
+    "Reset": "Reset",
     "Back": "Back",
-    "EmailErrors" : {
-      "Required" : "Email address is required.",
-      "Maxlength" : "Email address must be at most 40 characters long.",
-      "Email" : "Invalid email address."
+    "EmailErrors": {
+      "Required": "Email address is required.",
+      "Maxlength": "Email address must be at most 40 characters long.",
+      "Email": "Invalid email address."
     },
-    "VerificationCodeErrors" : {
-      "Required" : "Verification code is required.",
-      "Length" : "Verification code must be 8 characters long."
+    "VerificationCodeErrors": {
+      "Required": "Verification code is required.",
+      "Length": "Verification code must be 8 characters long."
     },
-    "PasswordErrors" : {
-      "Required" : "Password is required.",
-      "Minlength" : "Password must be at least 8 characters long.",
-      "Maxlength" : "Password must be at most 100 characters long."
+    "PasswordErrors": {
+      "Required": "Password is required.",
+      "Minlength": "Password must be at least 8 characters long.",
+      "Maxlength": "Password must be at most 100 characters long."
     },
-    "Messages" : {
-      "SendCodeSuccess" : "Send verify code success.",
-      "SendCodeTooFast" : "Verify code send too fast.",
-      "CodeIncorrect" : "Verification code incorrect."
+    "Messages": {
+      "SendCodeSuccess": "Send verify code success.",
+      "SendCodeTooFast": "Verify code send too fast.",
+      "CodeIncorrect": "Verification code incorrect."
     }
   },
-  "CardsPage" : {
-    "Title" : "Cards",
-    "UnbindCard" : "Unbind Card",
-    "UnbindCardTip" : "Are you sure to unbind this card?",
-    "AccessCode" : "Access code",
-    "ChangeAccessCode" : "Change AccessCode",
-    "Aliases" : "Aliases",
-    "None" : "None",
-    "AddAlias" : "Add Alias",
-    "SetDefault" : "Set Default",
-    "BindCard" : "Bind Card"
+  "ProfilePage": {
+    "Title": "Profile",
+    "PersonalInformation": "Personal Information",
+    "Username": "Username",
+    "Nickname": "Nickname",
+    "Email": "Email",
+    "Password": "Password",
+    "LinkedAccounts": "Linked Accounts",
+    "NotLinked": "Not linked",
+    "Unlink": "Unlink",
+    "UnlinkTip": "Are you sure you want to unlink?",
+    "Link": "Link",
+    "LinkTip": "Do you want to link to <span class=\"fw-bold small\">{{type}}</span> account <span class=\"fw-bold small\">{{email}}</span>?"
+  },
+  "CardsPage": {
+    "Title": "Cards",
+    "UnbindCard": "Unbind Card",
+    "UnbindCardTip": "Are you sure to unbind this card?",
+    "AccessCode": "Access code",
+    "ChangeAccessCode": "Change AccessCode",
+    "Aliases": "Aliases",
+    "None": "None",
+    "AddAlias": "Add Alias",
+    "SetDefault": "Set Default",
+    "BindCard": "Bind Card"
   },
   "KeychipPage": {
     "Title": "Keychip",
@@ -203,15 +218,15 @@
     "Warning3": "Do not share it with others if there is no need for them to play on your machine.",
     "Warning4": "Do not add to trust if you do not intend to play on their machine."
   },
-  "ImportPage" : {
-    "Title" : "Import"
+  "ImportPage": {
+    "Title": "Import"
   },
-  "Ongeki" : {
-    "ProfilePage" : {
-      "Title" : "Profile",
-      "TotalPlayCount" : "Total Play Count",
-      "Money" : "Money",
-      "Medal" : "Medal"
+  "Ongeki": {
+    "ProfilePage": {
+      "Title": "Profile",
+      "TotalPlayCount": "Total Play Count",
+      "Money": "Money",
+      "Medal": "Medal"
     },
     "RatingPage": {
       "Title": "Rating",
@@ -225,85 +240,85 @@
       "Best": "Highest Rating",
       "Recent": "Recent"
     },
-    "RecentPage" : {
-      "Title" : "Play Record",
-      "UnknownArtist " : "Unknown artist",
-      "Details" : "Details",
-      "Ranking" : "Ranking"
+    "RecentPage": {
+      "Title": "Play Record",
+      "UnknownArtist ": "Unknown artist",
+      "Details": "Details",
+      "Ranking": "Ranking"
     },
-    "CardPage" : {
-      "Title" : "Card",
-      "Gallery" : "Gallery",
-      "Gacha" : "Gacha",
-      "Holo" : "Holo",
-      "Elements" : "Elements",
-      "Details" : "Details",
-      "Character" : "Character",
-      "NickName" : "NickName",
-      "Level" : "Level",
-      "Attack" : "Attack",
-      "Skill" : "Skill",
-      "Info" : "Info",
-      "Kaika" : "Kaika",
-      "ChoKaika" : "ChoKaika"
+    "CardPage": {
+      "Title": "Card",
+      "Gallery": "Gallery",
+      "Gacha": "Gacha",
+      "Holo": "Holo",
+      "Elements": "Elements",
+      "Details": "Details",
+      "Character": "Character",
+      "NickName": "NickName",
+      "Level": "Level",
+      "Attack": "Attack",
+      "Skill": "Skill",
+      "Info": "Info",
+      "Kaika": "Kaika",
+      "ChoKaika": "ChoKaika"
     },
-    "RivalPage" : {
-      "Title" : "Rival",
-      "IDInputPlaceholder" : "Rival Card ID",
-      "Search" : "Search",
-      "AddRival" : "Add Rival",
-      "RivalList" : "Rival List",
-      "Empty" : "Empty",
-      "ID" : "ID",
-      "Level" : "Level",
-      "Rating" : "Rating",
-      "BattlePoint" : "BattlePoint",
-      "LastPlay" : "LastPlay",
-      "PlayerName" : "PlayerName",
-      "Remove" : "Remove",
-      "RemoveTip": "Remove them as rival?"
-    }
-  },
-  "ChuniV2" : {
-    "ProfilePage" : {
-      "Overview" : "Overview"
-    },
-    "UserBoxPage" : {
-      "Title" : "User Box",
-      "Avatar" : "Avatar",
-      "Nameplate" :"Nameplate",
-      "MapIcon" :"Map Icon",
-      "SystemVoice" :"System Voice",
-      "AvatarWear" :"Avatar Wear",
-      "AvatarHead" :"Avatar Head",
-      "AvatarFace" :"Avatar Face",
-      "AvatarSkin" :"Avatar Skin",
-      "AvatarItem" :"Avatar Item",
-      "AvatarFront" :"Avatar Front",
-      "AvatarBack" :"Avatar Back",
-      "Trophy" :"Trophy",
-      "Frame" :"Frame",
-      "Change" : "Change",
-      "Preview" : "Preview"
-    },
-    "RivalPage" : {
-      "Title" : "Rival",
-      "IDInputPlaceholder" : "Rival Card ID",
-      "Search" : "Search",
-      "AddRival" : "Add Rival",
-      "RivalList" : "Rival List",
-      "Empty" : "Empty",
-      "ID" : "ID",
+    "RivalPage": {
+      "Title": "Rival",
+      "IDInputPlaceholder": "Rival Card ID",
+      "Search": "Search",
+      "AddRival": "Add Rival",
+      "RivalList": "Rival List",
+      "Empty": "Empty",
+      "ID": "ID",
       "Level": "Level",
       "Rating": "Rating",
-      "OverPower" : "OverPower",
-      "LastPlay" : "LastPlay",
-      "PlayerName" : "PlayerName",
-      "Remove" : "Remove",
+      "BattlePoint": "BattlePoint",
+      "LastPlay": "LastPlay",
+      "PlayerName": "PlayerName",
+      "Remove": "Remove",
       "RemoveTip": "Remove them as rival?"
     }
   },
-  "ContributorsPage" : {
+  "ChuniV2": {
+    "ProfilePage": {
+      "Overview": "Overview"
+    },
+    "UserBoxPage": {
+      "Title": "User Box",
+      "Avatar": "Avatar",
+      "Nameplate": "Nameplate",
+      "MapIcon": "Map Icon",
+      "SystemVoice": "System Voice",
+      "AvatarWear": "Avatar Wear",
+      "AvatarHead": "Avatar Head",
+      "AvatarFace": "Avatar Face",
+      "AvatarSkin": "Avatar Skin",
+      "AvatarItem": "Avatar Item",
+      "AvatarFront": "Avatar Front",
+      "AvatarBack": "Avatar Back",
+      "Trophy": "Trophy",
+      "Frame": "Frame",
+      "Change": "Change",
+      "Preview": "Preview"
+    },
+    "RivalPage": {
+      "Title": "Rival",
+      "IDInputPlaceholder": "Rival Card ID",
+      "Search": "Search",
+      "AddRival": "Add Rival",
+      "RivalList": "Rival List",
+      "Empty": "Empty",
+      "ID": "ID",
+      "Level": "Level",
+      "Rating": "Rating",
+      "OverPower": "OverPower",
+      "LastPlay": "LastPlay",
+      "PlayerName": "PlayerName",
+      "Remove": "Remove",
+      "RemoveTip": "Remove them as rival?"
+    }
+  },
+  "ContributorsPage": {
     "Title": "Contributors",
     "Developers": "Developers",
     "CDNProvider": "CDN Provider",
@@ -314,7 +329,7 @@
     "ThanksSamnyan": "Original code by Samnyan and other contributors.",
     "ThanksJetbrain": "Developed using <a href=\"https://www.jetbrains.com/webstorm/\">WebStorm</a>, provided by JetBrains with an <a href=\"https://jb.gg/OpenSourceSupport\">open source license</a>."
   },
-  "OAuth" : {
+  "OAuth": {
     "ContinueWith": "Continue with {{type}}",
     "Github": {
       "githubLogin": "GitHub Login",

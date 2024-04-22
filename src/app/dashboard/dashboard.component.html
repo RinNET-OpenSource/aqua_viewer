@@ -14,7 +14,7 @@
             <h4 class="placeholder" style="width: 12em;"></h4>
           </div>
         </div>
-        <div *ngIf="!loadingAnnouncement" class="my-1">
+        <div *ngIf="announcement" class="my-1">
           <div class="fw-light text-secondary">{{announcement.updatedAt.toLocaleDateString()}}</div>
           <h4>{{announcement.title}}</h4>
         </div>
