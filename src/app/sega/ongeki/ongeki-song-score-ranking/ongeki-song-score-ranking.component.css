@@ -1,11 +1,23 @@
-@import "../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss";
-
-.offcanvas {
-  width: 40vw !important;
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .music-img {
-  width: 60%;
+  width: 8em;
+}
+
+.music-info {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.music-title {
+  font-weight: bold;
 }
 
 .level {
@@ -70,7 +82,7 @@
 }
 
 .bg-lunatic {
-  background: $white;
+  background: var(--bs-white);
 }
 
 .medal {

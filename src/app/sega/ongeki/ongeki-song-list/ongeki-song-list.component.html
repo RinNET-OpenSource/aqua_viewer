@@ -55,25 +55,25 @@
         </span>
       </div>
       <!--difficulty-->
-      <div class="hstack align-items-center gap-2">
+      <div class="row m-0 align-items-center gap-2">
         <span *ngIf="!(Number.parseFloat(item.level0 | toLevelDecimal) == 0)"
-          class="difficulty difficulty-basic badge rounded-pill">
+          class="col-auto difficulty difficulty-basic badge rounded-pill">
           {{(item.level0 | toLevelDecimal)}}
         </span>
         <span *ngIf="!(Number.parseFloat(item.level1 | toLevelDecimal) == 0)"
-          class="difficulty difficulty-advanced badge rounded-pill">
+          class="col-auto difficulty difficulty-advanced badge rounded-pill">
           {{(item.level1 | toLevelDecimal)}}
         </span>
         <span *ngIf="!(Number.parseFloat(item.level2 | toLevelDecimal) == 0)"
-          class="difficulty difficulty-expert badge rounded-pill">
+          class="col-auto difficulty difficulty-expert badge rounded-pill">
           {{(item.level2 | toLevelDecimal)}}
             </span>
         <span *ngIf="!(Number.parseFloat(item.level3 | toLevelDecimal) == 0)"
-          class=" difficulty difficulty-master badge rounded-pill">
+          class="col-auto difficulty difficulty-master badge rounded-pill">
           {{(item.level3 | toLevelDecimal)}}
         </span>
         <span *ngIf="Number.parseFloat(item.level3 | toLevelDecimal) == 0"
-          class="difficulty difficulty-lunatic badge rounded-pill">
+          class="col-auto difficulty difficulty-lunatic badge rounded-pill">
           {{(item.level4 | toLevelDecimal)}}
         </span>
       </div>

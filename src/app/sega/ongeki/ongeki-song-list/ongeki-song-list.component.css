@@ -6,7 +6,7 @@ input[type=checkbox] {
 }
 
 .checkbox-label{
-  text-wrap: none;
+  text-wrap: nowrap;
   user-select: none;
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
@@ -48,6 +48,7 @@ table {
 
 .song-info .jacket-container {
   width: 5.6rem;
+  min-width: 5.6rem;
   aspect-ratio: 1;
 }
 
