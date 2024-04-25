@@ -246,6 +246,10 @@
       "Details": "Details",
       "Ranking": "Ranking"
     },
+    "MusicList": {
+      "Title": "Music List",
+      "Filter": "Filter"
+    },
     "CardPage": {
       "Title": "Card",
       "Gallery": "Gallery",

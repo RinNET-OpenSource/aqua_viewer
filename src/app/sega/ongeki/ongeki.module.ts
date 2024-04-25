@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OngekiRoutes} from './ongeki.routing';
 import {OngekiProfileComponent} from './ongeki-profile/ongeki-profile.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -80,6 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         OngekiRoutes,
 
         MatCardModule,

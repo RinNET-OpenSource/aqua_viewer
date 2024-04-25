@@ -15,28 +15,38 @@
   font-size: 12px;
 }
 
-.song-info .song-info-difficulty {
+.difficulty {
   font-size: 12px;
 }
 
-.song-info .song-info-difficulty-Basic {
-  background: var(--bs-green);
+.difficulty-basic {
+  background: #2da060;
+  border: 1px solid #145830;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Advanced {
-  background: var(--bs-yellow);
+.difficulty-advanced {
+  background: #e6a047;
+  border: 1px solid #995014;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Expert {
-  background: var(--bs-red);
+.difficulty-expert {
+  background: #e55353;
+  border: 1px solid #7B1F18;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Master {
-  background: var(--bs-purple);
+.difficulty-master {
+  background: #9d5cb9;
+  border: 1px solid #381C47;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Lunatic {
-  background: #FFFFFF;
+.difficulty-lunatic {
+  background: var(--bs-white);
+  border: 1px solid var(--bs-danger);
+  color: var(--bs-danger);
 }
 
 .play-result {

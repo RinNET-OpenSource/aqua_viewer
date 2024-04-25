@@ -5,7 +5,6 @@ import {OngekiMusic} from '../model/OngekiMusic';
 import {environment} from '../../../../environments/environment';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
-import {AuthenticationService} from '../../../auth/authentication.service';
 import { UserService } from 'src/app/user.service';
 
 interface Ranking {
@@ -43,7 +42,7 @@ interface UserRanking {
 @Component({
   selector: 'app-ongeki-song-score-ranking',
   templateUrl: './ongeki-song-score-ranking.component.html',
-  styleUrls: ['./ongeki-song-score-ranking.component.scss']
+  styleUrls: ['./ongeki-song-score-ranking.component.css']
 })
 export class OngekiSongScoreRankingComponent {
   protected readonly Math = Math;

@@ -246,6 +246,10 @@
       "Details": "详细",
       "Ranking": "排名"
     },
+    "MusicList": {
+      "Title": "乐曲列表",
+      "Filter": "筛选"
+    },
     "CardPage": {
       "Title": "卡片",
       "Gallery": "全部",

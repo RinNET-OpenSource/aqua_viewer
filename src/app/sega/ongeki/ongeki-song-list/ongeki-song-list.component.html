@@ -1,10 +1,10 @@
-<h1 class="page-heading">Music List</h1>
+<h1 class="page-heading">{{"Ongeki.MusicList.Title" | translate}}</h1>
 
 <ng-template #pagination>
   <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
                        style="cursor: default"
                        (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
-    <ul class="pagination pagination-sm justify-content-center">
+    <ul class="pagination pagination-sm justify-content-center mb-2">
       <li class="page-item" [class.disabled]="p.isFirstPage()">
         <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
       </li>
@@ -20,14 +20,24 @@
   </pagination-template>
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
-<input type="text" #search class="form-control mb-2" placeholder="Filter"  (input)="filterSongs(search.value)">
+<div class="row justify-content-start mb-2 g-2">
+  <div *ngFor="let genre of genres; let i = index" class="col-auto">
+    <input type="checkbox" class="form-check-input" [value]="genre" [id]="'genre' + i" [formControl]="genreControls.controls[i]">
+    <label class="checkbox-label" [for]="'genre' + i">{{genre}}</label>
+  </div>
+  <div class="col-auto">
+    <input type="checkbox" class="form-check-input" value="lunatic" id="lunatic" [formControl]="lunaticControl">
+    <label class="checkbox-label" for="lunatic">Lunatic</label>
+  </div>
+</div>
+<input type="text" #search class="form-control mb-2" [placeholder]="'Ongeki.MusicList.Filter' | translate" [formControl]="searchControl">
 
-<div class="card-btn card mb-1 p-1 text-start"  (click)="showDetail(item)"
-     *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
-  <div class="song-info card-body hstack gap-2">
+<div class="card-btn card mb-2 text-start user-select-none"  (click)="showDetail(item)"
+     *ngFor="let item of filteredSongList$ | async | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
+  <div class="song-info card-body hstack gap-2 p-0">
     <div class="jacket-container ratio ratio-1x1">
       <!--jacket-->
-      <img class="position-absolute"
+      <img class="position-absolute rounded-start"
            src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.id|formatNumber:4}}.jpg"
            alt="">
     </div>
@@ -39,41 +49,37 @@
         </span>
       </div>
       <!--artist-->
-      <div class="song-info-artist text-truncate ">
-          <span>
-            {{item.artistName}}
-          </span>
+      <div class="song-info-artist text-truncate mb-1">
+        <span>
+          {{item.artistName}}
+        </span>
       </div>
       <!--difficulty-->
-      <!--      <div>-->
-      <!--        <span *ngIf="!(parseFloat(item.level0) == 0)"-->
-      <!--          class="song-info-difficulty song-info-difficulty-Basic badge rounded-pill me-2">-->
-      <!--              Basic-->
-      <!--          {{(item.level0 | toLevelDecimal)}}-->
-      <!--            </span>-->
-      <!--        <span *ngIf="!(parseFloat(item.level1) == 0)"-->
-      <!--          class="song-info-difficulty song-info-difficulty-Advanced badge rounded-pill me-2">-->
-      <!--              Advanced-->
-      <!--          {{(item.level1 | toLevelDecimal)}}-->
-      <!--            </span>-->
-      <!--        <span *ngIf="!(parseFloat(item.level2) == 0)"-->
-      <!--          class="song-info-difficulty song-info-difficulty-Expert badge rounded-pill me-2">-->
-      <!--              Expert-->
-      <!--          {{(item.level2 | toLevelDecimal)}}-->
-      <!--            </span>-->
-      <!--        <span *ngIf="!(parseFloat(item.level3) == 0)"-->
-      <!--          class=" song-info-difficulty song-info-difficulty-Master badge rounded-pill me-2">-->
-      <!--              Master-->
-      <!--          {{(item.level3 | toLevelDecimal)}}-->
-      <!--            </span>-->
-      <!--        <span *ngIf="parseFloat(item.level3) == 0"-->
-      <!--          class="song-info-difficulty song-info-difficulty-Lunatic badge rounded-pill border border-danger text-danger me-2">-->
-      <!--              Lunatic-->
-      <!--          {{(item.level4 | toLevelDecimal)}}-->
-      <!--            </span>-->
-      <!--      </div>-->
+      <div class="hstack align-items-center gap-2">
+        <span *ngIf="!(Number.parseFloat(item.level0 | toLevelDecimal) == 0)"
+          class="difficulty difficulty-basic badge rounded-pill">
+          {{(item.level0 | toLevelDecimal)}}
+        </span>
+        <span *ngIf="!(Number.parseFloat(item.level1 | toLevelDecimal) == 0)"
+          class="difficulty difficulty-advanced badge rounded-pill">
+          {{(item.level1 | toLevelDecimal)}}
+        </span>
+        <span *ngIf="!(Number.parseFloat(item.level2 | toLevelDecimal) == 0)"
+          class="difficulty difficulty-expert badge rounded-pill">
+          {{(item.level2 | toLevelDecimal)}}
+            </span>
+        <span *ngIf="!(Number.parseFloat(item.level3 | toLevelDecimal) == 0)"
+          class=" difficulty difficulty-master badge rounded-pill">
+          {{(item.level3 | toLevelDecimal)}}
+        </span>
+        <span *ngIf="Number.parseFloat(item.level3 | toLevelDecimal) == 0"
+          class="difficulty difficulty-lunatic badge rounded-pill">
+          {{(item.level4 | toLevelDecimal)}}
+        </span>
+      </div>
     </div>
   </div>
 </div>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<div class="mb-2"></div>
 

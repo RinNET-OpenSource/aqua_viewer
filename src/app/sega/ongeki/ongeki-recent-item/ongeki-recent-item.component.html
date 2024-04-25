@@ -22,27 +22,27 @@
       <!--difficulty-->
       <div [ngSwitch]="difficulty[playLog.level]">
             <span *ngSwitchCase="'Basic'"
-                  class="song-info-difficulty song-info-difficulty-Basic badge rounded-pill">
+                  class="difficulty difficulty-basic badge rounded-pill">
               Basic
               {{(playLog.songInfo?.level0 | toLevelDecimal)??'None'}}
             </span>
         <span *ngSwitchCase="'Advanced'"
-              class="song-info-difficulty song-info-difficulty-Advanced badge rounded-pill">
+              class="difficulty difficulty-advanced badge rounded-pill">
               Advanced
           {{(playLog.songInfo?.level1 | toLevelDecimal)??'None'}}
             </span>
         <span *ngSwitchCase="'Expert'"
-              class="song-info-difficulty song-info-difficulty-Expert badge rounded-pill">
+              class="difficulty difficulty-expert badge rounded-pill">
               Expert
           {{(playLog.songInfo?.level2 | toLevelDecimal)??'None'}}
             </span>
         <span *ngSwitchCase="'Master'"
-              class=" song-info-difficulty song-info-difficulty-Master badge rounded-pill">
+              class="difficulty difficulty-master badge rounded-pill">
               Master
           {{(playLog.songInfo?.level3 | toLevelDecimal)??'None'}}
             </span>
         <span *ngSwitchCase="'Lunatic'"
-              class="song-info-difficulty song-info-difficulty-Lunatic badge rounded-pill border border-danger text-danger">
+              class="difficulty difficulty-lunatic badge rounded-pill">
               Lunatic
           {{(playLog.songInfo?.level4 | toLevelDecimal)??'None'}}
             </span>
