@@ -4,19 +4,19 @@
       <div class="logo-container col-sm position-relative">
         <div #faultLogo [ngClass]="{'logo-bg': logoIsShow}" class="logo-box" (click)="fault($event)">
           <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle"/>
-          <svg *ngIf="!logoIsShow" class="logo" viewBox="0 0 128 128">
-            <g [style]="'fill:' + avatarHeadId.color[0]">
-              <use href="assets/turtle.svg#body"/>
-            </g>
-            <g [style]="'fill:' + avatarHeadId.color[1]">
-              <use href="assets/turtle.svg#shell"/>
-            </g>
-            <g [style]="'fill:' + avatarHeadId.color[2]">
-              <use href="assets/turtle.svg#lines"/>
-            </g>
-            <use href="assets/turtle.svg#face"/>
-          </svg>
-          <img *ngIf="!logoIsShow" class="ongekiHead cannot-drag" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{avatarHeadId.id}}.png" alt="">
+<!--          <svg *ngIf="!logoIsShow" class="logo" viewBox="0 0 128 128">-->
+<!--            <g [style]="'fill:' + avatarHeadId.color[0]">-->
+<!--              <use href="assets/turtle.svg#body"/>-->
+<!--            </g>-->
+<!--            <g [style]="'fill:' + avatarHeadId.color[1]">-->
+<!--              <use href="assets/turtle.svg#shell"/>-->
+<!--            </g>-->
+<!--            <g [style]="'fill:' + avatarHeadId.color[2]">-->
+<!--              <use href="assets/turtle.svg#lines"/>-->
+<!--            </g>-->
+<!--            <use href="assets/turtle.svg#face"/>-->
+<!--          </svg>-->
+<!--          <img *ngIf="!logoIsShow" class="ongekiHead cannot-drag" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{avatarHeadId.id}}.png" alt="">-->
         </div>
         <div #faultLogo class="h-100 w-100 position-absolute">
           <img *ngIf="logoIsShow" class="logo cannot-drag" src="{{host}}assets/turtle.svg" alt="turtle" (click)="fault($event)"/>

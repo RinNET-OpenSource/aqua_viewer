@@ -2,15 +2,67 @@
   width: 25%;
 }
 
+.cannot-drag {
+  -webkit-user-drag: none;
+}
+
 .not-found {
+  width: 100%;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  -webkit-user-drag: none;
+}
+
+.not-found-img {
+  position: absolute;
+}
+
+.not-found-turtle {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 18rem;
 }
 
 @media only screen and (max-width: 575px) {
   .logo {
     width: 50%;
   }
+}
+
+.turtle {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 18rem;
+  height: 18rem;
+  background: url('src/assets/not-found-turtle.png') no-repeat center center / 100%;
+}
+
+.not-found-turtle {
+  position: absolute;
+  z-index: 99;
+  max-height: 100%;
+  max-width: 100%;
+  top: 0;
+  transform: translate(-50%, 0);
+  left: 50%;
+  height: 100%;
+}
+
+.logo-img_fault {
+  background-blend-mode: screen;
+}
+
+.logo-img_fault::after {
+  transform: translateX(-2%);
+  background-color: #f00;
+}
+
+.logo-img_fault::before{
+  transform: translateX(2%);
+  background-color: #00f;
 }
