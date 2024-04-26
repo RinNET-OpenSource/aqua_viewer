@@ -12,7 +12,9 @@
 }
 
 .webstorm-logo{
-  height: 4em
+  height: 4em;
+  border-radius: .3rem;
+  padding: .5rem;
 }
 
 .jetbrains-logo{
