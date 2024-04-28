@@ -27,19 +27,13 @@
   width: 18rem;
 }
 
-@media only screen and (max-width: 575px) {
-  .logo {
-    width: 50%;
-  }
-}
-
 .turtle {
   position: absolute;
   top: 30%;
   left: 50%;
   width: 18rem;
   height: 18rem;
-  background: url('src/assets/not-found-turtle.png') no-repeat center center / 100%;
+  /*background: url('src/assets/not-found-turtle.png') no-repeat center center / 100%;*/
 }
 
 .not-found-turtle {
@@ -51,6 +45,15 @@
   transform: translate(-50%, 0);
   left: 50%;
   height: 100%;
+}
+
+.ongekiHead {
+  width: 92%;
+  position: absolute;
+  /*top: 4.5%;*/
+  top: 3.5%;
+  left: -24%;
+  z-index: 9999;
 }
 
 .logo-img_fault {
@@ -65,4 +68,25 @@
 .logo-img_fault::before{
   transform: translateX(2%);
   background-color: #00f;
+}
+
+@media only screen and (max-width: 575px) {
+  .logo {
+    width: 50%;
+  }
+  .not-found-img {
+    width: 100%;
+  }
+  .not-found-turtle {
+    max-width: 80%;
+    max-height: 80%;
+    left: 45.2%;
+  }
+  .ongekiHead {
+    width: 72%;
+    position: absolute;
+    top: 2.5%;
+    left: -13%;
+    z-index: 9999;
+  }
 }
