@@ -20,67 +20,36 @@
   </pagination-template>
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<!--<input type="text" #search class="form-control mb-2" (input)="filterCharacter(search.value)">-->
 
-<section class="card">
-  <div class="card-body">
-    <h5 class="card-title">Player Character</h5>
-    <div class="card-subtitle" *ngIf="equippedCharaName">{{equippedCharaName}}</div>
-    <div *ngIf="equippedCharaId">
-      <div class="top-image image">
-        <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{math.floor(equippedCharaId/10)|formatNumber:4}}_{{equippedCharaId%10|formatNumber:2}}_00.png">
-      </div>
-    </div>
-  </div>
-</section>
-
-<article class="container mt-3 mb-2">
+<div class="container col-12 px-1">
   <div class="row">
-    <section
-      class="card col-md-6 col-lg-6 col-xl-6"
+    <div
+      class="card row character-card row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4"
       *ngFor="let item of characters | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"
     >
-      <div class="card-body">
-        <div class="card-title">
-          {{item.characterInfo ? item.characterInfo.name : 'ID:' + item.characterId}}
-        </div>
-        <div>
-          <div class="character-display">
-            <div class="image">
-              <img *ngIf="enableImages == true" src="{{host}}assets/chuni/chara/CHU_UI_Character_{{math.floor(item.characterId/10)|formatNumber:4}}_{{item.characterId%10|formatNumber:2}}_00.png">
-            </div>
-            <div class="content">
-              <table class="table table-striped table-borderless">
-                <tbody>
-                <tr>
-                  <th>Level</th>
-                  <td>{{item.level}}</td>
-                </tr>
-                <tr>
-                  <th>Friendship Exp</th>
-                  <td>{{item.friendshipExp}}</td>
-                </tr>
-                <tr>
-                  <th>Play Count</th>
-                  <td>{{item.playCount}}</td>
-                </tr>
-                <tr>
-                  <th>Assigned Illust ID</th>
-                  <td>{{item.assignIllust}}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div fxFlex></div>
-          <button class="btn btn-sm btn-primary" (click)="levelUp(item.characterId, item.level)">
-            Level up
-          </button>
-        </div>
-      </div>
-    </section>
+      <img
+        class="character-img"
+        src="{{host}}assets/chuni/chara/CHU_UI_Character_{{math.floor(item.characterId/10)|formatNumber:4}}_{{item.characterId%10|formatNumber:2}}_00.png"
+        alt=""
+        (error)="handleErrorImg($event)"
+        (click)="levelUp(item.characterId, item.level)"
+      >
+      <p class="character-title text-truncate">{{item.characterInfo ? item.characterInfo.name : 'ID:' + item.characterId}}</p>
+      <section class="character-message text-truncate">
+        <span
+          class="badge rounded-pill"
+          [ngClass]="{
+            'advanced': item.level > 20 && item.level <= 40,
+            'expert': item.level > 40 && item.level <= 60,
+            'master': item.level > 60 && item.level <= 80,
+            'lunatic': item.level > 80,
+          }"
+        >Level {{item.level}}</span>
+        <span class="badge rounded-pill">Play Count {{item.playCount}}</span>
+      </section>
+    </div>
   </div>
-</article>
+</div>
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>

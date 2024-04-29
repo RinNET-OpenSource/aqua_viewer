@@ -1,0 +1,55 @@
+.character-card {
+  border: none;
+  width: 16rem;
+  display: flex;
+  align-items: center;
+
+  .character-img {
+    width: 100%;
+  }
+
+  .character-title {
+    margin: 0;
+    width: 80%;
+    text-align: center;
+  }
+
+  .character-message {
+    width: 80%;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+
+    &>span {
+      background: var(--bs-tertiary-color);
+      border: 1px solid #381C47;
+      color: white;
+      &:nth-child(2) {
+        background: var(--bs-primary-border-subtle);
+      }
+    }
+  }
+}
+
+.advanced {
+  background: var(--bs-warning-border-subtle) !important;
+}
+
+.expert {
+  background: var(--bs-danger-border-subtle) !important;
+}
+
+.master {
+  background: #6f42c1 !important;
+}
+
+.lunatic {
+  background: #ffffff !important;
+  color: #dc3545 !important;
+}
+
+@media only screen and (max-width: 575px) {
+  .character-card {
+    width: 21rem;
+  }
+}

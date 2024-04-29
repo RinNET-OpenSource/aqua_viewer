@@ -12,22 +12,25 @@ import {ChusanCharacter} from '../model/ChusanCharacter';
 import {environment} from '../../../../../environments/environment';
 import {Router} from '@angular/router';
 import { UserService } from 'src/app/user.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-v2-character',
   templateUrl: './v2-character.component.html',
-  styleUrls: ['./v2-character.component.css']
+  styleUrls: ['./v2-character.component.scss']
 })
 export class V2CharacterComponent implements OnInit {
 
   host = environment.assetsHost;
   enableImages = environment.enableImages;
+  searchControl = new FormControl('');
 
   aimeId: string;
   equippedCharaName: string;
   equippedCharaId: number;
 
   characters: Observable<V2Character[]>;
+  allCharacters: Observable<V2Character[]>;
 
   currentPage = 1;
   totalElements = 0;
@@ -73,6 +76,7 @@ export class V2CharacterComponent implements OnInit {
 
   pageChanged(page: number) {
     const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
+    this.allCharacters = this.api.get('api/game/chuni/v2/character', param).pipe();
     this.characters = this.api.get('api/game/chuni/v2/character', param).pipe(
       tap(
         data => {
@@ -92,5 +96,16 @@ export class V2CharacterComponent implements OnInit {
         error => this.messageService.notice(error)
       )
     );
+  }
+  handleErrorImg(e) {
+    e.srcElement.src = 'https://rinnet.stehp.cn/assets/chuni/chara/CHU_UI_Character_0000_00_00.png';
+  }
+
+  filterCharacter(searchValue: string) {
+    if (searchValue) {
+      this.allCharacters.subscribe((item) => {
+        console.log(item);
+      });
+    }
   }
 }
