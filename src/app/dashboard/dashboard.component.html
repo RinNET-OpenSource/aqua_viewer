@@ -81,10 +81,9 @@
       </div>
     </ng-container>
     <ng-container *ngIf="noCard">
-      <div class="card card-btn mb-3 placeholder-glow" (click)="router.navigateByUrl('/cards')">
-        <div class="card-body">
-          {{'DashboardPage.NoCardMessage' | translate}}
-        </div>
+      <div class="hstack alert alert-warning" role="alert">
+        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+        <div>{{'DashboardPage.NoCardMessage' | translate}}<a routerLink="/cards">{{'DashboardPage.GoToCardPage' | translate}}</a></div>
       </div>
     </ng-container>
     <ng-container *ngIf="!loadingProfile && !noCard && !ongekiProfile && !chusanProfile && !mai2Profile">

@@ -72,7 +72,7 @@
   <!--                    </li>-->
                     </ul>
                   </li>
-                  <li *ngIf="filterItems(ongekiMenu).length != 0">
+                  <li *ngIf="menuService.showMenu('ongeki', userService.currentUser)">
                     <div class="d-flex mb-2 ps-1 gap-2">
                       <div>
                         <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
@@ -82,12 +82,14 @@
                       <strong class="w-100 fw-semibold">{{'Common.Ongeki' | translate}}</strong>
                     </div>
                     <ul class="list-unstyled pb-2 ps-3 small">
-                      <li *ngFor="let item of filterItems(ongekiMenu)" class="pb-2">
-                        <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
-                      </li>
+                      <ng-container *ngFor="let item of menuService.menu.get('ongeki')">
+                        <li *ngIf="menuService.showItem('ongeki', item, userService.currentUser)" class="pb-2">
+                          <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
+                        </li>
+                      </ng-container>
                     </ul>
                   </li>
-                  <li *ngIf="filterItems(v2Menus).length != 0">
+                  <li *ngIf="menuService.showMenu('chusan', userService.currentUser)">
                     <div class="d-flex mb-2 ps-1 gap-2">
                       <div>
                         <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
@@ -97,12 +99,14 @@
                       <strong class="w-100 fw-semibold">{{'Common.ChuniV2' | translate}}</strong>
                     </div>
                     <ul class="list-unstyled pb-2 ps-3 small">
-                      <li *ngFor="let item of filterItems(v2Menus)" class="pb-2">
-                        <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
-                      </li>
+                      <ng-container *ngFor="let item of menuService.menu.get('chusan')">
+                        <li *ngIf="menuService.showItem('chusan', item, userService.currentUser)" class="pb-2">
+                          <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
+                        </li>
+                      </ng-container>
                     </ul>
                   </li>
-                  <li *ngIf="filterItems(mai2Menus).length != 0">
+                  <li *ngIf="menuService.showMenu('maimai2', userService.currentUser)">
                     <div class="d-flex mb-2 ps-1 gap-2">
                       <div>
                         <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
@@ -112,9 +116,11 @@
                       <strong class="w-100 fw-semibold">{{'Common.Mai2' | translate}}</strong>
                     </div>
                     <ul class="list-unstyled pb-2 ps-3 small">
-                      <li *ngFor="let item of filterItems(mai2Menus)" class="pb-2">
-                        <a class="link-btn rounded " [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
-                      </li>
+                      <ng-container *ngFor="let item of menuService.menu.get('maimai2')">
+                        <li *ngIf="menuService.showItem('maimai2', item, userService.currentUser)" class="pb-2">
+                          <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
+                        </li>
+                      </ng-container>
                     </ul>
                   </li>
                 </ul>

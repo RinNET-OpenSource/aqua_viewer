@@ -2,7 +2,7 @@
   <div class="song-info card-header hstack gap-2">
     <div class="jacket-container ratio ratio-1x1">
       <!--jacket-->
-      <img class="position-absolute"
+      <img class="jacket"
            src="{{host}}assets/ongeki/jacket/UI_Jacket_{{playLog.musicId|formatNumber:4}}.jpg"
            alt="">
     </div>
@@ -182,7 +182,7 @@
       <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
     </div>
     <div class="modal-body">
-      <table class="judge-table table table-borderless table-sm table-striped align-middle">
+      <table class="judge-table table table-borderless table-sm table-striped table-dark align-middle">
         <tbody>
         <tr>
           <td class="combo">COMBO</td>

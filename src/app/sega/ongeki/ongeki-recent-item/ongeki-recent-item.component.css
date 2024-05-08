@@ -1,10 +1,14 @@
 .song-info {
-  padding: 4px;
+  padding: 0;
 }
 
 .song-info .jacket-container {
   width: 96px;
   min-width: 96px;
+}
+
+.song-info .jacket {
+  border-top-left-radius: var(--bs-border-radius) !important;
 }
 
 .song-info .song-info-title {
@@ -56,11 +60,11 @@
 .play-result .score-area {
   margin-bottom: 8px;
   margin-top: 16px;
-  text-shadow: 1px 1px 1px #888888;
 }
 
 .play-result .score-area .item-header {
   font-size: 12px;
+  font-weight: bold;
 }
 
 .play-result .score-area .battle-item-header {
@@ -80,13 +84,13 @@
 }
 
 .play-result .score-area .score {
-  color: gold;
 }
 
 .play-result .score-area .score-stamp {
   object-fit: contain;
   max-height: 64px;
   max-width: 100%;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, .5));
 }
 
 .play-result .score-area .score-honor {
@@ -95,10 +99,10 @@
 
 .judge-table {
   min-width: 224px;
-  text-shadow: 1px 1px 1px #222222;
   font-size: 14px;
   text-align: center;
   height: 100%;
+  margin-bottom: 0;
 }
 
 .judge-table .combo{

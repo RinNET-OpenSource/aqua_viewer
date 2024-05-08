@@ -14,6 +14,7 @@ import {DOCUMENT} from '@angular/common';
 import {SwUpdate} from '@angular/service-worker';
 import {UserService} from './user.service';
 import {Account, AccountService} from './auth/account.service';
+import { MenuService } from './menu.service';
 
 @Component({
   selector: 'app-root',
@@ -32,140 +33,6 @@ export class AppComponent implements OnInit, OnDestroy {
   disableSidebar = false;
 
   loading$: Observable<boolean>;
-  ongekiMenu: Menu[] = [
-    {
-      id: 0,
-      name: 'Profile',
-      url: 'ongeki/profile',
-      show: false,
-    },
-    {
-      id: 1,
-      name: 'BattlePoint',
-      url: 'ongeki/battle',
-      show: false,
-    },
-    {
-      id: 2,
-      name: 'Rating',
-      url: 'ongeki/rating',
-      show: false,
-    },
-    {
-      id: 3,
-      name: 'PlayRecord',
-      url: 'ongeki/recent',
-      show: false,
-    },
-    {
-      id: 4,
-      name: 'MusicList',
-      url: 'ongeki/song',
-      show: true,
-    },
-    {
-      id: 5,
-      name: 'Card',
-      url: 'ongeki/card',
-      show: false,
-    },
-    {
-      id: 6,
-      name: 'Rival',
-      url: 'ongeki/rival',
-      show: false,
-    },
-    {
-      id: 7,
-      name: 'MusicRanking',
-      url: 'ongeki/musicRanking',
-      show: true,
-    },
-    {
-      id: 8,
-      name: 'UserRanking',
-      url: 'ongeki/userRanking',
-      show: true,
-    },
-    {
-      id: 9,
-      name: 'Setting',
-      url: 'ongeki/setting',
-      show: false,
-    }
-  ];
-
-  v2Menus: Menu[] = [
-    {
-      id: 0,
-      name: 'Profile',
-      url: 'chuni/v2/profile',
-      show: false,
-    },
-    {
-      id: 1,
-      name: 'Rating',
-      url: 'chuni/v2/rating',
-      show: false,
-    },
-    {
-      id: 2,
-      name: 'PlayRecord',
-      url: 'chuni/v2/recent',
-      show: false,
-    },
-    {
-      id: 3,
-      name: 'MusicList',
-      url: 'chuni/v2/song',
-      show: true,
-    },
-    {
-      id: 4,
-      name: 'Character',
-      url: 'chuni/v2/character',
-      show: false,
-    },
-    {
-      id: 5,
-      name: 'Rival',
-      url: 'chuni/v2/rival',
-      show: false,
-    },
-    {
-      id: 6,
-      name: 'UserBox',
-      url: 'chuni/v2/userbox',
-      show: false,
-    },
-    {
-      id: 7,
-      name: 'UserRanking',
-      url: 'chuni/v2/userRanking',
-      show: true,
-    },
-    {
-      id: 8,
-      name: 'Setting',
-      url: 'chuni/v2/setting',
-      show: false,
-    }
-  ];
-
-  mai2Menus: Menu[] = [
-    {
-      id: 0,
-      name: 'Profile',
-      url: 'mai2/profile',
-      show: false,
-    },
-    {
-      id: 1,
-      name: 'Setting',
-      url: 'mai2/setting',
-      show: false,
-    }
-  ];
 
 
   constructor(
@@ -176,6 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private preLoad: PreloadService,
     private messageService: MessageService,
+    protected menuService: MenuService,
     protected toastService: ToastService,
     protected languageService: LanguageService,
     protected themeService: ThemeService,
@@ -219,39 +87,14 @@ export class AppComponent implements OnInit, OnDestroy {
   private initializeApp() {
     if (this.accountService.currentAccountValue) {
       this.preLoad.checkDbUpdate();
-      this.loadUser();
-      this.refreshMenus();
+      this.userService.load();
     }
-  }
-
-  loadUser() {
-    this.userService.load().then(resp => {
-      this.refreshMenus();
-    });
   }
 
   ngOnDestroy(): void {
     this.toastService.clear();
   }
 
-  refreshMenus() {
-    const menuMap = new Map(
-      [
-        ['ongeki', this.ongekiMenu.filter(m => ![4, 7, 8].includes(m.id))],
-        ['chusan', this.v2Menus.filter(m => ![3, 7].includes(m.id))],
-        ['maimai2', this.mai2Menus]
-      ]
-    );
-    // 先全部设置为false再调
-    menuMap.forEach((menu, _) => {
-      menu.forEach(m => m.show = false);
-    });
-    if(this.userService?.currentUser){
-      this.userService.currentUser.games.forEach(game => {
-        menuMap.get(game).forEach(menu => menu.show = true);
-      });
-    }
-  }
   logout() {
     this.authenticationService.logout();
     location.assign('');
@@ -288,20 +131,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.hideSidebar();
   }
 
-  filterItems(menu: Menu[]) {
-    return menu.filter(m => m.show);
-  }
   @HostListener('window:popstate', ['$event'])
   onPopState(event: any) {
     if (this.sidebarOffcanvasOpened) {
       this.hideSidebar();
     }
   }
-}
-
-export class Menu {
-  id: number;
-  name: string;
-  url: string;
-  show: boolean;
 }
