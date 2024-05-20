@@ -3,12 +3,13 @@ import {ApiService} from '../../../api.service';
 import {AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {MatDialog} from '@angular/material/dialog';
-import {HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {DisplayMaimai2Profile} from '../model/Maimai2Profile';
 import { Maimai2NameSettingDialog } from './maimai2-name-setting/maimai2-name-setting.dialog';
 import { Maimai2UploadUserPortraitDialog } from './maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
 import {environment} from '../../../../environments/environment';
 import { UserService } from 'src/app/user.service';
+import {AccountService} from '../../../auth/account.service';
 
 @Component({
   selector: 'app-maimai2-setting',
@@ -25,6 +26,8 @@ export class Maimai2SettingComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private accountService: AccountService,
+    private http: HttpClient,
     private userService: UserService,
     private messageService: MessageService,
     public dialog: MatDialog
@@ -69,6 +72,22 @@ export class Maimai2SettingComponent implements OnInit {
     this.dialog.open(Maimai2UploadUserPortraitDialog, {
       data: { aimeId: String(this.userService.currentUser.defaultCard.extId), divMaxLength: this.divMaxLength },
       width: "500px",
+    });
+  }
+
+  downloadFile() {
+    const url = this.apiServer + 'api/game/maimai2/export?aimeId=' + this.aimeId;
+    const headers = { Authorization: `Bearer ${this.accountService.currentAccountValue.accessToken}` };
+    this.http.get(url, { headers, responseType: 'blob' }).subscribe(blob => {
+      const objUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = objUrl;
+      a.download = `maimai2_${this.aimeId}_exported.json`;
+      a.click();
+      document.body.appendChild(a);
+      document.body.removeChild(a);
+
+      window.URL.revokeObjectURL(objUrl);
     });
   }
 }

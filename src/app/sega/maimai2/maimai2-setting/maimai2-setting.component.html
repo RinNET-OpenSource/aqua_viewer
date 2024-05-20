@@ -30,7 +30,7 @@
   <mat-card-title>Export data</mat-card-title>
   <mat-card-content>
     <div class="action">
-      <a href="{{apiServer + '/api/game/maimai2/export?aimeId=' + aimeId}}" mat-button target="_blank">Download</a>
+      <a (click)="downloadFile()" class="mt-3 btn btn-sm btn-primary">Download</a>
     </div>
   </mat-card-content>
 </mat-card>
