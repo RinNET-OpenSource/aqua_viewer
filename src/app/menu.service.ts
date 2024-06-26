@@ -163,10 +163,10 @@ export class MenuService {
     else if(item.displayCondition == DisplayCondition.AfterLogin && this.accountService.currentAccountValue){
       return true;
     }
-    else if(item.displayCondition == DisplayCondition.HasProfile && user.games.includes(game)){
+    else if(item.displayCondition == DisplayCondition.HasProfile && user?.games.includes(game)){
       return true;
     }
-    else if(item.displayCondition == DisplayCondition.IsAdmin && user.roles.some(r => r.name === 'ROLE_ADMIN')){
+    else if(item.displayCondition == DisplayCondition.IsAdmin && user?.roles.some(r => r.name === 'ROLE_ADMIN')){
       return true;
     }
     else{

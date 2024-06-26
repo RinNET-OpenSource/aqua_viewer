@@ -46,6 +46,12 @@
               </svg>
               {{'OAuth.ContinueWith' | translate: {type: 'Microsoft'} }}
             </button>
+            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('bcn')">
+              <svg class="oauth-icon" viewBox="0 0 16 16">
+                <use href="assets/bcn.svg#icon"/>
+              </svg>
+              {{'OAuth.ContinueWith' | translate: {type: 'BEMANICN'} }}
+            </button>
             <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('github')">
               <svg class="oauth-icon" viewBox="0 0 16 16">
                 <use href="assets/github.svg#icon"/>

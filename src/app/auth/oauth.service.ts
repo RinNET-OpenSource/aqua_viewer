@@ -9,6 +9,7 @@ import {environment} from 'src/environments/environment';
 })
 export class OAuthService {
   public tokenTypes = new Map([
+    ["bcn", "BEMANICN"],
     ["microsoft", "Microsoft"],
     ["github", "GitHub"],
     ["gitlab", "GitLab"]
