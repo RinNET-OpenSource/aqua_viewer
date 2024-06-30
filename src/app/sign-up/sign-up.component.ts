@@ -22,6 +22,7 @@ export class SignUpComponent implements OnDestroy {
   private timerSubscription!: Subscription;
   token: string;
   type: string;
+  providers: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,7 @@ export class SignUpComponent implements OnDestroy {
     public router: Router,
     private translate: TranslateService,
     protected oauth: OAuthService) {
+      this.providers = [...this.oauth.tokenTypes.keys()];
       this.initForm();
       const state = this.router.getCurrentNavigation().extras.state;
       if (state) {

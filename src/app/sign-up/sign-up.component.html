@@ -107,30 +107,14 @@
               </div>
               <hr class="col m-0">
             </div>
-            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('microsoft')">
-              <svg class="oauth-icon" viewBox="0 0 16 16">
-                <use href="assets/microsoft.svg#icon"/>
-              </svg>
-              {{'OAuth.ContinueWith' | translate: {type: 'Microsoft'} }}
-            </button>
-            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('bcn')">
-              <svg class="oauth-icon" viewBox="0 0 16 16">
-                <use href="assets/bcn.svg#icon"/>
-              </svg>
-              {{'OAuth.ContinueWith' | translate: {type: 'BEMANICN'} }}
-            </button>
-            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('github')">
-              <svg class="oauth-icon" viewBox="0 0 16 16">
-                <use href="assets/github.svg#icon"/>
-              </svg>
-              {{'OAuth.ContinueWith' | translate: {type: 'GitHub'} }}
-            </button>
-            <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl('gitlab')">
-              <svg class="oauth-icon" viewBox="0 0 16 16">
-                <use href="assets/gitlab.svg#icon"/>
-              </svg>
-              {{'OAuth.ContinueWith' | translate: {type: 'GitLab'} }}
-            </button>
+            <ng-container *ngFor="let provider of providers">
+              <button type="button" class="btn btn-theme" (click)="oauth.getSignInUrl(provider)">
+                <svg class="oauth-icon" viewBox="0 0 16 16">
+                  <use attr.href="assets/{{provider}}.svg#icon"/>
+                </svg>
+                {{'OAuth.ContinueWith' | translate: {type: oauth.tokenTypes.get(provider)} }}
+              </button>
+            </ng-container>
           </ng-container>
         </div>
       </form>

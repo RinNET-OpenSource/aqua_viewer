@@ -19,6 +19,7 @@ export class SignInComponent {
   name: string;
   username: string;
   email: string;
+  providers: string[];
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +29,7 @@ export class SignInComponent {
     private translate: TranslateService,
     protected oauth: OAuthService,
   ) {
+    this.providers = [...this.oauth.tokenTypes.keys()];
     this.signInForm = this.fb.group({
       usernameOrEmail: ['', Validators.required],
       password: ['', Validators.required]
