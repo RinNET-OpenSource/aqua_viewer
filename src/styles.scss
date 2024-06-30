@@ -93,19 +93,30 @@ pagination-template {
 /* 滚动条样式 */
 ::-webkit-scrollbar {
   width: 4px !important;
-  /*height: 4px;*/
 }
 
-::-webkit-scrollbar-thumb {
+[data-bs-theme=dark] ::-webkit-scrollbar-thumb {
   border-radius: 10px !important;
   -webkit-box-shadow: inset 0 0 5px #5d5f62 !important;
   background: #5d5f62 !important;
 }
 
-::-webkit-scrollbar-track {
+[data-bs-theme=dark] ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 5px #373b3e !important;
   border-radius: 0 !important;
   background: #373b3e !important;
+}
+
+[data-bs-theme=light] ::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  -webkit-box-shadow: inset 0 0 5px #b0b0b0 !important;
+  background: #b0b0b0 !important;
+}
+
+[data-bs-theme=light] ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px #e0e0e0 !important;
+  border-radius: 0 !important;
+  background: #e0e0e0 !important;
 }
 
 

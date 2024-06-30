@@ -27,7 +27,7 @@ export class ThemeService {
 
   private applyColorTheme() {
     const isDarkMode = this.Theme === 'dark' || (this.Theme === 'auto' && this.ThemeMediaQuery.matches);
-    document.body.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
   }
 
   getTheme() {
