@@ -21,10 +21,11 @@ export class OngekiCardListComponent implements OnInit {
   host = environment.assetsHost;
 
   cardList: OngekiCard[] = [];
+  skillList: OngekiSkill[] = [];
+  charaList: OngekiCharacter[] = [];
   filteredCardList: OngekiCard[] = [];
   currentPage = 1;
   totalElements = 0;
-  ready = false;
 
   constructor(
     private api: ApiService,
@@ -38,26 +39,9 @@ export class OngekiCardListComponent implements OnInit {
 
   async ngOnInit() {
     this.cardList = await lastValueFrom(this.dbService.getAll<OngekiCard>('ongekiCard'));
+    this.skillList = await lastValueFrom(this.dbService.getAll<OngekiSkill>('ongekiSkill'));
+    this.charaList = await lastValueFrom(this.dbService.getAll<OngekiCharacter>('ongekiCharacter'));
     this.filteredCardList = [...this.cardList];
-    const observers = this.cardList.map(card => {
-      const character$ = this.dbService.getByID<OngekiCharacter>('ongekiCharacter', card.charaId).pipe(take(1));
-      const skill$ = this.dbService.getByID<OngekiSkill>('ongekiSkill', card.skillId).pipe(take(1));
-      const choKaikaSkill$ = this.dbService.getByID<OngekiSkill>('ongekiSkill', card.choKaikaSkillId).pipe(take(1));
-      return forkJoin([character$, skill$, choKaikaSkill$]).pipe(
-        map(([character, skill, choKaikaSkill]) => {
-          card.characterInfo = character;
-          card.skillInfo = skill;
-          card.choKaikaSkillInfo = choKaikaSkill;
-          return card;
-        })
-      );
-    });
-    forkJoin(observers).subscribe(cards => {
-      this.cardList = cards;
-      this.filteredCardList = [...this.cardList];
-      console.log('ok');
-      this.ready = true;
-    });
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
         this.currentPage = data.page;
@@ -87,13 +71,42 @@ export class OngekiCardListComponent implements OnInit {
         const sameId = card.id === Number(searchTerm);
         const includesName = card.name.toLowerCase().includes(lowerSearchTerm);
         const includesNickName = card.nickName.toLowerCase().includes(lowerSearchTerm);
-        const sameSkillCategory = card.skillInfo.category.toLowerCase() === lowerSearchTerm ||
-          card.choKaikaSkillInfo.category.toLowerCase() === lowerSearchTerm;
+        const sameSkillCategory = this.isSameSkillCategory(lowerSearchTerm, card);
         const includesNumber = card.cardNumber.toLowerCase().includes(lowerSearchTerm);
         return sameId || includesName || includesNickName || sameSkillCategory || includesNumber;
       });
     } else {
       this.filteredCardList = [...this.cardList];
+    }
+  }
+
+  isSameSkillCategory(category: string, card: OngekiCard){
+    const skill = this.findSkill(card.skillId);
+    const choKaikaSkill = this.findSkill(card.choKaikaSkillId);
+    return skill?.category?.toLowerCase() === category || choKaikaSkill?.category?.toLowerCase() === category
+  }
+
+  findSkill(skillId: number){
+    return this.skillList.find(skill => skill.id === skillId)
+  }
+
+  getSkillName(skillId: number){
+    const skill = this.findSkill(skillId);
+    if(skill){
+      return skill.name;
+    }
+    else{
+      return 'ID:' + skillId;
+    }
+  }
+
+  getCharaString(charaId: number){
+    const chara = this.charaList.find(skill => skill.id === charaId);
+    if(chara){
+      return chara.name + "<br>" + (chara.cv ? '(CV: ' + chara.cv + ')' : '');
+    }
+    else{
+      return ""
     }
   }
 }

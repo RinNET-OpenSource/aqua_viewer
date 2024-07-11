@@ -20,7 +20,7 @@
   </pagination-template>
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
-<input type="text" #search [disabled]="!ready" class="form-control mb-2" [placeholder]="ready ? 'Filter' : 'Preparing data...'" (input)="filterCards(search.value)">
+<input type="text" #search class="form-control mb-2" placeholder="Filter" (input)="filterCards(search.value)">
 <div class="card mb-2 text-start"
      *ngFor="let item of filteredCardList | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }">
   <div class="card-body">
@@ -28,10 +28,7 @@
     <div class="card-display">
       <div class="image">
         <img src="{{host}}assets/ongeki/card/UI_Card_{{item.id|formatNumber:6}}_S.jpg">
-        <div *ngIf="item.characterInfo">
-          {{item.characterInfo.name}}<br>
-          {{item.characterInfo.cv ? '(CV: ' + item.characterInfo.cv + ')' : ''}}
-        </div>
+        <div [innerHtml]="getCharaString(item.charaId)"></div>
       </div>
       <div class="content">
         <table class="table table-striped table-borderless">
@@ -62,11 +59,11 @@
           </tr>
           <tr>
             <th>Skill</th>
-            <td>{{item.skillInfo ? item.skillInfo.name : 'ID:' + item.skillId}}</td>
+            <td>{{getSkillName(item.skillId)}}</td>
           </tr>
           <tr>
             <th>ChoKaika Skill</th>
-            <td>{{item.choKaikaSkillInfo ? item.choKaikaSkillInfo.name : 'ID:' + item.choKaikaSkillId}}</td>
+            <td>{{getSkillName(item.choKaikaSkillId)}}</td>
           </tr>
           <tr>
             <th>Card Number</th>
