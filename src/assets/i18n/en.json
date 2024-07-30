@@ -291,6 +291,7 @@
     "UserBoxPage": {
       "Title": "User Box",
       "Avatar": "Avatar",
+      "ShowAllItems": "Show All Items",
       "Nameplate": "Nameplate",
       "MapIcon": "Map Icon",
       "SystemVoice": "System Voice",

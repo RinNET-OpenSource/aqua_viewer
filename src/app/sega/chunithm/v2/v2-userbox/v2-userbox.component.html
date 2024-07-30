@@ -25,6 +25,12 @@
       </div>
     </div>
   </div>
+  <div class="col-12 mb-1">
+    <div class="form-check form-check-inline form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="showAllItemsSwitch" [(ngModel)]="showAllItems">
+      <label class="form-check-label" for="showAllItemsSwitch">{{'ChuniV2.UserBoxPage.ShowAllItems' | translate}}</label>
+    </div>
+  </div>
   <div class="col-12 px-1">
     <div class="row p-0 m-0 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
       <div class="col px-1 pt-0 pb-2 m-0" *ngFor="let item of customable">

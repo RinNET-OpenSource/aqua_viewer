@@ -291,6 +291,7 @@
     "UserBoxPage": {
       "Title": "收藏品",
       "Avatar": "虚拟形象",
+      "ShowAllItems": "解锁全部道具",
       "Nameplate": "名牌板",
       "MapIcon": "地图头像",
       "SystemVoice": "系统语音",

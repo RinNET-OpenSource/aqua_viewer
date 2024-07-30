@@ -68,7 +68,7 @@ export class V2UserBoxSettingDialog implements OnInit{
         }
       });
     }
-    else {
+    else if(!this.data.showAllItems) {
       this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
         (data: V2Item[]) => {
           if (data) {
@@ -139,6 +139,55 @@ export class V2UserBoxSettingDialog implements OnInit{
         error => this.messageService.notice(error)
       );
     }
+    else{
+      if (this.data.itemKind === 1){
+        this.dbService.getAll<ChusanNamePlate>('chusanNamePlate').subscribe(list => {
+          this.iList = list.
+          map(item => {
+            return {itemId: item.id, itemKind: 1, name: item.name, stock: 1};
+          });
+        });
+      }
+      else if (this.data.itemKind === 2){
+        this.dbService.getAll<ChusanFrame>('chusanFrame').subscribe(list => {
+          this.iList = list.
+          map(item => {
+            return {itemId: item.id, itemKind: 2, name: item.name, stock: 1};
+          });
+        });
+      }
+      else if (this.data.itemKind === 3){
+        this.dbService.getAll<ChusanTrophy>('chusanTrophy').subscribe(list => {
+          this.iList = list.
+          map(item => {
+            return {itemId: item.id, itemKind: 3, name: item.name, stock: 1};
+          });
+        });
+      }
+      else if (this.data.itemKind === 8){
+        this.dbService.getAll<ChusanMapIcon>('chusanMapIcon').subscribe(list => {
+          this.iList = list.
+          map(item => {
+            return {itemId: item.id, itemKind: 8, name: item.name, stock: 1};
+          });
+        });
+      }
+      else if (this.data.itemKind === 9){
+        this.dbService.getAll<ChusanSystemVoice>('chusanSystemVoice').subscribe(list => {
+          this.iList = list.
+          map(item => {
+            return {itemId: item.id, itemKind: 9, name: item.name, stock: 1};
+          });
+        });
+      }
+
+      const currentIndex = this.iList.findIndex(item => {
+        return item.itemId === this.data.itemId;
+      });
+      if (currentIndex !== -1) {
+        this.pageChanged(Math.floor(currentIndex / 12) + 1);
+      }
+    }
   }
 }
 
@@ -146,4 +195,5 @@ export interface V2UserBoxSettingData {
   itemKind: number;
   itemId: number;
   category?: number;
+  showAllItems: boolean;
 }

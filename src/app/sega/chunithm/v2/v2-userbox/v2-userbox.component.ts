@@ -26,6 +26,8 @@ export class V2UserBoxComponent implements OnInit {
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 
+  showAllItems = false;
+
   profile: V2Profile;
   aimeId: string;
   apiServer: string;
@@ -194,27 +196,27 @@ export class V2UserBoxComponent implements OnInit {
   }
 
   namePlate() {
-    this.openDialog({ itemKind: 1, itemId: this.profile.nameplateId });
+    this.openDialog({ itemKind: 1, itemId: this.profile.nameplateId, showAllItems: this.showAllItems });
   }
 
   frame() {
-    this.openDialog({ itemKind: 2, itemId: this.profile.frameId });
+    this.openDialog({ itemKind: 2, itemId: this.profile.frameId, showAllItems: this.showAllItems });
   }
 
   trophy() {
-    this.openDialog({ itemKind: 3, itemId: this.profile.trophyId });
+    this.openDialog({ itemKind: 3, itemId: this.profile.trophyId, showAllItems: this.showAllItems });
   }
 
   mapIcon() {
-    this.openDialog({ itemKind: 8, itemId: this.profile.mapIconId });
+    this.openDialog({ itemKind: 8, itemId: this.profile.mapIconId, showAllItems: this.showAllItems });
   }
 
   systemVoice() {
-    this.openDialog({ itemKind: 9, itemId: this.profile.voiceId });
+    this.openDialog({ itemKind: 9, itemId: this.profile.voiceId, showAllItems: this.showAllItems });
   }
 
   avatarAcc(category: number, accId: number) {
-    this.openDialog({ itemKind: 11, itemId: accId, category });
+    this.openDialog({ itemKind: 11, itemId: accId, category, showAllItems: this.showAllItems });
     this.currentAvatarAcc = { category, accId };
   }
 
