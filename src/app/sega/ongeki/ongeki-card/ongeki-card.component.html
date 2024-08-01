@@ -19,17 +19,40 @@
     </ul>
   </pagination-template>
 </ng-template>
-<div class="d-flex gap-2 mb-2">
-  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="all">{{'Ongeki.CardPage.Gallery' | translate}}</button>
-  <button type="button" class="btn btn-sm btn-top btn-outline-primary" routerLink="gacha">{{'Ongeki.CardPage.Gacha' | translate}}</button>
+
+<div class="row justify-content-start align-items-center mb-2 g-2">
+  <div class="col-auto">
+    <input class="checkbox" type="checkbox" role="switch" id="holoSwitch" [(ngModel)]="showHolo">
+    <label class="checkbox-label" for="holoSwitch">{{'Ongeki.CardPage.Holo' | translate}}</label>
+  </div>
+  <div class="col-auto">
+    <input class="checkbox" type="checkbox" role="switch" id="elementsSwitch" [(ngModel)]="showElements">
+    <label class="checkbox-label" for="elementsSwitch">{{'Ongeki.CardPage.Elements' | translate}}</label>
+  </div>
 </div>
-<div class="form-check form-check-inline form-switch">
-  <input class="form-check-input" type="checkbox" role="switch" id="holeSwitch" [(ngModel)]="showHolo">
-  <label class="form-check-label" for="holeSwitch">{{'Ongeki.CardPage.Holo' | translate}}</label>
+<div class="row justify-content-start align-items-center mb-2 g-2">
+  <div class="col-auto">
+    <input class="checkbox" type="checkbox" role="switch" id="showUnacquired" [formControl]="showAllControl" >
+    <label class="checkbox-label" for="showUnacquired">未获取卡片</label>
+  </div>
+  <div class="col-auto">
+    <select class="form-select form-select-sm" [formControl]="sortControl" >
+      <option value="0" selected>获取顺序</option>
+      <option value="1">ID顺序</option>
+    </select>
+  </div>
 </div>
-<div class="form-check form-check-inline form-switch">
-  <input class="form-check-input" type="checkbox" role="switch" id="elementsSwitch" [(ngModel)]="showElements">
-  <label class="form-check-label" for="elementsSwitch">{{'Ongeki.CardPage.Elements' | translate}}</label>
+<div class="row justify-content-start align-items-center mb-2 g-2">
+  <div *ngFor="let attr of attrs; let i = index" class="col-auto">
+    <input type="checkbox" class="form-check-input" [value]="attr" [id]="'attr' + i" [formControl]="attrControls.controls[i]">
+    <label class="checkbox-label" [for]="'attr' + i">{{attr}}</label>
+  </div>
+</div>
+<div class="row justify-content-start align-items-center g-2">
+  <div *ngFor="let skillType of skillTypes; let i = index" class="col-auto">
+    <input type="checkbox" class="form-check-input" [value]="skillType" [id]="'skillType' + i" [formControl]="skillTypeControls.controls[i]">
+    <label class="checkbox-label" [for]="'skillType' + i">{{skillType}}</label>
+  </div>
 </div>
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
@@ -39,17 +62,13 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col p-2"
          *ngFor="let item of cardList | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: totalElements }; let i = index">
-      <!--      <div *ngIf="item.cardInfo">-->
-      <!--        <span>Level: {{item.level}}</span>-->
-      <!--        <span>Atk: {{calculateAtk(item.level, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0')}}</span>-->
-      <!--      </div>-->
       <div class="w-100">
         <ng-template #content let-modal>
           <div class="modal-header">
             <h4 class="modal-title">{{'Ongeki.CardPage.Details' | translate}}</h4>
             <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
           </div>
-          <div class="modal-body">
+          <div *ngIf="cardIds.includes(item.cardId)" class="modal-body">
             <table class="card-details-table table table-borderless table-sm table-striped align-middle text-center small">
               <tbody>
               <tr>
@@ -89,10 +108,42 @@
                       [disabled]="item.choKaikaDate != '0000-00-00 00:00:00.0'">{{'Ongeki.CardPage.ChoKaika' | translate}}</button>
             </div>
           </div>
-
+          <div *ngIf="item.digitalStock < 1" class="modal-body">
+            <table class="card-details-table table table-borderless table-sm table-striped align-middle text-center small">
+              <tbody>
+              <tr>
+                <td>ID</td>
+                <td>{{item.cardId}}</td>
+              </tr>
+              <tr *ngIf="item.cardInfo">
+                <td>{{'Ongeki.CardPage.Character' | translate}}</td>
+                <td>{{getCardName(item.cardInfo.name, item.cardInfo.rarity, item.cardInfo.nickName)}}</td>
+              </tr>
+              <tr *ngIf="item.cardInfo">
+                <td>{{'Ongeki.CardPage.NickName' | translate}}</td>
+                <td>{{item.cardInfo.nickName}}</td>
+              </tr>
+              <tr *ngIf="item.cardInfo">
+                <td>{{'Ongeki.CardPage.Attack' | translate}}</td>
+                <td>{{calculateAtk(item.level, convertToNumberArray(item.cardInfo.levelParam), true)}}</td>
+              </tr>
+              <tr>
+                <td>{{'Ongeki.CardPage.Skill' | translate}}</td>
+                <td>{{item.skillInfo?item.skillInfo.name:item.skillId}}</td>
+              </tr>
+              <tr *ngIf="item.skillInfo">
+                <td>{{'Ongeki.CardPage.Info' | translate}}</td>
+                <td>{{item.skillInfo.info}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="hstack gap-1 float-end">
+              <button class="btn btn-sm btn-outline-secondary" (click)="insertCard(item.cardId);modal.dismiss()">I want it</button>
+            </div>
+          </div>
         </ng-template>
 
-        <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}"
+        <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}" [ngClass]="{'grayscale': item.digitalStock < 1}"
              [@cardAnimation]="{
            value: pickedCardId === item.cardId?'expanded':'normal',
            params: { top: pickCardParams.top, left: pickCardParams.left, width: pickCardParams.width, height: pickCardParams.height,
@@ -108,18 +159,18 @@
              (touchcancel)="onMouseLeaveCard(cardCol)">
           <div class="card-rotator w-100">
             <div *ngIf="item.cardInfo" class="card-container user-select-none"
-                 style="background-image: {{getCardBackground(item, showHolo)}}">
+                 style="background-image: {{getCardBackground(item, showHolo &&  item.digitalStock > 0)}}">
               <div *ngIf="showElements && (item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
                    class="card-frame"
                    style="background-image: {{getFrame(item)}}"></div>
               <div class="card-chara" style="background-image: {{getChara(item)}}"></div>
-              <div *ngIf="showHolo" [style]="holoSheetStyles[i]" class="position-absolute w-100 h-100">
+              <div *ngIf="showHolo && item.digitalStock > 0" [style]="holoSheetStyles[i]" class="position-absolute w-100 h-100">
                 <div class="card-holo-bg" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
                 <div class="card-holo" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
               </div>
-              <div *ngIf="showElements && !showHolo && !(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
+              <div *ngIf="showElements && !(showHolo && item.digitalStock > 0) && !(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
                    class="card-frame" style="background-image: {{getFrame(item)}}"></div>
-              <div *ngIf="showHolo" [style]="reversedHoloSheetStyles[i]" class="position-absolute w-100 h-100">
+              <div *ngIf="showHolo && item.digitalStock > 0" [style]="reversedHoloSheetStyles[i]" class="position-absolute w-100 h-100">
                 <div *ngIf="!(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')" class="card-frame"
                      style="background-image: {{getHoloFrame(item)}}"></div>
                 <div class="card-holo-frame-bg"
