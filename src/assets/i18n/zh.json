@@ -280,7 +280,8 @@
       "ShowFilter": "显示过滤",
       "HideFilter": "隐藏过滤",
       "ResetFilter": "重置过滤",
-      "TotalCardNum": "共 {{num}} 张卡片"
+      "TotalCardNum": "共 {{num}} 张卡片",
+      "FilterPlaceholder": "ID，编号，角色名，称号，技能详情"
     },
     "RivalPage": {
       "Title": "好友",

@@ -282,7 +282,8 @@
       "ShowFilter": "Show Filter",
       "HideFilter": "Hide Filter",
       "ResetFilter": "Reset Filter",
-      "TotalCardNum": "Total {{num}} Cards"
+      "TotalCardNum": "Total {{num}} Cards",
+      "FilterPlaceholder": "ID, CardNumber, CharaName, NickName, SkillInfo"
     },
     "RivalPage": {
       "Title": "Rival",
