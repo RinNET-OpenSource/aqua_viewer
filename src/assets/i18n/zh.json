@@ -257,8 +257,6 @@
     },
     "CardPage": {
       "Title": "卡片",
-      "Gallery": "全部",
-      "Gacha": "抽取",
       "Holo": "闪膜",
       "Elements": "信息",
       "Details": "卡片信息",
@@ -269,7 +267,20 @@
       "Skill": "技能",
       "Info": "详情",
       "Kaika": "解花",
-      "ChoKaika": "超解花"
+      "ChoKaika": "超解花",
+      "Display": "展示",
+      "IsAcquired": "获取状态",
+      "Unacquired": "未获取",
+      "Attribute": "属性",
+      "Rarity": "稀有度",
+      "SkillCategory": "技能类型",
+      "SortBy": "排序",
+      "Acquisition": "最新获取",
+      "CardID": "卡片ID",
+      "ShowFilter": "显示过滤",
+      "HideFilter": "隐藏过滤",
+      "ResetFilter": "重置过滤",
+      "TotalCardNum": "共 {{num}} 张卡片"
     },
     "RivalPage": {
       "Title": "好友",

@@ -20,44 +20,98 @@
   </pagination-template>
 </ng-template>
 
-<div class="row justify-content-start align-items-center mb-2 g-2">
-  <div class="col-auto">
-    <input class="checkbox" type="checkbox" role="switch" id="holoSwitch" [(ngModel)]="showHolo">
-    <label class="checkbox-label" for="holoSwitch">{{'Ongeki.CardPage.Holo' | translate}}</label>
-  </div>
-  <div class="col-auto">
-    <input class="checkbox" type="checkbox" role="switch" id="elementsSwitch" [(ngModel)]="showElements">
-    <label class="checkbox-label" for="elementsSwitch">{{'Ongeki.CardPage.Elements' | translate}}</label>
-  </div>
-</div>
-<div class="row justify-content-start align-items-center mb-2 g-2">
-  <div class="col-auto">
-    <input class="checkbox" type="checkbox" role="switch" id="showUnacquired" [formControl]="showAllControl" >
-    <label class="checkbox-label" for="showUnacquired">未获取卡片</label>
-  </div>
-  <div class="col-auto">
-    <select class="form-select form-select-sm" [formControl]="sortControl" >
-      <option value="0" selected>获取顺序</option>
-      <option value="1">ID顺序</option>
-    </select>
+<div class="row mb-2 g-2">
+  <div class="col-12 col-sm-auto pt-1 me-3">{{'Ongeki.CardPage.Display' | translate}}</div>
+  <div class="col-12 col-sm">
+    <div class="row justify-content-start align-items-center g-2">
+      <div class="col-auto p-0">
+        <input class="checkbox" type="checkbox" role="switch" id="holoSwitch" [(ngModel)]="showHolo">
+        <label class="checkbox-label" for="holoSwitch">{{'Ongeki.CardPage.Holo' | translate}}</label>
+      </div>
+      <div class="col-auto p-0">
+        <input class="checkbox" type="checkbox" role="switch" id="elementsSwitch" [(ngModel)]="showElements">
+        <label class="checkbox-label" for="elementsSwitch">{{'Ongeki.CardPage.Elements' | translate}}</label>
+      </div>
+    </div>
   </div>
 </div>
-<div class="row justify-content-start align-items-center mb-2 g-2">
-  <div *ngFor="let attr of attrs; let i = index" class="col-auto">
-    <input type="checkbox" class="form-check-input" [value]="attr" [id]="'attr' + i" [formControl]="attrControls.controls[i]">
-    <label class="checkbox-label" [for]="'attr' + i">{{attr}}</label>
+
+<div class="collapse" id="filterCollapse">
+  <div class="row mb-2 g-2">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{'Ongeki.CardPage.IsAcquired' | translate}}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-2">
+        <div class="col-auto p-0">
+          <input class="checkbox" type="checkbox" role="switch" id="showUnacquired" [formControl]="showAllControl" >
+          <label class="checkbox-label" for="showUnacquired">{{'Ongeki.CardPage.Unacquired' | translate}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 g-2">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{'Ongeki.CardPage.Rarity' | translate}}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-2">
+        <div *ngFor="let rarity of rarities; let i = index" class="col-auto p-0">
+          <input class="checkbox" type="checkbox" role="switch" [value]="rarity" [id]="'rarity' + i" [formControl]="rarityControls.controls[i]">
+          <label class="checkbox-label" [for]="'rarity' + i">{{toDisplayRarity(rarity)}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 g-2">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{'Ongeki.CardPage.Attribute' | translate}}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-2">
+        <div *ngFor="let attr of attrs; let i = index" class="col-auto p-0">
+          <input class="checkbox" type="checkbox" role="switch" [value]="attr" [id]="'attr' + i" [formControl]="attrControls.controls[i]">
+          <label class="checkbox-label" [for]="'attr' + i">{{attr}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 g-2">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{'Ongeki.CardPage.SkillCategory' | translate}}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-2">
+        <div *ngFor="let skillCategory of skillCategorys; let i = index" class="col-auto p-0">
+          <input class="checkbox" type="checkbox" role="switch" [value]="skillCategory" [id]="'skillCategory' + i" [formControl]="skillCategoryControls.controls[i]">
+          <label class="checkbox-label" [for]="'skillCategory' + i">{{toDisplaySkillCategory(skillCategory)}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 g-2">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{'Ongeki.CardPage.SortBy' | translate}}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-2">
+        <div class="col-12 p-0">
+          <select class="form-select form-select-sm" [formControl]="sortControl" >
+            <option value="0" selected>{{'Ongeki.CardPage.Acquisition' | translate}}</option>
+            <option value="1">{{'Ongeki.CardPage.CardID' | translate}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 g-2">
+    <div class="col-12 p-0">
+      <input type="text" #search class="form-control form-control-sm" placeholder="ID, CardNumber, Name, NickName, Skill" [formControl]="searchTermControl">
+    </div>
   </div>
 </div>
-<div class="row justify-content-start align-items-center g-2">
-  <div *ngFor="let skillType of skillTypes; let i = index" class="col-auto">
-    <input type="checkbox" class="form-check-input" [value]="skillType" [id]="'skillType' + i" [formControl]="skillTypeControls.controls[i]">
-    <label class="checkbox-label" [for]="'skillType' + i">{{skillType}}</label>
-  </div>
+<div *ngIf="cardList">
+  <span>{{'Ongeki.CardPage.TotalCardNum' | translate: {num: totalElements} }}</span>
+  <a class="link-btn ms-3" (click)="toggleFilter()">{{filterCollapsed?('Ongeki.CardPage.ShowFilter' | translate):('Ongeki.CardPage.HideFilter' | translate)}}</a>
+  <a *ngIf="!isDefaultFilter()" class="link-btn ms-3" (click)="resetFilter()">{{'Ongeki.CardPage.ResetFilter' | translate}}</a>
 </div>
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
-
-
 <div *ngIf="cardList" class="text-center px-1">
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
     <div class="col p-2"
@@ -221,9 +275,9 @@
                          src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.png">
                     <img *ngSwitchCase="'DangerAttack'" class="card-skill-bg" draggable="false"
                          src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.png">
-                    <img *ngSwitchCase="'Assist'" class="card-skill-bg" draggable="false"
+                    <img *ngSwitchCase="'Support'" class="card-skill-bg" draggable="false"
                          src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.png">
-                    <img *ngSwitchCase="'DangerAssist'" class="card-skill-bg" draggable="false"
+                    <img *ngSwitchCase="'DangerSupport'" class="card-skill-bg" draggable="false"
                          src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.png">
                     <img *ngSwitchCase="'Guard'" class="card-skill-bg" draggable="false"
                          src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.png">

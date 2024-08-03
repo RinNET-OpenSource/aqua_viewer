@@ -390,3 +390,12 @@ input[type=checkbox]:checked + .checkbox-label{
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
 }
+
+.link-btn{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-btn:hover{
+  text-decoration: underline;
+}

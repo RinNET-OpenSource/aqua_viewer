@@ -1,13 +1,12 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {HttpParams} from '@angular/common/http';
 import {ApiService} from '../../../api.service';
-import {AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {OngekiCard} from '../model/OngekiCard';
 import {OngekiCharacter} from '../model/OngekiCharacter';
 import {PlayerCard} from '../model/PlayerCard';
-import {Observable, combineLatest, debounceTime, lastValueFrom, map, tap, startWith} from 'rxjs';
+import {Observable, combineLatest, lastValueFrom, map, tap, startWith} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {OngekiSkill} from '../model/OngekiSkill';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -16,6 +15,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ArrayUtils} from 'src/app/util/array-utils';
 import {UserService} from 'src/app/user.service';
 import {FormArray, FormControl} from '@angular/forms';
+import {Collapse} from 'bootstrap';
 
 @Component({
   selector: 'app-ongeki-card',
@@ -77,13 +77,17 @@ export class OngekiCardComponent implements OnInit {
     100009, 100018, 100027, 100288, 100289, 100290, 100458, 100459, 100460, 100729, 100730, 101047, 101048, 101312, 101313, 101314, 101322,
     101323, 101324, 101325, 101326, 101327, 101328, 101329, 101330, 101331, 101332, 101333, 101334, 101335, 101336, 101337, 101338, 101339];
   attrs = ['Fire', 'Leaf', 'Aqua'];
-  skillTypes = ['Attack', 'Boost', 'Guard', 'Support'];
+  rarities = ['SSR', 'SRPlus', 'SR', 'R', 'N'];
+  skillCategorys = ['Attack', 'Boost', 'Guard', 'Support', 'DangerAttack', 'DangerBoost', 'DangerGuard', 'DangerSupport'];
   protected readonly Math = Math;
 
   host = environment.assetsHost;
   enableImages = environment.enableImages;
   holoSheetStyles: string[] = [];
   reversedHoloSheetStyles: string[] = [];
+
+  filterCollapsed = true;
+  filterCollapse: Collapse;
 
   allCards: OngekiCard[];
   allSkills: OngekiSkill[];
@@ -98,9 +102,11 @@ export class OngekiCardComponent implements OnInit {
   showHolo = false;
   showElements = true;
   sortControl = new FormControl('0');
-  showAllControl = new FormControl(false);
+  showAllControl = new FormControl(true);
+  rarityControls = new FormArray([]);
   attrControls = new FormArray([]);
-  skillTypeControls = new FormArray([]);
+  skillCategoryControls = new FormArray([]);
+  searchTermControl = new FormControl('');
   pickingCard = false;
   pickedCardId: number = null;
   pickCardParams: {
@@ -135,23 +141,34 @@ export class OngekiCardComponent implements OnInit {
     this.isSafari = safari && !chrome;
 
     this.attrs.forEach(() => this.attrControls.push(new FormControl(false)));
-    this.skillTypes.forEach(() => this.skillTypeControls.push(new FormControl(false)));
+    this.rarities.forEach(() => this.rarityControls.push(new FormControl(false)));
+    this.skillCategorys.forEach(() => this.skillCategoryControls.push(new FormControl(false)));
   }
 
   async ngOnInit() {
+    const collapseElement = document.getElementById('filterCollapse');
+    if (collapseElement) {
+      this.filterCollapse = new Collapse(collapseElement, {toggle: false});
+    }
+
     await this.prepare();
     combineLatest([
       this.route.queryParams.pipe(startWith({page: 1})),
       this.sortControl.valueChanges.pipe(startWith('0')),
-      this.showAllControl.valueChanges.pipe(startWith(false)),
+      this.showAllControl.valueChanges.pipe(startWith(true)),
+      this.rarityControls.valueChanges.pipe(startWith([])),
       this.attrControls.valueChanges.pipe(startWith([])),
-      this.skillTypeControls.valueChanges.pipe(startWith([])),
-    ]).subscribe(([queryParams, sort, showAll, attrValues, skillTypeValues])=>{
-      let selectedAttrs = this.attrs.filter((_, index) => attrValues[index]);
-      let selectedSkillTypes = this.skillTypes.filter((_, index) => skillTypeValues[index]);
-      this.filteredIds = this.filterCard(showAll, sort, selectedAttrs, selectedSkillTypes);
+      this.skillCategoryControls.valueChanges.pipe(startWith([])),
+      this.searchTermControl.valueChanges.pipe(startWith('')),
+    ]).subscribe(([queryParams, sort, showAll, raritiesValues, attrValues, skillCategoryValues, searchTerm]) => {
+      const selectedAttrs = this.attrs.filter((_, index) => attrValues[index]);
+      const selectedSkillCategorys = this.skillCategorys.filter((_, index) => skillCategoryValues[index]);
+      const selectedrarities = this.rarities.filter((_, index) => raritiesValues[index]);
+      this.filteredIds = this.filterCard(showAll, sort, selectedrarities, selectedAttrs, selectedSkillCategorys, searchTerm);
       this.totalElements = this.filteredIds.length;
-      this.currentPage = queryParams.page;
+      if (queryParams.page){
+        this.currentPage = queryParams.page;
+      }
       this.load(this.currentPage);
     });
     if (this.isSafari) {
@@ -164,7 +181,7 @@ export class OngekiCardComponent implements OnInit {
     if (this.pickingCard || this.isSafari) {
       return;
     }
-    if(!this.cardIds.includes(cardId)) {
+    if (!this.cardIds.includes(cardId)) {
       return;
     }
     if (this.pickedCardId) {
@@ -292,42 +309,93 @@ export class OngekiCardComponent implements OnInit {
     this.cardIds = (await lastValueFrom(this.api.get('api/game/ongeki/cardIds'))).reverse();
   }
 
-  filterCard(showAll, sort, selectedAttrs, selectedSkillTypes){
-    var filteredIds;
-    if(showAll && sort === '0'){
+  filterCard(showAll: boolean, sort: string, selectedrarities, selectedAttrs: string[], selectedSkillCategorys: string[], searchTerm: string){
+    let filteredIds;
+    if (showAll && sort === '0'){
       const unacquiredCards = this.allCards.filter(card => !this.cardIds.includes(card.id)).map(card => card.id);
       filteredIds = this.cardIds.concat(unacquiredCards);
     }
-    else if(showAll && sort === '1'){
+    else if (showAll && sort === '1'){
       filteredIds = this.allCards.map(card => card.id);
     }
-    else if(!showAll && sort === '1'){
+    else if (!showAll && sort === '1'){
       filteredIds = this.allCards.filter(card => this.cardIds.includes(card.id)).map(card => card.id);
     }
-    else if(!showAll && sort === '0'){
+    else if (!showAll && sort === '0'){
       filteredIds = this.cardIds;
     }
 
-    if(selectedAttrs.length > 0 && selectedAttrs.length < this.attrs.length){
+    if (selectedrarities.length > 0 && selectedrarities.length < this.rarities.length){
+      const filtetedCard = this.allCards.filter(card => selectedrarities.includes(card.rarity)).map(card => card.id);
+      filteredIds = filteredIds.filter(id => filtetedCard.includes(id));
+    }
+
+    if (selectedAttrs.length > 0 && selectedAttrs.length < this.attrs.length){
       const filtetedCard = this.allCards.filter(card => selectedAttrs.includes(card.attribute)).map(card => card.id);
       filteredIds = filteredIds.filter(id => filtetedCard.includes(id));
     }
 
-    if(selectedSkillTypes.length > 0 && selectedSkillTypes.length < this.skillTypes.length){
-      const filtetedSkillId = this.allSkills.filter(skill => selectedSkillTypes.includes(skill.category)).map(skill => skill.id);
-      const filtetedCard = this.allCards.filter(card => filtetedSkillId.includes(card.skillId) || filtetedSkillId.includes(card.choKaikaSkillId)).map(card => card.id);
+    if (selectedSkillCategorys.length > 0 && selectedSkillCategorys.length < this.skillCategorys.length){
+      const filtetedSkillId = this.allSkills.filter(skill => selectedSkillCategorys.includes(skill.category)).map(skill => skill.id);
+      const filtetedCard = this.allCards.filter(card =>
+        filtetedSkillId.includes(card.skillId) ||
+        filtetedSkillId.includes(card.choKaikaSkillId)).map(card => card.id);
       filteredIds = filteredIds.filter(id => filtetedCard.includes(id));
     }
 
+    const terms = this.parseSearchTerms(searchTerm.toLowerCase());
+    const filteredSkill = this.filterSkillByTerms(terms);
+    filteredIds = filteredIds.filter(id => this.filterCardByTerms(id, terms, filteredSkill));
+
+
     return filteredIds;
+  }
+
+  private filterCardByTerms(id, terms: string[], skillIds: number[]) {
+    const card = this.allCards.find(c => c.id === id);
+    const nickName = card.nickName.toLowerCase();
+    const cardNumber = card.cardNumber.toLowerCase();
+    const charaName = card.name.replace('【SR+】', '【SRPlus】').replace(`【${card.rarity}】`, '').replace(`[${nickName}]`, '').toLowerCase();
+    return terms.every(term => {
+      if (id === Number(term)){
+        return true;
+      }
+      if (nickName.includes(term)){
+        return true;
+      }
+      if (cardNumber === term){
+        return true;
+      }
+      if (charaName.includes(term)){
+        return true;
+      }
+      if (skillIds.includes(card.skillId) || skillIds.includes(card.choKaikaSkillId)){
+        return true;
+      }
+      return false;
+    });
+  }
+
+  private filterSkillByTerms(terms: string[]) {
+    return this.allSkills.filter(skill => {
+      return terms.some(term => {
+        if (skill.name.toLowerCase().includes(term)){
+          return true;
+        }
+        if (skill.info.toLowerCase().includes(term)){
+          return true;
+        }
+        return false;
+      });
+    }).map(skill => skill.id);
   }
 
   load(page: number) {
     const pageSize = 12;
     const start = Math.min((page - 1) * pageSize, this.filteredIds.length);
     const end = Math.min(start + pageSize, this.filteredIds.length);
-    let pageIds = this.filteredIds.slice(start, end);
-    let acquiredPageIds = pageIds.filter(id => this.cardIds.includes(id));
+    const pageIds = this.filteredIds.slice(start, end);
+    const acquiredPageIds = pageIds.filter(id => this.cardIds.includes(id));
     const cardIdsParam = acquiredPageIds.join(',');
     const params = new HttpParams().set('cardIds', cardIdsParam);
     this.cardList = this.api.get('api/game/ongeki/cardInfos', params).pipe(
@@ -339,15 +407,30 @@ export class OngekiCardComponent implements OnInit {
       map(
         data =>  {
           const content: PlayerCard[] = data;
-          let cards = pageIds.map(id => {
+          const cards = pageIds.map(id => {
             let playerCard: PlayerCard = content.find(card => card.cardId === id);
-            if(!playerCard) {
-              let card = this.allCards.find(card => card.id === id)
+            if (!playerCard) {
+              const card = this.allCards.find(c => c.id === id);
               const maxLevel = card.rarity === 'N' ? 100 : 70;
-              playerCard = {cardId: id, digitalStock: 0, analogStock: 0, level: maxLevel, maxLevel: maxLevel, exp: 0, printCount: 0, useCount: 0, kaikaDate: '2000-00-00 00:00:00.0', choKaikaDate: '2000-00-00 00:00:00.0',skillId: card?.choKaikaSkillId, created: '0000-00-00 00:00:00.0', isNew: false, isAcquired: false}
+              playerCard = {
+                cardId: id,
+                digitalStock: 0,
+                analogStock: 0,
+                level: maxLevel,
+                maxLevel,
+                exp: 0,
+                printCount: 0,
+                useCount: 0,
+                kaikaDate: '2000-00-00 00:00:00.0',
+                choKaikaDate: '2000-00-00 00:00:00.0',
+                skillId: card?.choKaikaSkillId,
+                created: '0000-00-00 00:00:00.0',
+                isNew: false,
+                isAcquired: false
+              };
             }
             return playerCard;
-          })
+          });
 
           cards.forEach(x => {
             this.dbService.getByID<OngekiCard>('ongekiCard', x.cardId).subscribe(
@@ -357,7 +440,7 @@ export class OngekiCardComponent implements OnInit {
                   z =>
                     x.characterInfo = z
                 );
-                if(x.choKaikaDate != '0000-00-00 00:00:00.0'){
+                if (x.choKaikaDate !== '0000-00-00 00:00:00.0'){
                   this.dbService.getByID<OngekiSkill>('ongekiSkill', y.choKaikaSkillId).subscribe(
                     z => x.skillInfo = z
                   );
@@ -399,7 +482,8 @@ export class OngekiCardComponent implements OnInit {
       cardId
     }).subscribe(
       data => {
-        this.messageService.notice('Successful, go to check your card list')
+        this.messageService.notice('Successful, go to check your card list');
+        this.cardIds.push(cardId);
         this.load(this.currentPage);
       },
       error => this.messageService.notice(error)
@@ -661,4 +745,78 @@ export class OngekiCardComponent implements OnInit {
       --holo-sheet-top: url("${this.host}assets/holo-sheet/${index}/top.png");`;
   }
 
+  resetFilter() {
+    this.showAllControl.setValue(true);
+    this.attrControls.controls.forEach(c => c.setValue(false));
+    this.skillCategoryControls.controls.forEach(c => c.setValue(false));
+    this.sortControl.setValue('0');
+    this.rarityControls.controls.forEach(c => c.setValue(false));
+    this.searchTermControl.setValue('');
+  }
+
+  isDefaultFilter() {
+    return this.showAllControl.value === true &&
+      this.attrControls.controls.every(c => c.value === false) &&
+      this.skillCategoryControls.controls.every(c => c.value === false) &&
+      this.sortControl.value === '0' &&
+      this.rarityControls.controls.every(c => c.value === false) &&
+      this.searchTermControl.value === '';
+  }
+
+  toggleFilter() {
+    if (this.filterCollapsed){
+      this.filterCollapse.show();
+      this.filterCollapsed = false;
+    }
+    else{
+      this.filterCollapse.hide();
+      this.filterCollapsed = true;
+    }
+  }
+
+  parseSearchTerms(searchTerm: string): string[] {
+    const terms: string[] = [];
+    let buffer = '';
+    let inQuotes = false;
+    let escapeNext = false;
+
+    for (const char of searchTerm) {
+      if (escapeNext) {
+        buffer += char;
+        escapeNext = false;
+      } else if (char === '\\') {
+        escapeNext = true;
+      } else if (char === '"') {
+        if (!inQuotes && buffer.length > 0) {
+          terms.push(buffer.trim());
+          buffer = '';
+        }
+        inQuotes = !inQuotes;
+      } else if (char === ' ' && !inQuotes) {
+        if (buffer.length > 0) {
+          terms.push(buffer);
+          buffer = '';
+        }
+      } else {
+        buffer += char;
+      }
+    }
+
+    if (buffer.length > 0) {
+      terms.push(buffer.trim());
+    }
+
+    return terms;
+  }
+
+  toDisplayRarity(rarity: string){
+    if (rarity === 'SRPlus') { return 'SR+'; }
+    return rarity;
+  }
+
+  toDisplaySkillCategory(skillCategory: string){
+    if (skillCategory === 'Support') { return 'Assist'; }
+    else if (skillCategory === 'DangerSupport') { return 'DangerAssist'; }
+    return skillCategory;
+  }
 }

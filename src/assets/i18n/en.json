@@ -269,7 +269,20 @@
       "Skill": "Skill",
       "Info": "Info",
       "Kaika": "Kaika",
-      "ChoKaika": "ChoKaika"
+      "ChoKaika": "ChoKaika",
+      "Display": "Display",
+      "IsAcquired": "Is Acquired",
+      "Unacquired": "Unacquired",
+      "Rarity": "Rarity",
+      "Attribute": "Attribute",
+      "SkillCategory": "Skill Category",
+      "SortBy": "Sort By",
+      "Acquisition": "Newest Acquisition",
+      "CardID": "Card ID",
+      "ShowFilter": "Show Filter",
+      "HideFilter": "Hide Filter",
+      "ResetFilter": "Reset Filter",
+      "TotalCardNum": "Total {{num}} Cards"
     },
     "RivalPage": {
       "Title": "Rival",
