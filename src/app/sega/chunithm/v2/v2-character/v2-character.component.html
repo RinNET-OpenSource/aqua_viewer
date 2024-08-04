@@ -4,7 +4,7 @@
   <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
                        style="cursor: default"
                        (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
-    <ul class="pagination pagination-sm justify-content-center">
+    <ul class="pagination pagination-sm justify-content-center mb-2">
       <li class="page-item" [class.disabled]="p.isFirstPage()">
         <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
       </li>

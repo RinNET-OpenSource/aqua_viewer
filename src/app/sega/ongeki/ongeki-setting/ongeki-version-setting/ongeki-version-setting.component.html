@@ -1,0 +1,14 @@
+<div class="modal-content">
+  <div class="modal-body">
+    <h2>Change version</h2>
+    <p>Version format is x.xx.xx</p>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Version</span>
+      <input [(ngModel)]="data.version" type="text" class="form-control" placeholder="x.xx.xx">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="this.modalService.dismissAll()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="parentComponent.handleVersionApplyClick(data)">Apply</button>
+  </div>
+</div>

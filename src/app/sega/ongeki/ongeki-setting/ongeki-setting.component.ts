@@ -9,6 +9,7 @@ import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {OngekiNameSettingComponent} from './ongeki-name-setting/ongeki-name-setting.component';
 import {UserService} from 'src/app/user.service';
 import {AccountService} from 'src/app/auth/account.service';
+import {OngekiVersionSettingComponent} from './ongeki-version-setting/ongeki-version-setting.component';
 
 @Component({
   selector: 'app-ongeki-setting',
@@ -21,6 +22,7 @@ export class OngekiSettingComponent implements OnInit {
 
   aimeId: string;
   apiServer: string;
+  version: string;
 
   dialogOptions: NgbModalOptions = {
     centered: true,
@@ -50,7 +52,7 @@ export class OngekiSettingComponent implements OnInit {
   }
 
   downloadFile(): void {
-    const url = this.apiServer + 'api/game/ongeki/export?aimeId=' + this.aimeId;
+    const url = this.apiServer + 'api/game/ongeki/export';
     const headers = {Authorization: `Bearer ${this.accountService.currentAccountValue.accessToken}`};
     this.http.get(url, {headers, responseType: 'blob'}).subscribe(blob => {
       const objectUrl = window.URL.createObjectURL(blob);
@@ -61,9 +63,9 @@ export class OngekiSettingComponent implements OnInit {
       a.click();
       document.body.appendChild(a);
       document.body.removeChild(a);
-
       window.URL.revokeObjectURL(objectUrl);
-    });
+      this.messageService.notice('Ongeki Download Over');
+    }, error => this.messageService.notice(error));
   }
 
   userName() {
@@ -84,4 +86,25 @@ export class OngekiSettingComponent implements OnInit {
     }
   }
 
+  dataVersion() {
+    const dialogRef = this.modalService.open(OngekiVersionSettingComponent, this.dialogOptions);
+    console.log(this.profile);
+    dialogRef.componentInstance.data = { version: this.profile.lastDataVersion, type: 1 };
+    dialogRef.componentInstance.parentComponent = this;
+  }
+
+  handleVersionApplyClick(data: { version: string, type: number }) {
+    if (data.version && data.type) {
+      console.log(data.version, data.type);
+      console.log(this.aimeId);
+      this.api.put('api/game/ongeki/profile/dataversion', { dataVersion: data.version }).subscribe(
+        x => {
+          console.log(x);
+          this.profile = x;
+          this.messageService.notice('Updated Ongeki Version OK');
+          this.modalService.dismissAll();
+        }, error => this.messageService.notice(error)
+      );
+    }
+  }
 }

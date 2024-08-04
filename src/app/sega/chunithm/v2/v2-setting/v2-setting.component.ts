@@ -110,8 +110,8 @@ export class V2SettingComponent implements OnInit {
       a.click();
       document.body.appendChild(a);
       document.body.removeChild(a);
-
       window.URL.revokeObjectURL(objUrl);
-    });
+      this.messageService.notice('Chunithm Download Over');
+    }, error => this.messageService.notice(error));
   }
 }

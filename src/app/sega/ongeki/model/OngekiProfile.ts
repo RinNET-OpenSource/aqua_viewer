@@ -7,6 +7,8 @@ export interface DisplayOngekiProfile {
   level: number;
   reincarnationNum: number;
   lastPlayDate: string;
+  lastDataVersion: string;
+  lastRomVersion: string;
   exp: number;
   point: number;
   totalPoint: number;
@@ -17,6 +19,7 @@ export interface DisplayOngekiProfile {
   playerRating: number;
   highestRating: number;
   battlePoint: number;
+  bestBattlePoint: number;
   rankId: number;
   rankPattern: number;
   nameplateId: number;
