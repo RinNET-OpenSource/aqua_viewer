@@ -282,3 +282,8 @@ h6 {
   --bs-btn-hover-bg: #{tint-color($gray-900, 10%)};
   --bs-btn-hover-border-color: #{tint-color($gray-700, 10%)};
 }
+
+.grayscale {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}

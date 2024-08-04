@@ -1,4 +1,4 @@
-import { Observable, combineLatest, debounceTime, map, startWith } from 'rxjs';
+import {Observable, combineLatest, debounceTime, map, startWith} from 'rxjs';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {MatPaginator} from '@angular/material/paginator';
