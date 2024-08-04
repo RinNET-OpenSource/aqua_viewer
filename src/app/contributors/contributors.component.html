@@ -24,11 +24,11 @@
   <h2 class="mb-3">{{"ContributorsPage.Donations" | translate}}</h2>
   <div class="mb-3 lh-lg">
     <span class="hstack d-inline-block me-3 mb-1" [class.fw-bold]="sponsor.CurrentPlan && sponsor.CurrentPlan !== ''" *ngFor="let sponsor of sponsors">
-      <a class="text-decoration-none" target="_blank" href="https://afdian.net/u/{{sponsor.UserId}}"><img class="avator me-1" src="{{sponsor.AvatarUrl}}">{{sponsor.Name}}</a>
+      <a class="text-decoration-none" target="_blank" href="https://afdian.com/u/{{sponsor.UserId}}"><img class="avator me-1" src="{{sponsor.AvatarUrl}}">{{sponsor.Name}}</a>
     </span>
   </div>
   <div class="mb-4">
-    <a class="btn sponsor-me" target="_blank" href="https://afdian.net/a/rinnet">
+    <a class="btn sponsor-me" target="_blank" href="https://afdian.com/a/rinnet">
       {{"ContributorsPage.SponsorMe" | translate}}
     </a>
   </div>
