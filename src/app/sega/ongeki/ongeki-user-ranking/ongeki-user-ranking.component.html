@@ -10,58 +10,70 @@
   <li class="nav-item" style="cursor: pointer">
     <a class="nav-link"
        [ngClass]="{'active': !tabBarBoolControl}"
-       (click)="tabBarBoolControl = false;this.getDailyPcRankingData()"
+       (click)="tabBarBoolControl = false; this.getDailyPcRankingData()"
     >Daily PC Ranking</a>
   </li>
 </ul>
 
 <ng-container *ngIf="tabBarBoolControl">
-  <table class="table table-borderless table-striped align-middle mt-3">
-    <thead>
-    <th>Ranking</th>
-    <th>User Name</th>
-    <th>Now Rating</th>
-    <th>Highest Rating</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of ongekiUserRankings; let i = index">
-      <td class="position-relative" [ngSwitch]="i">
-        <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
-        <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
-        <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
-        <span>
-          {{ item.ranking }}
-        </span>
-      </td>
-      <td>{{ item.userName }}</td>
-      <td>{{ item.nowRating.toFixed(2) }}</td>
-      <td>{{ item.highestRating.toFixed(2) }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="ranking">
+    <table class="mt-3">
+      <thead>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Now Ra</th>
+      <th>Max Ra</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of ongekiUserRankings; let i = index">
+        <td class="rank position-relative" [ngSwitch]="i">
+          <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
+          <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
+          <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
+          <span *ngSwitchDefault>
+            {{ item.ranking }}
+          </span>
+        </td>
+        <td class="name">
+          <span *ngIf="i == 0 || i == 1 || i == 2" style="font-weight: bold">{{ item.userName }}</span>
+          <span *ngIf="i != 0 && i != 1 && i != 2">{{ item.userName }}</span>
+        </td>
+        <td>{{ item.nowRating.toFixed(2) }}</td>
+        <td>{{ item.highestRating.toFixed(2) }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </ng-container>
 
 <ng-container *ngIf="!tabBarBoolControl">
-  <h5 class="mt-3">Updated at 0:00 every day</h5>
-  <table class="table table-borderless table-striped align-middle mt-3">
-    <thead>
-    <th>Ranking</th>
-    <th>User Name</th>
-    <th>Daily Play Count</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of OngekiPcRankings; let ranking = index">
-      <td class="position-relative" [ngSwitch]="ranking">
-        <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
-        <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
-        <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
-        <span>
-          {{ ranking + 1 }}
-        </span>
-      </td>
-      <td>{{ item.username }}</td>
-      <td>{{ item.pc }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <p class="mt-3">Updated at 0:00 every day</p>
+  <div class="ranking">
+    <table class="mt-3">
+      <thead>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Play Count</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of OngekiPcRankings; let ranking = index">
+        <td class="position-relative" [ngSwitch]="ranking">
+          <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
+          <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
+          <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
+          <span *ngSwitchDefault>
+            {{ ranking + 1 }}
+          </span>
+        </td>
+        <td>
+          <span *ngIf="ranking == 0 || ranking == 1 || ranking == 2" style="font-weight: bold">{{ item.username }}</span>
+          <span *ngIf="ranking != 0 && ranking != 1 && ranking != 2">{{ item.username }}</span>
+        </td>
+        <td>{{ item.pc }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </ng-container>

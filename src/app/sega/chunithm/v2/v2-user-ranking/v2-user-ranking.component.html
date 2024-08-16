@@ -16,52 +16,64 @@
 </ul>
 
 <ng-container *ngIf="tabBarBoolControl">
-  <table class="table table-borderless table-striped align-middle mt-3">
-    <thead>
-    <th>Ranking</th>
-    <th>User Name</th>
-    <th>Now Rating</th>
-    <th>Highest Rating</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of chusanUserRankings; let ranking = index">
-      <td class="position-relative" [ngSwitch]="ranking">
-        <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
-        <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
-        <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
-        <span>
-          {{ ranking + 1 }}
-        </span>
-      </td>
-      <td>{{ item.userName }}</td>
-      <td>{{ (item.nowRating/100).toFixed(2) }}</td>
-      <td>{{ (item.highestRating/100).toFixed(2) }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="ranking">
+    <table class="mt-3">
+      <thead>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Now Ra</th>
+      <th>Max Ra</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of chusanUserRankings; let ranking = index">
+        <td class="rank position-relative" [ngSwitch]="ranking">
+          <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
+          <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
+          <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
+          <span *ngSwitchDefault>
+              {{ ranking + 1 }}
+          </span>
+        </td>
+        <td class="name">
+          <span *ngIf="ranking == 0 || ranking == 1 || ranking == 2" style="font-weight: bold">{{ item.userName }}</span>
+          <span *ngIf="ranking != 0 && ranking != 1 && ranking != 2">{{ item.userName }}</span>
+        </td>
+        <td class="now-ra">{{ (item.nowRating/100).toFixed(2) }}</td>
+        <td class="max-ra">{{ (item.highestRating/100).toFixed(2) }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </ng-container>
 
 <ng-container *ngIf="!tabBarBoolControl">
-  <h5 class="mt-3">Updated at 0:00 every day</h5>
-  <table class="table table-borderless table-striped align-middle mt-3">
-    <thead>
-    <th>Ranking</th>
-    <th>User Name</th>
-    <th>Daily Play Count</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of chusanUserPcRankings; let ranking = index">
-      <td class="position-relative" [ngSwitch]="ranking">
-        <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
-        <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
-        <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
-        <span>
+  <p class="mt-3">Updated at 0:00 every day</p>
+  <div class="ranking">
+    <table class="mt-1">
+      <thead>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Play Count</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of chusanUserPcRankings; let ranking = index">
+        <td class="rank position-relative" [ngSwitch]="ranking">
+          <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
+          <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
+          <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
+          <span *ngSwitchDefault>
           {{ ranking + 1 }}
-        </span>
-      </td>
-      <td>{{ item.username }}</td>
-      <td>{{ item.pc }}</td>
-    </tr>
-    </tbody>
-  </table>
+          </span>
+        </td>
+        <td class="name">
+          <span *ngIf="ranking == 0 || ranking == 1 || ranking == 2" style="font-weight: bold">{{ item.username }}</span>
+          <span *ngIf="ranking != 0 && ranking != 1 && ranking != 2">{{ item.username }}</span>
+        </td>
+        <td class="pc">{{ item.pc }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </ng-container>

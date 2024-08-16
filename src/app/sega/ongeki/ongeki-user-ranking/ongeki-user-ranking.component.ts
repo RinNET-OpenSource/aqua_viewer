@@ -8,7 +8,7 @@ import {environment} from '../../../../environments/environment';
 @Component({
   selector: 'app-ongeki-user-ranking',
   templateUrl: './ongeki-user-ranking.component.html',
-  styleUrls: ['./ongeki-user-ranking.component.css']
+  styleUrls: ['./ongeki-user-ranking.component.scss']
 })
 export class OngekiUserRankingComponent implements OnInit {
   ongekiUserRankings: OngekiUserRanking[] = [];

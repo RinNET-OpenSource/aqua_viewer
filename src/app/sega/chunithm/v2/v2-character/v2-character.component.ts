@@ -76,7 +76,7 @@ export class V2CharacterComponent implements OnInit {
 
   pageChanged(page: number) {
     const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
-    this.allCharacters = this.api.get('api/game/chuni/v2/character', param).pipe();
+    this.allCharacters = this.api.get('api/game/chuni/v2/character', new HttpParams().set('aimeId', this.aimeId)).pipe();
     this.characters = this.api.get('api/game/chuni/v2/character', param).pipe(
       tap(
         data => {
@@ -103,6 +103,7 @@ export class V2CharacterComponent implements OnInit {
 
   filterCharacter(searchValue: string) {
     if (searchValue) {
+      console.log(this.allCharacters);
       this.allCharacters.subscribe((item) => {
         console.log(item);
       });
