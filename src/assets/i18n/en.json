@@ -243,6 +243,7 @@
       "Tip1": "15 highest ratings from new version fumens",
       "Tip2": "30 highest ratings from old version fumens",
       "Tip3": "10 highest ratings from recent plays, excluding Lunatic difficulty",
+      "RatingWarning": "The data from your last play doesn't match the server version, so song ratings may be inaccurate.",
       "PlayerRating": "Player Rating",
       "HighestRating": "Highest Rating",
       "New": "Current Version",
