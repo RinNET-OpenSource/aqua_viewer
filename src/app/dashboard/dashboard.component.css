@@ -16,3 +16,11 @@
   width: 50%;
 }
 
+.more-announcements{
+  text-decoration: none;
+  font-size: small;
+}
+
+.more-announcements:hover{
+  text-decoration: underline;
+}

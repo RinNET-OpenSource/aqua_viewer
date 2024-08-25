@@ -64,6 +64,9 @@
                         <a class="link-btn rounded" [class.active]="isActive('/dashboard')" (click)="navigateTo('/dashboard')">{{'App.Sidebar.Dashboard' | translate}}</a>
                       </li>
                       <li class="pb-2">
+                        <a class="link-btn rounded" [class.active]="isActive('/announcements')" (click)="navigateTo('/announcements')">{{'App.Sidebar.Announcements' | translate}}</a>
+                      </li>
+                      <li class="pb-2">
                         <a class="link-btn rounded" [class.active]="isActive('/import')" (click)="navigateTo('/import')">{{'App.Sidebar.Import' | translate}}</a>
                       </li>
   <!--                    <li class="pb-2">-->
@@ -151,7 +154,7 @@
             <ng-container *ngFor="let key of languageService.languageKeys">
               <button ngbDropdownItem class="small my-1"
               [class.active]="languageService.getCurrentLang() == key"
-              (click)="languageService.setCurrentLang(key)">{{languageService.languages.get(key)}}</button>
+              (click)="languageService.setLang(key)">{{languageService.languages.get(key)}}</button>
             </ng-container>
           </div>
         </div>

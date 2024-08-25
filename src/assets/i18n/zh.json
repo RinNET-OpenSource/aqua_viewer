@@ -26,6 +26,7 @@
     "Sidebar": {
       "Dashboard": "仪表板",
       "Import": "导入",
+      "Announcements": "公告",
       "Status": "状态",
       "Profile": "档案",
       "BattlePoint": "战斗得分",
@@ -44,6 +45,7 @@
   "DashboardPage": {
     "Title": "仪表板",
     "LatestAnnouncement": "最新公告",
+    "More": "查看更多",
     "Profiles": "游玩信息",
     "GameData": "游戏数据",
     "NoKeychipMessage": "没有任何可用机台，你的账号无法在非白名单机台登录。",
@@ -61,10 +63,12 @@
     "BattlePoint": "战斗得分",
     "Rating": "评级",
     "OverPower": "完成度",
-    "LastPlay": "上次游玩",
-    "AnnouncementModal": {
-      "Title": "公告"
-    }
+    "LastPlay": "上次游玩"
+  },
+  "AnnouncementsPage": {
+    "Title": "公告",
+    "Announcement": "公告",
+    "DraftNew": "撰写公告"
   },
   "HomePage": {
     "Title": "主页",

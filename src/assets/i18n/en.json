@@ -26,6 +26,7 @@
     "Sidebar": {
       "Dashboard": "Dashboard",
       "Import": "Import",
+      "Announcements": "Announcements",
       "Status": "Status",
       "Profile": "Profile",
       "BattlePoint": "Battle Point",
@@ -44,6 +45,7 @@
   "DashboardPage": {
     "Title": "Dashboard",
     "LatestAnnouncement": "Latest Announcement",
+    "More": "More",
     "Profiles": "Profiles",
     "GameData": "Game Data",
     "NoKeychipMessage": "No available keychips. Your account cannot login on non-whitelisted keychips. ",
@@ -61,10 +63,12 @@
     "BattlePoint": "BattlePoint",
     "Rating": "Rating",
     "OverPower": "OverPower",
-    "LastPlay": "Last play",
-    "AnnouncementModal": {
-      "Title": "Announcement"
-    }
+    "LastPlay": "Last play"
+  },
+  "AnnouncementsPage": {
+    "Title": "Announcements",
+    "Announcement": "Announcement",
+    "DraftNew": "Draft new"
   },
   "HomePage": {
     "Title": "Home",

@@ -1,0 +1,65 @@
+<h1 class="page-heading">{{'AnnouncementsPage.Title' | translate}}</h1>
+
+<ng-container *ngIf="isAdmin()">
+  <a class="btn btn-sm btn-primary" routerLink="edit">
+    {{'AnnouncementsPage.DraftNew' | translate}}
+  </a>
+</ng-container>
+
+<ng-template #pagination>
+  <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center my-2">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+
+<div *ngIf="loading" class="placeholder-glow my-1">
+  <div>
+    <div class="placeholder fw-light text-secondary" style="width: 8em;"></div>
+  </div>
+  <div>
+    <h4 class="placeholder" style="width: 12em;"></h4>
+  </div>
+</div>
+
+<div *ngIf="!loading && announcements">
+  <div class="card user-select-none">
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let announcement of announcements | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements }"
+          class="list-group-item card-btn" (click)="showAnnouncement(announcement)" (contextmenu)="itemContext($event, announcement.id)">
+        <h4 class="mt-2">{{this.announcement.getLocalTitle(lang.getCurrentLang())}}</h4>
+        <div class="d-flex align-items-center">
+          <span class="fw-light small text-secondary">{{announcement.updatedAt.toLocaleDateString()}}</span>
+          <ng-container *ngIf="isAdmin()" [ngSwitch]="announcement.status">
+            <span *ngSwitchCase="'ACTIVE'" class="bg-primary badge rounded-pill ms-2">
+              Active
+            </span>
+            <span *ngSwitchCase="'DRAFT'" class="bg-secondary badge rounded-pill ms-2">
+              Draft
+            </span>
+            <span *ngSwitchCase="'EXPIRED'" class="bg-danger badge rounded-pill ms-2">
+              Expired
+            </span>
+          </ng-container>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
