@@ -306,7 +306,7 @@ export class OngekiCardComponent implements OnInit {
   async prepare() {
     this.allCards = await lastValueFrom(this.dbService.getAll<OngekiCard>('ongekiCard'));
     this.allSkills = await lastValueFrom(this.dbService.getAll<OngekiSkill>('ongekiSkill'));
-    this.cardIds = (await lastValueFrom(this.api.get('api/game/ongeki/cardIds'))).reverse();
+    this.cardIds = (await lastValueFrom(this.api.get('api/game/ongeki/cardIds')));
   }
 
   filterCard(showAll: boolean, sort: string, selectedrarities, selectedAttrs: string[], selectedSkillCategorys: string[], searchTerm: string){
