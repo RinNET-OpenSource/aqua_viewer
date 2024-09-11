@@ -12,7 +12,7 @@ import {LanguageService} from "../../language.service";
 export class AnnouncementComponent {
   @Input() announcement: Announcement;
   @ViewChild('content') set div(div: ElementRef<HTMLDivElement>) {
-    const html: string = marked.parse(this.announcement.content) as string;
+    const html: string = marked.parse(this.announcement.getLocalContent(this.language.getCurrentLang())) as string;
     div.nativeElement.innerHTML = DOMPurify.sanitize(html);
   }
 

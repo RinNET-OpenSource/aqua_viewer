@@ -87,8 +87,32 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   showAnnouncement(announcement: Announcement) {
-    const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true, centered: true});
-    modalRef.componentInstance.announcement = announcement;
+    let api: string;
+    if(this.isAdmin()){
+      api = 'api/admin/announcement/';
+    }
+    else {
+      api = 'api/user/announcement/';
+    }
+    this.api.get(api + announcement.id, new HttpParams().set('lang', this.lang.getCurrentLang())).subscribe(
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            let announcement = Announcement.fromJSON(resp.data);
+            const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true, centered: true});
+            modalRef.componentInstance.announcement = announcement;
+          }
+          else{
+            this.messageService.notice(resp.status.message);
+          }
+          this.loading = false;
+        }
+      },
+      error => {
+        this.messageService.notice(error);
+        this.loading = false;
+      });
   }
 
   pageChanged(page: number) {
