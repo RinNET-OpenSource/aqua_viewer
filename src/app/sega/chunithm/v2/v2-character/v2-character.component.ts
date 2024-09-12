@@ -76,8 +76,9 @@ export class V2CharacterComponent implements OnInit {
 
   pageChanged(page: number) {
     const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
+    const pageParam = new HttpParams().set('aimeId', this.aimeId).set('size', 12).set('page', String(page));
     this.allCharacters = this.api.get('api/game/chuni/v2/character', new HttpParams().set('aimeId', this.aimeId)).pipe();
-    this.characters = this.api.get('api/game/chuni/v2/character', param).pipe(
+    this.characters = this.api.get('api/game/chuni/v2/character', pageParam).pipe(
       tap(
         data => {
           this.totalElements = data.totalElements;
