@@ -343,6 +343,8 @@
       "OverPower": "OverPower",
       "LastPlay": "LastPlay",
       "PlayerName": "PlayerName",
+      "AddLove": "AddLove",
+      "RemoveLove": "RemoveLove",
       "Remove": "Remove",
       "RemoveTip": "Remove them as rival?"
     }
