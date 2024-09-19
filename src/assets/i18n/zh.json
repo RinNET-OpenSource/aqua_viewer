@@ -29,7 +29,7 @@
       "Announcements": "公告",
       "Status": "状态",
       "Profile": "档案",
-      "BattlePoint": "战斗得分",
+      "BattlePoint": "战斗点数",
       "Rating": "评级",
       "PlayRecord": "游玩记录",
       "MusicList": "乐曲列表",
@@ -60,7 +60,7 @@
     "Version": "版本",
     "Reload": "重新加载",
     "Level": "等级",
-    "BattlePoint": "战斗得分",
+    "BattlePoint": "战斗点数",
     "Rating": "评级",
     "OverPower": "完成度",
     "LastPlay": "上次游玩"
@@ -237,6 +237,14 @@
       "Money": "金币",
       "Medal": "奖章"
     },
+    "BattlePointPage": {
+      "Title": "战斗点数",
+      "TipLead": "战斗得分由敌人等级与造成伤害计算得出，战斗点数由12个战斗得分的总和除以10,000得出，其中包含：",
+      "Tip1": "战斗得分最高的3曲",
+      "Tip2": "除上述3曲外，每种属性各自战斗得分最高的3曲",
+      "BattlePoint": "战斗点数",
+      "BestBattleScore": "最佳得分"
+    },
     "RatingPage": {
       "Title": "评级",
       "TipLead": "单曲评级由谱面定数与得分经过计算得出，玩家评级由55个单曲评级取平均数得出，其中包含：",
@@ -299,7 +307,7 @@
       "Level": "等级",
       "PlayerName": "玩家名",
       "Rating": "评级",
-      "BattlePoint": "战斗得分",
+      "BattlePoint": "战斗点数",
       "LastPlay": "上次游玩",
       "Remove": "解除好友",
       "RemoveTip": "确定要解除好友关系吗？"
