@@ -157,7 +157,12 @@
   <div class="friend-header card-header fw-bold">
     <span>{{item.rivalName | fullWidth}}</span>
     <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="item.isFavorite" (change)="toggleFavorite(item.rivalId, item.isFavorite)">
+      <input
+        class="form-check-input"
+        type="checkbox" role="switch"
+        id="flexSwitchCheckDefault"
+        [checked]="item.isFavorite"
+        (change)="debouncedToggleFavorite(item.rivalId, item.isFavorite)">
       <label class="form-check-label" for="flexSwitchCheckDefault">{{ 'ChuniV2.RivalPage.AddLove' | translate}}</label>
     </div>
   </div>

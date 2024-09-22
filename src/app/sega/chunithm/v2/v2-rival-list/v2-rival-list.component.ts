@@ -8,6 +8,7 @@ import {MessageService} from '../../../../message.service';
 import {HttpParams} from '@angular/common/http';
 import {StatusCode} from '../../../../status-code';
 import { UserService } from 'src/app/user.service';
+import { debounce } from '../../../../util/debounce';
 
 enum V2RivalAPI {
   Rival = 'api/game/chuni/v2/rival',
@@ -30,6 +31,7 @@ export class V2RivalListComponent {
   aimeId: string;
 
   inputAddRivalUserId = '';
+  public debouncedToggleFavorite: (rivalUserId: string, isFavorite: boolean) => any;
 
   constructor(
     private api: ApiService,
@@ -37,6 +39,7 @@ export class V2RivalListComponent {
     protected userService: UserService,
     private messageService: MessageService,
   ) {
+    this.debouncedToggleFavorite = debounce(this.toggleFavorite.bind(this), 1000);
   }
 
   ngOnInit() {
@@ -99,7 +102,6 @@ export class V2RivalListComponent {
   }
 
   toggleFavorite(rivalUserId: string, isFavorite: boolean) {
-    console.log('isFavorite:', isFavorite);
     let isFavoriteConst = 0;
     const param = new HttpParams().set('friendId', (Number).parseInt(rivalUserId)).set('aimeId', this.aimeId);
     this.friendList.forEach(item => item.isFavorite ? isFavoriteConst  += 1 : null);
@@ -110,6 +112,7 @@ export class V2RivalListComponent {
       this.api.get(V2RivalAPI.ToggleFavorite, param).subscribe(
         (data) => {
           this.messageService.notice(`(id:${rivalUserId}) toggle Favorite Over!`);
+          this.ngOnInit();
         }
       );
     }
