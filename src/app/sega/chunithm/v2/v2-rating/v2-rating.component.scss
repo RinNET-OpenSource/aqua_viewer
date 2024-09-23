@@ -1,59 +1,50 @@
-@import "/node_modules/bootstrap/scss/bootstrap-grid.scss";
-
 .rating-info {
   font-size: 1.2em;
 }
 
-.skill-card table {
-  width: 100%;
-  font-size: 16px;
+.jacket{
+  width: 5.6rem;
+  aspect-ratio: 1;
 }
 
-.skill-card h3 {
-  font-size: 20px;
-  text-align: center;
+.difficulty {
+  font-size: 12px;
 }
 
-.skill-card img {
-  width: 18px;
-  height: 18px;
-  padding: 0;
+.difficulty-basic {
+  background: #2da060;
+  border: 1px solid #145830;
+  color: white;
 }
 
-td {
-  max-width: 110px;
-  padding: 0 !important;
+.difficulty-advanced {
+  background: #e6a047;
+  border: 1px solid #995014;
+  color: white;
 }
 
-thead th {
-  text-align: left;
+.difficulty-expert {
+  background: #e55353;
+  border: 1px solid #7B1F18;
+  color: white;
 }
 
-table {
-  padding: 0 !important;
+.difficulty-master {
+  background: #9d5cb9;
+  border: 1px solid #381C47;
+  color: white;
 }
 
-.music-img {
-  padding: 10px 0 !important;
-  width: 4rem;
+.difficulty-ultima {
+  background: var(--bs-black);
+  border: 1px solid #ff2855;
+  color: #ff2855;
 }
 
-.music-img > img {
-  padding: 0 10px;
-}
-
-.music-title {
-  text-align: left;
-}
-
-.rating-info > p {
-  margin: 0;
-}
-
-@include media-breakpoint-up(sm) {
-  .skill-card table {
-    width: 100%;
-    font-size: 12px;
+.rating-score {
+  display: flex;
+  align-items: center;
+  b {
+    padding: 0 3px;
   }
 }
-

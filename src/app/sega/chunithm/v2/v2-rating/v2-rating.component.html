@@ -1,78 +1,80 @@
 <h1 class="page-heading">Rating</h1>
 
-<div class="card">
+<div class="card mb-3">
   <div class="card-body">
-    <div class="rating-info">
-      <p>Total Rating: <span class="{{(topTotal + recentTotal) / 40 | toRating | ratingClass}}">{{(topTotal + recentTotal) / 40 | toRating }}</span></p>
-      <p>Top: <span class="{{topTotal / 30 | toRating | ratingClass}}">{{topTotal / 30 | toRating }}</span></p>
-      <p>Recent: <span class="{{recentTotal / 10 | toRating | ratingClass}}">{{recentTotal / 10 | toRating }}</span></p>
+      <div>Total Rating: <span class="{{(topTotal + recentTotal) / 40 | toRating | ratingClass}}">{{(topTotal + recentTotal) / 40 | toRating }}</span></div>
+      <div>Best: <span class="{{topTotal / 30 | toRating | ratingClass}}">{{topTotal / 30 | toRating }}</span></div>
+      <div>Recent: <span class="{{recentTotal / 10 | toRating | ratingClass}}">{{recentTotal / 10 | toRating }}</span></div>
+  </div>
+</div>
+
+<div class="mb-3 d-flex align-items-center">
+  <h2 class="mb-0">Best</h2>
+</div>
+
+<div class="row mb-4 g-2">
+  <ng-container *ngFor="let item of topRating; index as i">
+    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+  </ng-container>
+</div>
+
+<div class="mb-3 d-flex align-items-center">
+  <h2 class="mb-0">Recent</h2>
+</div>
+
+<div class="row mb-4 g-2">
+  <ng-container *ngFor="let item of recentRating; index as i">
+    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #record let-index="index" let-item="item">
+  <div class="col-12 col-md-6 col-xxl-4">
+    <div class="card rating-card">
+      <div class="hstack">
+        <img class="jacket rounded-start"
+             src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.jpg" alt=""
+        >
+        <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
+          <div class="text-truncate fw-bold m-0"><span>#{{index + 1}}</span> {{item.musicName}}</div>
+          <div class="text-truncate">{{item.score}}</div>
+          <div class="text-truncate small rating-score">
+            <ng-container [ngSwitch]="item.level">
+            <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
+              Basic {{(item.ratingBase|toRating)??'None'}}
+            </span>
+            <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
+              Advanced {{(item.ratingBase|toRating)??'None'}}
+            </span>
+            <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
+              Expert {{(item.ratingBase|toRating)??'None'}}
+            </span>
+            <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
+              Master {{(item.ratingBase|toRating)??'None'}}
+            </span>
+            <span *ngSwitchCase="4" class="difficulty-ultima badge rounded-pill text-danger border border-danger">
+              Ultima {{(item.ratingBase|toRating)??'None'}}
+            </span>
+            </ng-container>
+            <b>➛</b>
+            <ng-container [ngSwitch]="item.level">
+            <span *ngSwitchCase="0"
+                  class="score-value">{{item.rating|toRating}}</span>
+            <span *ngSwitchCase="1"
+                  class="score-value">{{item.rating|toRating}}</span>
+            <span *ngSwitchCase="2"
+                  class="score-value">{{item.rating|toRating}}</span>
+            <span *ngSwitchCase="3"
+                  class="score-value">{{item.rating|toRating}}</span>
+            <span *ngSwitchCase="4"
+                  class="score-value">{{item.rating|toRating}}</span>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="item.musicId == 0" class="card-body overflow-hidden py-0 px-4 text-truncate">
+          No Record
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="card mt-3">
-  <div class="card-body">
-    <h5 class="card-title mb-3">Top</h5>
-    <table class="table table-borderless table-striped align-middle">
-      <thead>
-      <th colspan="2">Music</th>
-      <th>Diff</th>
-      <th>Score</th>
-      <th>Rating</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of topRating; index as i">
-        <td class="music-img">
-          <img class="w-100" *ngIf="enableImages == true" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.jpg">
-        </td>
-        <td class="music-title">
-          {{i + 1}}. {{item.musicName}}
-        </td>
-        <td class="fw-bold">
-          {{item.ratingBase|toRating}}
-        </td>
-        <td>
-          {{item.score}}
-        </td>
-        <td>
-          <span class="{{item.rating|toRating|ratingClass}}">{{item.rating|toRating}}</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-  </div>
-</div>
-
-<div class="card mt-3">
-  <div class="card-body">
-    <h5 class="card-title mb-3">Recent</h5>
-    <table class="table table-borderless table-striped align-middle">
-      <thead>
-      <th colspan="2">Music</th>
-      <th>Diff</th>
-      <th>Score</th>
-      <th>Rating</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of recentRating; index as i">
-        <td class="music-img">
-          <img class="w-100" *ngIf="enableImages == true" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.jpg">
-        </td>
-        <td class="music-title">
-          {{i + 1}}. {{item.musicName}}
-        </td>
-        <td class="fw-bold">
-          {{item.ratingBase|toRating}}
-        </td>
-        <td>
-          {{item.score}}
-        </td>
-        <td>
-          <span class="{{item.rating|toRating|ratingClass}}">{{item.rating|toRating}}</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+</ng-template>
