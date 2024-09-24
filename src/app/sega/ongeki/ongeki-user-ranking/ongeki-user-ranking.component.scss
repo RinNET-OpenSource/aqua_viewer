@@ -1,3 +1,5 @@
+@import "src/styles/public.ranking";
+
 .nav-pills {
   border-radius: 10px;
   background-color: var(--bs-secondary-bg);
@@ -19,44 +21,3 @@
   }
 }
 
-.ranking {
-  .medal {
-    width: 2rem;
-  }
-  table {
-    thead {
-      color: #999;
-      height: 2.5em;
-      font-size: 1rem;
-      th {
-        text-align: center;
-        font-weight: lighter;
-        line-height: 2.5em;
-      }
-    }
-    tbody {
-      text-align: center;
-      tr {
-        border-color: transparent;
-        height: 2.7rem;
-        line-height: 2.7rem;
-        font-size: 0.9rem;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        &:hover {
-          transition: background-color 0.3s ease, transform 0.3s ease;
-          background-image: linear-gradient(to right, var(--bs-body-bg), var(--bs-primary-bg-subtle));
-        }
-      }
-      .rank {
-        font-weight: bold;
-        color: #fbbb01;
-      }
-    }
-  }
-}
-
-@media (min-width: 992px) {
-  table {
-    width: 70%;
-  }
-}

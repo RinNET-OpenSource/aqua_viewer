@@ -1,27 +1,36 @@
 <h1 class="page-heading">Music Ranking</h1>
 
-<table class="table table-borderless table-striped align-middle mt-3">
-  <thead>
-  <th>Ranking</th>
-  <th>Music Name</th>
-  <th>Play Count</th>
-  <th>Ranking State</th>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item of ongekiGameRankings">
-    <td>{{ item.ranking }}</td>
-    <td>{{ item.music.name }}</td>
-    <td>{{ item.playCount }}</td>
-    <td [ngSwitch]="item.state">
-      <!-- use ngSwitchCase directive to match different values of state -->
-      <!-- use font-awesome icons for up, down and equal signs -->
-      <i *ngSwitchCase="1" style="color: deepskyblue; font-size: large">▲</i>
-      <i *ngSwitchCase="-1" style="color: red; font-size: large">▼</i>
-      <i *ngSwitchCase="0" style="color: #C0C0C0; font-size: large">◼︎</i>
-      <!-- use ngSwitchDefault directive to handle unexpected values of state -->
-      <!-- display a question mark icon for unknown state -->
-      <i *ngSwitchDefault style="color: #C0C0C0; font-size: large">◼︎</i>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="ranking">
+  <table class="mt-3">
+    <thead>
+    <th>Ranking</th>
+    <th>Music Name</th>
+    <th>Play Count</th>
+    <th>Ranking State</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of ongekiGameRankings; let i = index">
+      <td class="rank position-relative" [ngSwitch]="i">
+        <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
+        <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
+        <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
+        <span *ngSwitchDefault>
+            {{ item.ranking }}
+        </span>
+      </td>
+      <td class="text-truncate">{{ item.music.name }}</td>
+      <td>{{ item.playCount }}</td>
+      <td [ngSwitch]="item.state">
+        <!-- use ngSwitchCase directive to match different values of state -->
+        <!-- use font-awesome icons for up, down and equal signs -->
+        <i *ngSwitchCase="1" style="color: deepskyblue; font-size: large">▲</i>
+        <i *ngSwitchCase="-1" style="color: red; font-size: large">▼</i>
+        <i *ngSwitchCase="0" style="color: #C0C0C0; font-size: large">◼︎</i>
+        <!-- use ngSwitchDefault directive to handle unexpected values of state -->
+        <!-- display a question mark icon for unknown state -->
+        <i *ngSwitchDefault style="color: #C0C0C0; font-size: large">◼︎</i>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
