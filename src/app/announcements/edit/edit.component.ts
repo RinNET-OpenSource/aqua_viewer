@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {marked} from "marked";
-import * as DOMPurify from "dompurify";
-import {Announcement, AnnouncementComponent, AnnouncementStatus} from "../announcement/announcement.component";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {FormControl} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {A} from "@angular/cdk/keycodes";
+import {
+  Announcement,
+  AnnouncementComponent,
+  AnnouncementStatus,
+  AnnouncementType
+} from "../announcement/announcement.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ActivatedRoute} from "@angular/router";
 import {LanguageService} from "../../language.service";
-import {HttpParams} from "@angular/common/http";
 import {StatusCode} from "../../status-code";
 import {MessageService} from "../../message.service";
 import {ApiService} from "../../api.service";
@@ -21,6 +21,7 @@ export class EditComponent implements OnInit, AfterViewInit   {
   announcement: Announcement;
   loading = true;
   activeTab: string;
+  announcementType = AnnouncementType;
 
   constructor(
     public route: ActivatedRoute,
@@ -37,8 +38,11 @@ export class EditComponent implements OnInit, AfterViewInit   {
         this.loadAnnouncement(data.id);
       }
       else{
+        let announcement = new Announcement();
+        announcement.type = AnnouncementType.GENERAL;
+        announcement.priority = 0;
+        this.announcement = announcement;
         this.loading = false;
-        this.announcement = new Announcement();
       }
     });
   }
@@ -52,7 +56,10 @@ export class EditComponent implements OnInit, AfterViewInit   {
 
   showPreview(title, content) {
     const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true, centered: true});
-    modalRef.componentInstance.announcement = {title, content};
+    const announcement = new Announcement();
+    announcement.title = title;
+    announcement.content = content;
+    modalRef.componentInstance.announcement = announcement;
   }
 
   post(status: AnnouncementStatus){
@@ -62,12 +69,17 @@ export class EditComponent implements OnInit, AfterViewInit   {
         title: this.announcement.title,
         content: this.announcement.content,
         translations: this.announcement.translations,
-        status: status
+        type: this.announcement.type,
+        status: status,
+        updatedAt: Date.now()
       };
     }
     else{
       data = this.announcement;
       data.status = status;
+    }
+    if(status === AnnouncementStatus.EXPIRED || status === AnnouncementStatus.DRAFT){
+      data.updatedAt = this.announcement.updatedAt;
     }
     this.api.post('api/admin/announcement', data).subscribe(
       resp => {
@@ -107,4 +119,5 @@ export class EditComponent implements OnInit, AfterViewInit   {
   }
 
   protected readonly AnnouncementStatus = AnnouncementStatus;
+  protected readonly AnnouncementType = AnnouncementType;
 }

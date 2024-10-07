@@ -68,7 +68,17 @@
   "AnnouncementsPage": {
     "Title": "公告",
     "Announcement": "公告",
-    "DraftNew": "撰写公告"
+    "DraftNew": "撰写公告",
+    "All": "全部",
+    "General": "一般",
+    "Maintenance": "维护",
+    "Update": "更新",
+    "Event": "活动",
+    "Tutorial": "教程",
+    "Other": "其它",
+    "Draft": "草稿",
+    "Expired": "过期",
+    "Pinned": "置顶"
   },
   "HomePage": {
     "Title": "主页",

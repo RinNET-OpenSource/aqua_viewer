@@ -68,7 +68,17 @@
   "AnnouncementsPage": {
     "Title": "Announcements",
     "Announcement": "Announcement",
-    "DraftNew": "Draft new"
+    "DraftNew": "Draft new",
+    "All": "All",
+    "General": "General",
+    "Maintenance": "Maintenance",
+    "Update": "Update",
+    "Event": "Event",
+    "Tutorial": "Tutorial",
+    "Other": "Other",
+    "Draft": "Draft",
+    "Expired": "Expired",
+    "Pinned": "Pinned"
   },
   "HomePage": {
     "Title": "Home",

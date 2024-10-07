@@ -1,7 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {NgxIndexedDBService} from "ngx-indexed-db";
-import {PreloadService} from "../database/preload.service";
-import {AuthenticationService} from "../auth/authentication.service";
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../api.service";
 import {MessageService} from "../message.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -9,8 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {StatusCode} from "../status-code";
 import {LanguageService} from "../language.service";
 import {HttpParams} from "@angular/common/http";
-import {Announcement, AnnouncementComponent, AnnouncementStatus} from "./announcement/announcement.component";
-import {Role, UserService} from "../user.service";
+import {Announcement, AnnouncementComponent, AnnouncementType} from "./announcement/announcement.component";
+import {UserService} from "../user.service";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
@@ -19,9 +16,11 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./announcements.component.css']
 })
 export class AnnouncementsComponent implements OnInit {
+  announcementType = AnnouncementType;
   protected announcements: Announcement[];
   protected loading = true;
   currentPage = 1;
+  type : AnnouncementType;
   pageSize = 10;
   totalElements = 0;
   constructor(
@@ -42,6 +41,21 @@ export class AnnouncementsComponent implements OnInit {
       if (data.page) {
         this.currentPage = data.page;
       }
+      if (data.type) {
+        if(Object.values(AnnouncementType).includes(data.type.toUpperCase())){
+          this.type = data.type.toUpperCase() as AnnouncementType;
+        }
+        else{
+          this.router.navigate([], {
+            queryParams: { type: null },
+            queryParamsHandling: 'merge'
+          });
+          return;
+        }
+      }
+      else{
+        this.type = undefined;
+      }
       this.loadAnnouncements(this.currentPage);
     });
     this.translate.onLangChange.subscribe(event => {
@@ -51,11 +65,13 @@ export class AnnouncementsComponent implements OnInit {
 
   loadAnnouncements(page: number){
     this.loading = true;
-    const param = new HttpParams()
+    let param = new HttpParams()
       .set('lang', this.lang.getCurrentLang())
       .set('page', page - 1)
       .set('size', this.pageSize);
-
+    if(this.type){
+      param = param.set('type', this.type)
+    }
     let api: string;
     if(this.isAdmin()){
       api = 'api/admin/announcement/';
@@ -130,4 +146,5 @@ export class AnnouncementsComponent implements OnInit {
     }
   }
 
+  protected readonly AnnouncementType = AnnouncementType;
 }

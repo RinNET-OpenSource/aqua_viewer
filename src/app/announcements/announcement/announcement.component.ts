@@ -29,6 +29,8 @@ export class Announcement {
   expirationDate: Date;
   updatedAt: Date;
   status: AnnouncementStatus;
+  type: AnnouncementType;
+  priority: number;
   translations: LocalAnnouncement[] = [{language: 'en', translatedTitle: '',translatedContent: ''}];
 
   static fromJSON(json: any): Announcement{
@@ -39,6 +41,8 @@ export class Announcement {
     announcement.expirationDate = new Date(json.expirationDate);
     announcement.updatedAt = new Date(json.updatedAt);
     announcement.status = json.status;
+    announcement.type = json.type;
+    announcement.priority = json.priority;
     announcement.translations = json.translations;
     return announcement;
   }
@@ -67,7 +71,16 @@ export interface LocalAnnouncement{
 }
 
 export enum AnnouncementStatus {
-  ACTIVE,
-  EXPIRED,
-  DRAFT
+  ACTIVE = 'ACTIVE',
+  EXPIRED = 'EXPIRED',
+  DRAFT = 'DRAFT'
+}
+
+export enum AnnouncementType {
+  GENERAL = 'GENERAL',
+  MAINTENANCE = 'MAINTENANCE',
+  UPDATE = 'UPDATE',
+  EVENT = 'EVENT',
+  TUTORIAL = 'TUTORIAL',
+  OTHER = 'OTHER'
 }
