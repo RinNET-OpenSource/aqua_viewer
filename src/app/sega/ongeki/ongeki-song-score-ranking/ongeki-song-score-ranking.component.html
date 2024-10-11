@@ -6,7 +6,7 @@
   <div class="row mb-3 gap-3 px-3">
     <div class="col-12 p-0">
       <img class="music-img"
-           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{music.id|formatNumber:4}}.jpg"
+           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{music.id|formatNumber:4}}.webp"
            alt="">
     </div>
     <div class="col-12 music-info">
@@ -124,18 +124,18 @@
                src="{{host}}assets/ongeki/gameUi/{{songData[difficulty].techScoreRank|toTechHonorSprite}}" alt="">
           <ng-container *ngIf="songData[difficulty].isAllBreake">
             <img class="honor-badge"
-                 src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.png" alt="">
+                 src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.webp" alt="">
           </ng-container>
           <ng-container *ngIf="!songData[difficulty].isAllBreake && songData[difficulty].isFullCombo">
             <img class="honor-badge"
-                 src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.png" alt="">
+                 src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.webp" alt="">
           </ng-container>
           <ng-container *ngIf="!songData[difficulty].isAllBreake && !songData[difficulty].isFullCombo">
             <img class="honor-badge"
-                 src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_None.png" alt="">
+                 src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_None.webp" alt="">
           </ng-container>
           <img class="honor-badge"
-               src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_{{songData[difficulty].isFullBell?'FB':'None'}}.png"
+               src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_{{songData[difficulty].isFullBell?'FB':'None'}}.webp"
                alt="">
         </div>
       </div>

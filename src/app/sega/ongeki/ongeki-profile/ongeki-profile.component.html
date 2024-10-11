@@ -2,37 +2,37 @@
 <div class="d-flex flex-column align-items-center">
   <div *ngIf="profile" class="col-12 col-sm-8 col-md-6 col-lg-7 col-xl-6">
     <div class="user-data-container p-0 m-3 mb-0">
-      <div class="trophy-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/UI_CMN_Signage_UserTitle_' + (getTrophyRarityCode(profile.trophy?.rarityType) | number: '2.0-0') + '.png)'">
+      <div class="trophy-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/UI_CMN_Signage_UserTitle_' + (getTrophyRarityCode(profile.trophy?.rarityType) | number: '2.0-0') + '.webp)'">
         <div class="trophy">{{profile.trophy?.name??("ID: " + profile.trophyId)}}</div>
       </div>
-      <div class="level-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserLevel_BG_00.png)'">
-        <div *ngIf="profile.reincarnationNum>0" class="rebirth-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserLevel_Rebirth_BG.png)'">
+      <div class="level-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserLevel_BG_00.webp)'">
+        <div *ngIf="profile.reincarnationNum>0" class="rebirth-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserLevel_Rebirth_BG.webp)'">
           <div class="rebirth">{{profile.reincarnationNum}}</div>
         </div>
         <div class="level">{{profile.level}}</div>
       </div>
-      <div class="name-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserName_BG.png)'">
+      <div class="name-bg" [style.background-image]="'url(' + host + '/assets/ongeki/gameUi/' + 'UI_CMN_Signage_UserName_BG.webp)'">
         <div class="name">{{profile.userName | fullWidth}}</div>
       </div>
       <div class="user-icon-border">
-        <img class="user-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{profile.cardId}}.png">
+        <img class="user-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{profile.cardId}}.webp">
       </div>
-      <img class="rank-bg" src="{{host}}/assets/ongeki/gameUi/UI_CMN_Signage_UserRank_BG_0{{profile.rankPattern}}.png">
-      <img class="rank rank-0{{profile.rankPattern}}" src="{{host}}/assets/ongeki/gameUi/UI_CMN_Signage_UserRank_Rank_{{profile.rankId | number: '2.0-0'}}.png">
+      <img class="rank-bg" src="{{host}}/assets/ongeki/gameUi/UI_CMN_Signage_UserRank_BG_0{{profile.rankPattern}}.webp">
+      <img class="rank rank-0{{profile.rankPattern}}" src="{{host}}/assets/ongeki/gameUi/UI_CMN_Signage_UserRank_Rank_{{profile.rankId | number: '2.0-0'}}.webp">
       <div class="battle-point bp-0{{profile.rankPattern}}">{{profile.battlePoint | number}}</div>
-      <img class="rating-header" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}_Header.png">
+      <img class="rating-header" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}_Header.webp">
       <div class="rating">
-        <img *ngIf="Math.floor(profile.playerRating / 1000) > 0" class="rating-num-integer" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating / 1000)}}.png">
-        <img class="rating-num-integer" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating / 100) % 10}}.png">
-        <img class="rating-num-dot" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/dot.png">
-        <img class="rating-num-fractional" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating / 10) % 10}}.png">
-        <img class="rating-num-fractional" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating) % 10}}.png">
+        <img *ngIf="Math.floor(profile.playerRating / 1000) > 0" class="rating-num-integer" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating / 1000)}}.webp">
+        <img class="rating-num-integer" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating / 100) % 10}}.webp">
+        <img class="rating-num-dot" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/dot.webp">
+        <img class="rating-num-fractional" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating / 10) % 10}}.webp">
+        <img class="rating-num-fractional" src="{{host}}/assets/ongeki/gameUi/UI_NUM_30pt_Rating_{{getRatingType(profile.playerRating)}}/{{Math.floor(profile.playerRating) % 10}}.webp">
         <div class="rating-highest text-nowrap">(Max: {{(profile.highestRating / 100) | number: '0.2-2'}})</div>
       </div>
     </div>
     <div class="chara-container">
-      <img class="chara-img" src="{{host}}assets/ongeki/character/{{profile.characterId}}.png">
-      <div class="chara-back" [style.background-image]="'url(' + host + 'assets/ongeki/back_character.png)'"></div>
+      <img class="chara-img" src="{{host}}assets/ongeki/character/{{profile.characterId}}.webp">
+      <div class="chara-back" [style.background-image]="'url(' + host + 'assets/ongeki/back_character.webp)'"></div>
       <table *ngIf="profile" class="profile-table table table-borderless m-0">
         <tbody>
         <tr>

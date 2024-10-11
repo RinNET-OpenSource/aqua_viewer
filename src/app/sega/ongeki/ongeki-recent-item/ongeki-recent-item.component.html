@@ -3,7 +3,7 @@
     <div class="jacket-container ratio ratio-1x1">
       <!--jacket-->
       <img class="jacket"
-           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{playLog.musicId|formatNumber:4}}.jpg"
+           src="{{host}}assets/ongeki/jacket/UI_Jacket_{{playLog.musicId|formatNumber:4}}.webp"
            alt="">
     </div>
     <div class="overflow-hidden">
@@ -113,12 +113,12 @@
           <!--full bell-->
           <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-end">
             <img class="score-honor" alt=""
-                 src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_{{playLog.isFullBell ? 'Badge' : 'Base'}}.png">
+                 src="{{host}}assets/ongeki/gameUi/UI_RES_Score_FB_{{playLog.isFullBell ? 'Badge' : 'Base'}}.webp">
           </div>
           <!--all break-->
           <div class="col-6 col-sm-auto col-md-6 col-xl-auto text-start">
             <img class="score-honor" alt=""
-                 src="{{host}}assets/ongeki/gameUi/UI_RES_Score_{{playLog.isAllBreak ? 'AB' : 'FC'}}_{{playLog.isFullCombo ? 'Badge' : 'Base'}}.png">
+                 src="{{host}}assets/ongeki/gameUi/UI_RES_Score_{{playLog.isAllBreak ? 'AB' : 'FC'}}_{{playLog.isFullCombo ? 'Badge' : 'Base'}}.webp">
           </div>
         </div>
       </div>
@@ -128,21 +128,21 @@
             <div class="chara-container">
               <div class="chara-center position-relative">
                 <img class="chara-center-img position-absolute"
-                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo2?.id??0 | formatNumber:6}}.png">
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo2?.id??0 | formatNumber:6}}.webp">
                 <app-ongeki-card-level class="chara-center-level position-absolute"
                                        [level]="playLog.cardLevel2"
                                        [attribute]="playLog.cardInfo2?.attribute??'Fire'"></app-ongeki-card-level>
               </div>
               <div class="chara-side position-relative">
                 <img class="chara-side-img position-absolute"
-                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo1?.id??0 | formatNumber:6}}.png">
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo1?.id??0 | formatNumber:6}}.webp">
                 <app-ongeki-card-level class="chara-side-level position-absolute"
                                        [level]="playLog.cardLevel1"
                                        [attribute]="playLog.cardInfo1?.attribute??'Fire'"></app-ongeki-card-level>
               </div>
               <div class="chara-side position-relative">
                 <img class="chara-side-img position-absolute"
-                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo3?.id??0 | formatNumber:6}}.png">
+                     src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{playLog.cardInfo3?.id??0 | formatNumber:6}}.webp">
                 <app-ongeki-card-level class="chara-side-level position-absolute"
                                        [level]="playLog.cardLevel3"
                                        [attribute]="playLog.cardInfo3?.attribute??'Fire'"></app-ongeki-card-level>
@@ -153,7 +153,7 @@
             <div class="boss position-relative">
               <img class="boss-img"
                    alt=""
-                   src="{{host}}assets/ongeki/card-chara/UI_Card_Chara_{{playLog.songInfo?.bossCardId??0 | formatNumber:6}}.png">
+                   src="{{host}}assets/ongeki/card-chara/UI_Card_Chara_{{playLog.songInfo?.bossCardId??0 | formatNumber:6}}.webp">
               <app-ongeki-card-level class="boss-level position-absolute"
                                      [level]="playLog.bossLevel"
                                      [attribute]="attributeType[playLog?.bossAttribute]"></app-ongeki-card-level>

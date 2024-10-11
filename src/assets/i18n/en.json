@@ -306,7 +306,8 @@
       "HideFilter": "Hide Filter",
       "ResetFilter": "Reset Filter",
       "TotalCardNum": "Total {{num}} Cards",
-      "FilterPlaceholder": "ID, CardNumber, CharaName, NickName, SkillInfo"
+      "FilterPlaceholder": "ID, CardNumber, CharaName, NickName, SkillInfo",
+      "Info1": "Right click or long touch on the card for details."
     },
     "RivalPage": {
       "Title": "Rival",
@@ -323,6 +324,23 @@
       "PlayerName": "PlayerName",
       "Remove": "Remove",
       "RemoveTip": "Remove them as rival?"
+    },
+    "SettingsPage": {
+      "Title": "Settings",
+      "Profile": "Profile",
+      "UserName": "User Name",
+      "Edit": "Edit",
+      "ChangeUserName": "Change User Name",
+      "Message1": "If you wish to revert to an older version of the game after logging in and saving in the new version, you can try modifying the values below.",
+      "RomVersion": "Rom Version",
+      "ModifyRomVersion": "Modify Rom Version",
+      "DataVersion": "Data Version",
+      "ModifyDataVersion": "Modify Data Version",
+      "Export": "Export Profile",
+      "ChangeUserNameFailed": "Failed to Change User Name",
+      "ModifyRomVersionFailed": "Failed to Modify Rom Version",
+      "ModifyDataVersionFailed": "Failed to Modify Data Version",
+      "DownloadingProfile": "Downloading Profile"
     }
   },
   "ChuniV2": {

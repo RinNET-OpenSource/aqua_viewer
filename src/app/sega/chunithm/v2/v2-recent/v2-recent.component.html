@@ -7,7 +7,7 @@
       <div class="card-title">{{item.userPlayDate}}</div>
       <mat-card-content>
         <div class="song-header">
-          <img *ngIf="enableImages == true" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.jpg">
+          <img *ngIf="enableImages == true" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.webp">
           <div class="song-info">
             <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span><br>
             <span

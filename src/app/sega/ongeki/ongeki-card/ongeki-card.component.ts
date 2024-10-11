@@ -544,7 +544,7 @@ export class OngekiCardComponent implements OnInit {
   }
 
   getCharaMask(card: PlayerCard) {
-    return 'url(' + this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + card.cardId + '.png' + ')';
+    return 'url(' + this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + card.cardId + '.webp' + ')';
   }
 
   getHoloFrameMask(card: PlayerCard, showElements: boolean) {
@@ -555,22 +555,22 @@ export class OngekiCardComponent implements OnInit {
         if (showElements) {
           frameUrl = 'linear-gradient(transparent, transparent)';
         } else {
-          frameUrl = 'url(' + this.host + 'assets/ongeki/card-holo-sign/UI_Card_Holo_Sign_' + cardIdStr + '.png' + ')';
+          frameUrl = 'url(' + this.host + 'assets/ongeki/card-holo-sign/UI_Card_Holo_Sign_' + cardIdStr + '.webp' + ')';
         }
       } else if (card.cardInfo.rarity === 'SSR') {
-        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_SSR_00.png' + ')';
+        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_SSR_00.webp' + ')';
       } else if (card.cardInfo.rarity === 'SR' || card.cardInfo.rarity === 'SRPlus') {
-        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_SR_01.png' + ')';
+        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_SR_01.webp' + ')';
       } else if (card.cardInfo.rarity === 'R') {
-        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_R_00.png' + ')';
+        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_R_00.webp' + ')';
       } else if (card.cardInfo.rarity === 'N') {
-        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_N_00.png' + ')';
+        frameUrl = 'url(' + this.host + 'assets/ongeki/card-frame/UI_Card_Horo_Frame_N_00.webp' + ')';
       } else {
         frameUrl = 'linear-gradient(transparent, transparent)';
       }
     }
     if (card.cardInfo.rarity === 'R' || card.cardInfo.rarity === 'N') {
-      const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.png';
+      const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.webp';
       const charaMaskUrl = 'url(' + charaMask + ')';
       return frameUrl + ',' + charaMaskUrl;
     } else {
@@ -589,20 +589,20 @@ export class OngekiCardComponent implements OnInit {
   getHoloBGMask(card: PlayerCard, showElements: boolean) {
     const isSpecialHolo = this.isSpecialHolo(card.cardId);
     const cardIdStr = card.cardId.toString().padStart(6, '0');
-    const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.png';
+    const charaMask = this.host + 'assets/ongeki/card-chara-mask/UI_Card_Chara_Mask_' + cardIdStr + '.webp';
     const charaMaskUrl = 'url(' + charaMask + ')';
     let bgUrl: string;
     if (card.cardInfo) {
       if (isSpecialHolo) {
-        bgUrl = 'url(' + this.host + 'assets/ongeki/card-holo/UI_Card_Holo_' + cardIdStr + '.png' + ')';
+        bgUrl = 'url(' + this.host + 'assets/ongeki/card-holo/UI_Card_Holo_' + cardIdStr + '.webp' + ')';
       } else if (card.cardInfo.rarity === 'SSR') {
-        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_SSR_00.png' + ')';
+        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_SSR_00.webp' + ')';
       } else if (card.cardInfo.rarity === 'SR' || card.cardInfo.rarity === 'SRPlus') {
-        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_SR_00.png' + ')';
+        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_SR_00.webp' + ')';
       } else if (card.cardInfo.rarity === 'R') {
-        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_R_00.png' + ')';
+        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_R_00.webp' + ')';
       } else if (card.cardInfo.rarity === 'N') {
-        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_N_00.png' + ')';
+        bgUrl = 'url(' + this.host + 'assets/ongeki/card-bg/UI_Card_Horo_BG_N_00.webp' + ')';
       }
     } else {
       bgUrl = 'linear-gradient(transparent, transparent)';
@@ -620,7 +620,7 @@ export class OngekiCardComponent implements OnInit {
   getCardBackground(card: PlayerCard, showHolo: boolean) {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
     if (!card.cardInfo) {
-      return ''; // 'url(' + this.host + 'assets/ongeki/card/UI_Card_' + cardIdStr + '.jpg)';
+      return ''; // 'url(' + this.host + 'assets/ongeki/card/UI_Card_' + cardIdStr + '.webp)';
     }
 
     let bgUrl: string;
@@ -636,10 +636,10 @@ export class OngekiCardComponent implements OnInit {
 
     if (card.cardInfo.rarity === 'N' || card.cardInfo.rarity === 'R') {
       if (showHolo) {
-        const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_Horo_' + card.cardInfo.rarity + '_' + attrCode + '.png';
+        const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_Horo_' + card.cardInfo.rarity + '_' + attrCode + '.webp';
         bgUrl = 'url(' + bg + ')';
       } else {
-        const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_' + attrCode + '.png';
+        const bg = this.host + 'assets/ongeki/card-bg/UI_Card_BG_' + card.cardInfo.rarity + '_' + attrCode + '.webp';
         bgUrl = 'url(' + bg + ')';
       }
     }
@@ -682,13 +682,13 @@ export class OngekiCardComponent implements OnInit {
   getFrameByRarity(rarity: string, attrCode: number) {
     let frame: string;
     if (rarity === 'SSR') {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.webp';
     } else if (rarity === 'SR') {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SR_' + attrCode + '.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SR_' + attrCode + '.webp';
     } else if (rarity === 'SRPlus') {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.webp';
     } else {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + rarity + '_' + attrCode + '.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + rarity + '_' + attrCode + '.webp';
     }
     return 'url(' + frame + ')';
   }
@@ -696,25 +696,25 @@ export class OngekiCardComponent implements OnInit {
   getHoloFrameByRarity(rarity: string, attrCode: number) {
     let frame: string;
     if (rarity === 'SSR') {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SSR_00.webp';
     } else if (rarity === 'SR') {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_Frame_Horo_SR_' + attrCode + '.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_Frame_Horo_SR_' + attrCode + '.webp';
     } else if (rarity === 'SRPlus') {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_SRPlus_00.webp';
     } else {
-      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + rarity + '_' + attrCode + '.png';
+      frame = this.host + 'assets/ongeki/card-frame/UI_Card_frame_' + rarity + '_' + attrCode + '.webp';
     }
     return 'url(' + frame + ')';
   }
 
   getChara(card: PlayerCard) {
     const cardIdStr = card.cardId.toString().padStart(6, '0');
-    const charaP = this.host + 'assets/ongeki/card-chara-p/UI_Card_Chara_' + cardIdStr + '_P.png';
+    const charaP = this.host + 'assets/ongeki/card-chara-p/UI_Card_Chara_' + cardIdStr + '_P.webp';
     return 'url(' + charaP + ')';
   }
 
   getCardBack() {
-    const backImg = this.host + 'assets/ongeki/gameUi/UI_CMN_CardBackSide.png';
+    const backImg = this.host + 'assets/ongeki/gameUi/UI_CMN_CardBackSide.webp';
     return 'url(' + backImg + ')';
   }
 
@@ -740,9 +740,9 @@ export class OngekiCardComponent implements OnInit {
   }
 
   getHoloSheetStyle(index: string) {
-    return `--holo-sheet-bottom: url("${this.host}assets/holo-sheet/${index}/bottom.png");
-      --holo-sheet-middle: url("${this.host}assets/holo-sheet/${index}/middle.png");
-      --holo-sheet-top: url("${this.host}assets/holo-sheet/${index}/top.png");`;
+    return `--holo-sheet-bottom: url("${this.host}assets/holo-sheet/${index}/bottom.webp");
+      --holo-sheet-middle: url("${this.host}assets/holo-sheet/${index}/middle.webp");
+      --holo-sheet-top: url("${this.host}assets/holo-sheet/${index}/top.webp");`;
   }
 
   resetFilter() {

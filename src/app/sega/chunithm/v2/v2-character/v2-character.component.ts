@@ -99,7 +99,7 @@ export class V2CharacterComponent implements OnInit {
     );
   }
   handleErrorImg(e) {
-    e.srcElement.src = 'https://rinnet.stehp.cn/assets/chuni/chara/CHU_UI_Character_0000_00_00.png';
+    e.srcElement.src = 'https://rinnet.stehp.cn/assets/chuni/chara/CHU_UI_Character_0000_00_00.webp';
   }
 
   filterCharacter(searchValue: string) {

@@ -304,7 +304,8 @@
       "HideFilter": "隐藏过滤",
       "ResetFilter": "重置过滤",
       "TotalCardNum": "共 {{num}} 张卡片",
-      "FilterPlaceholder": "ID，编号，角色名，称号，技能详情"
+      "FilterPlaceholder": "ID，编号，角色名，称号，技能详情",
+      "Info1": "鼠标右键或触屏长按卡片查看更多信息。"
     },
     "RivalPage": {
       "Title": "好友",
@@ -321,6 +322,23 @@
       "LastPlay": "上次游玩",
       "Remove": "解除好友",
       "RemoveTip": "确定要解除好友关系吗？"
+    },
+    "SettingsPage": {
+      "Title": "设定",
+      "Profile": "个人信息",
+      "UserName": "玩家名",
+      "Edit": "编辑",
+      "ChangeUserName": "修改玩家名",
+      "Message1": "如果在新版本游戏登录并保存后希望回到旧版本，可以尝试修改下面的值。",
+      "RomVersion": "游戏版本",
+      "ModifyRomVersion": "修改游戏版本",
+      "DataVersion": "数据版本",
+      "ModifyDataVersion": "修改数据版本",
+      "Export": "导出玩家存档",
+      "ChangeUserNameFailed": "修改玩家名失败",
+      "ModifyRomVersionFailed": "修改游戏版本失败",
+      "ModifyDataVersionFailed": "修改数据版本失败",
+      "DownloadingProfile": "正在下载玩家存档"
     }
   },
   "ChuniV2": {

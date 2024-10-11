@@ -68,7 +68,7 @@ export class MenuService {
           {
             id: 9,
             name: 'Setting',
-            url: 'ongeki/setting',
+            url: 'ongeki/settings',
             displayCondition: DisplayCondition.HasProfile,
           }
         ]

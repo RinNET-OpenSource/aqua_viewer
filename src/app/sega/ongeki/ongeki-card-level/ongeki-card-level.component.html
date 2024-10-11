@@ -1,20 +1,20 @@
 <div class="level-container ratio user-select-none"
-     style="background-image: url({{host}}assets/ongeki/gameUi/UI_CMN_CharaLevel_base.png)">
+     style="background-image: url({{host}}assets/ongeki/gameUi/UI_CMN_CharaLevel_base.webp)">
   <div class="hstack w-100 align-items-center" style="padding-left: 6%">
     <img class="h-75"
-         src="{{host}}assets/ongeki/gameUi/UI_CMN_AttributeIcon_{{attribute}}_mini.png">
+         src="{{host}}assets/ongeki/gameUi/UI_CMN_AttributeIcon_{{attribute}}_mini.webp">
     <img class="level-header"
-         src="{{host}}assets/ongeki/gameUi/UI_CMN_CharaLevel_base_Header.png">
+         src="{{host}}assets/ongeki/gameUi/UI_CMN_CharaLevel_base_Header.webp">
     <img *ngIf="level>=100"
          class="level-number"
          style="margin-left: -10%"
-         src="{{host}}assets/ongeki/gameUi/UI_NUM_13pt_Charalevel_00/{{Math.floor(level/100)}}.png">
+         src="{{host}}assets/ongeki/gameUi/UI_NUM_13pt_Charalevel_00/{{Math.floor(level/100)}}.webp">
     <img *ngIf="level>=10"
          class="level-number"
          style="margin-left: {{level>=100?'-12%':'-7%'}}"
-         src="{{host}}assets/ongeki/gameUi/UI_NUM_13pt_Charalevel_00/{{Math.floor((level%100)/10)}}.png">
+         src="{{host}}assets/ongeki/gameUi/UI_NUM_13pt_Charalevel_00/{{Math.floor((level%100)/10)}}.webp">
     <img style="margin-left: {{level>=10?'-10%':'-5%'}}"
          class="level-number"
-         src="{{host}}assets/ongeki/gameUi/UI_NUM_13pt_Charalevel_00/{{level%10}}.png">
+         src="{{host}}assets/ongeki/gameUi/UI_NUM_13pt_Charalevel_00/{{level%10}}.webp">
   </div>
 </div>

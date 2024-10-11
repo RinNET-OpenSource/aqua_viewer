@@ -36,7 +36,7 @@ export class SignUpComponent implements OnDestroy {
       this.initForm();
       const state = this.router.getCurrentNavigation().extras.state;
       if (state) {
-        if(this.oauth.tokenTypes.has(state.type) && state.token.length ==32){
+        if(this.oauth.tokenTypes.has(state.type) && state.token.length === 32){
           this.token = state.token;
           this.type = state.type;
         }

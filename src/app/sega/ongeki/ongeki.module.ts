@@ -42,8 +42,6 @@ import {NgIconsModule} from '@ng-icons/core';
 import {
   bootstrapStopFill
 } from '@ng-icons/bootstrap-icons';
-import {OngekiNameSettingComponent} from './ongeki-setting/ongeki-name-setting/ongeki-name-setting.component';
-import {OngekiVersionSettingComponent} from "./ongeki-setting/ongeki-version-setting/ongeki-version-setting.component";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -73,8 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     OngekiCardLevelComponent,
     OngekiSongScoreRankingComponent,
     ToTechHonorSpritePipe,
-    OngekiNameSettingComponent,
-    OngekiVersionSettingComponent,
   ],
     exports: [
         OngekiCardComponent
