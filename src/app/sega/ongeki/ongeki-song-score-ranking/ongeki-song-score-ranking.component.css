@@ -51,12 +51,6 @@
   width: 32px;
 }
 
-@include media-breakpoint-down(sm) {
-  .music-img {
-    width: 100%;
-  }
-}
-
 .honor{
   height: 32px;
 }
@@ -87,4 +81,37 @@
 
 .medal {
   width: 1rem;
+}
+
+.boss-img{
+  right: 0;
+  height: 3em;
+  min-width: 0;
+  aspect-ratio: 1.8;
+  object-fit: cover;
+}
+
+.boss-level{
+  width: 4em;
+}
+
+.music-info-container{
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.music-info-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 120%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), var(--jacket-img);
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: -1;
 }
