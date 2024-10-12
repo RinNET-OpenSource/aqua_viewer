@@ -5,7 +5,7 @@
 }
 
 .music-img {
-  width: 8em;
+  max-width: 12em;
 }
 
 .music-info {

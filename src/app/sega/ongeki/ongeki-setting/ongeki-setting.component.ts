@@ -162,7 +162,7 @@ export class OngekiSettingComponent implements OnInit {
       return;
     }
     const param = {romVersion: this.changeRomVersionForm.value.romVersion};
-    this.api.put('api/game/ongeki/profile/romVersion', param).subscribe(
+    this.api.put('api/game/ongeki/profile/romversion', param).subscribe(
       resp => {
         if (resp?.lastRomVersion === param.romVersion) {
           this.changeRomVersionForm.reset();
