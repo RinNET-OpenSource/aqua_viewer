@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { ApiService } from '../../../api.service';
 import { MessageService } from '../../../message.service';
 import {OngekiMusic} from '../model/OngekiMusic';
@@ -44,7 +44,7 @@ interface UserRanking {
 @Component({
   selector: 'app-ongeki-song-score-ranking',
   templateUrl: './ongeki-song-score-ranking.component.html',
-  styleUrls: ['./ongeki-song-score-ranking.component.css']
+  styleUrls: ['./ongeki-song-score-ranking.component.css', ]
 })
 export class OngekiSongScoreRankingComponent {
   protected readonly Math = Math;
@@ -64,7 +64,7 @@ export class OngekiSongScoreRankingComponent {
   }
 
   ngOnInit() {
-    this.dbService.getByID<OngekiCard>('ongekiCard', this.music.bossCardId).subscribe((x) =>{
+    this.dbService.getByID<OngekiCard>('ongekiCard', this.music.bossCardId).subscribe((x) => {
       this.bossCard = x;
     });
 
@@ -79,7 +79,7 @@ export class OngekiSongScoreRankingComponent {
       }
     );
 
-    if (this.isLunatic(this.music)){
+    if (!this.isLunatic(this.music)){
       const param = new HttpParams().set('musicId', id).set('level', 3);
       this.api.get('api/game/ongeki/musicScoreRanking', param).subscribe((res) => {
         this.ranking = res;

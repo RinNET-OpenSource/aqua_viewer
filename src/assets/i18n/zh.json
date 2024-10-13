@@ -276,7 +276,13 @@
     },
     "MusicList": {
       "Title": "乐曲列表",
-      "Filter": "筛选"
+      "Filter": "筛选",
+      "SongScoreRanking": {
+        "Boss": "对手",
+        "Details": "游玩情况",
+        "Ranking": "排行",
+        "RankingInfo": "你在 {{total}} 名玩家中排名第 {{ranking}}。"
+      }
     },
     "CardPage": {
       "Title": "卡片",

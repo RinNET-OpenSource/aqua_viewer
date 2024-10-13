@@ -18,7 +18,7 @@
     <ng-container *ngIf="songData">
       <hr class="mt-0">
       <section *ngIf="bossCard" class="mb-2">
-        <h3 class="mb-3">对手</h3>
+        <h3 class="mb-3">{{ "Ongeki.MusicList.SongScoreRanking.Boss" | translate }}</h3>
         <div class="d-flex align-items-end">
           <img class="boss-img"
                src="{{host}}assets/ongeki/card-icon/UI_Card_Icon_{{bossCard.id | formatNumber:6}}_S.webp">
@@ -30,7 +30,7 @@
     </ng-container>
     <hr>
     <section class="mb-3">
-      <h3 class="mb-3">游玩情况</h3>
+      <h3 class="mb-3">{{ "Ongeki.MusicList.SongScoreRanking.Details" | translate }}</h3>
       <ng-container *ngIf="!isLunatic(music) && songData">
         <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 0}"></ng-container>
         <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 1}"></ng-container>
@@ -41,7 +41,7 @@
         <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 10}"></ng-container>
       </ng-container>
     </section>
-    <h3>排行</h3>
+    <h3>{{ "Ongeki.MusicList.SongScoreRanking.Ranking" | translate }}</h3>
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <ng-container *ngIf="music.id < 8e3 && songData">
@@ -160,7 +160,7 @@
 
 <ng-template #rankingTable let-playerRanking="playerRanking">
   <div *ngIf="playerRanking" class="callout callout-info mt-2 mb-1">
-    You rank {{playerRanking.rank}} in {{playerRanking.playedCount}} players.
+    {{"Ongeki.MusicList.SongScoreRanking.RankingInfo" | translate: {ranking: (playerRanking.rank | ordinal),total: playerRanking.playedCount} }}
   </div>
   <table class="table table-striped table-borderless mb-0">
     <thead>

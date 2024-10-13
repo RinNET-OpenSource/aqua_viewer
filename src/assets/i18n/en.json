@@ -276,7 +276,13 @@
     },
     "MusicList": {
       "Title": "Music List",
-      "Filter": "Filter"
+      "Filter": "Filter",
+      "SongScoreRanking": {
+        "Boss": "Boss",
+        "Details": "Details",
+        "Ranking": "Ranking",
+        "RankingInfo": "You rank {{ranking}} out of {{total}} players."
+      }
     },
     "CardPage": {
       "Title": "Card",
