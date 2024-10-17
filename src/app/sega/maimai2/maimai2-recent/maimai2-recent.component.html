@@ -1,38 +1,32 @@
 <h1 class="page-heading">{{'Maimai2.RecentPage.Title'|translate}}</h1>
 
-
-<div *ngIf="recent" class="record d-flex flex-column">
-  <div class="card mt-3" *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }; let i = index">
+<div *ngIf="recent" class="record d-flex flex-column gap-3">
+  <div class="card" *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }; let i = index">
     <div class="card-header px-3 py-2">
-      <div class="row">
-        <div class="col-6">
-          {{item.userPlayDate}}
-        </div>
-        <div class="col-6 text-end">
-          <ng-container *ngIf="item.songInfo" [ngSwitch]="item.level">
-            <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
-              Basic {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
-            </span>
-            <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
-              Advanced {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
-            </span>
-            <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
-              Expert {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
-            </span>
-            <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
-              Master {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
-            </span>
-            <span *ngSwitchCase="4" class="difficulty-remaster badge rounded-pill">
-              Re:Master {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
-            </span>
-          </ng-container>
-          <span style="min-width: 4rem">TRACK {{item.trackNo}}</span>
-        </div>
+      <div class="d-flex align-items-center justify-content-between gap-2">
+        <span class="no-wrap">TRACK {{item.trackNo}}</span>
+        <ng-container *ngIf="item.songInfo" [ngSwitch]="item.level">
+          <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
+            Basic {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
+          </span>
+          <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
+            Advanced {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
+          </span>
+          <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
+            Expert {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
+          </span>
+          <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
+            Master {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
+          </span>
+          <span *ngSwitchCase="4" class="difficulty-remaster badge rounded-pill">
+            Re:Master {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
+          </span>
+        </ng-container>
       </div>
     </div>
     <div class="card-body">
-      <div class="row">
-        <div class="col-auto song-jacket-container">
+      <div class="row mb-2 g-2">
+        <div class="col-12 col-sm-auto song-jacket-container">
           <img
             class="song-jacket"
             *ngIf="enableImages == true"
@@ -40,48 +34,57 @@
             (error)="imgError($event)"
             #img alt="">
         </div>
-        <div class="col flex-grow-1">
-          <h4>{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</h4>
-
-          <div class="row no-wrap">
-            <div class="col-8">
-              <span *ngIf="item.isAchieveNewRecord" class="new-record badge rounded-pill tiny-text">NEW RECORD!</span>
-              <h1>{{item.achievement/10000.0|number:'1.4-4'}}%
-              </h1>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-              <img class="rank-icon" src="{{host}}assets/mai2/common/{{getRankIcon(item)}}.webp">
+        <div class="col-12 col-sm">
+          <div class="d-flex justify-content-center h-100 gap-1" style="flex-flow: column">
+            <h3 class="text-nowrap fw-bold m-0">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</h3>
+            <div class="text-nowrap fw-light">{{item.songInfo != null ? item.songInfo.artistName : 'artist'}}</div>
+            <div class="position-relative">
+              <div>
+                <h3 class="d-inline-block m-0">{{Math.floor(item.achievement/10000)}}.</h3>
+                <div class="d-inline-block position-relative">
+                  <h3 class="small m-0" [class.new-record]="item.isAchieveNewRecord">{{(item.achievement%10000).toString().padStart(4, '0')}}%</h3>
+                </div>
+              </div>
+              <div class="position-absolute end-0 bottom-0">
+                <img class="rank-icon" src="{{host}}assets/mai2/common/{{getRankIcon(item)}}.webp">
+              </div>
             </div>
           </div>
-          <div class="card bg-secondary-subtle">
-            <div class="d-flex justify-content-between align-items-center no-wrap">
-              <div class="d-flex flex-row" style="align-items: center;">
-                <div class="col ms-1" *ngIf="getIconVisibility(item,0)">
-                  <img class="full-height" src="{{host}}assets/mai2/common/{{getComboIcon(item)}}.webp">
-                </div>
-                <div class="col" *ngIf="getIconVisibility(item,1)">
-                  <img class="full-height" src="{{host}}assets/mai2/common/{{getSyncIcon(item)}}.webp">
-                </div>
-                <div class="col" *ngIf="getIconVisibility(item,1)">
-                  <img class="rival-img" src="{{host}}assets/mai2/common/{{getRivalNumber(item)}}.webp">
-                </div>
-                <div class="col ms-1" *ngIf="getIconVisibility(item,2)">
-                  <img class="clear-img" src="{{host}}assets/mai2/common/clear.webp">
-                </div>
+        </div>
+      </div>
+      <div class="card bg-secondary-subtle">
+        <div class="row justify-content-between align-items-center no-wrap">
+          <div class="col-auto">
+            <div class="d-flex flex-row gap-2" style="align-items: center;">
+              <div class="col ms-1" *ngIf="getIconVisibility(item,0)">
+                <img class="honor-img" src="{{host}}assets/mai2/common/{{getComboIcon(item)}}.webp">
               </div>
-
-              <div class="d-flex flex-column align-items-end dx-score-container">
-                <span class="text-end mx-1">{{item.deluxscore}}/{{item.totalCombo*3}}</span>
-                <span class="text-end tiny-text mx-1">{{getDxScoreStar(item)}}</span>
+              <div class="col" *ngIf="getIconVisibility(item,1)">
+                <img class="honor-img" src="{{host}}assets/mai2/common/{{getSyncIcon(item)}}.webp">
               </div>
+              <div class="col" *ngIf="getIconVisibility(item,1)">
+                <img class="rival-img" src="{{host}}assets/mai2/common/{{getRivalNumber(item)}}.webp">
+              </div>
+              <div class="col ms-2" *ngIf="getIconVisibility(item,2)">
+                <img class="clear-img" src="{{host}}assets/mai2/common/clear.webp">
+              </div>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-column align-items-end dx-score-container">
+              <span class="text-end mx-1">{{item.deluxscore}}/{{item.totalCombo*3}}</span>
+              <span class="text-end tiny-text mx-1">{{getDxScoreStar(item)}}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="card-footer" *ngIf="!isDetailVisible[i]">
-      <div class="row justify-content-end">
-        <button class="btn btn-primary col-auto" (click)="toggleDetail(i)">{{'Maimai2.RecentPage.Detailed'|translate}}</button>
+      <div class="d-flex justify-content-between">
+        <div>
+          {{(item.userPlayDate | toDate).toLocaleString()}}
+        </div>
+        <button class="btn btn-link p-0" (click)="toggleDetail(i)">{{'Maimai2.RecentPage.Detailed'|translate}}</button>
       </div>
     </div>
     <div class="card m-1 mt-2 mb-2" *ngIf="isDetailVisible[i]">

@@ -20,6 +20,7 @@ import {Maimai2Playlog} from '../model/Maimai2Playlog';
 })
 export class Maimai2RecentComponent implements OnInit {
 
+  protected readonly Math = Math;
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 

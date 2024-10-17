@@ -56,10 +56,15 @@
   color: white;
 }
 
-.new-record {
-  background: #ced422;
-  border: 1px solid #381C47;
-  color: #ffffff;
+.new-record::after {
+  content: "NEW RECORD";
+  color: #ff9c00;
+  font-size: 0.6rem;
+  position: absolute;
+  left: -0.4rem;
+  bottom: 100%;
+  white-space: nowrap;
+  font-weight: bold;
 }
 
 .difficulty-remaster {
@@ -115,18 +120,21 @@
   flex-wrap: nowrap;
 }
 
+.honor-img{
+  height: 2.0em;
+  aspect-ratio: 0.893617021276596;
+}
+
 .rival-img{
-  height: 75%;
-  width: 75%;
-  min-height: 2rem;
-  min-width: 2.5rem;
+  height: 1.6em;
+  aspect-ratio: 1.53061224489796;
 }
 .clear-img{
-  height: 55%;
-  width: 55%;
+  height: 1.2em;
+  aspect-ratio: 5;
 }
 .dx-score-container{
-  whitespace: nowrap;
+  white-space: nowrap;
 }
 
 .rank-icon{

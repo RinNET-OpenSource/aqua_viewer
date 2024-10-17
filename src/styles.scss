@@ -315,3 +315,8 @@ h6 {
 .border-solid{
   border: solid;
 }
+
+.text-nowrap{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
