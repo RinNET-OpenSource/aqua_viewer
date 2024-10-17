@@ -58,18 +58,18 @@ export class Maimai2RatingComponent implements OnInit {
        this.best35Rating = ratings;
        let minRating = 0;
        for (const best35RatingItem of this.best35Rating) {
-        best35RatingItem.rating = this.computeRa(best35RatingItem.ratingBase / 10.0, best35RatingItem.score / 10000.0);
+        best35RatingItem.rating = this.calcRate(best35RatingItem.ratingBase, best35RatingItem.score);
         this.b35rating += best35RatingItem.rating;
         if (best35RatingItem.rating > minRating) {
           minRating = best35RatingItem.rating;
         }
         this.playerRating = this.b35rating + this.b15rating;
         const maxRating = minRating + this.getRatingGrowth(minRating);
-        this.recommendTripleSPlus = this.get_TargetDs(minRating, maxRating, 100.5);
-        this.recommendTripleS = this.get_TargetDs(minRating, maxRating, 100);
-        this.recommendSSPlus = this.get_TargetDs(minRating, maxRating, 99.5);
-        this.recommendSS = this.get_TargetDs(minRating, maxRating, 99);
-        this.recommendSPlus = this.get_TargetDs(minRating, maxRating, 98);
+        this.recommendTripleSPlus = this.get_TargetDs(minRating, maxRating, 1005000);
+        this.recommendTripleS = this.get_TargetDs(minRating, maxRating, 1000000);
+        this.recommendSSPlus = this.get_TargetDs(minRating, maxRating, 995000);
+        this.recommendSS = this.get_TargetDs(minRating, maxRating, 990000);
+        this.recommendSPlus = this.get_TargetDs(minRating, maxRating, 980000);
 
         const ratingBases = Object.keys(this.recommendTripleSPlus).map(Number);
 
@@ -95,7 +95,7 @@ export class Maimai2RatingComponent implements OnInit {
     this.loadRating(aimeId, 'new_rating', (ratings: RatingItem[]) => {
       this.best15Rating = ratings;
       for (const best15RatingItem of this.best15Rating) {
-        best15RatingItem.rating = this.computeRa(best15RatingItem.ratingBase / 10.0, best15RatingItem.score / 10000.0);
+        best15RatingItem.rating = this.calcRate(best15RatingItem.ratingBase, best15RatingItem.score);
         this.b15rating += best15RatingItem.rating;
         this.playerRating = this.b35rating + this.b15rating;
       }
@@ -190,42 +190,52 @@ export class Maimai2RatingComponent implements OnInit {
     return 20;
   }
 
-  computeRa(ds: number, achievement: number): number {
-    let baseRa = 22.4;
-    if (achievement < 50) {
-      baseRa = 7.0;
-    } else if (achievement < 60) {
-      baseRa = 8.0;
-    } else if (achievement < 70) {
-      baseRa = 9.6;
-    } else if (achievement < 75) {
-      baseRa = 11.2;
-    } else if (achievement < 80) {
-      baseRa = 12.0;
-    } else if (achievement < 90) {
-      baseRa = 13.6;
-    } else if (achievement < 94) {
-      baseRa = 15.2;
-    } else if (achievement < 97) {
-      baseRa = 16.8;
-    } else if (achievement < 98) {
-      baseRa = 20.0;
-    } else if (achievement < 99) {
-      baseRa = 20.3;
-    } else if (achievement < 99.5) {
-      baseRa = 20.8;
-    } else if (achievement < 100) {
-      baseRa = 21.1;
-    } else if (achievement < 100.5) {
-      baseRa = 21.6;
+  calcRate(level: number, achive: number): number {
+    const records: { achive: number, offset: number}[] = [
+      { achive: 0, offset: 0 },
+      { achive: 100000, offset: 16 },
+      { achive: 200000, offset: 32 },
+      { achive: 300000, offset: 48 },
+      { achive: 400000, offset: 64 },
+      { achive: 500000, offset: 80 },
+      { achive: 600000, offset: 96 },
+      { achive: 700000, offset: 112 },
+      { achive: 750000, offset: 120 },
+      { achive: 799999, offset: 128 },
+      { achive: 800000, offset: 136 },
+      { achive: 900000, offset: 152 },
+      { achive: 940000, offset: 168 },
+      { achive: 969999, offset: 176 },
+      { achive: 970000, offset: 200 },
+      { achive: 980000, offset: 203 },
+      { achive: 989999, offset: 206 },
+      { achive: 990000, offset: 208 },
+      { achive: 995000, offset: 211 },
+      { achive: 999999, offset: 214 },
+      { achive: 1000000, offset: 216 },
+      { achive: 1004999, offset: 222 },
+      { achive: 1005000, offset: 224 }
+    ];
+
+    let num = 0;
+    const num2 = Math.min(achive, records[22].achive);
+
+    for (let i = 22; i >= 0; i--) {
+      if (records[i].achive <= num2) {
+        num = records[i].offset;
+        break;
+      }
     }
-    return Math.floor(ds * (Math.min(100.5, achievement) / 100) * baseRa);
+
+    const scoreRate = level;
+    return Math.floor((scoreRate * num2 * num) / 100000000);
   }
+
 
   get_TargetDs(ra: number, maxra: number, rank: number): Record<number, number> {
     const result: Record<number, number> = {};
     for (let d = 10; d <= 150; d += 1) {
-      const computedRa = this.computeRa(d / 10.0, rank);
+      const computedRa = this.calcRate(d, rank);
       if (computedRa > ra && computedRa <= maxra) {
         result[d] = computedRa;
       }
