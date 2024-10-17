@@ -13,18 +13,18 @@ import {V2SongScoreRankingComponent} from './v2-song-score-ranking/v2-song-score
 import {V2RivalListComponent} from './v2-rival-list/v2-rival-list.component';
 
 const routes: Routes = [
-  {path: 'profile', component: V2ProfileComponent},
-  {path: 'rating', component: V2RatingComponent},
-  {path: 'recent', component: V2RecentComponent},
-  {path: 'song', component: V2SonglistComponent},
-  {path: 'song/:id', component: V2SongDetailComponent},
-  {path: 'song/:id/:level', component: V2SongPlaylogComponent},
-  {path: 'character', component: V2CharacterComponent},
-  {path: 'rival', component: V2RivalListComponent},
-  {path: 'userRanking', component: V2UserRankingComponent},
-  {path: 'setting', component: V2SettingComponent},
-  {path: 'userbox', component: V2UserBoxComponent},
-  {path: 'song/ranking/:id/:level', component: V2SongScoreRankingComponent},
+  {path: 'profile', component: V2ProfileComponent, data: {title: 'Profile'}},
+  {path: 'rating', component: V2RatingComponent, data: {title: 'Rating'}},
+  {path: 'recent', component: V2RecentComponent, data: {title: 'Recent'}},
+  {path: 'song', component: V2SonglistComponent, data: {title: 'MusicList'}},
+  {path: 'song/:id', component: V2SongDetailComponent, data: {title: 'Detail'}},
+  {path: 'song/:id/:level', component: V2SongPlaylogComponent, data: {title: 'Detail'}},
+  {path: 'character', component: V2CharacterComponent, data: {title: 'Character'}},
+  {path: 'rival', component: V2RivalListComponent, data: {title: 'Rival'}},
+  {path: 'userRanking', component: V2UserRankingComponent, data: {title: 'UserRanking'}},
+  {path: 'setting', component: V2SettingComponent, data: {title: 'Settings'}},
+  {path: 'userbox', component: V2UserBoxComponent, data: {title: 'Userbox'}},
+  {path: 'song/ranking/:id/:level', component: V2SongScoreRankingComponent, data: {title: 'ScoreRanking'}},
 ];
 
 export const V2Routes = RouterModule.forChild(routes);

@@ -6,10 +6,10 @@ import {Maimai2RecentComponent} from './maimai2-recent/maimai2-recent.component'
 
 
 const routes: Routes = [
-  {path: 'profile', component: Maimai2ProfileComponent},
-  {path: 'setting', component: Maimai2SettingComponent},
-  {path: 'recent', component: Maimai2RecentComponent},
-  {path: 'rating', component: Maimai2RatingComponent},
+  {path: 'profile', component: Maimai2ProfileComponent, data: {title: 'Profile'}},
+  {path: 'setting', component: Maimai2SettingComponent, data: {title: 'Settings'}},
+  {path: 'recent', component: Maimai2RecentComponent, data: {title: 'Recent'}},
+  {path: 'rating', component: Maimai2RatingComponent, data: {title: 'Rating'}},
 ];
 
 export const Maimai2Routes = RouterModule.forChild(routes);

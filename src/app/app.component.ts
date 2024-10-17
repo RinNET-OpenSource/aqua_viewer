@@ -15,6 +15,7 @@ import {SwUpdate} from '@angular/service-worker';
 import {UserService} from './user.service';
 import {Account, AccountService} from './auth/account.service';
 import { MenuService } from './menu.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     protected router: Router,
     private api: ApiService,
     private preLoad: PreloadService,
-    private messageService: MessageService,
+    private titleService: Title,
     protected menuService: MenuService,
     protected toastService: ToastService,
     protected languageService: LanguageService,
@@ -77,6 +78,33 @@ export class AppComponent implements OnInit, OnDestroy {
       map(snapshot => snapshot.data.disableSidebar)
     ).subscribe((disableSidebar) => {
       this.disableSidebar = disableSidebar;
+    });
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => {
+        let currentRoute = this.router.routerState.root;
+        const titles: string[] = [];
+        let lastTitle: string | null = null;
+
+        while (currentRoute) {
+          const routeSnapshot = currentRoute.snapshot;
+          const currentTitle = routeSnapshot.data?.title;
+
+          if (currentTitle && currentTitle !== lastTitle) {
+            titles.push(currentTitle);
+            lastTitle = currentTitle;
+          }
+
+          currentRoute = currentRoute.firstChild;
+        }
+
+        return titles;
+      }),
+      filter(titles => titles.length > 0)
+    ).subscribe((titles: string[]) => {
+      const fullTitle = titles.reverse().join(' - ') + ' | RinNET';
+      this.titleService.setTitle(fullTitle);
     });
   }
 
