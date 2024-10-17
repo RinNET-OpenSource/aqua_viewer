@@ -18,6 +18,7 @@ import { Maimai2NameSettingDialog } from './maimai2-setting/maimai2-name-setting
 import {TranslateModule} from "@ngx-translate/core";
 import {Maimai2RatingComponent} from "./maimai2-rating/maimai2-rating.component";
 import {Maimai2RecentComponent} from "./maimai2-recent/maimai2-recent.component";
+import {NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -28,25 +29,26 @@ import {Maimai2RecentComponent} from "./maimai2-recent/maimai2-recent.component"
     Maimai2RecentComponent,
     Maimai2NameSettingDialog
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    Maimai2Routes,
+    imports: [
+        CommonModule,
+        FormsModule,
+        Maimai2Routes,
 
-    MatCardModule,
-    NgxPaginationModule,
-    MatButtonModule,
-    ToolsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatDialogModule,
-    MatPaginatorModule,
-    FlexLayoutModule,
-    TranslateModule,
-    ReactiveFormsModule,
-    NgOptimizedImage
-  ]
+        MatCardModule,
+        NgxPaginationModule,
+        MatButtonModule,
+        ToolsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatTableModule,
+        MatDialogModule,
+        MatPaginatorModule,
+        FlexLayoutModule,
+        TranslateModule,
+        ReactiveFormsModule,
+        NgOptimizedImage,
+        NgbCollapse
+    ]
 })
 export class Maimai2Module {
 }

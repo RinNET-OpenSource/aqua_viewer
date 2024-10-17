@@ -79,17 +79,9 @@
         </div>
       </div>
     </div>
-    <div class="card-footer" *ngIf="!isDetailVisible[i]">
-      <div class="d-flex justify-content-between">
-        <div>
-          {{(item.userPlayDate | toDate).toLocaleString()}}
-        </div>
-        <button class="btn btn-link p-0" (click)="toggleDetail(i)">{{'Maimai2.RecentPage.Detailed'|translate}}</button>
-      </div>
-    </div>
-    <div class="card m-1 mt-2 mb-2" *ngIf="isDetailVisible[i]">
-      <div class="flex-container align-items-start">
-        <div class="left-column mt-3 ms-3 me-3">
+    <div #collapse="ngbCollapse" class="card-footer p-0" [ngbCollapse]="!isDetailVisible[i]">
+      <div class="row align-items-center px-3 py-2">
+        <div class="col-12 col-md-8">
           <table class="table detail-table table-striped">
             <thead>
             <tr>
@@ -153,37 +145,49 @@
             </tbody>
           </table>
         </div>
-        <div class="m-3 row">
-          <div class="col">
-            <div class="small mt-2">DXRating</div>
-            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-              <h4 class="dx-rating-textholder">{{item.afterRating}}<span class="badge rounded-pill tiny-text bg-info">+{{item.afterRating - item.beforeRating}}</span></h4>
+        <div class="col-12 col-md-4">
+          <div class="row">
+            <div class="col-6 col-md-12 col-xl-6">
+              <div class="small mt-2">DXRating</div>
+              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+                <div>
+                  <div class="dx-rating-textholder">{{item.afterRating}}<span class="small">+{{item.afterRating - item.beforeRating}}</span></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col">
-            <div class="small mt-2">Combo</div>
-            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-              <h4 class="dx-rating-textholder">{{item.maxCombo}}/{{item.totalCombo}}</h4>
+            <div class="col-6 col-md-12 col-xl-6">
+              <div class="small mt-2">Combo</div>
+              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+                <div class="dx-rating-textholder">{{item.maxCombo}}/{{item.totalCombo}}</div>
+              </div>
             </div>
-          </div>
-          <div class="col" *ngIf="getIconVisibility(item,1)">
-            <div class="small mt-2">Sync</div>
-            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-              <h4 class="dx-rating-textholder">{{item.maxSync}}/{{item.totalSync}}</h4>
+            <div class="col-6 col-md-12 col-xl-6" *ngIf="getIconVisibility(item,1)">
+              <div class="small mt-2">Sync</div>
+              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+                <div class="dx-rating-textholder">{{item.maxSync}}/{{item.totalSync}}</div>
+              </div>
             </div>
-          </div>
-          <div class="col" *ngIf="getIconVisibility(item,1)">
-            <div class="small mt-2">2P Player</div>
-            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-              <h4 class="dx-rating-textholder">{{item.playedUserName1}}</h4>
+            <div class="col-6 col-md-12 col-xl-6" *ngIf="getIconVisibility(item,1)">
+              <div class="small mt-2">2P Player</div>
+              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+                <div class="dx-rating-textholder">{{item.playedUserName1}}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-between">
+        <div>
+          {{(item.userPlayDate | toDate).toLocaleString()}}
+        </div>
+        <button class="btn btn-link p-0" (click)="toggleDetail(i)">{{'Maimai2.RecentPage.Detailed'|translate}}</button>
+      </div>
+    </div>
+
   </div>
 </div>
-
 <div class="pagination">
   <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
 </div>

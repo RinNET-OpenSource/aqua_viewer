@@ -142,12 +142,6 @@ export class MenuService {
             displayCondition: DisplayCondition.HasProfile,
           },
           {
-            id: 1,
-            name: 'Setting',
-            url: 'mai2/setting',
-            displayCondition: DisplayCondition.HasProfile,
-          },
-          {
             id: 2,
             name: 'Rating',
             url: 'mai2/rating',
@@ -157,6 +151,12 @@ export class MenuService {
             id: 3,
             name: 'PlayRecord',
             url: 'mai2/recent',
+            displayCondition: DisplayCondition.HasProfile,
+          },
+          {
+            id: 1,
+            name: 'Setting',
+            url: 'mai2/setting',
             displayCondition: DisplayCondition.HasProfile,
           }
         ]
