@@ -68,7 +68,7 @@ export class MenuService {
           {
             id: 9,
             name: 'Setting',
-            url: 'ongeki/setting',
+            url: 'ongeki/settings',
             displayCondition: DisplayCondition.HasProfile,
           }
         ]
@@ -145,6 +145,18 @@ export class MenuService {
             id: 1,
             name: 'Setting',
             url: 'mai2/setting',
+            displayCondition: DisplayCondition.HasProfile,
+          },
+          {
+            id: 2,
+            name: 'Rating',
+            url: 'mai2/rating',
+            displayCondition: DisplayCondition.HasProfile,
+          },
+          {
+            id: 3,
+            name: 'PlayRecord',
+            url: 'mai2/recent',
             displayCondition: DisplayCondition.HasProfile,
           }
         ]

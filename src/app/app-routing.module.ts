@@ -9,11 +9,13 @@ import {KeychipComponent} from './keychip/keychip.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {ContributorsComponent} from './contributors/contributors.component';
 import {OauthCallbackComponent} from './oauth-callback/oauth-callback.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { LoginGuardService } from './auth/login-guard.service';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { ProfileComponent } from './profile/profile.component';
+import {SignInComponent} from './sign-in/sign-in.component';
+import {SignUpComponent} from './sign-up/sign-up.component';
+import {LoginGuardService} from './auth/login-guard.service';
+import {PasswordResetComponent} from './password-reset/password-reset.component';
+import {ProfileComponent} from './profile/profile.component';
+import {AnnouncementsComponent} from './announcements/announcements.component';
+import {EditComponent} from "./announcements/edit/edit.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: { disableSidebar: true }},
@@ -22,10 +24,12 @@ const routes: Routes = [
   {path: 'keychip', component: KeychipComponent, canActivate: [AuthGuardService]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'import', component: ImporterComponent, canActivate: [AuthGuardService]},
+  {path: 'announcements', component: AnnouncementsComponent, canActivate: [AuthGuardService]},
+  {path: 'announcements/edit', component: EditComponent, canActivate: [AuthGuardService]},
   {path: 'contributors', component: ContributorsComponent, data: { disableSidebar: true }},
-  {path: 'ongeki', loadChildren: () => import('./sega/ongeki/ongeki.module').then(mod => mod.OngekiModule), canLoad: [AuthGuardService]},
-  {path: 'mai2', loadChildren: () => import('./sega/maimai2/maimai2.module').then(mod => mod.Maimai2Module), canLoad: [AuthGuardService]},
-  {path: 'chuni/v2', loadChildren: () => import('./sega/chunithm/v2/v2.module').then(mod => mod.V2Module), canLoad: [AuthGuardService]},
+  {path: 'ongeki', loadChildren: () => import('./sega/ongeki/ongeki.module').then(mod => mod.OngekiModule), canMatch: [AuthGuardService]},
+  {path: 'mai2', loadChildren: () => import('./sega/maimai2/maimai2.module').then(mod => mod.Maimai2Module), canMatch: [AuthGuardService]},
+  {path: 'chuni/v2', loadChildren: () => import('./sega/chunithm/v2/v2.module').then(mod => mod.V2Module), canMatch: [AuthGuardService]},
   {path: 'oauth-callback/:type', component: OauthCallbackComponent, data: { disableSidebar: true }},
   {path: 'sign-in', component: SignInComponent, canActivate: [LoginGuardService], data: { disableSidebar: true }},
   {path: 'sign-up', component: SignUpComponent, canActivate: [LoginGuardService], data: { disableSidebar: true }},

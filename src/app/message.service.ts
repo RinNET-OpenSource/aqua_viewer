@@ -10,7 +10,7 @@ export class MessageService {
               public toastService: ToastService) {
   }
 
-  notice(message: string, color: string = null) {
+  notice(message: string, color: 'danger' | 'warning' | 'success' = null) {
     if(color === 'danger'){
       this.toastService.show(message, {classname: 'text-bg-danger'});
     }

@@ -9,7 +9,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthenticationService} from '../auth/authentication.service';
 import {StatusCode} from '../status-code';
 import {Router} from '@angular/router';
-import {AnnouncementComponent} from './announcement/announcement.component';
+import {Announcement, AnnouncementComponent} from '../announcements/announcement/announcement.component';
+import {LanguageService} from "../language.service";
+import {HttpParams} from "@angular/common/http";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-dashboard',
@@ -45,7 +48,9 @@ export class DashboardComponent implements OnInit {
     private api: ApiService,
     private messageService: MessageService,
     private modalService: NgbModal,
-    protected  router: Router
+    protected  router: Router,
+    protected language: LanguageService,
+    private translate: TranslateService
   ) {
     this.loadAnnouncements();
   }
@@ -64,12 +69,17 @@ export class DashboardComponent implements OnInit {
     this.addStatusSubscribe(this.preload.chusanMapIconState);
     this.addStatusSubscribe(this.preload.chusanFrameState);
     this.addStatusSubscribe(this.preload.chusanAvatarAccState);
+    this.addStatusSubscribe(this.preload.maimai2MusicState);
     this.preload.checkingUpdateObservable.subscribe(checkingUpdate => {
       this.checkingUpdate = checkingUpdate;
     });
     this.preload.dbVersionObservable.subscribe(dbVersion => {
       this.dbVersion = dbVersion;
     });
+    this.translate.onLangChange.subscribe(event => {
+      this.loadingAnnouncement = true;
+      this.loadAnnouncements()
+    })
 
     this.getProfiles();
     this.loadKeychip();
@@ -126,16 +136,13 @@ export class DashboardComponent implements OnInit {
   }
 
   loadAnnouncements() {
-    this.api.get('api/user/announcement/recent').subscribe(
+    const param = new HttpParams().set('lang', this.language.getCurrentLang())
+    this.api.get('api/user/announcement/recent', param).subscribe(
       resp => {
         if (resp?.status) {
           const statusCode: StatusCode = resp.status.code;
           if (statusCode === StatusCode.OK && resp.data) {
-            this.announcement = {
-              ...resp.data,
-              expirationDate: new Date(resp.data.expirationDate),
-              updatedAt: new Date(resp.data.updatedAt)
-            };
+            this.announcement = Announcement.fromJSON(resp.data);
           }
           else{
             this.messageService.notice(resp.status.message);
@@ -195,13 +202,9 @@ export class DashboardComponent implements OnInit {
     const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true, centered: true});
     modalRef.componentInstance.announcement = announcement;
   }
+
+  getFormattedNumberByDigit(input: string, digit: number): string {
+    return input.toString().padStart(digit, '0');
+  }
 }
 
-export interface Announcement {
-  id: number;
-  title: string;
-  content: string;
-  expirationDate: Date;
-  updatedAt: Date;
-  status: string;
-}

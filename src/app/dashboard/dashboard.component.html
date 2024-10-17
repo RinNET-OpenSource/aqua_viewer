@@ -1,9 +1,12 @@
 <h1 class="page-heading">{{'DashboardPage.Title' | translate}}</h1>
 <div class="row">
   <div class="col-12 col-lg-8">
-    <h3 class="mb-3">
-      {{'DashboardPage.LatestAnnouncement' | translate}}
-    </h3>
+    <div class="mb-3 d-flex justify-content-between align-items-end">
+      <h3 class="m-0">
+        {{'DashboardPage.LatestAnnouncement' | translate}}
+      </h3>
+      <a class="more-announcements" routerLink="/announcements">{{'DashboardPage.More' | translate}}</a>
+    </div>
     <div class="card-btn card mb-3 user-select-none" (click)="showAnnouncement(announcement)">
       <div class="card-body py-2">
         <div *ngIf="loadingAnnouncement" class="placeholder-glow my-1">
@@ -14,8 +17,8 @@
             <h4 class="placeholder" style="width: 12em;"></h4>
           </div>
         </div>
-        <div *ngIf="announcement" class="my-1">
-          <div class="fw-light text-secondary">{{announcement.updatedAt.toLocaleDateString()}}</div>
+        <div *ngIf="!loadingAnnouncement && announcement" class="my-1">
+          <div class="fw-light text-secondary mb-1">{{announcement.updatedAt.toLocaleDateString()}}</div>
           <h4>{{announcement.title}}</h4>
         </div>
       </div>
@@ -102,7 +105,7 @@
           {{ongekiProfile.userName | fullWidth}}</div>
         <div class="card-body p-2">
           <div class="hstack gap-2">
-            <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{ongekiProfile.cardId}}.png">
+            <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{ongekiProfile.cardId}}.webp">
             <table class="profile-table">
               <tbody>
                 <tr>
@@ -139,7 +142,7 @@
         </div>
         <div class="card-body p-2">
           <div class="hstack gap-2">
-            <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{chusanProfile.characterId / 10}}_00_02.png">
+            <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{chusanProfile.characterId / 10}}_00_02.webp">
             <table class="profile-table">
               <tbody>
               <tr>
@@ -167,8 +170,37 @@
     </ng-container>
     <ng-container *ngIf="mai2Profile">
       <div class="card mb-3">
-        <div class="card-body">
-          {{'Common.Mai2' | translate}}：有号
+        <div class="card-header fw-bold d-flex align-items-center gap-2">
+          <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+            <use href="assets/mai2.svg#icon"/>
+          </svg>
+          {{mai2Profile.userName | fullWidth}}
+        </div>
+        <div class="card-body p-2">
+          <div class="hstack gap-2">
+            <img class="profile-icon" src="{{host}}assets/mai2/icon/UI_Icon_{{getFormattedNumberByDigit(mai2Profile.iconId,6)}}.webp">
+            <table class="profile-table">
+              <tbody>
+              <tr>
+                <th>{{'DashboardPage.AwakenLevel' | translate}}</th>
+                <td>{{mai2Profile.totalAwake}}</td>
+              </tr>
+              <tr>
+                <th>{{'DashboardPage.Rating' | translate}}</th>
+                <td>{{mai2Profile.playerRating}}</td>
+              </tr>
+              <tr>
+                <th>{{'DashboardPage.PlayCount' | translate}}</th>
+                <td>{{mai2Profile.playCount}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="float-end fw-bold small">
+            {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(mai2Profile.lastPlayDate | toDate).toLocaleString()}}
+          </div>
         </div>
       </div>
     </ng-container>

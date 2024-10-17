@@ -26,6 +26,7 @@
     "Sidebar": {
       "Dashboard": "Dashboard",
       "Import": "Import",
+      "Announcements": "Announcements",
       "Status": "Status",
       "Profile": "Profile",
       "BattlePoint": "Battle Point",
@@ -44,6 +45,7 @@
   "DashboardPage": {
     "Title": "Dashboard",
     "LatestAnnouncement": "Latest Announcement",
+    "More": "More",
     "Profiles": "Profiles",
     "GameData": "Game Data",
     "NoKeychipMessage": "No available keychips. Your account cannot login on non-whitelisted keychips. ",
@@ -61,10 +63,24 @@
     "BattlePoint": "BattlePoint",
     "Rating": "Rating",
     "OverPower": "OverPower",
-    "LastPlay": "Last play",
-    "AnnouncementModal": {
-      "Title": "Announcement"
-    }
+    "LastPlay": "Last played",
+    "PlayCount": "Played Count",
+    "AwakenLevel": "Chara Awakened"
+  },
+  "AnnouncementsPage": {
+    "Title": "Announcements",
+    "Announcement": "Announcement",
+    "DraftNew": "Draft new",
+    "All": "All",
+    "General": "General",
+    "Maintenance": "Maintenance",
+    "Update": "Update",
+    "Event": "Event",
+    "Tutorial": "Tutorial",
+    "Other": "Other",
+    "Draft": "Draft",
+    "Expired": "Expired",
+    "Pinned": "Pinned"
   },
   "HomePage": {
     "Title": "Home",
@@ -233,12 +249,21 @@
       "Money": "Money",
       "Medal": "Medal"
     },
+    "BattlePointPage": {
+      "Title": "Battle Point",
+      "TipLead": "Battle score is calculated based on the enemy's level and the damage dealt. Battle points are derived by summing the 12 battle scores and dividing the total by 10,000. This includes:",
+      "Tip1": "Top 3 highest scores from different music track",
+      "Tip2": "Top 3 highest scores for each attribute, excluding the above tracks.",
+      "BattlePoint": "Battle Point",
+      "BestBattleScore": "Best Battle Score"
+    },
     "RatingPage": {
       "Title": "Rating",
       "TipLead": "Single track ratings are calculated from fumen constants and scores. Player rating is the average of 55 unique fumen ratings, including:",
       "Tip1": "15 highest ratings from new version fumens",
       "Tip2": "30 highest ratings from old version fumens",
       "Tip3": "10 highest ratings from recent plays, excluding Lunatic difficulty",
+      "RatingWarning": "The data from your last play doesn't match the server version, so song ratings may be inaccurate.",
       "PlayerRating": "Player Rating",
       "HighestRating": "Highest Rating",
       "New": "Current Version",
@@ -253,7 +278,13 @@
     },
     "MusicList": {
       "Title": "Music List",
-      "Filter": "Filter"
+      "Filter": "Filter",
+      "SongScoreRanking": {
+        "Boss": "Boss",
+        "Details": "Details",
+        "Ranking": "Ranking",
+        "RankingInfo": "You rank {{ranking}} out of {{total}} players."
+      }
     },
     "CardPage": {
       "Title": "Card",
@@ -283,7 +314,8 @@
       "HideFilter": "Hide Filter",
       "ResetFilter": "Reset Filter",
       "TotalCardNum": "Total {{num}} Cards",
-      "FilterPlaceholder": "ID, CardNumber, CharaName, NickName, SkillInfo"
+      "FilterPlaceholder": "ID, CardNumber, CharaName, NickName, SkillInfo",
+      "Info1": "Right click or long touch on the card for details."
     },
     "RivalPage": {
       "Title": "Rival",
@@ -300,6 +332,23 @@
       "PlayerName": "PlayerName",
       "Remove": "Remove",
       "RemoveTip": "Remove them as rival?"
+    },
+    "SettingsPage": {
+      "Title": "Settings",
+      "Profile": "Profile",
+      "UserName": "User Name",
+      "Edit": "Edit",
+      "ChangeUserName": "Change User Name",
+      "Message1": "If you wish to revert to an older version of the game after logging in and saving in the new version, you can try modifying the values below.",
+      "RomVersion": "Rom Version",
+      "ModifyRomVersion": "Modify Rom Version",
+      "DataVersion": "Data Version",
+      "ModifyDataVersion": "Modify Data Version",
+      "Export": "Export Profile",
+      "ChangeUserNameFailed": "Failed to Change User Name",
+      "ModifyRomVersionFailed": "Failed to Modify Rom Version",
+      "ModifyDataVersionFailed": "Failed to Modify Data Version",
+      "DownloadingProfile": "Downloading Profile"
     }
   },
   "ChuniV2": {
@@ -338,8 +387,27 @@
       "OverPower": "OverPower",
       "LastPlay": "LastPlay",
       "PlayerName": "PlayerName",
+      "AddLove": "AddLove",
+      "RemoveLove": "RemoveLove",
       "Remove": "Remove",
       "RemoveTip": "Remove them as rival?"
+    }
+  },
+  "Maimai2": {
+    "ProfilePage": {
+      "Overview": "Player Info"
+    },
+    "RatingPage": {
+      "Title": "Best 50 Rating",
+      "B35": "BEST35 ",
+      "B15": "BEST15  ",
+      "YourRating": "Your Maimai Rating",
+      "RatingRecommend": "Rating Recommend"
+    },
+    "RecentPage": {
+      "Title": "Recent Playlogs",
+      "DXScore": "DX Score",
+      "Detailed": "Show Detail"
     }
   },
   "ContributorsPage": {

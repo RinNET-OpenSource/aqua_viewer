@@ -1,0 +1,121 @@
+<h1 class="page-heading">{{'AnnouncementsPage.Title' | translate}}</h1>
+
+<ng-container *ngIf="isAdmin()">
+  <a class="btn btn-sm btn-primary mb-2" routerLink="edit">
+    {{'AnnouncementsPage.DraftNew' | translate}}
+  </a>
+</ng-container>
+
+<div class="row mb-2 g-1">
+  <div class="col-12 col-sm">
+    <div class="row justify-content-start align-items-center g-1">
+      <div class="col-auto">
+        <button class="type-selector" [class.type-selector-active]="!type" [routerLink]="[]">{{'AnnouncementsPage.All' | translate}}</button>
+      </div>
+      <div class="col-auto">
+        <button class="type-selector" [class.type-selector-active]="type == announcementType.GENERAL" [routerLink]="[]" [queryParams]="{type: announcementType.GENERAL.toLowerCase()}">{{'AnnouncementsPage.General' | translate}}</button>
+      </div>
+      <div class="col-auto">
+        <button class="type-selector" [class.type-selector-active]="type == announcementType.MAINTENANCE" [routerLink]="[]" [queryParams]="{type: announcementType.MAINTENANCE.toLowerCase()}">{{'AnnouncementsPage.Maintenance' | translate}}</button>
+      </div>
+      <div class="col-auto">
+        <button class="type-selector" [class.type-selector-active]="type == announcementType.UPDATE" [routerLink]="[]" [queryParams]="{type: announcementType.UPDATE.toLowerCase()}">{{'AnnouncementsPage.Update' | translate}}</button>
+      </div>
+      <div class="col-auto">
+        <button class="type-selector" [class.type-selector-active]="type == announcementType.EVENT" [routerLink]="[]" [queryParams]="{type: announcementType.EVENT.toLowerCase()}">{{'AnnouncementsPage.Event' | translate}}</button>
+      </div>
+      <div class="col-auto">
+        <button class="type-selector" [class.type-selector-active]="type == announcementType.TUTORIAL" [routerLink]="[]" [queryParams]="{type: announcementType.TUTORIAL.toLowerCase()}">{{'AnnouncementsPage.Tutorial' | translate}}</button>
+      </div>
+      <div class="col-auto">
+        <button class="type-selector" [class.type-selector-active]="type == announcementType.OTHER" [routerLink]="[]" [queryParams]="{type: announcementType.OTHER.toLowerCase()}">{{'AnnouncementsPage.Other' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #pagination>
+  <pagination-template *ngIf="!loading && totalElements > pageSize" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center mb-2">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+
+<div *ngIf="loading" class="placeholder-glow my-1">
+  <div>
+    <div class="placeholder fw-light text-secondary" style="width: 8em;"></div>
+  </div>
+  <div>
+    <h4 class="placeholder" style="width: 12em;"></h4>
+  </div>
+</div>
+<div *ngIf="!loading && announcements && announcements.length == 0">
+  <div class="card user-select-none mb-2">
+    <div class="card-body">
+      没有公告
+    </div>
+  </div>
+</div>
+<div *ngIf="!loading && announcements && announcements.length > 0">
+  <div class="card user-select-none mb-2">
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let announcement of announcements | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements }"
+          class="list-group-item card-btn" (click)="showAnnouncement(announcement)" (contextmenu)="itemContext($event, announcement.id)">
+        <div class="d-flex align-items-center gap-1 mb-1">
+          <div class="fw-light small text-secondary">{{announcement.updatedAt.toLocaleDateString()}}</div>
+          <ng-container [ngSwitch]="announcement.type">
+            <span *ngSwitchCase="'GENERAL'" class="bg-primary badge rounded-pill">
+              {{'AnnouncementsPage.General' | translate}}
+            </span>
+            <span *ngSwitchCase="'MAINTENANCE'" class="bg-warning badge rounded-pill">
+              {{'AnnouncementsPage.Maintenance' | translate}}
+            </span>
+            <span *ngSwitchCase="'UPDATE'" class="bg-info badge rounded-pill">
+              {{'AnnouncementsPage.Update' | translate}}
+            </span>
+            <span *ngSwitchCase="'EVENT'" class="bg-orange badge rounded-pill">
+              {{'AnnouncementsPage.Event' | translate}}
+            </span>
+            <span *ngSwitchCase="'TUTORIAL'" class="bg-teal badge rounded-pill">
+              {{'AnnouncementsPage.Tutorial' | translate}}
+            </span>
+            <span *ngSwitchCase="'OTHER'" class="bg-gray badge rounded-pill">
+              {{'AnnouncementsPage.Other' | translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="isAdmin()" [ngSwitch]="announcement.status">
+            <span *ngSwitchCase="'DRAFT'" class="bg-secondary badge rounded-pill">
+              {{'AnnouncementsPage.Draft' | translate}}
+            </span>
+            <span *ngSwitchCase="'EXPIRED'" class="bg-danger badge rounded-pill">
+              {{'AnnouncementsPage.Expired' | translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="announcement.priority > 0">
+            <span class="bg-danger-subtle text-danger badge rounded-pill border-danger-subtle border-1 border-solid">
+              {{'AnnouncementsPage.Pinned' | translate}}
+            </span>
+          </ng-container>
+        </div>
+        <h4 class="mb-1">{{this.announcement.getLocalTitle(lang.getCurrentLang())}}</h4>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>

@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'rival', component: OngekiRivalListComponent},
   {path: 'musicRanking', component: OngekiMusicRankingComponent},
   {path: 'userRanking', component: OngekiUserRankingComponent},
-  {path: 'setting', component: OngekiSettingComponent},
+  {path: 'settings', component: OngekiSettingComponent},
   {path: 'song/ranking/:id/:level', component: OngekiSongScoreRankingComponent},
 ];
 

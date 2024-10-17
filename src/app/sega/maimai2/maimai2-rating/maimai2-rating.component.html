@@ -1,0 +1,136 @@
+<h1 class="page-heading">{{ 'Maimai2.RatingPage.Title'|translate }}</h1>
+
+<div class="card p-1 mt-3">
+  <div class="row justify-content-between p-3 align-items-center">
+    <h4 class="col-auto">
+      {{ 'Maimai2.RatingPage.YourRating'|translate }}:
+    </h4>
+    <h4 class="col-auto">
+      {{ playerRating }}({{b35rating}}+{{b15rating}})
+    </h4>
+  </div>
+</div>
+
+<div class="card mt-3 mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ 'Maimai2.RatingPage.RatingRecommend'|translate }}</h5>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th></th>
+          <th>{{displayRatingTableHeader[0]!=0?displayRatingTableHeader[0]/10:" "}}</th>
+          <th>{{displayRatingTableHeader[1]!=0?displayRatingTableHeader[1]/10:" "}}</th>
+          <th>{{displayRatingTableHeader[2]!=0?displayRatingTableHeader[2]/10:" "}}</th>
+          <th>{{displayRatingTableHeader[3]!=0?displayRatingTableHeader[3]/10:" "}}</th>
+          <th>{{displayRatingTableHeader[4]!=0?displayRatingTableHeader[4]/10:" "}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>S+</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],0)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],0)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],0)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],0)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],0)}}</td>
+        </tr>
+        <tr>
+          <td>SS</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],1)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],1)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],1)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],1)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],1)}}</td>
+        </tr>
+        <tr>
+          <td>SS+</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],2)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],2)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],2)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],2)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],2)}}</td>
+        </tr>
+        <tr>
+          <td>SSS</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],3)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],3)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],3)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],3)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],3)}}</td>
+        </tr>
+        <tr>
+          <td>SSS+</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],4)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],4)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],4)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],4)}}</td>
+          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],4)}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<div class="mb-3 d-flex align-items-center mt-3">
+  <h2 class="mb-0">{{ 'Maimai2.RatingPage.B35'|translate }}</h2>
+  <span class="badge bg-body-secondary rounded-pill ms-2">{{b35rating}}</span>
+</div>
+
+<div class="row mb-4 g-2">
+  <ng-container *ngFor="let item of best35Rating; index as i">
+    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+  </ng-container>
+</div>
+
+<div class="mb-3 d-flex align-items-center mt-3">
+  <h2 class="mb-0">{{ 'Maimai2.RatingPage.B15'|translate }}</h2>
+  <span class="badge bg-info rounded-pill ms-2">{{b15rating}}</span>
+</div>
+
+<div class="row mb-4 g-2">
+  <ng-container *ngFor="let item of best15Rating; index as i">
+    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #record let-index="index" let-item="item">
+  <div class="col-12 col-md-6 col-xxl-4">
+    <div class="card rating-card">
+      <div class="hstack">
+        <img
+          class="jacket rounded-start"
+          [src]="host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(item.musicId) + '.webp'"
+          (error)="imgError($event)"
+          #img alt="">
+        <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
+          <div class="text-truncate fw-bold m-0"><span>#{{index + 1}}</span> {{item.musicName}}</div>
+          <div class="text-truncate">{{item.score/10000 | number: '1.4-4'}}%</div>
+          <div class="text-truncate small rating-score">
+            <ng-container [ngSwitch]="item.level">
+            <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
+              Basic {{item.ratingBase/10.0|number:'1.1-1'}}
+            </span>
+              <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
+              Advanced {{item.ratingBase/10.0|number:'1.1-1'}}
+            </span>
+              <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
+              Expert {{item.ratingBase/10.0|number:'1.1-1'}}
+            </span>
+              <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
+              Master {{item.ratingBase/10.0|number:'1.1-1'}}
+            </span>
+              <span *ngSwitchCase="4" class="difficulty-remaster badge rounded-pill">
+              Re:Master {{item.ratingBase/10.0|number:'1.1-1'}}
+            </span>
+            </ng-container>
+            <b>➛</b>
+            {{item.rating}}
+          </div>
+        </div>
+        <div *ngIf="item.musicId == 0" class="card-body overflow-hidden py-0 px-4 text-truncate">
+          No Record
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

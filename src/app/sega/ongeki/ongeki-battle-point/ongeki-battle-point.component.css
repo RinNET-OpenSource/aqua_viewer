@@ -1,41 +1,56 @@
-.battle-point-table {
-  width: 100%;
-  text-align: center;
+.jacket{
+  width: 5.6rem;
+  aspect-ratio: 1;
 }
 
-.battle-point-table th {
-  text-align: center;
+.difficulty {
+  font-size: 12px;
 }
 
-.battle-point-table h3 {
-  font-size: 20px;
-  text-align: center;
+.difficulty-basic {
+  background: #2da060;
+  border: 1px solid #145830;
+  color: white;
 }
 
-.table img {
-  width: 3rem;
-  height: 3rem;
+.difficulty-advanced {
+  background: #e6a047;
+  border: 1px solid #995014;
+  color: white;
 }
 
-.battle-point-table td {
-  max-width: 130px;
+.difficulty-expert {
+  background: #e55353;
+  border: 1px solid #7B1F18;
+  color: white;
 }
 
-.music-title {
-  text-align: left;
+.difficulty-master {
+  background: #9d5cb9;
+  border: 1px solid #381C47;
+  color: white;
 }
 
-.music-img {
-  width: 3rem;
+.difficulty-lunatic {
+  background: var(--bs-white);
+  border: 1px solid var(--bs-danger);
+  color: var(--bs-danger);
 }
 
-@media only screen and (max-width: 599px) {
-  .battle-point-table table {
-    font-size: 12px;
-  }
+.attr-aqua {
+  background: #1399dc;
+  border: 1px solid #064488;
+  color: white;
+}
 
-  .battle-point-table img {
-    width: 18px;
-    height: 18px;
-  }
+.attr-leaf {
+  background: #00c122;
+  border: 1px solid #005810;
+  color: white;
+}
+
+.attr-fire {
+  background: #e22f5d;
+  border: 1px solid #701020;
+  color: white;
 }

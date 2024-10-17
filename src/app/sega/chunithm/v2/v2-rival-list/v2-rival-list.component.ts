@@ -8,6 +8,7 @@ import {MessageService} from '../../../../message.service';
 import {HttpParams} from '@angular/common/http';
 import {StatusCode} from '../../../../status-code';
 import { UserService } from 'src/app/user.service';
+import { debounce } from '../../../../util/debounce';
 
 enum V2RivalAPI {
   Rival = 'api/game/chuni/v2/rival',
@@ -30,6 +31,7 @@ export class V2RivalListComponent {
   aimeId: string;
 
   inputAddRivalUserId = '';
+  public debouncedToggleFavorite: (rivalUserId: string, isFavorite: boolean) => any;
 
   constructor(
     private api: ApiService,
@@ -37,6 +39,7 @@ export class V2RivalListComponent {
     protected userService: UserService,
     private messageService: MessageService,
   ) {
+    this.debouncedToggleFavorite = debounce(this.toggleFavorite.bind(this), 1000);
   }
 
   ngOnInit() {
@@ -46,7 +49,6 @@ export class V2RivalListComponent {
     this.api.get(V2RivalAPI.Friend, param).subscribe(
       (data) => {
         this.refreshFrom(data);
-        console.log('friend:', data);
       },
       error => {
         this.messageService.notice(`get friend list failed: ${error}`);
@@ -78,7 +80,10 @@ export class V2RivalListComponent {
     const param = new HttpParams().set('friendId', (Number).parseInt(this.inputAddRivalUserId)).set('aimeId', this.aimeId);
     this.api.post(V2RivalAPI.Friend, param).subscribe(
       data => {
-        if (data) { this.ngOnInit(); }
+        if (data) {
+          this.messageService.notice(`(id:${this.inputAddRivalUserId}) addition successfully`)
+          this.ngOnInit();
+        }
       },
       error => this.messageService.notice(`add rival failed: ${error}`)
     );
@@ -96,14 +101,21 @@ export class V2RivalListComponent {
     );
   }
 
-  toggleFavorite(rivalUserId: string) {
-    console.log(rivalUserId);
+  toggleFavorite(rivalUserId: string, isFavorite: boolean) {
+    let isFavoriteConst = 0;
     const param = new HttpParams().set('friendId', (Number).parseInt(rivalUserId)).set('aimeId', this.aimeId);
-    this.api.get(V2RivalAPI.ToggleFavorite, param).subscribe(
-      (data) => {
-        this.messageService.notice(`id: ${rivalUserId} toggle Favorite Over!`);
-      }
-    );
+    this.friendList.forEach(item => item.isFavorite ? isFavoriteConst  += 1 : null);
+    if (!isFavorite && isFavoriteConst >= 3) {
+      this.messageService.notice(`(id:${rivalUserId}) You can't add more than 3 favorites.`, 'danger');
+      this.ngOnInit();
+    } else {
+      this.api.get(V2RivalAPI.ToggleFavorite, param).subscribe(
+        (data) => {
+          this.messageService.notice(`(id:${rivalUserId}) toggle Favorite Over!`);
+          this.ngOnInit();
+        }
+      );
+    }
   }
 
   open(content) {

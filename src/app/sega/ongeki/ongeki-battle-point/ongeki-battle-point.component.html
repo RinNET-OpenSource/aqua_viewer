@@ -1,41 +1,71 @@
-<h1 class="page-heading">Battle Point</h1>
+<h1 class="page-heading">{{"Ongeki.BattlePointPage.Title" | translate}}</h1>
+<div class="alert alert-info">
+  {{'Ongeki.BattlePointPage.TipLead' | translate}}
+  <ul class="m-0 mt-2">
+    <li>{{'Ongeki.BattlePointPage.Tip1' | translate}}</li>
+    <li>{{'Ongeki.BattlePointPage.Tip2' | translate}}</li>
+  </ul>
+</div>
 
-<div class="card">
+<div *ngIf="profile" class="card mb-4">
   <div class="card-body">
-    Current Battle Point: {{profile ? profile.battlePoint : ''}}
+    {{'Ongeki.BattlePointPage.BattlePoint' | translate}}{{'Common.Colon' | translate}}{{profile.battlePoint}}
   </div>
 </div>
 
-<div class="card mt-3">
-  <div class="card-body">
-    <h5 class="card-title mb-3">Best Battle Points</h5>
-    <table class="table table-borderless table-striped align-middle">
-      <thead>
-      <th colspan="2">Music</th>
-      <th>Level</th>
-      <th>Point</th>
-      <th>Attr.</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of bPList; index as i">
-        <td class="music-img">
-            <img *ngIf="enableImages == true"
-                 src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
-        </td>
-        <td class="music-title">
-            {{i + 1}}: {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}
-        </td>
-        <td>
-          {{difficulty[item.level]}}
-        </td>
-        <td>
-          {{item.value}}
-        </td>
-        <td>
-          {{item.bossCardInfo ? item.bossCardInfo.attribute : 'Unknown' }}
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="mb-3 d-flex align-items-center">
+  <h2 class="mb-0">{{'Ongeki.BattlePointPage.BestBattleScore' | translate}}</h2>
 </div>
+
+<div *ngIf="bPList" class="row mb-4 g-2">
+  <ng-container *ngFor="let item of bPList; index as i">
+    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #record let-index="index" let-item="item">
+  <div class="col-12 col-md-6 col-xxl-4">
+    <div class="card rating-card">
+      <div class="hstack">
+        <img class="jacket rounded-start" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.webp">
+        <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
+          <div class="text-truncate fw-bold m-0"><span>#{{index + 1}}</span> {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}</div>
+          <div class="text-truncate">{{item.value}}</div>
+          <div *ngIf="item.musicInfo" class="text-truncate small d-flex gap-1 align-items-center">
+            <ng-container *ngIf="item.bossCardInfo" [ngSwitch]="item.bossCardInfo.attribute">
+              <span *ngSwitchCase="'Aqua'" class="attr-aqua badge rounded-pill">
+                Lv. {{(item.musicInfo.bossLevel)??'None'}}
+              </span>
+              <span *ngSwitchCase="'Leaf'" class="attr-leaf badge rounded-pill">
+                Lv. {{(item.musicInfo.bossLevel)??'None'}}
+              </span>
+              <span *ngSwitchCase="'Fire'" class="attr-fire badge rounded-pill">
+                Lv. {{(item.musicInfo.bossLevel)??'None'}}
+              </span>
+            </ng-container>
+            <ng-container [ngSwitch]="item.level">
+              <span *ngSwitchCase="0" class="small">
+                Basic
+              </span>
+              <span *ngSwitchCase="1" class="small">
+                Advanced
+              </span>
+              <span *ngSwitchCase="2" class="small">
+                Expert
+              </span>
+              <span *ngSwitchCase="3" class="small">
+                Master
+              </span>
+              <span *ngSwitchCase="10" class="small">
+                Lunatic
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="item.musicId == 0" class="card-body overflow-hidden py-0 px-4 text-truncate">
+          No Record
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

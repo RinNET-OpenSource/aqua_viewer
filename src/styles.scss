@@ -287,3 +287,31 @@ h6 {
   -webkit-filter: grayscale(1);
   filter: grayscale(1);
 }
+
+.bg-indigo {
+  background-color:var(--bs-purple)
+}
+
+.bg-teal {
+  background-color:var(--bs-teal)
+}
+
+.bg-orange {
+  background-color:var(--bs-orange)
+}
+
+.bg-orange-subtitle {
+  background-color:var(--bs-orange-bg-subtle)
+}
+
+.text-orange {
+  color:var(--bs-orange);
+}
+
+.bg-gray {
+  background-color:var(--bs-gray)
+}
+
+.border-solid{
+  border: solid;
+}

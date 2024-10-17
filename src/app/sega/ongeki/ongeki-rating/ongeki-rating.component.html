@@ -17,19 +17,32 @@
     </div>
   </div>
 </div>
-<h2 class="mb-3">{{'Ongeki.RatingPage.New' | translate}}</h2>
+<div *ngIf="avgRating && profile && avgRating != (profile.playerRating / 100 | number: '1.2-2')" class="hstack alert alert-warning" role="alert">
+  <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+  {{'Ongeki.RatingPage.RatingWarning' | translate}}
+</div>
+<div class="mb-3 d-flex align-items-center">
+  <h2 class="mb-0">{{'Ongeki.RatingPage.New' | translate}}</h2>
+  <span class="badge bg-primary rounded-pill ms-2">{{ avgNew }}</span>
+</div>
 <div *ngIf="bestList" class="row mb-4 g-2">
   <ng-container *ngFor="let item of newBestList; index as i">
     <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
   </ng-container>
 </div>
-<h2 class="mb-3">{{'Ongeki.RatingPage.Best' | translate}}</h2>
+<div class="mb-3 d-flex align-items-center">
+  <h2 class="mb-0">{{'Ongeki.RatingPage.Best' | translate}}</h2>
+  <span class="badge bg-primary rounded-pill ms-2">{{ avgBest }}</span>
+</div>
 <div *ngIf="bestList" class="row mb-4 g-2">
   <ng-container *ngFor="let item of bestList; index as i">
     <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
   </ng-container>
 </div>
-<h2 class="mb-3">{{'Ongeki.RatingPage.Recent' | translate}}</h2>
+<div class="mb-3 d-flex align-items-center">
+  <h2 class="mb-0">{{'Ongeki.RatingPage.Recent' | translate}}</h2>
+  <span class="badge bg-primary rounded-pill ms-2">{{ avgHot }}</span>
+</div>
 <div *ngIf="bestList" class="row mb-4 g-2">
   <ng-container *ngFor="let item of hotBestList; index as i">
     <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
@@ -40,7 +53,7 @@
   <div class="col-12 col-md-6 col-xxl-4">
     <div class="card rating-card">
       <div class="hstack">
-        <img class="jacket rounded-start" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.jpg">
+        <img class="jacket rounded-start" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.webp">
         <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
           <div class="text-truncate fw-bold m-0"><span>#{{index + 1}}</span> {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}</div>
           <div class="text-truncate">{{item.value}}</div>

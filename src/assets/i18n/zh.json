@@ -26,9 +26,10 @@
     "Sidebar": {
       "Dashboard": "仪表板",
       "Import": "导入",
+      "Announcements": "公告",
       "Status": "状态",
       "Profile": "档案",
-      "BattlePoint": "战斗得分",
+      "BattlePoint": "战斗点数",
       "Rating": "评级",
       "PlayRecord": "游玩记录",
       "MusicList": "乐曲列表",
@@ -44,6 +45,7 @@
   "DashboardPage": {
     "Title": "仪表板",
     "LatestAnnouncement": "最新公告",
+    "More": "查看更多",
     "Profiles": "游玩信息",
     "GameData": "游戏数据",
     "NoKeychipMessage": "没有任何可用机台，你的账号无法在非白名单机台登录。",
@@ -58,13 +60,27 @@
     "Version": "版本",
     "Reload": "重新加载",
     "Level": "等级",
-    "BattlePoint": "战斗得分",
+    "BattlePoint": "战斗点数",
     "Rating": "评级",
     "OverPower": "完成度",
     "LastPlay": "上次游玩",
-    "AnnouncementModal": {
-      "Title": "公告"
-    }
+    "PlayCount": "游玩次数",
+    "AwakenLevel": "觉醒角色数"
+  },
+  "AnnouncementsPage": {
+    "Title": "公告",
+    "Announcement": "公告",
+    "DraftNew": "撰写公告",
+    "All": "全部",
+    "General": "一般",
+    "Maintenance": "维护",
+    "Update": "更新",
+    "Event": "活动",
+    "Tutorial": "教程",
+    "Other": "其它",
+    "Draft": "草稿",
+    "Expired": "过期",
+    "Pinned": "置顶"
   },
   "HomePage": {
     "Title": "主页",
@@ -233,12 +249,21 @@
       "Money": "金币",
       "Medal": "奖章"
     },
+    "BattlePointPage": {
+      "Title": "战斗点数",
+      "TipLead": "战斗得分由敌人等级与造成伤害计算得出，战斗点数由12个战斗得分的总和除以10,000得出，其中包含：",
+      "Tip1": "战斗得分最高的3曲",
+      "Tip2": "除上述3曲外，每种属性各自战斗得分最高的3曲",
+      "BattlePoint": "战斗点数",
+      "BestBattleScore": "最佳得分"
+    },
     "RatingPage": {
       "Title": "评级",
       "TipLead": "单曲评级由谱面定数与得分经过计算得出，玩家评级由55个单曲评级取平均数得出，其中包含：",
       "Tip1": "来自当前版本的15个最高评级的谱面",
       "Tip2": "来自以往版本的30个最高评级的谱面",
       "Tip3": "30次最近游玩记录中的10个最高评级（不计入Lunatic难度）",
+      "RatingWarning": "上次游玩使用的数据与服务器中的数据不匹配，单曲评级计算可能有误",
       "PlayerRating": "玩家评级",
       "HighestRating": "最高评级",
       "New": "当前版本",
@@ -253,7 +278,13 @@
     },
     "MusicList": {
       "Title": "乐曲列表",
-      "Filter": "筛选"
+      "Filter": "筛选",
+      "SongScoreRanking": {
+        "Boss": "对手",
+        "Details": "游玩情况",
+        "Ranking": "排行",
+        "RankingInfo": "你在 {{total}} 名玩家中排名第 {{ranking}}。"
+      }
     },
     "CardPage": {
       "Title": "卡片",
@@ -281,7 +312,8 @@
       "HideFilter": "隐藏过滤",
       "ResetFilter": "重置过滤",
       "TotalCardNum": "共 {{num}} 张卡片",
-      "FilterPlaceholder": "ID，编号，角色名，称号，技能详情"
+      "FilterPlaceholder": "ID，编号，角色名，称号，技能详情",
+      "Info1": "鼠标右键或触屏长按卡片查看更多信息。"
     },
     "RivalPage": {
       "Title": "好友",
@@ -294,10 +326,27 @@
       "Level": "等级",
       "PlayerName": "玩家名",
       "Rating": "评级",
-      "BattlePoint": "战斗得分",
+      "BattlePoint": "战斗点数",
       "LastPlay": "上次游玩",
       "Remove": "解除好友",
       "RemoveTip": "确定要解除好友关系吗？"
+    },
+    "SettingsPage": {
+      "Title": "设定",
+      "Profile": "个人信息",
+      "UserName": "玩家名",
+      "Edit": "编辑",
+      "ChangeUserName": "修改玩家名",
+      "Message1": "如果在新版本游戏登录并保存后希望回到旧版本，可以尝试修改下面的值。",
+      "RomVersion": "游戏版本",
+      "ModifyRomVersion": "修改游戏版本",
+      "DataVersion": "数据版本",
+      "ModifyDataVersion": "修改数据版本",
+      "Export": "导出玩家存档",
+      "ChangeUserNameFailed": "修改玩家名失败",
+      "ModifyRomVersionFailed": "修改游戏版本失败",
+      "ModifyDataVersionFailed": "修改数据版本失败",
+      "DownloadingProfile": "正在下载玩家存档"
     }
   },
   "ChuniV2": {
@@ -336,8 +385,27 @@
       "OverPower": "完成度",
       "LastPlay": "上次游玩",
       "PlayerName": "玩家名",
+      "AddLove": "登录喜爱",
+      "RemoveLove": "解除喜爱",
       "Remove": "解除好友",
       "RemoveTip": "确定要解除好友关系吗？"
+    }
+  },
+  "Maimai2": {
+    "ProfilePage": {
+      "Overview": "玩家信息"
+    },
+    "RatingPage": {
+      "Title": "评级",
+      "B35": "BEST35 旧曲 ",
+      "B15": "BEST15 新曲 ",
+      "YourRating": "你的舞萌评级",
+      "RatingRecommend": "Rating建议"
+    },
+    "RecentPage": {
+      "Title": "游玩记录",
+      "DXScore": "DX分数",
+      "Detailed": "详细信息"
     }
   },
   "ContributorsPage": {

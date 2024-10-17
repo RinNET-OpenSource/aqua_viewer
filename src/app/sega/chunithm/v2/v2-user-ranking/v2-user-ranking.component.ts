@@ -8,7 +8,7 @@ import {environment} from '../../../../../environments/environment';
 @Component({
   selector: 'app-v2-user-ranking',
   templateUrl: './v2-user-ranking.component.html',
-  styleUrls: ['./v2-user-ranking.component.css']
+  styleUrls: ['./v2-user-ranking.component.scss']
 })
 export class V2UserRankingComponent implements OnInit {
   chusanUserRankings: V2UserRanking[] = [];

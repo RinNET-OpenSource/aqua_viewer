@@ -74,6 +74,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AnnouncementsComponent } from './announcements/announcements.component';
+import { EditComponent } from './announcements/edit/edit.component';
 
 const aegis = new Aegis({
   id: 'j4KOYFL0VyajP4KjdG', // 上报 id
@@ -109,7 +111,9 @@ export function initializeApp(
     KeychipComponent,
     OauthCallbackComponent,
     SignInComponent,
-    ProfileComponent
+    ProfileComponent,
+    AnnouncementsComponent,
+    EditComponent
    ],
   imports: [
     BrowserModule,

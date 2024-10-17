@@ -3,7 +3,7 @@
   <mat-card>
     <mat-card-content>
       <div class="song-info">
-        <img *ngIf="enableImages == true && music" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{music.musicId|formatNumber:4}}.jpg">
+        <img *ngIf="enableImages == true && music" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{music.musicId|formatNumber:4}}.webp">
         <div class="text-content">
           <span class="title">{{music != null ? music.name : 'musicId:' + id}}</span><br>
           <span

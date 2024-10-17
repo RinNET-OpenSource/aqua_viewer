@@ -105,10 +105,15 @@
     </div>
   </div>
 </div>
-<div *ngIf="cardList">
+
+<div *ngIf="cardList" class="mb-2">
   <span>{{'Ongeki.CardPage.TotalCardNum' | translate: {num: totalElements} }}</span>
   <a class="link-btn ms-3" (click)="toggleFilter()">{{filterCollapsed?('Ongeki.CardPage.ShowFilter' | translate):('Ongeki.CardPage.HideFilter' | translate)}}</a>
   <a *ngIf="!isDefaultFilter()" class="link-btn ms-3" (click)="resetFilter()">{{'Ongeki.CardPage.ResetFilter' | translate}}</a>
+</div>
+
+<div class="callout callout-info mt-0 mb-1">
+  <div>{{'Ongeki.CardPage.Info1' | translate}}</div>
 </div>
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
@@ -234,84 +239,84 @@
               <div *ngIf="showElements" class="position-absolute w-100 h-100">
                 <div [ngSwitch]="item.cardInfo.attribute">
                   <img *ngSwitchCase="'Fire'" class="card-attribute"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_00_Red.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_00_Red.webp">
                   <img *ngSwitchCase="'Aqua'" class="card-attribute"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_01_Bule.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_01_Bule.webp">
                   <img *ngSwitchCase="'Leaf'" class="card-attribute"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_02_Green.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Attribute_02_Green.webp">
                 </div>
                 <div [ngSwitch]="item.cardInfo.rarity">
                   <img *ngSwitchCase="'N'" class="card-rare"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_00_N.webp">
                   <img *ngSwitchCase="'R'" class="card-rare"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_01_R.webp">
                   <img *ngSwitchCase="'SR'" class="card-rare"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_02_SR.webp">
                   <img *ngSwitchCase="'SSR'" class="card-rare"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_03_SSR.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_03_SSR.webp">
                   <img *ngSwitchCase="'SRPlus'" class="card-rare"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_05_SRPlus.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Rare_05_SRPlus.webp">
                 </div>
                 <div [ngSwitch]="item.cardInfo.gakunen">
                   <img *ngSwitchCase="'高校1年生'" class="card-gakunen"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00001.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00001.webp">
                   <img *ngSwitchCase="'高校2年生'" class="card-gakunen"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00002.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00002.webp">
                   <img *ngSwitchCase="'高校3年生'" class="card-gakunen"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00003.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00003.webp">
                   <img *ngSwitchCase="'中学1年生'" class="card-gakunen"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00004.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00004.webp">
                   <img *ngSwitchCase="'中学2年生'" class="card-gakunen"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00005.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00005.webp">
                   <img *ngSwitchCase="'中学3年生'" class="card-gakunen"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00006.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_Grade_00006.webp">
                 </div>
                 <img *ngIf="(item.kaikaDate != '0000-00-00 00:00:00.0')" class="card-kaika-state"
                      draggable="false"
-                     src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.png">
+                     src="{{host}}assets/ongeki/gameUi/{{item.choKaikaDate == '0000-00-00 00:00:00.0'?'UI_CMN_PrintMark_01_kaika':'UI_CMN_PrintMark_02_tyoukaika'}}.webp">
                 <div *ngIf="item.skillInfo">
                   <div [ngSwitch]="item.skillInfo.category">
                     <img *ngSwitchCase="'Attack'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack.webp">
                     <img *ngSwitchCase="'DangerAttack'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_00_Attack_Danger.webp">
                     <img *ngSwitchCase="'Support'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist.webp">
                     <img *ngSwitchCase="'DangerSupport'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_01_Assist_Danger.webp">
                     <img *ngSwitchCase="'Guard'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard.webp">
                     <img *ngSwitchCase="'DangerGuard'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard_Danger.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_02_Guard_Danger.webp">
                     <img *ngSwitchCase="'Boost'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost.webp">
                     <img *ngSwitchCase="'DangerBoost'" class="card-skill-bg" draggable="false"
-                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.png">
+                         src="{{host}}assets/ongeki/gameUi/UI_Card_Skill_03_Boost_Danger.webp">
                   </div>
                 </div>
                 <div class="card-star-container">
                   <img *ngFor="let _ of getArrayFromNumber(getStarCount(item))" class="card-star"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_star_00.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_star_00.webp">
                   <img *ngFor="let _ of getArrayFromNumber((item.cardInfo.rarity == 'N'?11:5) - getStarCount(item))"
-                       class="card-star" src="{{host}}assets/ongeki/gameUi/UI_Card_star_01.png">
+                       class="card-star" src="{{host}}assets/ongeki/gameUi/UI_Card_star_01.webp">
                 </div>
                 <!--                <div class="card-qr-code-container">-->
-                <!--                  <img class="card-qr-code" src="{{host}}assets/ongeki/gameUi/UI_Card_qr_dummy_00.png">-->
+                <!--                  <img class="card-qr-code" src="{{host}}assets/ongeki/gameUi/UI_Card_qr_dummy_00.webp">-->
                 <!--                </div>-->
 
                 <img class="card-max-atk-title" draggable="false"
-                     src="{{host}}assets/ongeki/gameUi/UI_Card_max_00.png">
+                     src="{{host}}assets/ongeki/gameUi/UI_Card_max_00.webp">
                 <div
                   *ngIf="calculateAtk(item.maxLevel, convertToNumberArray(item.cardInfo?.levelParam), item.choKaikaDate != '0000-00-00 00:00:00.0'); let maxAtk"
                   class="card-max-atk-value-container">
                   <img *ngIf="maxAtk>=100"
                        class="card-max-atk-value-number"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor(maxAtk/100)}}.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor(maxAtk/100)}}.webp">
                   <img *ngIf="maxAtk>=10"
                        class="card-max-atk-value-number"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor((maxAtk%100)/10)}}.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{Math.floor((maxAtk%100)/10)}}.webp">
                   <img class="card-max-atk-value-number"
-                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{maxAtk%10}}.png">
+                       src="{{host}}assets/ongeki/gameUi/UI_Card_NUM_attack/{{maxAtk%10}}.webp">
                 </div>
                 <div class="card-name">
                   <div class="card-name-shadow">

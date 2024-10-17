@@ -1,11 +1,22 @@
 import {AccountService} from 'src/app/auth/account.service';
 import {Injectable} from '@angular/core';
-import {CanLoad, CanActivate, ActivatedRouteSnapshot, Router, RouterStateSnapshot, Route} from '@angular/router';
+import {
+  CanLoad,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+  Route,
+  CanMatch,
+  UrlSegment,
+  UrlTree
+} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanLoad, CanActivate {
+export class AuthGuardService implements CanMatch, CanActivate {
 
   constructor(
     private router: Router,
@@ -13,7 +24,7 @@ export class AuthGuardService implements CanLoad, CanActivate {
   ) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canMatch(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const currentUser = this.accountService.currentAccountValue;
     if (currentUser) {
       return true;
@@ -21,14 +32,13 @@ export class AuthGuardService implements CanLoad, CanActivate {
 
     this.router.navigate(['/']);
     return false;
-  }
+    }
 
-  canLoad(route: Route) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.accountService.currentAccountValue;
     if (currentUser) {
       return true;
     }
-
     this.router.navigate(['/']);
     return false;
   }

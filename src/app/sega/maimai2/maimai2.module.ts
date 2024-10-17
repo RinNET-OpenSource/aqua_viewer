@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Maimai2Routes} from './maimai2.routing';
 import {Maimai2ProfileComponent} from './maimai2-profile/maimai2-profile.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -15,12 +15,17 @@ import {ToolsModule} from '../../util/tools.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {Maimai2SettingComponent} from './maimai2-setting/maimai2-setting.component';
 import { Maimai2NameSettingDialog } from './maimai2-setting/maimai2-name-setting/maimai2-name-setting.dialog';
+import {TranslateModule} from "@ngx-translate/core";
+import {Maimai2RatingComponent} from "./maimai2-rating/maimai2-rating.component";
+import {Maimai2RecentComponent} from "./maimai2-recent/maimai2-recent.component";
 
 
 @NgModule({
   declarations: [
     Maimai2ProfileComponent,
     Maimai2SettingComponent,
+    Maimai2RatingComponent,
+    Maimai2RecentComponent,
     Maimai2NameSettingDialog
   ],
   imports: [
@@ -37,7 +42,10 @@ import { Maimai2NameSettingDialog } from './maimai2-setting/maimai2-name-setting
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    NgOptimizedImage
   ]
 })
 export class Maimai2Module {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { ApiService } from '../../../api.service';
 import { MessageService } from '../../../message.service';
 import {OngekiMusic} from '../model/OngekiMusic';
@@ -6,6 +6,8 @@ import {environment} from '../../../../environments/environment';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
+import {NgxIndexedDBService} from 'ngx-indexed-db';
+import {OngekiCard} from '../model/OngekiCard';
 
 interface Ranking {
   level?: number;
@@ -42,7 +44,7 @@ interface UserRanking {
 @Component({
   selector: 'app-ongeki-song-score-ranking',
   templateUrl: './ongeki-song-score-ranking.component.html',
-  styleUrls: ['./ongeki-song-score-ranking.component.css']
+  styleUrls: ['./ongeki-song-score-ranking.component.css', ]
 })
 export class OngekiSongScoreRankingComponent {
   protected readonly Math = Math;
@@ -51,7 +53,9 @@ export class OngekiSongScoreRankingComponent {
   host = environment.assetsHost;
   protected readonly parseFloat = parseFloat;
   @Input() public music: OngekiMusic;
+  protected bossCard: OngekiCard;
   constructor(
+    private dbService: NgxIndexedDBService,
     private api: ApiService,
     private userService: UserService,
     public messageService: MessageService,
@@ -60,6 +64,10 @@ export class OngekiSongScoreRankingComponent {
   }
 
   ngOnInit() {
+    this.dbService.getByID<OngekiCard>('ongekiCard', this.music.bossCardId).subscribe((x) => {
+      this.bossCard = x;
+    });
+
     const { id } = this.music;
     this.api.get(`api/game/ongeki/song/${id}?aimeId=${String(this.userService.currentUser.defaultCard.extId)}`).subscribe(
       res => {
@@ -70,19 +78,27 @@ export class OngekiSongScoreRankingComponent {
         this.songData = songData;
       }
     );
-    const param = new HttpParams().set('musicId', id).set('level', 3);
-    this.api.get("api/game/ongeki/musicScoreRanking", param).subscribe((res) => {
-      if (res.length > 0) {
+
+    if (!this.isLunatic(this.music)){
+      const param = new HttpParams().set('musicId', id).set('level', 3);
+      this.api.get('api/game/ongeki/musicScoreRanking', param).subscribe((res) => {
         this.ranking = res;
-      } else {
-        const param = new HttpParams().set("musicId", id).set("level", 10);
-        this.api.get("api/game/ongeki/musicScoreRanking", param).subscribe((res) => {
-            this.ranking = res;
-          });
-      }
-    });
+      });
+    }
+    else{
+      const param = new HttpParams().set('musicId', id).set('level', 10);
+      this.api.get('api/game/ongeki/musicScoreRanking', param).subscribe((res) => {
+        this.ranking = res;
+      });
+    }
+
+
   }
 
+  getMaxBattleScore(songData: { [key: number]: ISongData }): number {
+    const scores = Object.values(songData).map(song => song.battleScoreMax);
+    return scores.length > 0 ? Math.max(...scores) : 0;
+  }
 
   handleTabButtonClick(level: number) {
     const { id } = this.music;
@@ -94,6 +110,12 @@ export class OngekiSongScoreRankingComponent {
     );
   }
 
+  isLunatic(song: OngekiMusic) {
+    return song.level0 === '0,0' &&
+      song.level1 === '0,0' &&
+      song.level2 === '0,0' &&
+      song.level3 === '0,0';
+  }
 
   getLevelString(song: OngekiMusic, level: number) {
     if (!song) { return '0'; }
