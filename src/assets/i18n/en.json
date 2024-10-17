@@ -63,7 +63,9 @@
     "BattlePoint": "BattlePoint",
     "Rating": "Rating",
     "OverPower": "OverPower",
-    "LastPlay": "Last play"
+    "LastPlay": "Last played",
+    "PlayCount": "Played Count",
+    "AwakenLevel": "Chara Awakened"
   },
   "AnnouncementsPage": {
     "Title": "Announcements",
@@ -389,6 +391,23 @@
       "RemoveLove": "RemoveLove",
       "Remove": "Remove",
       "RemoveTip": "Remove them as rival?"
+    }
+  },
+  "Maimai2": {
+    "ProfilePage": {
+      "Overview": "Player Info"
+    },
+    "RatingPage": {
+      "Title": "Best 50 Rating",
+      "B35": "BEST35 ",
+      "B15": "BEST15  ",
+      "YourRating": "Your Maimai Rating",
+      "RatingRecommend": "Rating Recommend"
+    },
+    "RecentPage": {
+      "Title": "Recent Playlogs",
+      "DXScore": "DX Score",
+      "Detailed": "Show Detail"
     }
   },
   "ContributorsPage": {

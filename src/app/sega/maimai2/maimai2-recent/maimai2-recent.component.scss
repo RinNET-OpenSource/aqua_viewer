@@ -1,0 +1,135 @@
+.tag {
+  width: 130px;
+}
+
+.record {
+  display: flex;
+  .left {
+    flex: 1.8;
+  }
+  .center {
+    flex: 1;
+  }
+  .right {
+    flex: 1;
+  }
+}
+.song-jacket{
+  min-width: 20%;
+  aspect-ratio: 1;
+  width: 6.5rem;
+  border-radius: 0.5rem;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+.song-jacket-container{
+  display: flex;
+  align-items: center;
+
+}
+.tiny-text {
+  font-size: 0.7rem;
+}
+
+.difficulty-basic {
+  background: #2da060;
+  border: 1px solid #145830;
+  color: white;
+}
+
+.difficulty-advanced {
+  background: #e6a047;
+  border: 1px solid #995014;
+  color: white;
+}
+
+.difficulty-expert {
+  background: #e55353;
+  border: 1px solid #7B1F18;
+  color: white;
+}
+
+.difficulty-master {
+  background: #933daa;
+  border: 1px solid #381C47;
+  color: white;
+}
+
+.new-record {
+  background: #ced422;
+  border: 1px solid #381C47;
+  color: #ffffff;
+}
+
+.difficulty-remaster {
+  background: whitesmoke;
+  border: 1px solid #381C47;
+  color: #933daa;
+}
+
+.song-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rating-score {
+  display: flex;
+  align-items: center;
+  b {
+    padding: 0 3px;
+  }
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap; /* 确保子元素能够换行 */
+}
+.left-column {
+  flex: 1 1 auto; /* flex-grow, flex-shrink, flex-basis */
+  min-width: 0; /* 确保左侧列可缩小 */
+}
+.right-column {
+  flex: 0 0; /* 不缩小，宽度自适应 */
+}
+.detail-table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.dx-rating-container{
+  border-radius: 0.5rem;
+  border: 1px solid #381C47;
+}
+
+.dx-rating-textholder{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 5rem
+}
+
+
+
+.no-wrap{
+  flex-wrap: nowrap;
+}
+
+.rival-img{
+  height: 75%;
+  width: 75%;
+  min-height: 2rem;
+  min-width: 2.5rem;
+}
+.clear-img{
+  height: 55%;
+  width: 55%;
+}
+.dx-score-container{
+  whitespace: nowrap;
+}
+
+.rank-icon{
+  height: 3rem; width: auto
+}
+

@@ -63,7 +63,9 @@
     "BattlePoint": "战斗点数",
     "Rating": "评级",
     "OverPower": "完成度",
-    "LastPlay": "上次游玩"
+    "LastPlay": "上次游玩",
+    "PlayCount": "游玩次数",
+    "AwakenLevel": "觉醒角色数"
   },
   "AnnouncementsPage": {
     "Title": "公告",
@@ -387,6 +389,23 @@
       "RemoveLove": "解除喜爱",
       "Remove": "解除好友",
       "RemoveTip": "确定要解除好友关系吗？"
+    }
+  },
+  "Maimai2": {
+    "ProfilePage": {
+      "Overview": "玩家信息"
+    },
+    "RatingPage": {
+      "Title": "评级",
+      "B35": "BEST35 旧曲 ",
+      "B15": "BEST15 新曲 ",
+      "YourRating": "你的舞萌评级",
+      "RatingRecommend": "Rating建议"
+    },
+    "RecentPage": {
+      "Title": "游玩记录",
+      "DXScore": "DX分数",
+      "Detailed": "详细信息"
     }
   },
   "ContributorsPage": {

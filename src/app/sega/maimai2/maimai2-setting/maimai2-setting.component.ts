@@ -10,6 +10,8 @@ import { Maimai2UploadUserPortraitDialog } from './maimai2-upload-user-portrait/
 import {environment} from '../../../../environments/environment';
 import { UserService } from 'src/app/user.service';
 import {AccountService} from '../../../auth/account.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-maimai2-setting',
@@ -19,6 +21,7 @@ import {AccountService} from '../../../auth/account.service';
 export class Maimai2SettingComponent implements OnInit {
 
   profile: DisplayMaimai2Profile;
+  userNameForm: FormGroup;
 
   aimeId: number;
   apiServer: string;
@@ -26,12 +29,20 @@ export class Maimai2SettingComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private fb: FormBuilder,
     private accountService: AccountService,
     private http: HttpClient,
     private userService: UserService,
     private messageService: MessageService,
     public dialog: MatDialog
   ) {
+    this.userNameForm = this.fb.group({
+      username: [''],
+    });
+  }
+
+  get userNameInput(){
+    return this.userNameForm.get('username');
   }
 
   ngOnInit(): void {
@@ -41,37 +52,37 @@ export class Maimai2SettingComponent implements OnInit {
     this.api.get('api/game/maimai2/profile', param).subscribe(
       data => {
         this.profile = data;
+        this.userNameForm.setValue({username: data.userName });
       },
       error => this.messageService.notice(error)
     );
 
-    this.api.get("api/game/maimai2/config/userPhoto/divMaxLength").subscribe(divMaxLength => {
+
+    this.api.get('api/game/maimai2/config/userPhoto/divMaxLength').subscribe(divMaxLength => {
       this.divMaxLength = divMaxLength;
     });
   }
 
-  userName() {
-    const dialogRef = this.dialog.open(Maimai2NameSettingDialog, {
-      width: '250px',
-      data: { userName: this.profile.userName }
-    });
+  onSubmit(){
 
-    dialogRef.afterClosed().subscribe(userName => {
-      if (userName) {
-        this.api.post('api/game/maimai2/profile/username', { aimeId: this.aimeId, userName: userName }).subscribe(
+  }
+
+  userName() {
+      if (this.userNameForm.touched) {
+        this.api.post('api/game/maimai2/profile/username', { aimeId: this.aimeId, userName: this.userNameInput.value }).subscribe(
           x => {
             this.profile = x;
             this.messageService.notice('Successfully changed');
           }, error => this.messageService.notice(error)
         );
       }
-    });
+
   }
 
   openUploadUserPortraitDialog() {
     this.dialog.open(Maimai2UploadUserPortraitDialog, {
       data: { aimeId: String(this.userService.currentUser.defaultCard.extId), divMaxLength: this.divMaxLength },
-      width: "500px",
+      width: '500px',
     });
   }
 

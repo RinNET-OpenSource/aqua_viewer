@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import Cropper from 'cropperjs';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/api.service';
 import { MessageService } from 'src/app/message.service';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {Modal} from "bootstrap";
 
 const PACKET_LENGTH = 10240;
 
@@ -13,7 +14,6 @@ const PACKET_LENGTH = 10240;
 })
 export class Maimai2UploadUserPortraitDialog implements OnInit {
   cropper: Cropper;
-  dialogRef: MatDialogRef<Maimai2UploadUserPortraitDialog>;
   aimeId: string;
   image: HTMLImageElement;
   api: ApiService;
@@ -22,13 +22,11 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
   usage: number;
 
   constructor(
-    dialogRef: MatDialogRef<Maimai2UploadUserPortraitDialog>,
     api: ApiService,
     messageService: MessageService,
     @Inject(MAT_DIALOG_DATA) public data: { aimeId: string, divMaxLength: number }
   ) {
     this.aimeId = data.aimeId;
-    this.dialogRef = dialogRef;
     this.api = api;
     this.messageService = messageService;
     this.maxUploadFileSize = data.divMaxLength * PACKET_LENGTH;
@@ -37,7 +35,6 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
   readSingleFile(e) {
     let file: File = e.target.files[0];
     if (!file) {
-      this.dialogRef.close();
       return;
     }
 
@@ -57,28 +54,30 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
     let image: any = document.getElementById('image');
     this.image = image;
 
-    let fileInput = document.getElementById('file-input');
+    const fileInput = document.getElementById('file-input');
     fileInput.addEventListener('change', (e) => this.readSingleFile(e), false);
+
+    // Programmatically open the modal
+    const modal = new Modal(document.getElementById('changeUserPortraitModal'));
+    modal.show();
+
     fileInput.click();
   }
-
   async upload(blob: Blob) {
-    let buffer = await blob.arrayBuffer();
-
-    let divLength = Math.floor(buffer.byteLength / PACKET_LENGTH) + 1;
+    const buffer = await blob.arrayBuffer();
+    const divLength = Math.floor(buffer.byteLength / PACKET_LENGTH) + 1;
     let remainLength = buffer.byteLength;
 
     let offset = 0;
     let divNumber = 0;
-    let fileName = this.aimeId + ".jpg";
+    const fileName = `${this.aimeId}.jpg`;
 
     while (true) {
-      let readLength = Math.min(PACKET_LENGTH, remainLength);
-      let subBuffer = buffer.slice(offset, offset + readLength);
+      const readLength = Math.min(PACKET_LENGTH, remainLength);
+      const subBuffer = buffer.slice(offset, offset + readLength);
+      const divData = btoa(String.fromCharCode(...new Uint8Array(subBuffer)));
 
-      let divData = btoa(String.fromCharCode(...new Uint8Array(subBuffer)));
-
-      let param = {
+      const param = {
         userPortrait: {
           userId: this.aimeId,
           divLength,
@@ -86,65 +85,73 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
           divData,
           placeId: 291,
           clientId: "A63E01A2857",
-          uploadDate: "2022-12-10 12:31:00.0",
+          uploadDate: new Date().toISOString(),
           fileName
         }
       };
 
-      let body: any = JSON.stringify(param);
-      var error = await new Promise(rx => this.api.post("Maimai2Servlet/UploadUserPortraitApi", body)
-        .subscribe(
+      const body: any = JSON.stringify(param);
+      const error = await new Promise((resolve) => {
+        this.api.post("Maimai2Servlet/A63E01C2948/1.40/UploadUserPortraitApi", body).subscribe(
           (data) => {
-            rx(data.returnCode != 1 ? "File size is too large" : null);
+            resolve(data.returnCode !== 1 ? "File size is too large" : null);
           },
           (error) => {
-            rx(error);
+            resolve(error);
           }
-        ));
+        );
+      });
 
-      if (error != null) {
-        this.messageService.notice(`change user portrait failed: ${error}`);
+      if (error) {
+        this.messageService.notice(`Change user portrait failed: ${error}`);
         return;
       }
 
-      if (readLength < PACKET_LENGTH)
-        break;
+      if (readLength < PACKET_LENGTH) break;
 
       remainLength -= readLength;
       offset += readLength;
       divNumber++;
     }
 
-    this.messageService.notice(`change user portrait successfully.`);
-    this.dialogRef.close();
+    this.messageService.notice(`Change user portrait successfully.`);
+    const modal = Modal.getInstance(document.getElementById('changeUserPortraitModal'));
+    if (modal) {
+      modal.hide();
+    }
   }
 
+  // Also keep other methods unchanged
   async onComfirm() {
-    let getCropped = (options?: Cropper.GetCroppedCanvasOptions) => new Promise<Blob>(solve => {
-      this.cropper.getCroppedCanvas(options).toBlob(blob => solve(blob))
-    });
+    const getCropped = (options?: Cropper.GetCroppedCanvasOptions) =>
+      new Promise<Blob>(resolve => this.cropper.getCroppedCanvas(options).toBlob(resolve));
 
-    let tryUpload = async (options?: Cropper.GetCroppedCanvasOptions) => {
-      let blob = await getCropped(options);
+    const tryUpload = async (options?: Cropper.GetCroppedCanvasOptions) => {
+      const blob = await getCropped(options);
       if (blob.size > this.maxUploadFileSize) {
         return false;
       } else {
         await this.upload(blob);
-        console.log(`upload ${blob.size}bytes crop data with option: ${JSON.stringify(options)}`);
+        console.log(`Upload ${blob.size} bytes crop data with option: ${JSON.stringify(options)}`);
         return true;
       }
-    }
+    };
 
     if (
       await tryUpload() ||
       await tryUpload({ imageSmoothingEnabled: true, imageSmoothingQuality: "medium" }) ||
-      await tryUpload({ imageSmoothingEnabled: true, imageSmoothingQuality: "low" }))
+      await tryUpload({ imageSmoothingEnabled: true, imageSmoothingQuality: "low" })
+    ) {
       return;
-    else
-      this.messageService.notice(`upload file size is too large.`);
+    } else {
+      this.messageService.notice(`Upload file size is too large.`);
+    }
   }
-
   onCancel() {
-    this.dialogRef.close();
+    // Close the modal programmatically
+    const modal = Modal.getInstance(document.getElementById('changeUserPortraitModal'));
+    if (modal) {
+      modal.hide();
+    }
   }
 }

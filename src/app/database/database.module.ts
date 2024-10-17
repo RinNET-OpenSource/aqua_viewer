@@ -3,13 +3,14 @@ import {DBConfig, NgxIndexedDBModule} from 'ngx-indexed-db';
 
 export function migrationFactory() {
   return {
-    3: (db: IDBDatabase, transaction: IDBTransaction) => {
+    4: (db: IDBDatabase, transaction: IDBTransaction) => {
       db.deleteObjectStore("divaPv");
       db.deleteObjectStore("divaModule");
       db.deleteObjectStore("divaCustomize");
       db.deleteObjectStore("chuniMusic");
       db.deleteObjectStore("chuniCharacter");
       db.deleteObjectStore("chuniSkill");
+      db.createObjectStore("maimai2Music");
       const ongekiTrophyStore = db.createObjectStore("ongekiTrophy", {keyPath: 'id', autoIncrement: false});
       ongekiTrophyStore.createIndex('name', 'name', {unique: false})
       ongekiTrophyStore.createIndex('rarityType', 'rarityType', {unique: false})
@@ -18,7 +19,7 @@ export function migrationFactory() {
 }
 const dbConfig: DBConfig = {
   name: 'Aqua',
-  version: 3,
+  version: 4,
   objectStoresMeta: [
     {
       store: 'ongekiCard',
@@ -134,7 +135,19 @@ const dbConfig: DBConfig = {
         {name: 'name', keypath: 'name', options: {unique: false}},
         {name: 'category', keypath: 'category', options: {unique: false}}
       ]
-    },
+    }, {
+     store: 'maimai2Music',
+      storeConfig: {keyPath: 'musicId', autoIncrement: false},
+      storeSchema: [
+        {name: 'musicId', keypath: 'musicId', options: {unique: false}},
+        {name: 'name', keypath: 'name', options: {unique: false}},
+        {name: 'sortName', keypath: 'sortName', options: {unique: false}},
+        {name: 'artistName', keypath: 'artistName', options: {unique: false}},
+        {name: 'genreId', keypath: 'genreId', options: {unique: false}},
+        {name: 'romVersion', keypath: 'romVersion', options: {unique: false}},
+        {name: 'addVersion', keypath: 'addVersion', options: {unique: false}},
+      ]
+    }
   ],
   migrationFactory
 };

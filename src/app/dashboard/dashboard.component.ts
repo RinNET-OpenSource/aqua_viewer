@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
     this.addStatusSubscribe(this.preload.chusanMapIconState);
     this.addStatusSubscribe(this.preload.chusanFrameState);
     this.addStatusSubscribe(this.preload.chusanAvatarAccState);
+    this.addStatusSubscribe(this.preload.maimai2MusicState);
     this.preload.checkingUpdateObservable.subscribe(checkingUpdate => {
       this.checkingUpdate = checkingUpdate;
     });
@@ -200,6 +201,10 @@ export class DashboardComponent implements OnInit {
   showAnnouncement(announcement: Announcement) {
     const modalRef = this.modalService.open(AnnouncementComponent, {scrollable: true, centered: true});
     modalRef.componentInstance.announcement = announcement;
+  }
+
+  getFormattedNumberByDigit(input: string, digit: number): string {
+    return input.toString().padStart(digit, '0');
   }
 }
 

@@ -18,6 +18,7 @@ import { ChusanAvatarAcc } from '../sega/chunithm/v2/model/ChusanAvatarAcc';
 import { HttpParams } from '@angular/common/http';
 import { AuthenticationService } from '../auth/authentication.service';
 import { MessageService } from '../message.service';
+import {Maimai2Music} from "../sega/maimai2/model/Maimai2Music";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,8 @@ export class PreloadService {
   chusanFrameState = this.chusanFrame.asObservable();
   private chusanAvatarAcc = new ReplaySubject<string>();
   chusanAvatarAccState = this.chusanAvatarAcc.asObservable();
+  private maimai2Music = new ReplaySubject<string>();
+  maimai2MusicState = this.maimai2Music.asObservable();
 
   private dbVersion = new ReplaySubject<number>();
   dbVersionObservable = this.dbVersion.asObservable();
@@ -81,6 +84,7 @@ export class PreloadService {
     this.loader<ChusanMapIcon>('chusanMapIcon', 'api/game/chuni/v2/data/mapicon', this.chusanMapIcon);
     this.loader<ChusanFrame>('chusanFrame', 'api/game/chuni/v2/data/frame', this.chusanFrame);
     this.loader<ChusanAvatarAcc>('chusanAvatarAcc', 'api/game/chuni/v2/data/avatar', this.chusanAvatarAcc);
+    this.loader<Maimai2Music>('maimai2Music', 'api/game/maimai2/data/musicList', this.maimai2Music);
   }
 
   clearDb() {
@@ -98,6 +102,7 @@ export class PreloadService {
       this.dbService.clear('chusanMapIcon'),
       this.dbService.clear('chusanFrame'),
       this.dbService.clear('chusanAvatarAcc'),
+      this.dbService.clear('maimai2Music')
     ]);
   }
 
