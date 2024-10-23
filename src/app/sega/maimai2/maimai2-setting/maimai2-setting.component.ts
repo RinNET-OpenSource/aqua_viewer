@@ -1,17 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../api.service';
-import {AuthenticationService} from '../../../auth/authentication.service';
 import {MessageService} from '../../../message.service';
-import {MatDialog} from '@angular/material/dialog';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {DisplayMaimai2Profile} from '../model/Maimai2Profile';
-import { Maimai2NameSettingDialog } from './maimai2-name-setting/maimai2-name-setting.dialog';
 import { Maimai2UploadUserPortraitDialog } from './maimai2-upload-user-portrait/maimai2-upload-user-portrait.dialog';
 import {environment} from '../../../../environments/environment';
 import { UserService } from 'src/app/user.service';
 import {AccountService} from '../../../auth/account.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-maimai2-setting',
@@ -34,7 +31,7 @@ export class Maimai2SettingComponent implements OnInit {
     private http: HttpClient,
     private userService: UserService,
     private messageService: MessageService,
-    public dialog: MatDialog
+    private modalService: NgbModal
   ) {
     this.userNameForm = this.fb.group({
       username: [''],
@@ -80,10 +77,9 @@ export class Maimai2SettingComponent implements OnInit {
   }
 
   openUploadUserPortraitDialog() {
-    this.dialog.open(Maimai2UploadUserPortraitDialog, {
-      data: { aimeId: String(this.userService.currentUser.defaultCard.extId), divMaxLength: this.divMaxLength },
-      width: '500px',
-    });
+    const modalRef = this.modalService.open(Maimai2UploadUserPortraitDialog, {scrollable: true, centered: true});
+    modalRef.componentInstance.aimeId = String(this.userService.currentUser.defaultCard.extId);
+    modalRef.componentInstance.divMaxLength = this.divMaxLength;
   }
 
   downloadFile() {

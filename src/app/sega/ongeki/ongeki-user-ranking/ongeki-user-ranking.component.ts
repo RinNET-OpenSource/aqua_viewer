@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
 import {OngekiUserRanking} from '../model/OngekiUserRanking';
 import {ApiService} from '../../../api.service';
 import {OngekiPcRanking} from '../model/OngekiPcRanking';

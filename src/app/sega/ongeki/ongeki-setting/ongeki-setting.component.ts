@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../api.service';
 import {MessageService} from '../../../message.service';
-import {MatDialog} from '@angular/material/dialog';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {DisplayOngekiProfile} from '../model/OngekiProfile';
 import {environment} from '../../../../environments/environment';
@@ -39,7 +38,6 @@ export class OngekiSettingComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService,
     protected modalService: NgbModal,
-    public dialog: MatDialog,
     private http: HttpClient,
     private accountService: AccountService
   ) {

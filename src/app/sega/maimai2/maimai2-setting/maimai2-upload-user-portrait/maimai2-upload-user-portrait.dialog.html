@@ -1,22 +1,15 @@
-<div class="modal fade" id="changeUserPortraitModal" tabindex="-1" aria-labelledby="changeUserPortraitModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="changeUserPortraitModalLabel">Change User Portrait</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div hidden>
-          <input type="file" id="file-input" />
-        </div>
-        <div>
-          <img id="image" class="img-fluid" />
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="onComfirm()">Confirm!</button>
-        <button type="button" class="btn btn-secondary" (click)="onCancel()" data-bs-dismiss="modal">Cancel</button>
-      </div>
+<div class="modal-header">
+  <h4 class="modal-title">Change User Portrait</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="onCancel();"></button>
+</div>
+<div class="modal-body">
+  <div class="d-grid mb-3">
+    <div hidden>
+      <input type="file" id="file-input" />
+    </div>
+    <div>
+      <img id="image" class="img-fluid" />
     </div>
   </div>
+  <button class="btn btn-primary btn-sm" (click)="onComfirm()">{{'Common.OK' | translate}}</button>
 </div>

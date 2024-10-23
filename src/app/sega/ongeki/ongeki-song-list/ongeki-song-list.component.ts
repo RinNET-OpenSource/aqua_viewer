@@ -1,7 +1,6 @@
 import {Observable, combineLatest, debounceTime, map, startWith} from 'rxjs';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
-import {MatPaginator} from '@angular/material/paginator';
 import {OngekiMusic} from '../model/OngekiMusic';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
@@ -29,7 +28,6 @@ export class OngekiSongListComponent implements OnInit {
   genreControls = new FormArray([]);
   lunaticControl = new FormControl(false);
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(OngekiSongScoreRankingComponent, { static: false }) OngekiSongScroeRankingComponent: OngekiSongScoreRankingComponent;
 
   constructor(

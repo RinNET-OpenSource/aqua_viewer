@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {OngekiGameRanking} from '../model/OngekiGameRanking';
 import {ApiService} from '../../../api.service';
-import {MatTableDataSource} from '@angular/material/table';
 import {environment} from '../../../../environments/environment';
 
 @Component({

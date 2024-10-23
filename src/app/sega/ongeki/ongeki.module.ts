@@ -3,12 +3,6 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OngekiRoutes} from './ongeki.routing';
 import {OngekiProfileComponent} from './ongeki-profile/ongeki-profile.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableModule} from '@angular/material/table';
 import {OngekiCardComponent} from './ongeki-card/ongeki-card.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OngekiRecentComponent} from './ongeki-recent/ongeki-recent.component';
@@ -24,7 +18,6 @@ import {ToBattleSpritePipe} from './util/to-battle-sprite.pipe';
 import {ToTechSpritePipe} from './util/to-tech-sprite.pipe';
 import {OngekiSettingComponent} from './ongeki-setting/ongeki-setting.component';
 import {OngekiMusicRankingComponent} from './ongeki-music-ranking/ongeki-music-ranking.component';
-import {MatSortModule} from '@angular/material/sort';
 import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-ranking.component';
 import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
 import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item.component';
@@ -77,16 +70,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         ReactiveFormsModule,
         OngekiRoutes,
 
-        MatCardModule,
         NgxPaginationModule,
-        MatButtonModule,
         ToolsModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatTableModule,
-        MatPaginatorModule,
         FlexLayoutModule,
-        MatSortModule,
         NgbAccordionModule,
         NgbCollapseModule,
         NgbPopoverModule,

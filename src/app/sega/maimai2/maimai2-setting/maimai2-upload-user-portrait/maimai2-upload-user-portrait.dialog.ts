@@ -2,8 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import Cropper from 'cropperjs';
 import { ApiService } from 'src/app/api.service';
 import { MessageService } from 'src/app/message.service';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {Modal} from "bootstrap";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 const PACKET_LENGTH = 10240;
 
@@ -16,20 +15,14 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
   cropper: Cropper;
   aimeId: string;
   image: HTMLImageElement;
-  api: ApiService;
-  messageService: MessageService;
-  maxUploadFileSize: number;
   usage: number;
+  divMaxLength: number;
 
   constructor(
-    api: ApiService,
-    messageService: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: { aimeId: string, divMaxLength: number }
+    private api: ApiService,
+    private messageService: MessageService,
+    private modalService: NgbModal
   ) {
-    this.aimeId = data.aimeId;
-    this.api = api;
-    this.messageService = messageService;
-    this.maxUploadFileSize = data.divMaxLength * PACKET_LENGTH;
   }
 
   readSingleFile(e) {
@@ -56,10 +49,6 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
 
     const fileInput = document.getElementById('file-input');
     fileInput.addEventListener('change', (e) => this.readSingleFile(e), false);
-
-    // Programmatically open the modal
-    const modal = new Modal(document.getElementById('changeUserPortraitModal'));
-    modal.show();
 
     fileInput.click();
   }
@@ -115,10 +104,7 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
     }
 
     this.messageService.notice(`Change user portrait successfully.`);
-    const modal = Modal.getInstance(document.getElementById('changeUserPortraitModal'));
-    if (modal) {
-      modal.hide();
-    }
+    this.modalService.dismissAll();
   }
 
   // Also keep other methods unchanged
@@ -128,7 +114,7 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
 
     const tryUpload = async (options?: Cropper.GetCroppedCanvasOptions) => {
       const blob = await getCropped(options);
-      if (blob.size > this.maxUploadFileSize) {
+      if (blob.size > this.divMaxLength * PACKET_LENGTH) {
         return false;
       } else {
         await this.upload(blob);
@@ -149,9 +135,6 @@ export class Maimai2UploadUserPortraitDialog implements OnInit {
   }
   onCancel() {
     // Close the modal programmatically
-    const modal = Modal.getInstance(document.getElementById('changeUserPortraitModal'));
-    if (modal) {
-      modal.hide();
-    }
+    this.modalService.dismissAll();
   }
 }
