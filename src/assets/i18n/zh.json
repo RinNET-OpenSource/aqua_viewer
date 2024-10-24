@@ -279,6 +279,16 @@
     "MusicList": {
       "Title": "乐曲列表",
       "Filter": "筛选",
+      "PatternTypes": {
+        "ID": "ID",
+        "Level": "等级",
+        "Const": "定数",
+        "Range": "范围",
+        "String": "字符串",
+        "Artist": "艺术家",
+        "Title": "标题",
+        "Boss": "对手"
+      },
       "SongScoreRanking": {
         "Boss": "对手",
         "Details": "游玩情况",

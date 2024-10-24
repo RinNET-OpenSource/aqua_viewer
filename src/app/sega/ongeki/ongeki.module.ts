@@ -22,7 +22,7 @@ import {OngekiUserRankingComponent} from './ongeki-user-ranking/ongeki-user-rank
 import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
 import {OngekiRecentItemComponent} from './ongeki-recent-item/ongeki-recent-item.component';
 import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
-import {NgbAccordionModule, NgbPopoverModule, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbAccordionModule, NgbPopoverModule, NgbCollapseModule, NgbTypeahead, NgbHighlight} from '@ng-bootstrap/ng-bootstrap';
 import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.component';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -64,30 +64,32 @@ export function HttpLoaderFactory(http: HttpClient) {
     exports: [
         OngekiCardComponent
     ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        OngekiRoutes,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    OngekiRoutes,
 
-        NgxPaginationModule,
-        ToolsModule,
-        FlexLayoutModule,
-        NgbAccordionModule,
-        NgbCollapseModule,
-        NgbPopoverModule,
-        NgOptimizedImage,
-        TranslateModule.forChild({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
-        NgIconsModule.withIcons({
-          bootstrapStopFill
-        }),
-    ]
+    NgxPaginationModule,
+    ToolsModule,
+    FlexLayoutModule,
+    NgbAccordionModule,
+    NgbCollapseModule,
+    NgbPopoverModule,
+    NgOptimizedImage,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    NgIconsModule.withIcons({
+      bootstrapStopFill
+    }),
+    NgbTypeahead,
+    NgbHighlight,
+  ]
 })
 export class OngekiModule {
 }

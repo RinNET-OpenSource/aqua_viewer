@@ -1,13 +1,27 @@
-import {Observable, combineLatest, debounceTime, map, startWith} from 'rxjs';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {
+  Observable,
+  combineLatest,
+  debounceTime,
+  map,
+  startWith,
+  OperatorFunction,
+  distinctUntilChanged,
+  filter,
+  Subject,
+  merge, lastValueFrom
+} from 'rxjs';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {OngekiMusic} from '../model/OngekiMusic';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
-import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {NgbOffcanvas, NgbTypeahead, NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 import {OngekiSongScoreRankingComponent} from '../ongeki-song-score-ranking/ongeki-song-score-ranking.component';
 import {FormArray, FormControl} from '@angular/forms';
 import {ToLevelDecimalPipe} from '../util/to-level-decimal.pipe';
+import {OngekiCard} from '../model/OngekiCard';
+import {OngekiSkill} from '../model/OngekiSkill';
+import {OngekiCharacter} from '../model/OngekiCharacter';
 
 @Component({
   selector: 'app-ongeki-song-list',
@@ -18,6 +32,8 @@ export class OngekiSongListComponent implements OnInit {
   Number = Number;
 
   songList: OngekiMusic[] = [];
+  allCards: OngekiCard[] = [];
+  characters: OngekiCharacter[] = [];
   filteredSongList$: Observable<OngekiMusic[]>;
   currentPage = 1;
   totalElements = 0;
@@ -25,42 +41,27 @@ export class OngekiSongListComponent implements OnInit {
   genres = ['POPS＆ANIME', 'niconico', '東方Project', 'VARIETY', 'チュウマイ', 'オンゲキ'];
 
   searchControl = new FormControl('');
-  genreControls = new FormArray([]);
+  genreControls = new FormArray<FormControl<boolean>>([]);
+  patternControl = new FormControl<SearchPattern[]>([]);
   lunaticControl = new FormControl(false);
 
   @ViewChild(OngekiSongScoreRankingComponent, { static: false }) OngekiSongScroeRankingComponent: OngekiSongScoreRankingComponent;
+  @ViewChild('typehead', { static: true }) typehead: NgbTypeahead;
+  @ViewChild('inputElement') inputElement!: ElementRef;
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
 
   constructor(
     private dbService: NgxIndexedDBService,
     public route: ActivatedRoute,
     public router: Router,
-    private offcanvasService: NgbOffcanvas,
+    private offcanvasService: NgbOffcanvas
   ) {
     this.genres.forEach(() => this.genreControls.push(new FormControl(false)));
   }
 
   ngOnInit() {
-    this.dbService.getAll<OngekiMusic>('ongekiMusic').subscribe(
-      x => {
-        this.songList = x.filter(item => (item.id > 1 && item.id < 2800) || item.id > 7000);
-        this.filteredSongList$ = combineLatest([
-          this.searchControl.valueChanges.pipe(startWith('')),
-          this.genreControls.valueChanges.pipe(startWith([])),
-          this.lunaticControl.valueChanges.pipe(startWith(false)),
-        ]).pipe(
-          map(([searchTerm, genreValues, lunaticChecked]) => {
-            let selectedGenres = this.genres.filter((_, index) => genreValues[index]);
-            if (selectedGenres.length === 0 && !lunaticChecked){
-              selectedGenres = this.genres;
-            }
-            return this.songList.filter(song =>
-              this.filterSongs(song, searchTerm) &&
-              (selectedGenres.includes(song.genre) || (lunaticChecked && this.isLunatic(song)))
-            );
-          })
-        );
-      }
-    );
+    this.prepare();
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
         this.currentPage = data.page;
@@ -68,68 +69,180 @@ export class OngekiSongListComponent implements OnInit {
     });
   }
 
+  async prepare() {
+    const songList = await lastValueFrom(this.dbService.getAll<OngekiMusic>('ongekiMusic'));
+    this.songList = songList.filter(item => (item.id > 1 && item.id < 2800) || item.id > 7000);
+    this.allCards = await lastValueFrom(this.dbService.getAll<OngekiCard>('ongekiCard'));
+    this.characters = await lastValueFrom(this.dbService.getAll<OngekiCharacter>('ongekiCharacter'));
+
+    this.filteredSongList$ = combineLatest([
+      this.genreControls.valueChanges.pipe(startWith(new Array<boolean>())),
+      this.patternControl.valueChanges.pipe(startWith(new Array<SearchPattern>())),
+      this.lunaticControl.valueChanges.pipe(startWith(false)),
+    ]).pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(([genreValues, patternValues, lunaticChecked]) => {
+        let selectedGenres = this.genres.filter((_, index) => genreValues[index]);
+        if (selectedGenres.length === 0 && !lunaticChecked){
+          selectedGenres = this.genres;
+        }
+
+        let filtered = this.songList;
+        if (selectedGenres.length !== this.genres.length){
+          filtered = filtered.filter(song => selectedGenres.includes(song.genre) || (lunaticChecked && this.isLunatic(song)));
+        }
+        patternValues.forEach(pattern => {
+          filtered = filtered.filter(song => this.filterByPattern(song, pattern));
+        });
+        return filtered;
+      })
+    );
+  }
+
   pageChanged(page: number) {
     this.router.navigate(['ongeki/song'], {queryParams: {page}});
   }
 
-  filterSongs(song: OngekiMusic, searchTerm: string): boolean {
-    if (searchTerm) {
-      const terms = this.parseSearchTerms(searchTerm.toLowerCase());
+  filterByPattern(song: OngekiMusic, pattern: SearchPattern): boolean {
+    if (pattern.type === 'ID'){
+      return song.id === pattern.value;
+    }
 
-      let levels: string[] = [];
-      const toLevelDecimalPipe = new ToLevelDecimalPipe();
-      const isLunatic = this.isLunatic(song);
-      if (isLunatic){
-        levels.push(toLevelDecimalPipe.transform(song.level4));
+    const levels: number[] = [];
+    const toLevelDecimalPipe = new ToLevelDecimalPipe();
+    const isLunatic = this.isLunatic(song);
+    if (isLunatic){
+      levels.push(Number(toLevelDecimalPipe.transform(song.level4)));
+    }
+    else{
+      levels.push(Number(toLevelDecimalPipe.transform(song.level3)));
+      levels.push(Number(toLevelDecimalPipe.transform(song.level2)));
+      levels.push(Number(toLevelDecimalPipe.transform(song.level1)));
+      levels.push(Number(toLevelDecimalPipe.transform(song.level0)));
+    }
+    if (pattern.type === 'Level'){
+      const num = Number(pattern.value.endsWith('+') ? pattern.value.slice(0, -1) : pattern.value);
+      let max: number;
+      let min: number;
+      if (num < 7){
+        min = num;
+        max = num + 1;
       }
       else{
-        levels.push(toLevelDecimalPipe.transform(song.level3));
-        levels.push(toLevelDecimalPipe.transform(song.level2));
-        levels.push(toLevelDecimalPipe.transform(song.level1));
-        levels.push(toLevelDecimalPipe.transform(song.level0));
+        if (pattern.value.endsWith('+')){
+          min = num + 0.7;
+          max = num + 1;
+        }
+        else{
+          min = num;
+          max = num + 0.7;
+        }
       }
-
-      return terms.every(term => {
-        if (song.id === Number(term)){
-          return true;
-        }
-        if (song.name.toLowerCase().includes(term)){
-          return true;
-        }
-        if (song.sortName.toLowerCase().includes(term)){
-          return true;
-        }
-        if (song.artistName.toLowerCase().includes(term)){
-          return true;
-        }
-        const result = this.filterLevels(levels, term);
-        if (result && result.length > 0){
-          levels = result;
-          return true;
-        }
-      });
+      return levels.some(level => level >= min && level < max);
     }
+    if (pattern.type === 'Const'){
+      return levels.some(level => level === Number(pattern.value));
+    }
+    if (pattern.type === 'Range'){
+      const values = pattern.value.split('~').map(v => Number(v));
+      return levels.some(level => level >= values[0] && level < values[1]);
+    }
+
+    let bossName: string;
+    const bossCard = this.allCards.find(c => c.id === song.bossCardId);
+    if (bossCard){
+      const boss = this.characters.find(c => c.id === bossCard.charaId);
+      if (boss){
+        bossName = boss.name;
+      }
+    }
+    const lower = pattern.value.toLowerCase();
+    if (pattern.type === 'String'){
+      return song.name.toLowerCase().includes(lower) ||
+        song.sortName.toLowerCase().includes(lower) ||
+        song.artistName.toLowerCase().includes(lower) ||
+        bossName.toLowerCase().includes(lower);
+    }
+    if (pattern.type === 'Artist'){
+      return song.artistName.toLowerCase().includes(lower);
+    }
+    if (pattern.type === 'Title'){
+      return song.name.toLowerCase().includes(lower) ||
+        song.sortName.toLowerCase().includes(lower);
+    }
+    if (pattern.type === 'Boss'){
+      return bossName.toLowerCase().includes(lower);
+    }
+
+
     return true;
   }
 
-  filterLevels(levels: string[], term: string) {
+  searchTypehead: OperatorFunction<string, SearchPattern[]> = (text$: Observable<string>) =>
+  {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.typehead.isPopupOpen()));
+    const inputFocus$ = this.focus$;
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+      map((term) => {
+        term = term.trim();
+        if (term.length < 1) { return []; }
+        const lower = term.toLowerCase();
+        const res: SearchPattern[] = [];
+        const num = Number(term.endsWith('+') ? term.slice(0, -1) : term);
+        if (!Number.isNaN(num) && Number.isFinite(num) && !term.endsWith('.')){
+          if (Number.isInteger(num) && !term.includes('.')){
+            if (num < 10000 && num >= 0 && !term.endsWith('+')){
+              res.push({type: 'ID', value: num});
+            }
+            if (num <= 15 && num >= 0 && (num >= 7 || !term.endsWith('+'))) {
+              res.push({type: 'Level', value: term});
+            }
+          }
+          else{
+            if (num < 15.8 && num >= 0 && /^\d{1,2}\.\d$/.test(term)){
+              res.push({ type: 'Const', value: num.toFixed(1) });
+            }
+          }
+        }
+        const rangePattern = /^(\d{1,2}(\.\d)?)[\s-~](\d{1,2}(\.\d)?)$/;
+        const match = term.match(rangePattern);
 
-    const regex = /^(\d+(?:\.\d+)?)([+-]?)$/;
-    const match = term.match(regex);
-    if (match) {
-      const value = parseFloat(match[1]);
-      const modifier = match[2];
+        if (match) {
+          let const1 = Number(match[1]);
+          let const2 = Number(match[3]);
 
-      switch (modifier) {
-        case '+':
-          return levels.filter(level => Number(level) >= value);
-        case '-':
-          return levels.filter(level => Number(level) <= value);
-        default:
-          return levels.filter(level => Number(level) === value);
-      }
-    }
-    return undefined;
+          if (!Number.isNaN(const1) && Number.isFinite(const1) && !Number.isNaN(const2) && Number.isFinite(const2) && const1 !== const2) {
+            if (const2 < const1){
+              const tmp = const1;
+              const1 = const2;
+              const2 = tmp;
+            }
+            if (const1 >= 0 && const2 < 15.8){
+              res.push({ type: 'Range', value: `${const1.toFixed(1)}~${const2.toFixed(1)}` });
+            }
+          }
+        }
+
+        res.push({type: 'String', value: term});
+        this.songList.forEach(song => {
+          if (song.artistName.toLowerCase().includes(lower) && !res.some(p => p.type === 'Artist' && p.value === song.artistName)) {
+            res.push({type: 'Artist', value: song.artistName});
+          }
+          if ((song.name.toLowerCase().includes(lower) || song.sortName.toLowerCase().includes(lower)) && !res.some(p => p.type === 'Title' && p.value === song.name)) {
+            res.push({type: 'Title', value: song.name});
+          }
+        });
+        this.characters.forEach(character => {
+          if (character.name.toLowerCase().includes(lower)) {
+            res.push({type: 'Boss', value: character.name});
+          }
+        });
+        return res;
+        }
+      ),
+    );
   }
 
   parseSearchTerms(searchTerm: string): string[] {
@@ -182,4 +295,36 @@ export class OngekiSongListComponent implements OnInit {
     });
     offcanvasRef.componentInstance.music = music;
   }
+
+  onSelectItem(event: NgbTypeaheadSelectItemEvent){
+    this.searchControl.setValue('');
+    const newValue = [...this.patternControl.value, event.item];
+    this.patternControl.setValue(newValue);
+    event.preventDefault();
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Backspace' && this.searchControl.value === '') {
+      event.preventDefault();
+
+      if (this.patternControl.value.length > 0) {
+        this.patternControl.value.pop();
+        this.patternControl.setValue(this.patternControl.value);
+      }
+    }
+  }
+
+  onPatternClick(item: SearchPattern) {
+    const index = this.patternControl.value.findIndex(p => p === item);
+    if (index !== -1) {
+      this.patternControl.value.splice(index, 1);
+      this.searchControl.setValue(item.value);
+      this.inputElement.nativeElement.focus();
+      this.patternControl.setValue(this.patternControl.value);
+    }
+  }
+}
+export class SearchPattern{
+  type: string;
+  value: any;
 }

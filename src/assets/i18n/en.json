@@ -279,6 +279,16 @@
     "MusicList": {
       "Title": "Music List",
       "Filter": "Filter",
+      "PatternTypes": {
+        "ID": "ID",
+        "Level": "Level",
+        "Const": "Const",
+        "Range": "Range",
+        "String": "String",
+        "Artist": "Artist",
+        "Title": "Title",
+        "Boss": "Boss"
+      },
       "SongScoreRanking": {
         "Boss": "Boss",
         "Details": "Details",

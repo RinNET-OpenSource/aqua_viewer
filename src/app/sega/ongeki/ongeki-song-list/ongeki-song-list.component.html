@@ -30,7 +30,35 @@
     <label class="checkbox-label" for="lunatic">Lunatic</label>
   </div>
 </div>
-<input type="text" #search class="form-control mb-2" [placeholder]="'Ongeki.MusicList.Filter' | translate" [formControl]="searchControl">
+<div class="form-control input-container mb-2">
+  <div class="row g-2">
+    <ng-container *ngFor="let pattern of patternControl.value">
+      <div class="col-auto">
+        <span class="badge rounded-pill bg-primary cursor-pointer" (click)="onPatternClick(pattern)">{{('Ongeki.MusicList.PatternTypes.' + pattern.type) | translate}}{{'Common.Colon' | translate}}{{pattern.value}}</span>
+      </div>
+    </ng-container>
+    <ng-template #rt let-r="result" let-t="term">
+      <span>{{('Ongeki.MusicList.PatternTypes.' + r.type) | translate}}{{'Common.Colon' | translate}}</span>
+      <ngb-highlight [result]="r.value" [term]="t"></ngb-highlight>
+    </ng-template>
+    <div class="col" style="min-width: 100px">
+      <input class="form-control-plaintext p-0"
+             [placeholder]="'Ongeki.MusicList.Filter' | translate"
+             [formControl]="searchControl"
+             [ngbTypeahead]="searchTypehead"
+             [resultTemplate]="rt"
+             (focus)="focus$.next($any($event).target.value)"
+             (click)="click$.next($any($event).target.value)"
+             (selectItem)="onSelectItem($event)"
+             (keydown)="onKeydown($event)"
+             #typehead="ngbTypeahead"
+             #inputElement>
+    </div>
+  </div>
+</div>
+<!--<div type="text" #search class="form-control mb-2 form-con" [formControl]="searchControl">-->
+<!--  <input class="form-control" [placeholder]="'Ongeki.MusicList.Filter' | translate" [formControl]="searchControl">-->
+<!--</div>-->
 
 <div class="card-btn card mb-2 text-start user-select-none"  (click)="showDetail(item)"
      *ngFor="let item of filteredSongList$ | async | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
