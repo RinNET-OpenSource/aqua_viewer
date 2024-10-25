@@ -116,19 +116,16 @@ export class Maimai2RatingComponent implements OnInit {
         for (const record of records) {
           const value = record.split(':');
           const musicInfo = await firstValueFrom(this.dbService.getByID<Maimai2Music>('maimai2Music', Number(value[0])));
-          if (musicInfo.details[Number(value[1])] == null){
-            continue;
-          }
-          const detail = musicInfo.details[Number(value[1])];
+          const detail = musicInfo?.details[Number(value[1])];
           const item: RatingItem = {
             musicId: Number(value[0]),
             level: Number(value[1]),
             romVersion: Number(value[2]),
             score: Number(value[3]),
-            artistName: musicInfo.artistName,
-            ratingBase: detail.levelDecimal,
+            artistName: musicInfo?.artistName ?? 'Unknown Artist',
+            ratingBase: detail?.levelDecimal ?? 'None',
             rating: 0,
-            musicName: musicInfo.name,
+            musicName: musicInfo?.name ?? `MusicID: ${value[0]}`,
           };
           list.push(item);
         }
