@@ -202,7 +202,7 @@
           </div>
         </ng-template>
 
-        <div #cardCol class="cards-col" [ngClass]="{'card-picking': pickedCardId === item.cardId}" [ngClass]="{'grayscale': item.digitalStock < 1}"
+        <div #cardCol class="cards-col" [class.card-picking]="pickedCardId === item.cardId" [class.grayscale]="item.digitalStock < 1"
              [@cardAnimation]="{
            value: pickedCardId === item.cardId?'expanded':'normal',
            params: { top: pickCardParams.top, left: pickCardParams.left, width: pickCardParams.width, height: pickCardParams.height,
@@ -211,30 +211,30 @@
              (@cardAnimation.done)="onPickAnimationEnd(cardCol)"
              (mousemove)="onMouseMoveRotator($event, cardCol)"
              (mouseleave)="onMouseLeaveCard(cardCol)"
-             (click)="pickCard(item.cardId, cardCol)"
+             (click)="isSafari?openContext($event, content):pickCard(item.cardId, cardCol)"
              (contextmenu)="openContext($event, content)"
              (touchmove)="onTouchMoveRotator($event, cardCol)"
              (touchend)="onMouseLeaveCard(cardCol)"
              (touchcancel)="onMouseLeaveCard(cardCol)">
           <div class="card-rotator w-100">
             <div *ngIf="item.cardInfo" class="card-container user-select-none"
-                 style="background-image: {{getCardBackground(item, showHolo &&  item.digitalStock > 0)}}">
+                 [style.background-image]="getCardBackground(item, showHolo &&  item.digitalStock > 0)">
               <div *ngIf="showElements && (item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
                    class="card-frame"
-                   style="background-image: {{getFrame(item)}}"></div>
-              <div class="card-chara" style="background-image: {{getChara(item)}}"></div>
+                   [style.background-image]="getFrame(item)"></div>
+              <div class="card-chara" [style.background-image]="getChara(item)"></div>
               <div *ngIf="showHolo && item.digitalStock > 0" [style]="holoSheetStyles[i]" class="position-absolute w-100 h-100">
-                <div class="card-holo-bg" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
-                <div class="card-holo" style="-webkit-mask-image: {{getHoloBGMask(item, showElements)}}"></div>
+                <div class="card-holo-bg" [style.-webkit-mask-image]="getHoloBGMask(item, showElements)"></div>
+                <div class="card-holo" [style.-webkit-mask-image]="getHoloBGMask(item, showElements)"></div>
               </div>
               <div *ngIf="showElements && !(showHolo && item.digitalStock > 0) && !(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')"
-                   class="card-frame" style="background-image: {{getFrame(item)}}"></div>
+                   class="card-frame" [style.background-image]="getFrame(item)"></div>
               <div *ngIf="showHolo && item.digitalStock > 0" [style]="reversedHoloSheetStyles[i]" class="position-absolute w-100 h-100">
                 <div *ngIf="!(item.cardInfo.rarity == 'N' || item.cardInfo.rarity == 'R')" class="card-frame"
-                     style="background-image: {{getHoloFrame(item)}}"></div>
+                     [style.background-image]="getHoloFrame(item)"></div>
                 <div class="card-holo-frame-bg"
-                     style="-webkit-mask-image: {{getHoloFrameMask(item, showElements)}}"></div>
-                <div class="card-holo" style="-webkit-mask-image: {{getHoloFrameMask(item, showElements)}}"></div>
+                     [style.-webkit-mask-image]="getHoloFrameMask(item, showElements)"></div>
+                <div class="card-holo" [style.-webkit-mask-image]="getHoloFrameMask(item, showElements)"></div>
               </div>
               <div *ngIf="showElements" class="position-absolute w-100 h-100">
                 <div [ngSwitch]="item.cardInfo.attribute">
@@ -347,7 +347,7 @@
               </div>
               <div class="card-highlight"></div>
             </div>
-            <div class="card-back" style="background-image: {{getCardBack()}}"></div>
+            <div class="card-back" [style.background-image]="getCardBack()"></div>
           </div>
         </div>
       </div>
