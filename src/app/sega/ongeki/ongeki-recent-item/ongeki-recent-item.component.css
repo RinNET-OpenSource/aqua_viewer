@@ -84,6 +84,7 @@
 }
 
 .play-result .score-area .score {
+  position: relative;
 }
 
 .play-result .score-area .score-stamp {
@@ -196,4 +197,16 @@
   width: 60%;
   left: 0;
   bottom: 0;
+}
+
+.new-record::after {
+  content: "NEW RECORD";
+  color: #ff9c00;
+  font-size: 0.5rem;
+  position: absolute;
+  right: 0;
+  top: -0.2rem;
+  white-space: nowrap;
+  font-weight: bold;
+  rotate: 6deg;
 }

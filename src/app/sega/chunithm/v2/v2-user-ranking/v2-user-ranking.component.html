@@ -1,79 +1,71 @@
-<h1 class="page-heading">User Ranking</h1>
-<ul class="nav nav-pills">
-  <li class="nav-item" style="cursor: pointer">
-    <a class="nav-link"
-       [ngClass]="{'active': tabBarBoolControl}"
-       (click)="tabBarBoolControl = true"
-       aria-current="page"
-    >User Ranking</a>
-  </li>
-  <li class="nav-item" style="cursor: pointer">
-    <a class="nav-link"
-       [ngClass]="{'active': !tabBarBoolControl}"
-       (click)="tabBarBoolControl = false;this.getChusanDailyPcRankingData()"
-    >Daily PC Ranking</a>
-  </li>
-</ul>
-
-<ng-container *ngIf="tabBarBoolControl">
-  <div class="ranking">
-    <table class="mt-3">
-      <thead>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Now Ra</th>
-      <th>Max Ra</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of chusanUserRankings; let ranking = index">
-        <td class="rank position-relative" [ngSwitch]="ranking">
-          <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
-          <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
-          <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
-          <span *ngSwitchDefault>
-              {{ ranking + 1 }}
-          </span>
-        </td>
-        <td class="name">
-          <span *ngIf="ranking == 0 || ranking == 1 || ranking == 2" style="font-weight: bold">{{ item.userName }}</span>
-          <span *ngIf="ranking != 0 && ranking != 1 && ranking != 2">{{ item.userName }}</span>
-        </td>
-        <td class="now-ra">{{ (item.nowRating/100).toFixed(2) }}</td>
-        <td class="max-ra">{{ (item.highestRating/100).toFixed(2) }}</td>
-      </tr>
-      </tbody>
-    </table>
+<h1 class="page-heading">{{'ChuniV2.UserRankingPage.Title' | translate}}</h1>
+<div class="row mb-2 g-1">
+  <div class="col-12 col-sm">
+    <div class="row justify-content-start align-items-center g-1">
+      <div class="col-auto">
+        <button class="tab-selector" [class.tab-selector-active]="type === RankingType.RATING" [routerLink]="[]" [queryParams]="{type: RankingType.RATING.toLowerCase()}">{{'ChuniV2.UserRankingPage.Rating' | translate}}</button>
+      </div>
+      <div class="col-auto">
+        <button class="tab-selector" [class.tab-selector-active]="type === RankingType.ACTIVITY" [routerLink]="[]" [queryParams]="{type: RankingType.ACTIVITY.toLowerCase()}">{{'ChuniV2.UserRankingPage.Activity' | translate}}</button>
+      </div>
+    </div>
   </div>
+</div>
 
+<ng-container *ngIf="type === RankingType.RATING">
+  <table class="table table-hover">
+    <colgroup>
+      <col style="width: 2rem;">
+      <col style="width: auto;">
+      <col style="width: min-content;">
+    </colgroup>
+    <tbody>
+    <tr class="ranking-row" *ngFor="let item of chusanUserRankings; let i = index">
+      <th class="text-end" scope="row" [ngSwitch]="i">
+        <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
+        <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
+        <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
+        <span class="ranking-text" *ngSwitchDefault>
+            {{ i + 1 }}.
+        </span>
+      </th>
+      <td>
+        <div class="d-flex align-items-center">
+<!--          <img class="ranking-item-icon me-2" [class.ranking-item-icon-lg]="i == 0 || i == 1 || i == 2" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{characterId / 10}}_00_02.webp">-->
+          <div>
+            <div [class.fw-bold]="i == 0 || i == 1 || i == 2">{{ item.userName | fullWidth }}</div>
+            <div>{{ (item.nowRating/100).toFixed(2) }}<span class="ms-1 text-secondary small">(Max: {{(item.highestRating/100).toFixed(2)}})</span></div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </ng-container>
 
-<ng-container *ngIf="!tabBarBoolControl">
+<ng-container *ngIf="type === RankingType.ACTIVITY">
   <p class="mt-3">Updated at 0:00 every day</p>
-  <div class="ranking">
-    <table class="mt-1">
-      <thead>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Play Count</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of chusanUserPcRankings; let ranking = index">
-        <td class="rank position-relative" [ngSwitch]="ranking">
-          <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
-          <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
-          <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
-          <span *ngSwitchDefault>
-          {{ ranking + 1 }}
-          </span>
-        </td>
-        <td class="name">
-          <span *ngIf="ranking == 0 || ranking == 1 || ranking == 2" style="font-weight: bold">{{ item.username }}</span>
-          <span *ngIf="ranking != 0 && ranking != 1 && ranking != 2">{{ item.username }}</span>
-        </td>
-        <td class="pc">{{ item.pc }}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
+  <table class="table table-hover mt-3">
+    <colgroup>
+      <col style="width: 2rem;">
+      <col style="width: auto;">
+      <col style="width: min-content;">
+    </colgroup>
+    <tbody>
+    <tr class="ranking-row" *ngFor="let item of chusanUserPcRankings; let i = index">
+      <th class="text-end" scope="row" [ngSwitch]="i">
+        <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
+        <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
+        <img *ngSwitchCase="2" class="medal" src="{{host}}assets/bronze-medal.svg" alt="">
+        <span class="ranking-text" *ngSwitchDefault>
+            {{ i + 1 }}.
+        </span>
+      </th>
+      <td>
+        <span [class.fw-bold]="i == 0 || i == 1 || i == 2">{{ item.username | fullWidth }}</span>
+      </td>
+      <td class="text-end">{{ item.pc }}</td>
+    </tr>
+    </tbody>
+  </table>
 </ng-container>

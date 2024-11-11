@@ -10,25 +10,25 @@
   <div class="col-12 col-sm">
     <div class="row justify-content-start align-items-center g-1">
       <div class="col-auto">
-        <button class="type-selector" [class.type-selector-active]="!type" [routerLink]="[]">{{'AnnouncementsPage.All' | translate}}</button>
+        <button class="tab-selector" [class.tab-selector-active]="!type" [routerLink]="[]">{{'AnnouncementsPage.All' | translate}}</button>
       </div>
       <div class="col-auto">
-        <button class="type-selector" [class.type-selector-active]="type == announcementType.GENERAL" [routerLink]="[]" [queryParams]="{type: announcementType.GENERAL.toLowerCase()}">{{'AnnouncementsPage.General' | translate}}</button>
+        <button class="tab-selector" [class.tab-selector-active]="type == announcementType.GENERAL" [routerLink]="[]" [queryParams]="{type: announcementType.GENERAL.toLowerCase()}">{{'AnnouncementsPage.General' | translate}}</button>
       </div>
       <div class="col-auto">
-        <button class="type-selector" [class.type-selector-active]="type == announcementType.MAINTENANCE" [routerLink]="[]" [queryParams]="{type: announcementType.MAINTENANCE.toLowerCase()}">{{'AnnouncementsPage.Maintenance' | translate}}</button>
+        <button class="tab-selector" [class.tab-selector-active]="type == announcementType.MAINTENANCE" [routerLink]="[]" [queryParams]="{type: announcementType.MAINTENANCE.toLowerCase()}">{{'AnnouncementsPage.Maintenance' | translate}}</button>
       </div>
       <div class="col-auto">
-        <button class="type-selector" [class.type-selector-active]="type == announcementType.UPDATE" [routerLink]="[]" [queryParams]="{type: announcementType.UPDATE.toLowerCase()}">{{'AnnouncementsPage.Update' | translate}}</button>
+        <button class="tab-selector" [class.tab-selector-active]="type == announcementType.UPDATE" [routerLink]="[]" [queryParams]="{type: announcementType.UPDATE.toLowerCase()}">{{'AnnouncementsPage.Update' | translate}}</button>
       </div>
       <div class="col-auto">
-        <button class="type-selector" [class.type-selector-active]="type == announcementType.EVENT" [routerLink]="[]" [queryParams]="{type: announcementType.EVENT.toLowerCase()}">{{'AnnouncementsPage.Event' | translate}}</button>
+        <button class="tab-selector" [class.tab-selector-active]="type == announcementType.EVENT" [routerLink]="[]" [queryParams]="{type: announcementType.EVENT.toLowerCase()}">{{'AnnouncementsPage.Event' | translate}}</button>
       </div>
       <div class="col-auto">
-        <button class="type-selector" [class.type-selector-active]="type == announcementType.TUTORIAL" [routerLink]="[]" [queryParams]="{type: announcementType.TUTORIAL.toLowerCase()}">{{'AnnouncementsPage.Tutorial' | translate}}</button>
+        <button class="tab-selector" [class.tab-selector-active]="type == announcementType.TUTORIAL" [routerLink]="[]" [queryParams]="{type: announcementType.TUTORIAL.toLowerCase()}">{{'AnnouncementsPage.Tutorial' | translate}}</button>
       </div>
       <div class="col-auto">
-        <button class="type-selector" [class.type-selector-active]="type == announcementType.OTHER" [routerLink]="[]" [queryParams]="{type: announcementType.OTHER.toLowerCase()}">{{'AnnouncementsPage.Other' | translate}}</button>
+        <button class="tab-selector" [class.tab-selector-active]="type == announcementType.OTHER" [routerLink]="[]" [queryParams]="{type: announcementType.OTHER.toLowerCase()}">{{'AnnouncementsPage.Other' | translate}}</button>
       </div>
     </div>
   </div>

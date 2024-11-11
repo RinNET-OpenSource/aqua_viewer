@@ -29,6 +29,7 @@ import {HomeComponent} from './home/home.component';
 import {ToastsContainer} from './toasts-container.component';
 import {CardsComponent} from './cards/cards.component';
 import {
+  bootstrapChevronUp,
   bootstrapChevronDown,
   bootstrapPerson,
   bootstrapList,
@@ -45,7 +46,9 @@ import {
   bootstrapClipboard,
   bootstrapPlusSquareDotted,
   bootstrapInfoCircleFill,
-  bootstrapGithub
+  bootstrapGithub,
+  bootstrapArrowUpCircleFill,
+  bootstrapArrowDownCircleFill, bootstrapDashLg,
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -125,6 +128,7 @@ export function initializeApp(
     FormsModule,
     ToastsContainer,
     NgIconsModule.withIcons({
+      bootstrapChevronUp,
       bootstrapChevronDown,
       bootstrapPerson,
       bootstrapList,
@@ -141,7 +145,10 @@ export function initializeApp(
       bootstrapClipboard,
       bootstrapPlusSquareDotted,
       bootstrapInfoCircleFill,
-      bootstrapGithub
+      bootstrapGithub,
+      bootstrapArrowUpCircleFill,
+      bootstrapArrowDownCircleFill,
+      bootstrapDashLg
     }),
     TranslateModule.forRoot({
       loader: {

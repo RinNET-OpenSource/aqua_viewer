@@ -58,7 +58,7 @@
             <div class="item-header battle-item-header">
               <span>BATTLE SCORE</span>
             </div>
-            <div class="score">
+            <div class="score" [class.new-record]="playLog.isBattleNewRecord">
               <span class="score-font-large">{{Math.floor(playLog.battleScore / 10000)}}</span>
               <span class="score-font-small">{{playLog.battleScore % 10000|formatNumber:4}}</span>
             </div>
@@ -66,7 +66,7 @@
             <div class="item-header battle-item-header">
               <span>OVER DAMAGE</span>
             </div>
-            <div>
+            <div class="score" [class.new-record]="playLog.isOverDamageNewRecord">
               <span class="score-font-large">{{Math.floor(playLog.overDamage / 100)}}</span>
               <span class="score-font-small">.{{playLog.overDamage % 100|formatNumber:2}}%</span>
             </div>
@@ -81,7 +81,7 @@
             <div class="item-header technical-item-header">
               <span>TECHNICAL SCORE</span>
             </div>
-            <div class="score">
+            <div class="score" [class.new-record]="playLog.isTechNewRecord">
               <span class="score-font-large">{{Math.floor(playLog.techScore / 10000)}}</span>
               <span class="score-font-small">{{playLog.techScore % 10000|formatNumber:4}}</span>
             </div>
@@ -89,7 +89,7 @@
             <div class="item-header technical-item-header">
               <span>RATING</span>
             </div>
-            <div class="score-font-large" [ngSwitch]="difficulty[playLog.level]">
+            <div class="score score-font-large" [ngSwitch]="difficulty[playLog.level]">
               <span
                 *ngSwitchCase="'Basic'">{{((playLog.songInfo?.level0 | toLevelDecimal) | toTechRating : playLog.techScore : 2)??'None'}}</span>
               <span

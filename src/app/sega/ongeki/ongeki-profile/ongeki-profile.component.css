@@ -167,6 +167,7 @@
   white-space:nowrap;
   margin-bottom: .5cqw;
   margin-left: 1cqw;
+  overflow: unset !important;
 }
 
 .rank-00{

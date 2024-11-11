@@ -357,6 +357,14 @@
       "ModifyRomVersionFailed": "修改游戏版本失败",
       "ModifyDataVersionFailed": "修改数据版本失败",
       "DownloadingProfile": "正在下载玩家存档"
+    },
+    "MusicRankingPage": {
+      "Title": "乐曲排行"
+    },
+    "UserRankingPage": {
+      "Title": "玩家排行",
+      "Rating": "评级",
+      "Activity": "活跃度"
     }
   },
   "ChuniV2": {
@@ -399,6 +407,11 @@
       "RemoveLove": "解除喜爱",
       "Remove": "解除好友",
       "RemoveTip": "确定要解除好友关系吗？"
+    },
+    "UserRankingPage": {
+      "Title": "玩家排行",
+      "Rating": "评级",
+      "Activity": "活跃度"
     }
   },
   "Maimai2": {

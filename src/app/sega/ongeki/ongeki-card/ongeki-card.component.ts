@@ -353,6 +353,9 @@ export class OngekiCardComponent implements OnInit {
 
   private filterCardByTerms(id, terms: string[], skillIds: number[]) {
     const card = this.allCards.find(c => c.id === id);
+    if (!card) {
+      return false;
+    }
     const nickName = card.nickName.toLowerCase();
     const cardNumber = card.cardNumber.toLowerCase();
     const charaName = card.name.replace('【SR+】', '【SRPlus】').replace(`【${card.rarity}】`, '').replace(`[${nickName}]`, '').toLowerCase();

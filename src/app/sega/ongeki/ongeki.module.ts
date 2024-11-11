@@ -25,10 +25,10 @@ import {ToRaritySpritePipe} from './util/to-rarity-sprite.pipe';
 import {NgbAccordionModule, NgbPopoverModule, NgbCollapseModule, NgbTypeahead, NgbHighlight} from '@ng-bootstrap/ng-bootstrap';
 import {OngekiCardLevelComponent} from './ongeki-card-level/ongeki-card-level.component';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import {TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {HttpClient } from '@angular/common/http';
-import { OngekiSongScoreRankingComponent } from './ongeki-song-score-ranking/ongeki-song-score-ranking.component';
-import { ToTechHonorSpritePipe } from './util/to-tech-honor-sprite.pipe';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient} from '@angular/common/http';
+import {OngekiSongScoreRankingComponent} from './ongeki-song-score-ranking/ongeki-song-score-ranking.component';
+import {ToTechHonorSpritePipe} from './util/to-tech-honor-sprite.pipe';
 import {NgIconsModule} from '@ng-icons/core';
 import {
   bootstrapStopFill
