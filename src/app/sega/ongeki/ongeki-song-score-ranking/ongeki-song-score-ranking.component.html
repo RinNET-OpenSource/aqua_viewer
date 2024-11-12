@@ -131,8 +131,13 @@
     <div class="card-body py-1 px-3">
       <div class="difficulty-detail-body d-flex align-items-center justify-content-between">
         <div class="float-start small fw-bold">
-          <span *ngIf="songData[difficulty]">{{songData[difficulty].techScoreMax}}</span>
-          <span *ngIf="!songData[difficulty]">No Record</span>
+          <div *ngIf="songData[difficulty]">
+            <div>{{songData[difficulty].techScoreMax}}</div>
+            <div class="small text-secondary">{{ "Ongeki.MusicList.SongScoreRanking.PlayCount" | translate }}{{ "Common.Colon" | translate }}{{ songData[difficulty].playCount }}</div>
+          </div>
+          <div *ngIf="!songData[difficulty]">
+            <div>No Record</div>
+          </div>
         </div>
         <div *ngIf="songData[difficulty]" class="honor float-end">
           <img class="honor-badge"

@@ -7,7 +7,7 @@
     <col style="width: min-content;">
   </colgroup>
   <tbody>
-  <tr class="ranking-row" *ngFor="let item of ongekiGameRankings; let i = index" (click)="showDetail(item.music)">
+  <tr class="ranking-row" *ngFor="let item of ongekiGameRankings; let i = index" (click)="item.music?showDetail(item.music):undefined">
     <th class="text-end" scope="row" [ngSwitch]="i">
       <img *ngSwitchCase="0" class="medal" src="{{host}}assets/gold-medal.svg" alt="">
       <img *ngSwitchCase="1" class="medal" src="{{host}}assets/silver-medal.svg" alt="">
@@ -17,10 +17,10 @@
     <td>
       <div class="row align-items-center g-2">
         <div class="col-auto">
-          <img class="ranking-item-icon" [class.ranking-item-icon-lg]="i == 0 || i == 1 || i == 2" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.music.id|formatNumber:4}}.webp">
+          <img class="ranking-item-icon" [class.ranking-item-icon-xl]="i == 0" [class.ranking-item-icon-lg]="i == 1 || i == 2" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{(item.music?.id ?? 0) | formatNumber:4}}.webp">
         </div>
         <div class="col text-truncate" [class.fw-bold]="i == 0 || i == 1 || i == 2">
-          {{item.music.name}}
+          {{item.music?.name??"？？？"}}
         </div>
       </div>
     </td>

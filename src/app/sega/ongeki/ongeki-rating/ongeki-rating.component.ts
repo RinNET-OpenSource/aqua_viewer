@@ -9,7 +9,9 @@ import {AttributeType, Difficulty} from '../model/OngekiEnums';
 import {HttpParams} from '@angular/common/http';
 import {OngekiMusic} from '../model/OngekiMusic';
 import {DisplayOngekiProfile} from '../model/OngekiProfile';
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom} from 'rxjs';
+import {OngekiSongScoreRankingComponent} from '../ongeki-song-score-ranking/ongeki-song-score-ranking.component';
+import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-ongeki-rating',
@@ -39,7 +41,8 @@ export class OngekiRatingComponent implements OnInit {
     private api: ApiService,
     private auth: AuthenticationService,
     private messageService: MessageService,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    private offcanvasService: NgbOffcanvas
   ) {
   }
 
@@ -53,8 +56,8 @@ export class OngekiRatingComponent implements OnInit {
   }
 
   async loadRating(){
-    this.avgBest = await this.load('rating_base_best', this.bestList, (items: PlayerRatingItem[]) => this.getAvgRating(items, 30));
     this.avgNew = await this.load('rating_base_new_best', this.newBestList, (items: PlayerRatingItem[]) => this.getAvgRating(items, 15));
+    this.avgBest = await this.load('rating_base_best', this.bestList, (items: PlayerRatingItem[]) => this.getAvgRating(items, 30));
     this.avgHot = await this.load('rating_base_hot_best', this.hotBestList, (items: PlayerRatingItem[]) => this.getAvgRating(items, 10));
     this.avgRating = this.getAvgRating(this.bestList.concat(this.newBestList).concat(this.hotBestList), 55);
   }
@@ -85,33 +88,33 @@ export class OngekiRatingComponent implements OnInit {
     let sumRating100 = 0;
     for (const item of items) {
       const level100 = this.getLevel100(item.musicInfo, item.level);
-      const rating100 = this.calcRating100(level100, item.value)
-      if(!rating100) continue;
+      const rating100 = this.calcRating100(level100, item.value);
+      if (!rating100) { continue; }
       sumRating100 += rating100;
     }
     return (Math.floor(sumRating100 / total) / 100).toFixed(2);
   }
 
   getLevel100(musicInfo: OngekiMusic, level: number){
-    if(!musicInfo) return null;
+    if (!musicInfo) { return null; }
     let levelData: string;
-    if(level === 0){
+    if (level === 0){
       levelData = musicInfo.level0;
     }
-    else if(level === 1){
+    else if (level === 1){
       levelData = musicInfo.level1;
     }
-    else if(level === 2){
+    else if (level === 2){
       levelData = musicInfo.level2;
     }
-    else if(level === 3){
+    else if (level === 3){
       levelData = musicInfo.level3;
     }
-    else if(level === 10){
+    else if (level === 10){
       levelData = musicInfo.level4;
     }
-    const levelDatas = levelData.split(',')
-    if(levelDatas.length !== 2) return null;
+    const levelDatas = levelData.split(',');
+    if (levelDatas.length !== 2) { return null; }
     return parseInt(levelDatas[0]) * 100 + parseInt(levelDatas[1]);
   }
 
@@ -146,5 +149,18 @@ export class OngekiRatingComponent implements OnInit {
     num = Math.floor(num);
     result = Math.max(num, 0);
     return result;
+  }
+
+  showDetail(music: OngekiMusic) {
+    const offcanvasRef = this.offcanvasService.open(OngekiSongScoreRankingComponent, {
+      position: 'end',
+      scroll: false,
+      // panelClass: 'ongeki-song-score-ranking',
+    });
+    offcanvasRef.componentInstance.music = music;
+  }
+
+  setDefaultJacket($event: ErrorEvent) {
+    ($event.target as HTMLImageElement).src = this.host + 'assets/ongeki/jacket/UI_Jacket_0000_S.webp'
   }
 }

@@ -292,6 +292,7 @@
       "SongScoreRanking": {
         "Boss": "Boss",
         "Details": "Details",
+        "PlayCount": "Play Count",
         "Ranking": "Ranking",
         "RankingInfo": "You rank {{ranking}} out of {{total}} players."
       }

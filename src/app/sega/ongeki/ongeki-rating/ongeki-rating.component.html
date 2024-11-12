@@ -51,42 +51,44 @@
 
 <ng-template #record let-index="index" let-item="item">
   <div class="col-12 col-md-6 col-xxl-4">
-    <div class="card rating-card">
+    <div class="card rating-card card-btn user-select-none" (click)="item.musicInfo?showDetail(item.musicInfo):undefined">
       <div class="hstack">
-        <img class="jacket rounded-start" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.webp">
+        <img class="jacket rounded-start" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.webp" (error)="setDefaultJacket($event)">
         <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
           <div class="text-truncate fw-bold m-0"><span>#{{index + 1}}</span> {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}</div>
           <div class="text-truncate">{{item.value}}</div>
-          <div *ngIf="item.musicInfo" class="text-truncate small">
+          <div class="text-truncate small">
             <ng-container [ngSwitch]="item.level">
             <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
-              Basic{{(item.musicInfo.level0 | toLevelDecimal)??'None'}}
+              Basic{{(item.musicInfo?.level0 | toLevelDecimal)??''}}
             </span>
               <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
-              Advanced {{(item.musicInfo.level1 | toLevelDecimal)??'None'}}
+              Advanced {{(item.musicInfo?.level1 | toLevelDecimal)??''}}
             </span>
               <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
-              Expert {{(item.musicInfo.level2 | toLevelDecimal)??'None'}}
+              Expert {{(item.musicInfo?.level2 | toLevelDecimal)??''}}
             </span>
               <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
-              Master {{(item.musicInfo.level3 | toLevelDecimal)??'None'}}
+              Master {{(item.musicInfo?.level3 | toLevelDecimal)??''}}
             </span>
               <span *ngSwitchCase="10" class="difficulty-lunatic badge rounded-pill text-danger border border-danger">
-              Lunatic {{(item.musicInfo.level4 | toLevelDecimal)??'None'}}
+              Lunatic {{(item.musicInfo?.level4 | toLevelDecimal)??''}}
             </span>
             </ng-container>
-            ->
-            <ng-container [ngSwitch]="item.level">
-            <span *ngSwitchCase="0"
-                  class="score-value">{{((item.musicInfo.level0 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-              <span *ngSwitchCase="1"
-                    class="score-value">{{((item.musicInfo.level1 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-              <span *ngSwitchCase="2"
-                    class="score-value">{{((item.musicInfo.level2 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-              <span *ngSwitchCase="3"
-                    class="score-value">{{((item.musicInfo.level3 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-              <span *ngSwitchCase="10"
-                    class="score-value">{{((item.musicInfo.level4 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+            <ng-container *ngIf="item.musicInfo">
+              ->
+              <ng-container [ngSwitch]="item.level">
+                <span *ngSwitchCase="0"
+                      class="score-value">{{((item.musicInfo.level0 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+                <span *ngSwitchCase="1"
+                      class="score-value">{{((item.musicInfo.level1 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+                <span *ngSwitchCase="2"
+                      class="score-value">{{((item.musicInfo.level2 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+                <span *ngSwitchCase="3"
+                      class="score-value">{{((item.musicInfo.level3 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+                <span *ngSwitchCase="10"
+                      class="score-value">{{((item.musicInfo.level4 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+              </ng-container>
             </ng-container>
           </div>
         </div>
