@@ -113,11 +113,15 @@
 }
 
 .color-we {
-  color: $white;
+  background: linear-gradient(-45deg, #CB00B0, #0BE9EE, #ACE559, #FCE116, #CB00B0, #0BE9EE, #ACE559, #FCE116);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
 }
 
 .bg-we {
-  background: linear-gradient(to right, #CB00B0, #0BE9EE, #ACE559, #FCE116, #CB00B0, #0BE9EE, #ACE559, #FCE116);
+
 }
 
 .honor{

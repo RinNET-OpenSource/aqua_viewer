@@ -1,3 +1,42 @@
+input[type=checkbox] {
+  width: 0;
+  height: 0;
+  border: 0;
+  visibility: hidden;
+}
+
+.checkbox-label{
+  text-wrap: nowrap;
+  user-select: none;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  color: var(--bs-link-color);
+  background-color: var(--bs-body-bg);
+  padding: 0.25rem 0.5rem;
+  font-size: .875rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+input[type=checkbox] + .checkbox-label:hover{
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-tertiary-bg);
+}
+
+input[type=checkbox]:checked + .checkbox-label{
+  color: var(--bs-light);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.input-container:focus-within{
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+}
+
 table {
   width: 100%;
 }
@@ -6,13 +45,10 @@ table {
   padding: 4px;
 }
 
-.song-container {
-  --bs-btn-hover-border-color: var(--bs-secondary);
-}
-
 .song-info .jacket-container {
-  width: 64px;
-  min-width: 64px;
+  width: 5.6rem;
+  min-width: 5.6rem;
+  aspect-ratio: 1;
 }
 
 .song-info .song-info-id {
@@ -27,26 +63,44 @@ table {
   font-size: 12px;
 }
 
-.song-info .song-info-difficulty {
+.difficulty {
   font-size: 12px;
 }
 
-.song-info .song-info-difficulty-Basic {
-  background: #51B540;
+.difficulty-basic {
+  background: #2da060;
+  border: 1px solid #145830;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Advanced {
-  background: #B5A440;
+.difficulty-advanced {
+  background: #e6a047;
+  border: 1px solid #995014;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Expert {
-  background: #B54051;
+.difficulty-expert {
+  background: #e55353;
+  border: 1px solid #7B1F18;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Master {
-  background: #6940B5;
+.difficulty-master {
+  background: #9d5cb9;
+  border: 1px solid #381C47;
+  color: white;
 }
 
-.song-info .song-info-difficulty-Lunatic {
-  background: #FFFFFF;
+.difficulty-ultima {
+  background: var(--bs-black);
+  border: 1px solid var(--bs-black);
+  color: white;
+}
+
+.difficulty-we {
+  background: linear-gradient(-45deg, #CB00B0, #0BE9EE, #ACE559, #FCE116, #CB00B0, #0BE9EE, #ACE559, #FCE116);
+  border: 1px solid var(--bs-secondary);
+  color: white;
+  font-weight: bold;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
 }

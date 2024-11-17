@@ -19,13 +19,14 @@ import {V2UserRankingComponent} from './v2-user-ranking/v2-user-ranking.componen
 import {V2UserBoxComponent} from './v2-userbox/v2-userbox.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ToolsModule} from '../../../util/tools.module';
-import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import {TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {HttpClient } from '@angular/common/http';
-import { V2SongScoreRankingComponent } from './v2-song-score-ranking/v2-song-score-ranking.component';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient} from '@angular/common/http';
+import {V2SongScoreRankingComponent} from './v2-song-score-ranking/v2-song-score-ranking.component';
 import {NgIcon} from '@ng-icons/core';
-import { V2RivalListComponent } from './v2-rival-list/v2-rival-list.component';
-import { CharacterImagePipe } from './util/character-image.pipe';
+import {V2RivalListComponent} from './v2-rival-list/v2-rival-list.component';
+import {CharacterImagePipe} from './util/character-image.pipe';
+import {ToLevelStringPipe} from './util/to-level-string.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -70,7 +71,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     V2UserRankingComponent,
     V2SongScoreRankingComponent,
     V2RivalListComponent,
-    CharacterImagePipe
+    CharacterImagePipe,
+    ToLevelStringPipe
   ]
 })
 export class V2Module {

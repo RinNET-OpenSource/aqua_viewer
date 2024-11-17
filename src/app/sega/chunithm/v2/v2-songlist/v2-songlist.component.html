@@ -23,23 +23,50 @@
 
 <input type="text" #search class="form-control mb-2" placeholder="Filter" (input)="filterSongs(search.value)">
 
-<div class="song-container card btn mb-1 text-start" (click)="showDetail(item)"
+<div class="card-btn card mb-2 text-start user-select-none"  (click)="showDetail(item)"
      *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
-  <div class="song-info card-body hstack gap-2">
+  <div class="song-info card-body hstack gap-2 p-0">
     <div class="jacket-container ratio ratio-1x1">
-      <img class="position-absolute"
+      <!--jacket-->
+      <img class="position-absolute rounded-start"
            src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.webp"
            alt="">
     </div>
     <div class="overflow-hidden">
+      <!--title-->
       <div class="song-info-title text-truncate fw-bold">
-        <span>{{item.musicId}}.「{{item.name}}」</span>
+        <span>
+          {{item.musicId}}.「{{item.name}}」
+        </span>
       </div>
-      <div class="song-info-artist text-truncate">
-        <span>{{item.artistName}}</span>
+      <!--artist-->
+      <div class="song-info-artist text-truncate mb-1">
+        <span>
+          {{item.artistName}}
+        </span>
+      </div>
+      <!--difficulty-->
+      <div class="row m-0 align-items-center gap-2">
+        <span *ngIf="item.levels['0'].enable" class="col-auto difficulty difficulty-basic badge rounded-pill">
+          {{item.levels['0'] | toLevelString}}
+        </span>
+        <span *ngIf="item.levels['1'].enable" class="col-auto difficulty difficulty-advanced badge rounded-pill">
+          {{item.levels['1'] | toLevelString}}
+        </span>
+        <span *ngIf="item.levels['2'].enable" class="col-auto difficulty difficulty-expert badge rounded-pill">
+          {{item.levels['2'] | toLevelString}}
+        </span>
+        <span *ngIf="item.levels['3'].enable" class="col-auto difficulty difficulty-master badge rounded-pill">
+          {{item.levels['3'] | toLevelString}}
+        </span>
+        <span *ngIf="item.levels['4'].enable" class="col-auto difficulty difficulty-ultima badge rounded-pill">
+          {{item.levels['4'] | toLevelString}}
+        </span>
+        <span *ngIf="item.levels['5'].enable" class="col-auto difficulty difficulty-we badge rounded-pill">
+          World's End
+        </span>
       </div>
     </div>
   </div>
 </div>
-
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>

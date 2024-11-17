@@ -75,4 +75,6 @@ export class V2SonglistComponent implements OnInit {
     });
     offcanvasRef.componentInstance.music = music;
   }
+
+    protected readonly Number = Number;
 }
