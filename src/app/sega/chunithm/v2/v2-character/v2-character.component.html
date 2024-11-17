@@ -26,11 +26,11 @@
   <div class="row">
     <div
       class="card row character-card row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4"
-      *ngFor="let item of characters | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"
+      *ngFor="let item of characters | async | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements }"
     >
       <img
         class="character-img"
-        src="{{host}}assets/chuni/chara/CHU_UI_Character_{{math.floor(item.characterId/10)|formatNumber:4}}_{{item.characterId%10|formatNumber:2}}_00.webp"
+        src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|characterImage}}_00.webp"
         alt=""
         (error)="handleErrorImg($event)"
         (click)="levelUp(item.characterId, item.level)"

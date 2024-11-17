@@ -5,7 +5,6 @@
     (click)="showDetail(item.songInfo)">
     <div class="card-body">
       <div class="card-title">{{item.userPlayDate}}</div>
-      <mat-card-content>
         <div class="song-header">
           <img *ngIf="enableImages == true" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.webp">
           <div class="song-info">
@@ -66,8 +65,6 @@
             </table>
           </div>
         </div>
-      </mat-card-content>
-
     </div>
 
   </div>

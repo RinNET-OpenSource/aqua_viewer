@@ -1,23 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatGridListModule} from '@angular/material/grid-list';
 import {V2Routes} from './v2.routing';
 import {V2ProfileComponent} from './v2-profile/v2-profile.component';
 import {V2RatingComponent} from './v2-rating/v2-rating.component';
@@ -32,8 +15,6 @@ import {V2VersionSettingDialog} from './v2-setting/v2-version-setting/v2-version
 import {V2UserBoxSettingDialog} from './v2-userbox/v2-userbox-setting/v2-userbox-setting.dialog';
 import {V2CharacterComponent} from './v2-character/v2-character.component';
 import {V2SonglistComponent} from './v2-songlist/v2-songlist.component';
-import {V2SongDetailComponent} from './v2-song-detail/v2-song-detail.component';
-import {V2SongPlaylogComponent} from './v2-song-playlog/v2-song-playlog.component';
 import {V2UserRankingComponent} from './v2-user-ranking/v2-user-ranking.component';
 import {V2UserBoxComponent} from './v2-userbox/v2-userbox.component';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -44,6 +25,7 @@ import {HttpClient } from '@angular/common/http';
 import { V2SongScoreRankingComponent } from './v2-song-score-ranking/v2-song-score-ranking.component';
 import {NgIcon} from '@ng-icons/core';
 import { V2RivalListComponent } from './v2-rival-list/v2-rival-list.component';
+import { CharacterImagePipe } from './util/character-image.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -54,24 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     FormsModule,
     V2Routes,
-    MatFormFieldModule,
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatInputModule,
-    MatSelectModule,
     ReactiveFormsModule,
-    MatMenuModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatGridListModule,
-    FlexLayoutModule,
     NgxPaginationModule,
     ToolsModule,
     TranslateModule.forChild({
@@ -83,28 +48,30 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NgIcon
   ],
-    declarations: [
-        V2ProfileComponent,
-        V2RatingComponent,
-        ToRatingPipe,
-        RatingClass,
-        CourceIdToClassPipe,
-        V2RecentComponent,
-        ToRankPipe,
-        V2SettingComponent,
-        V2NameSettingDialog,
-        V2VersionSettingDialog,
-        V2CharacterComponent,
-        V2SonglistComponent,
-        V2SongDetailComponent,
-        V2SongPlaylogComponent,
-        V2UserBoxComponent,
-        V2UserBoxSettingDialog,
-        V2RatingComponent,
-        V2UserRankingComponent,
-        V2SongScoreRankingComponent,
-        V2RivalListComponent
-    ]
+  exports: [
+    CharacterImagePipe
+  ],
+  declarations: [
+    V2ProfileComponent,
+    V2RatingComponent,
+    ToRatingPipe,
+    RatingClass,
+    CourceIdToClassPipe,
+    V2RecentComponent,
+    ToRankPipe,
+    V2SettingComponent,
+    V2NameSettingDialog,
+    V2VersionSettingDialog,
+    V2CharacterComponent,
+    V2SonglistComponent,
+    V2UserBoxComponent,
+    V2UserBoxSettingDialog,
+    V2RatingComponent,
+    V2UserRankingComponent,
+    V2SongScoreRankingComponent,
+    V2RivalListComponent,
+    CharacterImagePipe
+  ]
 })
 export class V2Module {
 }

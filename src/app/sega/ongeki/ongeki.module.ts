@@ -10,7 +10,6 @@ import {ToolsModule} from '../../util/tools.module';
 import {ToAttributeClassPipe} from './util/to-attribute-class.pipe';
 import {OngekiSongListComponent} from './ongeki-song-list/ongeki-song-list.component';
 import {OngekiRivalListComponent} from './ongeki-rival-list/ongeki-rival-list.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {OngekiBattlePointComponent} from './ongeki-battle-point/ongeki-battle-point.component';
 import {OngekiRatingComponent} from './ongeki-rating/ongeki-rating.component';
 import {ToLevelDecimalPipe} from './util/to-level-decimal.pipe';
@@ -72,7 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     NgxPaginationModule,
     ToolsModule,
-    FlexLayoutModule,
     NgbAccordionModule,
     NgbCollapseModule,
     NgbPopoverModule,

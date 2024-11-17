@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import {ChusanMusic} from '../model/ChusanMusic';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {ApiService} from '../../../../api.service';
@@ -18,15 +16,12 @@ import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-scor
 })
 export class V2SonglistComponent implements OnInit {
 
-  dataSource = new MatTableDataSource();
   songList: ChusanMusic[] = [];
   filteredSongList: ChusanMusic[];
   displayedColumns: string[] = ['musicId', 'name', 'artistName'];
   host = environment.assetsHost;
   currentPage: 1;
   totalElements = 0;
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private dbService: NgxIndexedDBService,
@@ -50,10 +45,6 @@ export class V2SonglistComponent implements OnInit {
         this.currentPage = data.page;
       }
     });
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   pageChanged(page: number) {

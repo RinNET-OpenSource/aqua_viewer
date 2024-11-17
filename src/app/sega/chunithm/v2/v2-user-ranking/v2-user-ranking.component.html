@@ -17,7 +17,6 @@
     <colgroup>
       <col style="width: 2rem;">
       <col style="width: auto;">
-      <col style="width: min-content;">
     </colgroup>
     <tbody>
     <tr class="ranking-row" *ngFor="let item of chusanUserRankings; let i = index">
@@ -31,7 +30,7 @@
       </th>
       <td>
         <div class="d-flex align-items-center">
-<!--          <img class="ranking-item-icon me-2" [class.ranking-item-icon-xl]="i == 0" [class.ranking-item-icon-lg]="i == 1 || i == 2" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{characterId / 10}}_00_02.webp">-->
+          <img class="ranking-item-icon me-2" [class.ranking-item-icon-xl]="i == 0" [class.ranking-item-icon-lg]="i == 1 || i == 2" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{item.characterId|characterImage}}_02.webp">
           <div>
             <div [class.fw-bold]="i == 0 || i == 1 || i == 2">{{ item.userName | fullWidth }}</div>
             <div>{{ (item.nowRating/100).toFixed(2) }}<span class="ms-1 text-secondary small">(Max: {{(item.highestRating/100).toFixed(2)}})</span></div>

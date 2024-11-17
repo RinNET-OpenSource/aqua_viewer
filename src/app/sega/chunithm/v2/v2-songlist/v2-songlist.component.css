@@ -2,15 +2,6 @@ table {
   width: 100%;
 }
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-
-.mat-mdc-table {
-  background: transparent;
-}
-
 .song-info {
   padding: 4px;
 }

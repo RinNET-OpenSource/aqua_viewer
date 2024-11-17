@@ -53,7 +53,7 @@ export class CardsComponent implements OnInit {
         });
       });
       this.loaded = true;
-    })
+    });
   }
 
   toggleLuidVisibility(luid: Luid) {

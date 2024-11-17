@@ -10,7 +10,7 @@ import {V2Profile} from '../model/V2Profile';
 import {V2Character} from '../model/V2Character';
 import {ChusanCharacter} from '../model/ChusanCharacter';
 import {environment} from '../../../../../environments/environment';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { UserService } from 'src/app/user.service';
 import {FormControl} from '@angular/forms';
 
@@ -33,6 +33,7 @@ export class V2CharacterComponent implements OnInit {
   allCharacters: Observable<V2Character[]>;
 
   currentPage = 1;
+  pageSize = 12;
   totalElements = 0;
   math = Math;
 
@@ -41,6 +42,7 @@ export class V2CharacterComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
+    public route: ActivatedRoute,
     public router: Router
   ) {
     this.aimeId = String(this.userService.currentUser.defaultCard.extId);
@@ -48,7 +50,16 @@ export class V2CharacterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pageChanged(this.currentPage);
+    this.route.queryParams.subscribe((data) => {
+      if (data.page) {
+        this.currentPage = data.page;
+      }
+      this.load(this.currentPage);
+    });
+  }
+
+  pageChanged(page: number) {
+    this.router.navigate(['chuni/v2/character'], {queryParams: {page}});
   }
 
   getEquippedCharaName() {
@@ -74,9 +85,8 @@ export class V2CharacterComponent implements OnInit {
     }, error => this.messageService.notice(error));
   }
 
-  pageChanged(page: number) {
-    const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
-    const pageParam = new HttpParams().set('aimeId', this.aimeId).set('size', 12).set('page', String(page));
+  load(page: number) {
+    const pageParam = new HttpParams().set('aimeId', this.aimeId).set('size', this.pageSize).set('page', String(page - 1));
     this.allCharacters = this.api.get('api/game/chuni/v2/character', new HttpParams().set('aimeId', this.aimeId)).pipe();
     this.characters = this.api.get('api/game/chuni/v2/character', pageParam).pipe(
       tap(
