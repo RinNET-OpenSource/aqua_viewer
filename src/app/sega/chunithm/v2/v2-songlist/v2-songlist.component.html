@@ -21,10 +21,21 @@
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
 
-<input type="text" #search class="form-control mb-2" placeholder="Filter" (input)="filterSongs(search.value)">
+<div class="row justify-content-start mb-2 g-2">
+  <div *ngFor="let genre of genres; let i = index" class="col-auto">
+    <input type="checkbox" class="form-check-input" [value]="genre" [id]="'genre' + i" [formControl]="genreControls.controls[i]">
+    <label class="checkbox-label" [for]="'genre' + i">{{genresMap.get(genre)}}</label>
+  </div>
+  <div class="col-auto">
+    <input type="checkbox" class="form-check-input" value="lunatic" id="lunatic" [formControl]="weControl">
+    <label class="checkbox-label" for="lunatic">World's End</label>
+  </div>
+</div>
+
+<input type="text" #search class="form-control mb-2" placeholder="Filter" [formControl]="patternControl">
 
 <div class="card-btn card mb-2 text-start user-select-none"  (click)="showDetail(item)"
-     *ngFor="let item of filteredSongList | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
+     *ngFor="let item of filteredSongList | async | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
   <div class="song-info card-body hstack gap-2 p-0">
     <div class="jacket-container ratio ratio-1x1">
       <!--jacket-->
@@ -63,7 +74,7 @@
           {{item.levels['4'] | toLevelString}}
         </span>
         <span *ngIf="item.levels['5'].enable" class="col-auto difficulty difficulty-we badge rounded-pill">
-          World's End
+          <span class="color-we">World's End</span>
         </span>
       </div>
     </div>

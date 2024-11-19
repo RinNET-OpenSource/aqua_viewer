@@ -60,6 +60,7 @@ export class V2RecentComponent implements OnInit {
             this.dbService.getByID<ChusanMusic>('chusanMusic', x.musicId).subscribe(
               m => x.songInfo = m
             );
+            x.userPlayDate = new Date(x.userPlayDate);
           });
           return data.content;
         },

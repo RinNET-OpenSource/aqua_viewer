@@ -1,71 +1,118 @@
 <h1 class="page-heading">Play Record</h1>
 
-<div *ngIf="recent" class="record">
-  <div class="card mt-3" *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }"
-    (click)="showDetail(item.songInfo)">
-    <div class="card-body">
-      <div class="card-title">{{item.userPlayDate}}</div>
-        <div class="song-header">
-          <img *ngIf="enableImages == true" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.webp">
-          <div class="song-info">
-            <span class="title">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</span><br>
-            <span
-              class="info">{{item.songInfo != null ? item.songInfo.artistName : ''}}</span>
+<div *ngIf="recent" class="d-flex flex-column gap-2">
+  <div class="card"
+    *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
+    <div class="card-header p-0">
+      <div class="position-relative">
+        <div class="d-flex rounded-top g-0 flex-nowrap">
+          <div>
+            <img class="jacket" src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.webp">
           </div>
-          <div class="level">
-            {{difficulty[item.level]}}
+          <div class="flex-grow-1 overflow-hidden">
+            <div class="info-container">
+              <div class="ps-2 py-1 difficulty-{{difficulty[item.level].toLowerCase()}}" >
+                <div class="track">Track.{{item.track}}</div>
+                <div class="difficulty">{{difficulty[item.level]}}</div>
+                <!--            <div>{{item.songInfo.levels[item.level] | toLevelString}}</div>-->
+              </div>
+              <div class="info-second">
+                <div class="w-100">
+                  <div class="title ps-2">{{item.songInfo?.name ?? 'musicId:' + item.musicId }}</div>
+                  <hr class="w-100 my-1">
+                  <div class="artist ps-2">{{item.songInfo?.artistName??'Unknown Artist' }}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div class="level-container">
+          <div class="level-label">Level</div>
+          <div class="level-value">{{ item.songInfo.levels[item.level] | toLevelString }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row g-3 flex-column-reverse flex-sm-row">
+        <div class="col-12 col-sm-6">
+          <table class="table table-striped table-sm m-0">
+            <tbody>
+            <tr>
+              <th class="judge-justice-critical">JUSTICE C.</th>
+              <td>{{ item.judgeCritical + item.judgeHeaven }}</td>
+              <th class="judge-tap">TAP</th>
+              <td>{{ item.rateTap / 100 }}%</td>
+            </tr>
+            <tr>
+              <th class="judge-justice">JUSTICE</th>
+              <td>{{ item.judgeJustice }}</td>
+              <th class="judge-hold">HOLD</th>
+              <td>{{ item.rateHold / 100 }}%</td>
+            </tr>
+            <tr>
+              <th class="judge-attack">ATTACK</th>
+              <td>{{ item.judgeAttack }}</td>
+              <th class="judge-slide">SLIDE</th>
+              <td>{{ item.rateSlide / 100 }}%</td>
+            </tr>
+            <tr>
+              <th class="judge-miss">MISS</th>
+              <td>{{ item.judgeGuilty }}</td>
+              <th class="judge-air">AIR</th>
+              <td>{{ item.rateAir / 100 }}%</td>
+            </tr>
+            <tr>
+              <th>Combo</th>
+              <td>{{ item.maxCombo }}</td>
+              <th class="judge-flick">FLICK</th>
+              <td>{{ item.rateFlick / 100 }}%</td>
+            </tr>
 
-        <div class="result-content">
-          <div class="left">
-            Rank:<br>
-            <span class="achievement-value">{{item.rank|toRank}}</span>
-            <br>
-            <br>Score:<br>
-            <span class="score-value">{{item.score}}</span>
-            <br>
-            <br>{{item.isNewRecord ? 'NEW RECORD' : ''}}<br>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="row h-100 align-items-center">
+            <div class="col-6">
+              <div class="h-100 d-flex align-items-center">
+                <div>
+                  <div>
+                    <div class="score">{{ item.score }}</div>
+                  </div>
+                  <div>
+                    <div class="rating">{{ ((item.score | toTechRating: (item.songInfo.levels[item.level].level * 100 + item.songInfo.levels[item.level].levelDecimal)) / 100).toFixed(2).toString() }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="h-100 d-flex align-items-center justify-content-center display-2 fw-bold">
+                {{ item.rank | toRank }}
+              </div>
+            </div>
           </div>
-          <div class="right">
-            <table class="table table-borderless table-striped align-middle">
-              <tbody>
-              <tr>
-                <th>JUSTICE C.</th>
-                <td>{{item.judgeCritical + item.judgeHeaven}}</td>
-                <td>TAP</td>
-                <td>{{item.rateTap / 100}}%</td>
-              </tr>
-              <tr>
-                <th>JUSTICE</th>
-                <td>{{item.judgeJustice}}</td>
-                <td>HOLD</td>
-                <td>{{item.rateHold / 100}}%</td>
-              </tr>
-              <tr>
-                <th>ATTACK</th>
-                <td>{{item.judgeAttack}}</td>
-                <td>SLIDE</td>
-                <td>{{item.rateSlide / 100}}%</td>
-              </tr>
-              <tr>
-                <th>MISS</th>
-                <td>{{item.judgeGuilty}}</td>
-                <td>AIR</td>
-                <td>{{item.rateAir / 100}}%</td>
-              </tr>
-              <tr>
-                <th>Combo</th>
-                <td>{{item.maxCombo}}</td>
-                <td>FLICK</td>
-                <td>{{item.rateFlick / 100}}%</td>
-              </tr>
-
-              </tbody>
-            </table>
           </div>
         </div>
     </div>
+    <div class="card-footer text-end">
+      {{item.userPlayDate.toLocaleString()}}
+    </div>
+<!--        <div class="result-content">-->
+<!--          <div class="left">-->
+<!--            Rank:<br>-->
+<!--            <span class="achievement-value">{{ item.rank|toRank }}</span>-->
+<!--            <br>-->
+<!--            <br>Score:<br>-->
+<!--            <span class="score-value">{{ item.score }}</span>-->
+<!--            <br>-->
+<!--            <br>{{ item.isNewRecord ? 'NEW RECORD' : '' }}<br>-->
+<!--          </div>-->
+<!--          <div class="right">-->
+
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
   </div>
   <div class="pagination">

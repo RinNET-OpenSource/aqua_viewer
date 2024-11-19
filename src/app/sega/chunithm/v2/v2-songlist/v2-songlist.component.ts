@@ -7,6 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../../../../environments/environment';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-score-ranking.component';
+import {FormArray, FormControl} from '@angular/forms';
+import {combineLatest, debounceTime, distinctUntilChanged, lastValueFrom, map, Observable, startWith} from 'rxjs';
 
 
 @Component({
@@ -16,12 +18,25 @@ import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-scor
 })
 export class V2SonglistComponent implements OnInit {
 
+  genres = ['POPS_ANIME', 'NICONICO', 'TOUHOU', 'VARIETY', 'GEKICHUMA', 'IRODORI', 'ORIGINAL'];
+  genresMap = new Map([
+    ['POPS_ANIME', 'POPS & ANIME'],
+    ['NICONICO', 'niconico'],
+    ['TOUHOU', '東方Project'],
+    ['VARIETY', 'VARIETY'],
+    ['GEKICHUMA', 'ゲキマイ'],
+    ['IRODORI', 'イロドリミドリ'],
+    ['ORIGINAL', 'ORIGINAL']
+  ]);
   songList: ChusanMusic[] = [];
-  filteredSongList: ChusanMusic[];
+  filteredSongList: Observable<ChusanMusic[]>;
   displayedColumns: string[] = ['musicId', 'name', 'artistName'];
   host = environment.assetsHost;
   currentPage: 1;
   totalElements = 0;
+  genreControls = new FormArray<FormControl<boolean>>([]);
+  weControl = new FormControl(false);
+  patternControl = new FormControl('');
 
   constructor(
     private dbService: NgxIndexedDBService,
@@ -31,15 +46,11 @@ export class V2SonglistComponent implements OnInit {
     public route: ActivatedRoute,
     private offcanvasService: NgbOffcanvas,
   ) {
+    this.genres.forEach(() => this.genreControls.push(new FormControl(false)));
   }
 
   ngOnInit() {
-    this.dbService.getAll<ChusanMusic>('chusanMusic').subscribe(
-      x => {
-        this.songList = x;
-        this.filteredSongList = [...this.songList];
-      }
-    );
+    this.prepare();
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
         this.currentPage = data.page;
@@ -47,25 +58,43 @@ export class V2SonglistComponent implements OnInit {
     });
   }
 
+  async prepare() {
+    this.songList = await lastValueFrom(this.dbService.getAll<ChusanMusic>('chusanMusic'));
+
+    this.filteredSongList = combineLatest([
+      this.genreControls.valueChanges.pipe(startWith(new Array<boolean>())),
+      this.patternControl.valueChanges.pipe(startWith('')),
+      this.weControl.valueChanges.pipe(startWith(false)),
+    ]).pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(([genreValues, pattern, weChecked]) => {
+        let selectedGenres = this.genres.filter((_, index) => genreValues[index]);
+        if (selectedGenres.length === 0 && !weChecked){
+          selectedGenres = this.genres;
+        }
+
+        let filtered = this.songList;
+        if (selectedGenres.length !== this.genres.length){
+          filtered = filtered.filter(song => selectedGenres.includes(song.genre) || (weChecked && song.levels['5'].enable));
+        }
+        filtered = filtered.filter(song => this.filterByPattern(song, pattern));
+        return filtered;
+      })
+    );
+  }
+
   pageChanged(page: number) {
     this.router.navigate(['chuni/v2/song'], {queryParams: {page}});
   }
 
-  filterSongs(searchTerm: string) {
-    if (searchTerm) {
-      console.log(searchTerm);
-      this.filteredSongList = this.songList.filter(song =>
-      {
-        const lowerSearchTerm = searchTerm.toLowerCase();
-        const sameId = song.musicId === Number(searchTerm);
-        const includesName = song.name.toLowerCase().includes(lowerSearchTerm);
-        // const includesSortName = song.sotrName.toLowerCase().includes(lowerSearchTerm);
-        const includesArtist = song.artistName.toLowerCase().includes(lowerSearchTerm);
-        return sameId || includesName || includesArtist;
-      });
-    } else {
-      this.filteredSongList = [...this.songList];
-    }
+  filterByPattern(song: ChusanMusic, searchTerm: string){
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    const sameId = song.musicId === Number(searchTerm);
+    const includesName = song.name.toLowerCase().includes(lowerSearchTerm);
+    // const includesSortName = song.sotrName.toLowerCase().includes(lowerSearchTerm);
+    const includesArtist = song.artistName.toLowerCase().includes(lowerSearchTerm);
+    return sameId || includesName || includesArtist;
   }
 
   showDetail(music: ChusanMusic) {
@@ -75,6 +104,4 @@ export class V2SonglistComponent implements OnInit {
     });
     offcanvasRef.componentInstance.music = music;
   }
-
-    protected readonly Number = Number;
 }

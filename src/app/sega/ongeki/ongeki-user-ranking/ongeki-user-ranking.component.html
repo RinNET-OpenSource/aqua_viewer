@@ -51,7 +51,6 @@
     <colgroup>
       <col style="width: 2rem;">
       <col style="width: auto;">
-      <col style="width: min-content;">
     </colgroup>
     <tbody>
     <tr class="ranking-row" *ngFor="let item of OngekiPcRankings; let i = index">
@@ -64,9 +63,14 @@
         </span>
       </th>
       <td>
-        <span [class.fw-bold]="i == 0 || i == 1 || i == 2">{{ item.username | fullWidth }}</span>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <img class="ranking-item-icon me-2" [class.ranking-item-icon-xl]="i == 0" [class.ranking-item-icon-lg]="i == 1 || i == 2" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{item.cardId}}.webp">
+            <div [class.fw-bold]="i == 0 || i == 1 || i == 2">{{ item.username | fullWidth }}</div>
+          </div>
+          <div><span>{{ item.pc }}</span></div>
+        </div>
       </td>
-      <td class="text-end">{{ item.pc }}</td>
     </tr>
     </tbody>
   </table>

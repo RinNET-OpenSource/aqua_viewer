@@ -6,8 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageService {
   public languages = new Map([
-    ["en", "English"],
-    ["zh", "简体中文"]
+    ['en', 'English'],
+    ['zh', '简体中文']
   ]);
   public languageKeys: string[]
 

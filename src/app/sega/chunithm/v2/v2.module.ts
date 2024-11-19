@@ -27,6 +27,7 @@ import {NgIcon} from '@ng-icons/core';
 import {V2RivalListComponent} from './v2-rival-list/v2-rival-list.component';
 import {CharacterImagePipe} from './util/character-image.pipe';
 import {ToLevelStringPipe} from './util/to-level-string.pipe';
+import { ToTechRatingPipe } from './util/to-tech-rating.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -72,7 +73,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     V2SongScoreRankingComponent,
     V2RivalListComponent,
     CharacterImagePipe,
-    ToLevelStringPipe
+    ToLevelStringPipe,
+    ToTechRatingPipe
   ]
 })
 export class V2Module {
