@@ -32,11 +32,11 @@
       *ngFor="let item of dxpasses | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }; let i = index"
       class="col-12 col-xl-3 col-md-4 col-sm-6">
       <div class="card position-relative">
-        <img src="assets/mai2/dxpass/base/UI_CardBase_000000{{item.cardTypeId}}_{{get6digit(item.mapId)}}_S.png"
+        <img src="{{host}}assets/mai2/dxpass/base/UI_CardBase_000000{{item.cardTypeId}}_{{get6digit(item.mapId)}}_S.webp"
              class="card-img-top img-fluid" alt="" (click)="toggleDetail(i)">
-        <img src="assets/mai2/dxpass/chara/UI_CardChara_{{get6digit(item.charaId)}}_S.png"
+        <img src="{{host}}assets/mai2/dxpass/chara/UI_CardChara_{{get6digit(item.charaId)}}_S.webp"
              class="card-img-top img-fluid overlay-image" alt="" (click)="toggleDetail(i)">
-        <img src="assets/mai2/dxpass/frame/UI_CardFrame_000000{{item.cardTypeId}}_S.png"
+        <img src="{{host}}assets/mai2/dxpass/frame/UI_CardFrame_000000{{item.cardTypeId}}_S.webp"
              class="card-img-top img-fluid overlay-image" alt="" (click)="toggleDetail(i)">
         <div class="card-body overflow-hidden py-0 px-2 mt-2 mb-2">
           <div class="d-flex justify-content-between">

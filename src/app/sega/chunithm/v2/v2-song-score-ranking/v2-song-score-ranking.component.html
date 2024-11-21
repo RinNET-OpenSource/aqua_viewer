@@ -13,7 +13,7 @@
         <span class="card-subtitle music-artistName" style="font-size: 12px">{{music.artistName}}</span>
         <hr>
       </div>
-      <section>
+      <section *ngIf="songData">
         <ng-template #difficultyDetail let-difficulty>
           <div class="card my-2">
             <ng-container [ngSwitch]="difficulty">
@@ -62,10 +62,10 @@
                   </div>
                 </div>
               </div>
-              <div *ngSwitchCase="5" class="card-header py-1 px-2 text-truncate border border-danger bg-we">
+              <div *ngSwitchCase="5" class="card-header py-1 px-2 text-truncate">
                 <div class="hstack">
-                  <ng-icon name="bootstrap-stop-fill" class="color-we h-100 d-flex align-items-center"></ng-icon>
-                  <div class="p-0 align-middle ps-1 small fw-bold color-ultima">
+<!--                  <ng-icon name="bootstrap-stop-fill" class="color-we h-100 d-flex align-items-center"></ng-icon>-->
+                  <div class="p-0 align-middle ps-1 small fw-bold color-we">
                     World's End
                   </div>
                 </div>
@@ -131,7 +131,7 @@
           </ng-container>
         </div>
       </nav>
-      <div class="tab-content" id="nav-tabContent">
+      <div *ngIf="songData" class="tab-content" id="nav-tabContent">
         <ng-container *ngIf="music.musicId < 8e3">
           <div class="tab-pane fade" id="nav-ba" role="tabpanel" aria-labelledby="nav-ba-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>

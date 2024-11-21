@@ -5,7 +5,7 @@
 </div>
 <div *ngIf="userService?.currentUser" class="row px-2 mb-3">
   <div *ngFor="let card of userService.currentUser.cards" class="col-lg-6 p-1">
-    <div class="card">
+    <div class="card h-100">
       <div class="card-header d-flex align-items-center justify-content-between">
         <div class="float-start">
             No.{{card.id}}
@@ -38,11 +38,11 @@
         </div>
         <div class="mb-3 hstack">
           <div class="font-monospace">
-            {{luids.get(card.luid).displayValue}}
+            {{luids.get(card.luid)?.displayValue}}
           </div>
           <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="toggleLuidVisibility(luids.get(card.luid))">
-            <ng-icon *ngIf="luids.get(card.luid).hidden" name="bootstrap-eye"></ng-icon>
-            <ng-icon *ngIf="!luids.get(card.luid).hidden" name="bootstrap-eye-slash"></ng-icon>
+            <ng-icon *ngIf="luids.get(card.luid)?.hidden" name="bootstrap-eye"></ng-icon>
+            <ng-icon *ngIf="!luids.get(card.luid)?.hidden" name="bootstrap-eye-slash"></ng-icon>
           </div>
           <div class="ms-2 p-0 user-select-none cursor-pointer d-flex align-items-center" (click)="changeAccessCodeForm.setValue({accessCode: card.luid});open(changeAccesscode)">
             <ng-icon name="bootstrap-pencil-square"></ng-icon>
@@ -71,11 +71,11 @@
 
         <div *ngFor="let item of card.cardExternalList" class="mb-3 hstack">
           <div class="font-monospace align-middle">
-            {{luids.get(item.luid).displayValue}}
+            {{luids.get(item.luid)?.displayValue}}
           </div>
           <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="toggleLuidVisibility(luids.get(item.luid))">
-            <ng-icon *ngIf="luids.get(item.luid).hidden" name="bootstrap-eye"></ng-icon>
-            <ng-icon *ngIf="!luids.get(item.luid).hidden" name="bootstrap-eye-slash"></ng-icon>
+            <ng-icon *ngIf="luids.get(item.luid)?.hidden" name="bootstrap-eye"></ng-icon>
+            <ng-icon *ngIf="!luids.get(item.luid)?.hidden" name="bootstrap-eye-slash"></ng-icon>
           </div>
           <div class="ms-2 p-0 align-middle user-select-none cursor-pointer" (click)="open(removeExternal)">
             <ng-icon name="bootstrap-trash"></ng-icon>

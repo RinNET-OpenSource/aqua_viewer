@@ -8,75 +8,6 @@
   width: 60%;
 }
 
-.level {
-  display: flex;
-  height: 50px;
-  /*flex: 1;*/
-  align-items: center;
-}
-
-.level .level-title {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  align-items: center;
-}
-
-.level .level-img {
-  height: 40px;
-  margin-left: 30px;
-}
-
-.level0 .level-title {
-  border: 1px solid #64cc5a;
-}
-.level0 .level-title span {
-  background-color: #64cc5a;
-}
-
-.level1 .level-title {
-  border: 1px solid #e9c047;
-}
-.level1 .level-title span {
-  background-color: #e9c047;
-}
-
-.level2 .level-title {
-  border: 1px solid #e97682;
-}
-.level2 .level-title span {
-  background-color: #e97682;
-}
-
-.level3 .level-title {
-  border: 1px solid #b478e1;
-}
-.level3 .level-title span {
-  background-color: #b478e1;
-}
-
-.level4 .level-title {
-  border: 1px solid #ffffff;
-}
-.level4 .level-title span {
-  background-color: #ffffff;
-}
-
-.level .level-title span {
-  display: block;
-  width: 100%;
-  color: #fff;
-  font-size: 10px;
-  text-align: center;
-}
-
-.level .level-title span {
-  text-align: center;
-}
-
 .fbab-img {
   margin-left: 20px;
 }
@@ -93,31 +24,31 @@
 }
 
 .color-basic {
-  color: $green;
+  color: #00ab84;
 }
 
 .color-advanced {
-  color: $yellow;
+  color: #ff7e00;
 }
 
 .color-expert {
-  color: $red;
+  color: #f12929;
 }
 
 .color-master {
-  color: $purple;
+  color: #8e1be5;
 }
 
 .color-ultima {
-  color: $black;
+  color: #424242;
 }
 
 .color-we {
-  color: $white;
-}
-
-.bg-we {
-  background: linear-gradient(to right, #CB00B0, #0BE9EE, #ACE559, #FCE116, #CB00B0, #0BE9EE, #ACE559, #FCE116);
+  background: linear-gradient(45deg, #0BE9EE, #ACE559, #FCE116, #CB00B0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
 }
 
 .honor{

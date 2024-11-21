@@ -1,52 +1,182 @@
-.record mat-card-title {
-  font-size: 1.2em;
-  text-align: right;
+.jacket{
+  width: 7rem;
+  aspect-ratio: 1;
 }
 
-.song-header {
+.info-container{
+  min-height: 100%;
   display: flex;
+  flex-direction: column;
 }
 
-.song-header img {
-  width: 42px;
-  height: 42px;
-}
-
-.song-header .level {
-  margin-left: auto;
-  font-size: 1.2em;
-}
-
-.song-info {
-  margin-left: 4px;
-}
-
-.song-info .title {
-  font-size: 1.2em;
-}
-
-.song-info .info {
-  color: #cfcfcf;
-}
-
-.result-content {
+.info-second {
+  flex: 1;
   display: flex;
+  align-items: center;
 }
 
-.result-content .left {
-  min-width: 30%;
-  text-align: center;
-  margin: auto;
+.track{
+  font-size: 0.8rem;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.result-content .right {
-  width: 100%;
+.difficulty{
+  font-size: 1.1rem;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.achievement-value {
-  font-size: 1.5rem;
+.title{
+  font-size: 1.1rem;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.score-value {
+.artist{
+  font-size: 0.6rem;
+  color: var(--bs-secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.difficulty-basic {
+  background: #00ab84;
+  border: 1px solid #145830;
+  color: white;
+}
+
+.difficulty-advanced {
+  background: #ff7e00;
+  border: 1px solid #995014;
+  color: white;
+}
+
+.difficulty-expert {
+  background: rgba(241, 41, 41, 0.7);
+  border: 1px solid #7B1F18;
+  color: white;
+}
+
+.difficulty-master {
+  background: rgba(142, 27, 229, 0.7);
+  border: 1px solid #381C47;
+  color: white;
+}
+
+.difficulty-ultima {
+  background: #424242;
+  border: 1px solid #ff2854;
+  color: white;
+}
+
+.color-we {
+  background: linear-gradient(45deg, #0BE9EE, #ACE559, #FCE116, #CB00B0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+}
+
+.difficulty-we {
+  background: #343636;
+  border: 1px solid var(--bs-secondary);
+}
+
+.score{
   font-size: 1.4rem;
+}
+
+.rating{
+  font-size: 1.4rem;
+}
+
+.score::before{
+  font-size: 0.8rem;
+  content: "Score";
+  display: block;
+  color: darkcyan;
+}
+
+.rating::before{
+  font-size: 0.8rem;
+  content: "Rating";
+  display: block;
+  color: darkcyan;
+}
+
+.level-container{
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  background: white;
+}
+
+.level-label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  color: #0d2e40;
+  padding-inline: 0.3rem;
+  padding-top: 2px;
+}
+
+.level-value{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  background-color: #0d2e40;
+  color: white;
+  width: 4rem;
+  margin: 2px;
+  font-weight: bold;
+}
+
+.judge-justice-critical{
+  font-weight: bold;
+  background: linear-gradient(to bottom, #fef800 50%, #5abeed 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
+}
+
+.judge-justice{
+  color: #e68f1c;
+}
+
+.judge-attack{
+  color: #4be15d;
+}
+
+.judge-miss{
+  color: var(--bs-body-color);
+}
+
+.judge-tap{
+  color: #ff5f6e;
+}
+
+.judge-hold{
+  color: #f0962d;
+}
+
+.judge-slide{
+  color: #46b7ff;
+}
+
+.judge-air{
+  color: #4ccc4b;
+}
+
+.judge-flick{
+  color: #00d8c9;
 }

@@ -7,7 +7,7 @@
       </div>
       <div class="card-body">
         <div class="avatarPreview">
-          <div class="avatarContainer">
+          <div *ngIf="profile" class="avatarContainer">
             <img id="avatarFeet" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.webp">
             <img id="avatarBody" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_{{profile.avatarSkin|formatNumber:8}}.webp">
             <img id="avatarFace" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Tex_Face.webp">
@@ -42,7 +42,7 @@
             <div>
               <p class="text-truncate">{{item.value | async}}</p>
             </div>
-            <div class="item-body" [ngSwitch]="item.name">
+            <div *ngIf="profile" class="item-body" [ngSwitch]="item.name">
               <img *ngSwitchCase="'Nameplate'" src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{profile.nameplateId|formatNumber:8}}.webp">
               <img *ngSwitchCase="'MapIcon'" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{profile.mapIconId|formatNumber:8}}.webp">
               <img *ngSwitchCase="'SystemVoice'" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{profile.voiceId|formatNumber:8}}.webp">

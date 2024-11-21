@@ -4,10 +4,8 @@ import {ApiService} from '../../../api.service';
 import {UserService} from '../../../user.service';
 import {MessageService} from '../../../message.service';
 import {HttpParams} from '@angular/common/http';
-import {forEach, toNumber} from 'lodash';
 import {firstValueFrom} from 'rxjs';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
-import {OngekiMusic} from '../../ongeki/model/OngekiMusic';
 import {Maimai2Music} from '../model/Maimai2Music';
 
 @Component({
@@ -46,9 +44,6 @@ export class Maimai2RatingComponent implements OnInit {
   recommendSPlus: Record<number, number> = {};
   displayRatingTableHeader: number[] = [0, 0, 0, 0, 0];
   displayRatingRecommendation: number[][] = [];
-
-
-  protected readonly toNumber = toNumber;
 
   async ngOnInit() {
     const aimeId = String(this.userService.currentUser.defaultCard.extId);

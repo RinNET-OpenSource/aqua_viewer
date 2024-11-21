@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
 import {V2UserRanking} from '../model/V2UserRanking';
 import {ApiService} from '../../../../api.service';
 import {V2PcRanking} from '../model/V2PcRanking';

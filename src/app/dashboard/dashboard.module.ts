@@ -2,8 +2,6 @@ import {NgModule} from '@angular/core';
 
 import {CommonModule} from '@angular/common';
 import {DashboardComponent} from './dashboard.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
 import {NgForOf} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -18,6 +16,7 @@ import {
 import { AppRoutingModule } from '../app-routing.module';
 import { AnnouncementComponent } from '../announcements/announcement/announcement.component';
 import { ToolsModule } from '../util/tools.module';
+import {V2Module} from '../sega/chunithm/v2/v2.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -30,8 +29,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     imports: [
         AppRoutingModule,
         CommonModule,
-        MatCardModule,
-        MatButtonModule,
         NgForOf,
         FormsModule,
         ReactiveFormsModule,
@@ -47,7 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
             bootstrapCheckLg,
             bootstrapXLg
         }),
-        ToolsModule
+        ToolsModule,
+        V2Module
     ]
 })
 export class DashboardModule {
