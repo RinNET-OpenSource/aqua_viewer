@@ -30,5 +30,5 @@ export enum Difficulty {
   EXPERT = 2,
   MASTER = 3,
   ULTIMA = 4,
-  WORLD_END = 5,
+  'WORLD\'S END' = 5,
 }

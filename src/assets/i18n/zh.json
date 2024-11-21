@@ -413,6 +413,10 @@
       "Title": "玩家排行",
       "Rating": "评级",
       "Activity": "活跃度"
+    },
+    "RecentPage": {
+      "Title": "游玩记录",
+      "Ranking": "排名"
     }
   },
   "Maimai2": {

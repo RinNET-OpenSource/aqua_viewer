@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-score-ranking.component';
 import { UserService } from 'src/app/user.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-v2-recent',
@@ -22,7 +23,7 @@ export class V2RecentComponent implements OnInit {
 
   host = environment.assetsHost;
   enableImages = environment.enableImages;
-
+  loading: boolean;
   aimeId: string;
 
   recent: Observable<V2PlayLog[]>;
@@ -37,12 +38,20 @@ export class V2RecentComponent implements OnInit {
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
     private offcanvasService: NgbOffcanvas,
+    public route: ActivatedRoute,
+    public router: Router
   ) {
   }
 
   ngOnInit() {
     this.aimeId = String(this.userService.currentUser.defaultCard.extId);
-    this.load(this.currentPage);
+    this.loading = true;
+    this.route.queryParams.subscribe((data) => {
+      if (data.page) {
+        this.currentPage = data.page;
+      }
+      this.load(this.currentPage);
+    });
   }
 
   load(page: number) {
@@ -52,6 +61,7 @@ export class V2RecentComponent implements OnInit {
         data => {
           this.totalElements = data.totalElements;
           this.currentPage = page;
+          this.loading = false;
         }
       ),
       map(
@@ -75,5 +85,24 @@ export class V2RecentComponent implements OnInit {
       scroll: false,
     });
     offcanvasRef.componentInstance.music = music;
+  }
+
+  pageChanged(page: number) {
+    this.router.navigate(['chuni/v2/recent'], {queryParams: {page}});
+  }
+
+  getFcLevel(item: V2PlayLog){
+    if (item.score === 1010000){
+      return 'AJC';
+    }
+    else if (item.isAllJustice){
+      return 'AJ';
+    }
+    else if (item.isFullCombo){
+      return 'FC';
+    }
+    else{
+      return 'FC_Base';
+    }
   }
 }

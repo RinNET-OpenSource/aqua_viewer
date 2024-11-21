@@ -26,7 +26,6 @@ export class OngekiRecentComponent implements OnInit {
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 
-  aimeId: string;
   loading: boolean;
   recent: Observable<PlayerPlaylog[]>;
   difficulty = Difficulty;
@@ -46,7 +45,6 @@ export class OngekiRecentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.loading = true;
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
@@ -57,7 +55,7 @@ export class OngekiRecentComponent implements OnInit {
   }
 
   load(page: number) {
-    const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
+    const param = new HttpParams().set('page', String(page - 1));
     this.recent = this.api.get('api/game/ongeki/recent', param).pipe(
       tap(
         data => {

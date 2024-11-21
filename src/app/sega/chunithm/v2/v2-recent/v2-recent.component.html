@@ -1,6 +1,28 @@
-<h1 class="page-heading">Play Record</h1>
+<h1 class="page-heading">{{"ChuniV2.RecentPage.Title" | translate}}</h1>
 
-<div *ngIf="recent" class="d-flex flex-column gap-2">
+<ng-template #pagination>
+  <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center m-0">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+
+<div *ngIf="recent" class="d-flex flex-column gap-2 my-3 this-page">
   <div class="card"
     *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
     <div class="card-header p-0">
@@ -11,9 +33,9 @@
           </div>
           <div class="flex-grow-1 overflow-hidden">
             <div class="info-container">
-              <div class="ps-2 py-1 difficulty-{{difficulty[item.level].toLowerCase()}}" >
-                <div class="track">Track.{{item.track}}</div>
-                <div class="difficulty">{{difficulty[item.level]}}</div>
+              <div class="ps-2 py-1 user-select-none difficulty-{{item.level}}" >
+                <div class="track"><span [class.color-we]="item.level==5">Track.{{item.track}}</span></div>
+                <div class="difficulty"><span [class.color-we]="item.level==5">{{difficulty[item.level]}}</span></div>
                 <!--            <div>{{item.songInfo.levels[item.level] | toLevelString}}</div>-->
               </div>
               <div class="info-second">
@@ -26,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div class="level-container">
+        <div *ngIf="item.level != 5 && item.songInfo?.levels[item.level]" class="level-container">
           <div class="level-label">Level</div>
           <div class="level-value">{{ item.songInfo.levels[item.level] | toLevelString }}</div>
         </div>
@@ -77,25 +99,43 @@
               <div class="h-100 d-flex align-items-center">
                 <div>
                   <div>
+                    <div class="new-record-badge rounded-pill badge user-select-none px-2" [class.new-record]="item.isNewRecord">NEW RECORD</div>
+                    <div class="score-label">Score</div>
                     <div class="score">{{ item.score }}</div>
                   </div>
-                  <div>
+                  <div *ngIf="item.songInfo?.levels[item.level]">
+                    <div class="score-label">Rating</div>
                     <div class="rating">{{ ((item.score | toTechRating: (item.songInfo.levels[item.level].level * 100 + item.songInfo.levels[item.level].levelDecimal)) / 100).toFixed(2).toString() }}</div>
+                  </div>
+                  <div>
+                    <img class="honor" [class.grayscale]="!item.isFullCombo" src="{{host}}assets/chuni/gameUi/CHU_UI_Result_{{getFcLevel(item)}}.webp">
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-6">
-              <div class="h-100 d-flex align-items-center justify-content-center display-2 fw-bold">
-                {{ item.rank | toRank }}
+              <div class="h-100 d-flex align-items-center justify-content-center display-4">
+                <div class="d-flex flex-nowrap align-items-start">
+                  <ng-container *ngFor="let char of (item.rank | toRank).split('')">
+                    <ng-container [ngSwitch]="char">
+                      <img *ngSwitchCase="'+'" class="result-plus" src="{{host}}assets/chuni/gameUi/CHU_UI_Result_Plus.webp">
+                      <img *ngSwitchDefault class="result-char" src="{{host}}assets/chuni/gameUi/CHU_UI_Result_{{char}}.webp">
+                    </ng-container>
+                  </ng-container>
+                </div>
               </div>
             </div>
           </div>
           </div>
         </div>
     </div>
-    <div class="card-footer text-end">
-      {{item.userPlayDate.toLocaleString()}}
+    <div class="card-footer fw-bold">
+      <div *ngIf="item.songInfo" class="float-start">
+        <a type="button" class="text-primary" (click)="showDetail(item.songInfo)">{{"ChuniV2.RecentPage.Ranking" | translate}}</a>
+      </div>
+      <div class="float-end">
+        {{item.userPlayDate.toLocaleString()}}
+      </div>
     </div>
 <!--        <div class="result-content">-->
 <!--          <div class="left">-->
@@ -115,7 +155,7 @@
 <!--    </div>-->
 
   </div>
-  <div class="pagination">
-    <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
-  </div>
 </div>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+<div class="mb-3"></div>

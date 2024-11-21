@@ -413,6 +413,10 @@
       "Title": "User Ranking",
       "Rating": "Rating",
       "Activity": "Activity"
+    },
+    "RecentPage": {
+      "Title": "Play Record",
+      "Ranking": "Ranking"
     }
   },
   "Maimai2": {
@@ -427,7 +431,7 @@
       "RatingRecommend": "Rating Recommend"
     },
     "RecentPage": {
-      "Title": "Recent Playlogs",
+      "Title": "Play Record",
       "DXScore": "DX Score",
       "Detailed": "Show Detail"
     }
