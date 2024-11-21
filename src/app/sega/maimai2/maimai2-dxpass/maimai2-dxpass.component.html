@@ -1,0 +1,87 @@
+<h1 class="page-heading">{{'Maimai2.DxpassPage.Title'|translate}}</h1>
+
+<ng-template #pagination>
+  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
+    <ul class="pagination pagination-sm justify-content-center mb-2">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{page.label}}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{page.label}}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+
+<div class="alert alert-info" *ngIf="!hasData">
+  {{'Maimai2.DxpassPage.NotOwned'|translate}}
+</div>
+
+<div class="container">
+  <div *ngIf="dxpasses" class="row mb-4 g-2">
+    <div
+      *ngFor="let item of dxpasses | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }; let i = index"
+      class="col-12 col-xl-3 col-md-4 col-sm-6">
+      <div class="card position-relative">
+        <img src="assets/mai2/dxpass/base/UI_CardBase_000000{{item.cardTypeId}}_{{get6digit(item.mapId)}}_S.png"
+             class="card-img-top img-fluid" alt="" (click)="toggleDetail(i)">
+        <img src="assets/mai2/dxpass/chara/UI_CardChara_{{get6digit(item.charaId)}}_S.png"
+             class="card-img-top img-fluid overlay-image" alt="" (click)="toggleDetail(i)">
+        <img src="assets/mai2/dxpass/frame/UI_CardFrame_000000{{item.cardTypeId}}_S.png"
+             class="card-img-top img-fluid overlay-image" alt="" (click)="toggleDetail(i)">
+        <div class="card-body overflow-hidden py-0 px-2 mt-2 mb-2">
+          <div class="d-flex justify-content-between">
+            <ng-container [ngSwitch]="item.cardTypeId">
+            <span *ngSwitchCase="0" class="expired-pass badge rounded-pill">
+              Expired
+            </span>
+              <span *ngSwitchCase="1" class="expired-pass badge rounded-pill">
+              Expired
+            </span>
+              <span *ngSwitchCase="2" class="normal-pass badge rounded-pill">
+              Bronze Pass
+            </span>
+              <span *ngSwitchCase="3" class="silver-pass badge rounded-pill">
+              Silver Pass
+            </span>
+              <span *ngSwitchCase="4" class="gold-pass badge rounded-pill">
+              Gold Pass
+            </span>
+              <span *ngSwitchCase="5" class="gold-pass badge rounded-pill">
+              Platinum Pass
+            </span>
+              <span *ngSwitchCase="6" class="freedom-pass badge rounded-pill">
+              Freedom Pass
+            </span>
+            </ng-container>
+            <span class="expired-pass badge rounded-pill">
+               剩余{{ calculateRemainingTime(item.endDate) }}
+              </span>
+          </div>
+        </div>
+        <div #collapse="ngbCollapse" class="card-footer p-2 small" [ngbCollapse]="!isDetailVisible[i]">
+          <div class="d-flex justify-content-between">
+            <span class="fw-bold">{{'Maimai2.DxpassPage.BuyDate'|translate}}:</span>
+            <span>{{ formatDate(item.startDate) }}</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span class="fw-bold">{{'Maimai2.DxpassPage.ExpireDate'|translate}}:</span>
+            <span class="text-danger">{{ formatDate(item.endDate) }}</span> <!-- 到期时间用红色突出 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

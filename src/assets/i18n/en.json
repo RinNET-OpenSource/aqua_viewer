@@ -39,7 +39,9 @@
       "UserRanking": "Player Ranking",
       "Character": "Character",
       "UserBox": "User Box",
-      "Setting": "Setting"
+      "Setting": "Setting",
+      "Photos": "Photos",
+      "Dxpass": "Deluxe Pass"
     }
   },
   "DashboardPage": {
@@ -430,6 +432,16 @@
       "Title": "Recent Playlogs",
       "DXScore": "DX Score",
       "Detailed": "Show Detail"
+    },
+    "PhotosPage": {
+      "Title": "Game Gallery",
+      "NotOwned": "You have not upload any game photo."
+    },
+    "DxpassPage": {
+      "Title": "Deluxe Pass Info",
+      "NotOwned": "You do not own any deluxe pass.",
+      "BuyDate": "Buy-In Date",
+      "ExpireDate": "Expire Date"
     }
   },
   "ContributorsPage": {

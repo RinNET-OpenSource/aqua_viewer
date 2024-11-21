@@ -48,6 +48,7 @@ export class Maimai2RecentComponent implements OnInit {
   }
 
   load(page: number) {
+    this.isDetailVisible = [];
     const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
     this.recent = this.api.get('api/game/maimai2/recent', param).pipe(
       tap(
