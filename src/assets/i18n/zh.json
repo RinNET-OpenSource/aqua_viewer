@@ -39,7 +39,9 @@
       "UserRanking": "玩家排行",
       "Character": "伙伴",
       "UserBox": "收藏品",
-      "Setting": "设定"
+      "Setting": "设定",
+      "Photos": "相册",
+      "Dxpass": "DX通行证"
     }
   },
   "DashboardPage": {
@@ -434,6 +436,16 @@
       "Title": "游玩记录",
       "DXScore": "DX分数",
       "Detailed": "详细信息"
+    },
+    "PhotosPage": {
+      "Title": "相册",
+      "NotOwned": "你暂未在游戏中上传任何照片。"
+    },
+    "DxpassPage": {
+      "Title": "DX通行证",
+      "NotOwned": "你暂未拥有任何DX通行证。",
+      "BuyDate": "购入时间",
+      "ExpireDate": "到期时间"
     }
   },
   "ContributorsPage": {

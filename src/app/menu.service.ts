@@ -154,6 +154,18 @@ export class MenuService {
             displayCondition: DisplayCondition.HasProfile,
           },
           {
+            id: 4,
+            name: 'Photos',
+            url: 'mai2/photos',
+            displayCondition: DisplayCondition.HasProfile,
+          },
+          {
+            id: 5,
+            name: 'Dxpass',
+            url: 'mai2/dxpass',
+            displayCondition: DisplayCondition.HasProfile,
+          },
+          {
             id: 1,
             name: 'Setting',
             url: 'mai2/setting',

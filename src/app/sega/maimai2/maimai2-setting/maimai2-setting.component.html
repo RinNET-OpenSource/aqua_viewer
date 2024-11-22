@@ -39,6 +39,22 @@
   </div>
 </div>
 
+<div class="card mb-3" *ngIf="profile">
+  <div class="card-header">
+    兑换码
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">使用兑换码来激活礼品:</h5>
+    <form [formGroup]="redeemCodeForm" (ngSubmit)="onSubmit()">
+      <input type="text" class="form-control mb-3" id="redeemCode" formControlName="redeemCode">
+    </form>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-muted small align-text-bottom">*请不要使用他人的兑换码</div>
+      <a (click)="activateRedeemCode()" class="btn btn-primary">兑换</a>
+    </div>
+  </div>
+</div>
+
 
 <div class="card mb-3" *ngIf="profile">
   <div class="card-header text-danger">

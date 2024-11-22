@@ -19,6 +19,7 @@ export class Maimai2SettingComponent implements OnInit {
 
   profile: DisplayMaimai2Profile;
   userNameForm: FormGroup;
+  redeemCodeForm: FormGroup;
 
   aimeId: number;
   apiServer: string;
@@ -36,10 +37,17 @@ export class Maimai2SettingComponent implements OnInit {
     this.userNameForm = this.fb.group({
       username: [''],
     });
+    this.redeemCodeForm = this.fb.group({
+      redeemCode: [''],
+    });
   }
 
   get userNameInput(){
     return this.userNameForm.get('username');
+  }
+
+  get redeemCodeInput(){
+    return this.redeemCodeForm.get('redeemCode');
   }
 
   ngOnInit(): void {
@@ -73,6 +81,22 @@ export class Maimai2SettingComponent implements OnInit {
           }, error => this.messageService.notice(error)
         );
       }
+
+  }
+
+  activateRedeemCode() {
+    if (this.redeemCodeForm.touched) {
+      const param = new HttpParams().set('aimeId', this.aimeId).set('redeemCode', this.redeemCodeInput.value);
+      this.api.get('api/game/maimai2/redeem',param).subscribe(
+        x => {
+          if (x.status.code === 92001){
+            this.messageService.notice('Successfully activated ' + x.data);
+          }else{
+            this.messageService.notice(x.data);
+          }
+        }, error => this.messageService.notice(error)
+      );
+    }
 
   }
 
