@@ -29,7 +29,7 @@
   <div *ngIf="photos" class="row mb-4 g-2">
     <div *ngFor="let item of photos | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }; let i = index" class="col-12 col-xl-6">
       <div class="card">
-        <img src="{{environment.apiServer}}api/game/maimai2/tmpDlPhoto?filename={{item.fileName}}" class="card-img-top" alt="右键して遊戏の写真を保存する">
+        <img src="{{item.fileName}}" class="card-img-top" alt="右键して遊戏の写真を保存する">
         <div class="card-footer">
           <div class="d-flex justify-content-between">
             <div>

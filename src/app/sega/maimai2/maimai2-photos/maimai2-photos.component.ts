@@ -40,7 +40,7 @@ export class Maimai2PhotosComponent implements OnInit {
 
   currentPage = 1;
   totalElements = 0;
-  enabled = false;
+  enabled = true;
 
   protected readonly environment = environment;
 
