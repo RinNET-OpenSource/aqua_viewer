@@ -34,13 +34,13 @@
   color: white;
 }
 
-.pass-text {
-  display: flex;
-  align-items: center;
-  b {
-    padding: 0 3px;
-  }
-}
+/*.pass-text {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  b {*/
+/*    padding: 0 3px;*/
+/*  }*/
+/*}*/
 
 .card {
   position: relative; /* 使子元素可以绝对定位 */

@@ -13,6 +13,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "aegis-web-sdk",
+              "crypto-js",
+              "cropperjs",
+              "dompurify"
+            ],
             "outputPath": "dist/aqua-viewer",
             "index": "src/index.html",
             "main": "src/main.ts",
