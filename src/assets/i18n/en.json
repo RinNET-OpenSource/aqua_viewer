@@ -419,6 +419,26 @@
     "RecentPage": {
       "Title": "Play Record",
       "Ranking": "Ranking"
+    },
+    "SettingsPage": {
+      "Title": "Settings",
+      "Profile": "Profile",
+      "Versionfile": "Version file",
+      "UserName": "User Name",
+      "Change": "Change",
+      "Edit": "Edit",
+      "ChangeUserName": "Change User Name",
+      "RomVersion": "Rom Version",
+      "ModifyRomVersion": "Modify Rom Version",
+      "MessageRomVersion": "Change only if you have login problem due to rom version",
+      "DataVersion": "Data Version",
+      "ModifyDataVersion": "Modify Data Version",
+      "MessageDataVersion": "Change only if you have login problem due to data version",
+      "Export": "Export Profile",
+      "ChangeUserNameFailed": "Failed to Change User Name",
+      "ModifyRomVersionFailed": "Failed to Modify Rom Version",
+      "ModifyDataVersionFailed": "Failed to Modify Data Version",
+      "DownloadingProfile": "Downloading Profile"
     }
   },
   "Maimai2": {

@@ -419,6 +419,26 @@
     "RecentPage": {
       "Title": "游玩记录",
       "Ranking": "排名"
+    },
+    "SettingsPage": {
+      "Title": "设定",
+      "Profile": "个人信息",
+      "Versionfile": "版本信息",
+      "UserName": "玩家名",
+      "Edit": "编辑",
+      "Change": "更改",
+      "ChangeUserName": "修改玩家名",
+      "RomVersion": "游戏版本",
+      "ModifyRomVersion": "修改游戏版本",
+      "MessageRomVersion": "仅在因rom版本导致登录问题时更改",
+      "DataVersion": "数据版本",
+      "ModifyDataVersion": "修改数据版本",
+      "MessageDataVersion": "仅在因数据版本导致登录问题时更改",
+      "Export": "导出玩家存档",
+      "ChangeUserNameFailed": "修改玩家名失败",
+      "ModifyRomVersionFailed": "修改游戏版本失败",
+      "ModifyDataVersionFailed": "修改数据版本失败",
+      "DownloadingProfile": "正在下载玩家存档"
     }
   },
   "Maimai2": {
