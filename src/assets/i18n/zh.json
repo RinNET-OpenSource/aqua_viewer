@@ -467,7 +467,9 @@
       "Title": "DX通行证",
       "NotOwned": "你暂未拥有任何DX通行证。",
       "BuyDate": "购入时间",
-      "ExpireDate": "到期时间"
+      "ExpireDate": "到期时间",
+      "DefaultInfo": "当前设定的默认DX Pass类型",
+      "SetDefault": "设为默认类型"
     }
   },
   "ContributorsPage": {

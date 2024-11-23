@@ -35,7 +35,7 @@ export class Maimai2DxpassComponent implements OnInit{
 
   dxpasses: Observable<Maimai2DxPass[]>;
   isDetailVisible: boolean[] = [];
-  difficulty = Difficulty;
+  defaultCardType = 0;
   hasData: boolean;
 
   currentPage = 1;
@@ -69,6 +69,26 @@ export class Maimai2DxpassComponent implements OnInit{
     this.dxpasses.subscribe(data => {
       this.hasData = data.length > 0;
     });
+    const param2 = new HttpParams().set('aimeId', this.aimeId);
+    this.api.get('api/game/maimai2/getCardType', param2).subscribe(
+      data => {
+        this.defaultCardType = data.data;
+      },
+      error => this.messageService.notice(error)
+    );
+  }
+
+  setDefaultCardType(cardType: number) {
+    const param2 = new HttpParams().set('aimeId', this.aimeId).set('cardType', cardType);
+    this.api.get('api/game/maimai2/setCardType', param2).subscribe(
+      data => {
+        this.defaultCardType = data.data;
+        if (data.status.code == 92001){
+          this.messageService.notice('Success');
+        }
+      },
+      error => this.messageService.notice(error)
+    );
   }
 
   toggleDetail(index: number): void {
@@ -107,6 +127,27 @@ export class Maimai2DxpassComponent implements OnInit{
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
     return `${year}/${month}/${day} ${hours}:${minutes}`;
+  }
+
+  getDxPassName(type: number): string {
+    switch (type) {
+      case 0:
+        return 'None';
+      case 1:
+        return 'Unown';
+      case 2:
+        return 'Bronze';
+      case 3:
+        return 'Silver';
+      case 4:
+        return 'Gold';
+      case 5:
+        return 'Platinum';
+      case 6:
+        return 'Freedom';
+      default:
+        return 'Unknown type';
+    }
   }
 
   protected readonly length = length;

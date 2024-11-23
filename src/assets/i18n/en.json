@@ -467,7 +467,9 @@
       "Title": "Deluxe Pass Info",
       "NotOwned": "You do not own any deluxe pass.",
       "BuyDate": "Buy-In Date",
-      "ExpireDate": "Expire Date"
+      "ExpireDate": "Expire Date",
+      "DefaultInfo": "Default DX Pass kind currently",
+      "SetDefault": "Set type as default"
     }
   },
   "ContributorsPage": {

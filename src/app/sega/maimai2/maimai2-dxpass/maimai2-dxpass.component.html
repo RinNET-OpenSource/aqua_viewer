@@ -25,6 +25,9 @@
 <div class="alert alert-info" *ngIf="!hasData">
   {{'Maimai2.DxpassPage.NotOwned'|translate}}
 </div>
+<div class="alert alert-info" *ngIf="hasData">
+  {{'Maimai2.DxpassPage.DefaultInfo'|translate}} : {{getDxPassName(defaultCardType)}}
+</div>
 
 <div class="container">
   <div *ngIf="dxpasses" class="row mb-4 g-2">
@@ -77,6 +80,7 @@
             <span class="fw-bold">{{'Maimai2.DxpassPage.ExpireDate'|translate}}:</span>
             <span class="text-danger">{{ formatDate(item.endDate) }}</span> <!-- 到期时间用红色突出 -->
           </div>
+          <a *ngIf="item.cardTypeId == 4 || item.cardTypeId == 6" (click)="setDefaultCardType(item.cardTypeId)" class="btn-link">{{'Maimai2.DxpassPage.SetDefault'|translate}}</a>
         </div>
       </div>
     </div>
