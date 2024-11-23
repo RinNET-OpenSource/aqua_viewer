@@ -428,6 +428,8 @@
       "Edit": "编辑",
       "Change": "更改",
       "ChangeUserName": "修改玩家名",
+      "MessageChangeUserName1": "除去特殊字符以外的8个全角字符以内",
+      "MessageChangeUserName2": "以下的符号也可以使用",
       "RomVersion": "游戏版本",
       "ModifyRomVersion": "修改游戏版本",
       "MessageRomVersion": "仅在因rom版本导致登录问题时更改",

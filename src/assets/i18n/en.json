@@ -428,6 +428,8 @@
       "Change": "Change",
       "Edit": "Edit",
       "ChangeUserName": "Change User Name",
+      "MessageChangeUserName1": "Up to 8 full-width characters excluding special characters",
+      "MessageChangeUserName2": "with the following symbols also allowed",
       "RomVersion": "Rom Version",
       "ModifyRomVersion": "Modify Rom Version",
       "MessageRomVersion": "Change only if you have login problem due to rom version",

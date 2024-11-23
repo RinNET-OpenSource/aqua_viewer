@@ -4,7 +4,15 @@
     <hr>
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">{{ "ChuniV2.SettingsPage.UserName" | translate}}</span>
-      <input [(ngModel)]="data.userName" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+      <input [(ngModel)]="this.userName" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div>※ {{ "ChuniV2.SettingsPage.MessageChangeUserName1" | translate }}</div>
+    <div>※ {{ "ChuniV2.SettingsPage.MessageChangeUserName2" | translate }}</div>
+    <div class="btns">
+      <button
+        *ngFor="let item of userNameBtnsSymbol;"
+        type="button"
+        class="mt-2 btn btn-outline-secondary btn-sm" (click)="insertCharacter(item)">{{item}}</button>
     </div>
   </div>
   <div class="modal-footer">
