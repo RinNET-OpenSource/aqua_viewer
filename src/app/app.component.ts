@@ -116,7 +116,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.initializeApp();
     if (!supportedBrowsers.test(navigator.userAgent)) {
       this.translateService.get('App.Messages.BrowserNotSupported').subscribe( message => {
-        this.messageService.notice(message, 'danger');
+        this.messageService.notice(message, 'warning');
       });
     }
   }

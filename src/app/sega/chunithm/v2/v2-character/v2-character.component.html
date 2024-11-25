@@ -1,7 +1,7 @@
 <h1 class="page-heading">Character</h1>
 
 <ng-template #pagination>
-  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+  <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
                        style="cursor: default"
                        (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
     <ul class="pagination pagination-sm justify-content-center mb-2">
@@ -21,12 +21,14 @@
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
 <!--<input type="text" #search class="form-control mb-2" (input)="filterCharacter(search.value)">-->
-
+<div *ngIf="!loading" class="mb-2">
+  <input type="text" #search class="form-control form-control-sm" placeholder="Filter" [formControl]="searchTermControl">
+</div>
 <div class="container col-12">
   <div class="row">
     <div
       class="card row character-card row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4"
-      *ngFor="let item of characters | async | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements }"
+      *ngFor="let item of characterList | async | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements }"
     >
       <img
         class="character-img"

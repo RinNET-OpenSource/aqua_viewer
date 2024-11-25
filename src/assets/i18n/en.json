@@ -329,7 +329,8 @@
       "ResetFilter": "Reset Filter",
       "TotalCardNum": "Total {{num}} Cards",
       "FilterPlaceholder": "ID, CardNumber, CharaName, NickName, SkillInfo",
-      "Info1": "Right click or long touch on the card for details."
+      "Info1": "Right click or long touch on the card for details.",
+      "SafariWarning": "Some features of this page are not Safari compatible!"
     },
     "RivalPage": {
       "Title": "Rival",

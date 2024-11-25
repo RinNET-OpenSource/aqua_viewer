@@ -329,7 +329,8 @@
       "ResetFilter": "重置过滤",
       "TotalCardNum": "共 {{num}} 张卡片",
       "FilterPlaceholder": "ID，编号，角色名，称号，技能详情",
-      "Info1": "鼠标右键或触屏长按卡片查看更多信息。"
+      "Info1": "鼠标右键或触屏长按卡片查看更多信息。",
+      "SafariWarning": "Safari不支持某些本页面的部分功能！"
     },
     "RivalPage": {
       "Title": "好友",

@@ -16,6 +16,7 @@ import {ArrayUtils} from 'src/app/util/array-utils';
 import {UserService} from 'src/app/user.service';
 import {FormArray, FormControl} from '@angular/forms';
 import {Collapse} from 'bootstrap';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ongeki-card',
@@ -133,7 +134,8 @@ export class OngekiCardComponent implements OnInit {
     private messageService: MessageService,
     private dbService: NgxIndexedDBService,
     public router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private translateService: TranslateService
   ) {
     const userAgent = window.navigator.userAgent;
     const safari = userAgent.indexOf('Safari') > -1;
@@ -172,7 +174,9 @@ export class OngekiCardComponent implements OnInit {
       this.load(this.currentPage);
     });
     if (this.isSafari) {
-      this.messageService.notice('Warning: Some features of this page are not Safari compatible!');
+      this.translateService.get('Ongeki.CardPage.SafariWarning').subscribe(x => {
+        this.messageService.notice(x, 'warning');
+      });
     }
   }
 
