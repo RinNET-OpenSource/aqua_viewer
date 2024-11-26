@@ -16,6 +16,8 @@ import {UserService} from './user.service';
 import {Account, AccountService} from './auth/account.service';
 import { MenuService } from './menu.service';
 import {Title} from '@angular/platform-browser';
+import supportedBrowsers from './supportedBrowsers';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -48,6 +50,8 @@ export class AppComponent implements OnInit, OnDestroy {
     protected toastService: ToastService,
     protected languageService: LanguageService,
     protected themeService: ThemeService,
+    protected messageService: MessageService,
+    protected translateService: TranslateService,
     updates: SwUpdate,
     @Inject(DOCUMENT) private document: Document,
   ) {
@@ -110,6 +114,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initializeApp();
+    if (!supportedBrowsers.test(navigator.userAgent)) {
+      this.translateService.get('App.Messages.BrowserNotSupported').subscribe( message => {
+        this.messageService.notice(message, 'danger');
+      });
+    }
   }
 
   private initializeApp() {

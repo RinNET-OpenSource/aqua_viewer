@@ -42,6 +42,9 @@
       "Setting": "设定",
       "Photos": "相册",
       "Dxpass": "DX通行证"
+    },
+    "Messages": {
+      "BrowserNotSupported": "您的浏览器不受支持！请升级到最新版的Chrome、Firefox、Safari或Edge浏览器以获得最佳体验。"
     }
   },
   "DashboardPage": {

@@ -42,6 +42,9 @@
       "Setting": "Setting",
       "Photos": "Photos",
       "Dxpass": "Deluxe Pass"
+    },
+    "Messages": {
+      "BrowserNotSupported": "Your browser is not supported! Please upgrade to the latest version of Chrome, Firefox, Safari, or Edge for the best experience."
     }
   },
   "DashboardPage": {
