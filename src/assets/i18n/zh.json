@@ -41,7 +41,8 @@
       "UserBox": "收藏品",
       "Setting": "设定",
       "Photos": "相册",
-      "Dxpass": "DX通行证"
+      "Dxpass": "DX通行证",
+      "OnlineBattle": "全国对战"
     },
     "Messages": {
       "BrowserNotSupported": "您的浏览器不受支持！请升级到最新版的Chrome、Firefox、Safari或Edge浏览器以获得最佳体验。"

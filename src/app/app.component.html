@@ -107,6 +107,9 @@
                           <a class="link-btn rounded" [class.active]="isActive(item.url)" (click)="navigateTo(item.url)">{{('App.Sidebar.' + item.name) | translate}}</a>
                         </li>
                       </ng-container>
+                      <li class="pb-2">
+                        <a class="link-btn rounded" href="https://chu3-match.sega.ink/rooms" target="_blank">{{('App.Sidebar.OnlineBattle') | translate}}</a>
+                      </li>
                     </ul>
                   </li>
                   <li *ngIf="menuService.showMenu('maimai2', userService.currentUser)">
