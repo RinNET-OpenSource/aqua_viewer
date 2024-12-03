@@ -99,7 +99,7 @@
               <div class="h-100 d-flex align-items-center">
                 <div>
                   <div>
-                    <div class="new-record-badge rounded-pill badge user-select-none px-2" [class.new-record]="item.isNewRecord">NEW RECORD</div>
+                    <div class="new-record-badge rounded-pill badge" [class.new-record]="item.isNewRecord">NEW RECORD</div>
                     <div class="score-label">Score</div>
                     <div class="score">{{ item.score }}</div>
                   </div>
@@ -137,23 +137,6 @@
         {{item.userPlayDate.toLocaleString()}}
       </div>
     </div>
-<!--        <div class="result-content">-->
-<!--          <div class="left">-->
-<!--            Rank:<br>-->
-<!--            <span class="achievement-value">{{ item.rank|toRank }}</span>-->
-<!--            <br>-->
-<!--            <br>Score:<br>-->
-<!--            <span class="score-value">{{ item.score }}</span>-->
-<!--            <br>-->
-<!--            <br>{{ item.isNewRecord ? 'NEW RECORD' : '' }}<br>-->
-<!--          </div>-->
-<!--          <div class="right">-->
-
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
   </div>
 </div>
 
