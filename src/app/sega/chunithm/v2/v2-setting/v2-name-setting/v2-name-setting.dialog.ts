@@ -31,6 +31,7 @@ export class V2NameSettingDialog {
     if (item) {
       const oldUserName = this.userName;
       this.userName = oldUserName + item;
+      console.log(this.userName);
     }
   }
 

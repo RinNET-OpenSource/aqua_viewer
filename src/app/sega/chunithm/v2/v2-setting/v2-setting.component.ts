@@ -49,9 +49,10 @@ export class V2SettingComponent implements OnInit {
     );
   }
 
-  handleUserNameApplyClick(data: { userName: string }) {
-    if (data.userName) {
-      this.api.put('api/game/chuni/v2/profile/username', {aimeId: this.aimeId, userName: data.userName}).subscribe(
+  handleUserNameApplyClick(userName: string) {
+    console.log(userName);
+    if (userName) {
+      this.api.put('api/game/chuni/v2/profile/username', {aimeId: this.aimeId, userName}).subscribe(
         x => {
           this.profile = x;
           this.messageService.notice('Successfully changed');
