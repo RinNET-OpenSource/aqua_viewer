@@ -48,7 +48,9 @@ import {
   bootstrapInfoCircleFill,
   bootstrapGithub,
   bootstrapArrowUpCircleFill,
-  bootstrapArrowDownCircleFill, bootstrapDashLg,
+  bootstrapArrowDownCircleFill,
+  bootstrapDashLg,
+  bootstrapArrowRepeat,
 } from '@ng-icons/bootstrap-icons';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -148,7 +150,8 @@ export function initializeApp(
       bootstrapGithub,
       bootstrapArrowUpCircleFill,
       bootstrapArrowDownCircleFill,
-      bootstrapDashLg
+      bootstrapDashLg,
+      bootstrapArrowRepeat
     }),
     TranslateModule.forRoot({
       loader: {

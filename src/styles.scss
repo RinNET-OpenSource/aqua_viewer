@@ -341,3 +341,43 @@ h6 {
   background-color: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;
 }
+
+.link-btn{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-btn:hover{
+  text-decoration: underline;
+}
+
+input[type=checkbox] {
+  width: 0;
+  height: 0;
+  border: 0;
+  visibility: hidden;
+}
+
+.checkbox-label{
+  text-wrap: nowrap;
+  user-select: none;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  color: var(--bs-link-color);
+  background-color: var(--bs-body-bg);
+  padding: 0.25rem 0.5rem;
+  font-size: .875rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+input[type=checkbox] + .checkbox-label:hover{
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-tertiary-bg);
+}
+
+input[type=checkbox]:checked + .checkbox-label{
+  color: var(--bs-light);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}

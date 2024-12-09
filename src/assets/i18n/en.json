@@ -379,6 +379,27 @@
     "ProfilePage": {
       "Overview": "Overview"
     },
+    "CharacterPage": {
+      "Title": "Character",
+      "Acquisition": "Acquisition",
+      "Acquired": "Acquired",
+      "Unacquired": "Unacquired",
+      "Version": "Version",
+      "SearchPlaceholder": "ID，Name，Illustrator，WorkName",
+      "TotalCharaNum": "Total {{num}} characters",
+      "ShowFilter": "Show Filter",
+      "HideFilter": "Hide Filter",
+      "ResetFilter": "Reset Filter",
+      "SetSuccess": "Set character success.",
+      "Details": "Details",
+      "Rank": "Rank",
+      "PlayCount": "PlayCount",
+      "Name": "Name",
+      "WorksName": "WorksName",
+      "Illustrator": "Illustrator",
+      "Set": "Set",
+      "Unlock": "Unlock"
+    },
     "UserBoxPage": {
       "Title": "User Box",
       "Avatar": "Avatar",

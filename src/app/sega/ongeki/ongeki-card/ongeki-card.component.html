@@ -127,7 +127,7 @@
             <h4 class="modal-title">{{'Ongeki.CardPage.Details' | translate}}</h4>
             <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
           </div>
-          <div *ngIf="cardIds.includes(item.cardId)" class="modal-body">
+          <div *ngIf="item.digitalStock >= 1" class="modal-body">
             <table class="card-details-table table table-borderless table-sm table-striped align-middle text-center small">
               <tbody>
               <tr>

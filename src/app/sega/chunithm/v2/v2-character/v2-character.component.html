@@ -1,4 +1,4 @@
-<h1 class="page-heading">Character</h1>
+<h1 class="page-heading">{{ 'ChuniV2.CharacterPage.Title' | translate }}</h1>
 
 <ng-template #pagination>
   <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
@@ -20,37 +20,157 @@
   </pagination-template>
 </ng-template>
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
-<!--<input type="text" #search class="form-control mb-2" (input)="filterCharacter(search.value)">-->
-<div *ngIf="!loading" class="mb-2">
-  <input type="text" #search class="form-control form-control-sm" placeholder="Filter" [formControl]="searchTermControl">
-</div>
-<div class="container col-12">
-  <div class="row">
-    <div
-      class="card row character-card row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4"
-      *ngFor="let item of characterList | async | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements }"
-    >
-      <img
-        class="character-img"
-        src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|characterImage}}_00.webp"
-        alt=""
-        (error)="handleErrorImg($event)"
-        (click)="levelUp(item.characterId, item.level)"
-      >
-      <p class="character-title text-truncate">{{item.characterInfo ? item.characterInfo.name : 'ID:' + item.characterId}}</p>
-      <section class="character-message text-truncate">
-        <span
-          class="badge rounded-pill"
-          [ngClass]="{
-            'advanced': item.level > 20 && item.level <= 40,
-            'expert': item.level > 40 && item.level <= 60,
-            'master': item.level > 60 && item.level <= 80,
-            'lunatic': item.level > 80,
-          }"
-        >Level {{item.level}}</span>
-        <span class="badge rounded-pill">Play Count {{item.playCount}}</span>
-      </section>
+<div class="collapse" id="filterCollapse">
+  <div class="row mb-2 g-1">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{ 'ChuniV2.CharacterPage.Acquisition' | translate }}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-1">
+        <div class="col-auto">
+          <input class="checkbox" type="checkbox" role="switch" id="showAcquired" [value]="'acquired'" [formControl]="acquiredControls.controls[0]">
+          <label class="checkbox-label" for="showAcquired">{{ 'ChuniV2.CharacterPage.Acquired' | translate }}</label>
+        </div>
+        <div class="col-auto">
+          <input class="checkbox" type="checkbox" role="switch" id="showUnacquired" [value]="'unacquired'" [formControl]="acquiredControls.controls[1]">
+          <label class="checkbox-label" for="showUnacquired">{{ 'ChuniV2.CharacterPage.Unacquired' | translate }}</label>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="row mb-2 g-1">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{ 'ChuniV2.CharacterPage.Version' | translate }}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-1">
+        <div *ngFor="let releaseTag of releaseTags; let i = index" class="col-auto">
+          <input type="checkbox" class="form-check-input" [value]="releaseTag" [id]="'releaseTag' + i" [formControl]="versionControls.controls[i]">
+          <label class="checkbox-label" [for]="'releaseTag' + i">{{releaseTagMap.get(releaseTag)}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 g-1">
+    <div class="col-12 p-0">
+      <input type="text" #search class="form-control form-control-sm" placeholder="{{ 'ChuniV2.CharacterPage.SearchPlaceholder' | translate }}"
+             [formControl]="searchTermControl">
+    </div>
+  </div>
+</div>
+<div *ngIf="characterList" class="mb-2">
+  <span>{{ 'ChuniV2.CharacterPage.TotalCharaNum' | translate:{num: totalElements} }}</span>
+  <a class="link-btn ms-3"
+     (click)="toggleFilter()">{{ filterCollapsed ? ('ChuniV2.CharacterPage.ShowFilter' | translate) : ('ChuniV2.CharacterPage.HideFilter' | translate)}}</a>
+  <a *ngIf="!isDefaultFilter()" class="link-btn ms-3"
+     (click)="resetFilter()">{{ 'ChuniV2.CharacterPage.ResetFilter' | translate }}</a>
+</div>
+<div>
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-2 mb-2">
+    <ng-container
+      *ngFor="let item of characterList | async | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements }">
+      <div class="col position-relative">
+        <div class="card card-btn" [class.border-primary]="item.characterInfo.id === equippedCharaId" (click)="modalService.open(content, {centered: true})">
+          <div class="card-body character-card" [class.grayscale]="!item.isValid" [class.opacity-50]="!item.isValid">
+            <div class="character-title marquee">
+              <div class="marquee-wrap">
+                <div class="marquee-content">
+                  {{ getCharaName(item.characterId, item.characterInfo) }}
+                </div>
+              </div>
+            </div>
+            <div class="character-img">
+              <img class="w-100"
+                   src="{{host}}assets/chuni/chara/CHU_UI_Character_{{item.characterId|characterImage}}_00.webp" alt=""
+                   (error)="handleErrorImg($event)">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="addImageCount(item.characterInfo.addImages) > 0" class="image-switch" (click)="nextImage($event, item)">
+          <div class="badge rounded-pill bg-primary d-flex align-items-center gap-1">
+            +{{ addImageCount(item.characterInfo.addImages) }}
+            <ng-icon name="bootstrap-arrow-repeat"></ng-icon>
+          </div>
+        </div>
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title">{{ 'ChuniV2.CharacterPage.Details' | translate }}</h4>
+            <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss()"></button>
+          </div>
+          <div *ngIf="item.isValid" class="modal-body">
+            <table class="card-details-table table table-borderless table-sm table-striped align-middle text-center small">
+              <tbody>
+              <tr>
+                <td>ID</td>
+                <td>{{item.characterId}}</td>
+              </tr>
+              <tr>
+                <td>{{ 'ChuniV2.CharacterPage.Rank' | translate }}</td>
+                <td>{{item.level}}</td>
+              </tr>
+              <tr>
+                <td>{{ 'ChuniV2.CharacterPage.PlayCount' | translate }}</td>
+                <td>{{item.playCount}}</td>
+              </tr>
+<!--              <tr>-->
+<!--                <td>等级上限</td>-->
+<!--                <td>{{item.exMaxLv}}</td>-->
+<!--              </tr>-->
+              <tr *ngIf="item.characterInfo">
+                <td>{{ 'ChuniV2.CharacterPage.Name' | translate }}</td>
+                <td>{{getCharaName(item.characterId, item.characterInfo)}}</td>
+              </tr>
+              <tr *ngIf="item.characterInfo">
+                <td>{{ 'ChuniV2.CharacterPage.WorksName' | translate }}</td>
+                <td>{{item.characterInfo.worksName}}</td>
+              </tr>
+              <tr *ngIf="item.characterInfo?.illustratorName">
+                <td>{{ 'ChuniV2.CharacterPage.Illustrator' | translate }}</td>
+                <td>{{item.characterInfo.illustratorName}}</td>
+              </tr>
+              <tr *ngIf="item.characterInfo">
+                <td>{{ 'ChuniV2.CharacterPage.Version' | translate }}</td>
+                <td>{{releaseTagMap.get(item.characterInfo.releaseTag)}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="hstack gap-1 float-end">
+<!--              <button class="btn btn-sm btn-theme"-->
+<!--                      [disabled]="item.level === 200">突破</button>-->
+              <button class="btn btn-sm btn-primary" (click)="setChara(item)"
+                      [disabled]="item.characterId ===equippedCharaIllustId">{{ 'ChuniV2.CharacterPage.Set' | translate }}</button>
+            </div>
+          </div>
+          <div *ngIf="!item.isValid" class="modal-body">
+            <table class="card-details-table table table-borderless table-sm table-striped align-middle text-center small">
+              <tbody>
+              <tr>
+                <td>ID</td>
+                <td>{{item.characterId}}</td>
+              </tr>
+              <tr *ngIf="item.characterInfo">
+                <td>{{ 'ChuniV2.CharacterPage.Name' | translate }}</td>
+                <td>{{getCharaName(item.characterId, item.characterInfo)}}</td>
+              </tr>
+              <tr *ngIf="item.characterInfo">
+                <td>{{ 'ChuniV2.CharacterPage.WorksName' | translate }}</td>
+                <td>{{item.characterInfo.worksName}}</td>
+              </tr>
+              <tr *ngIf="item.characterInfo?.illustratorName">
+                <td>{{ 'ChuniV2.CharacterPage.Illustrator' | translate }}</td>
+                <td>{{item.characterInfo.illustratorName}}</td>
+              </tr>
+              <tr *ngIf="item.characterInfo">
+                <td>{{ 'ChuniV2.CharacterPage.Version' | translate }}</td>
+                <td>{{releaseTagMap.get(item.characterInfo.releaseTag)}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="hstack gap-1 float-end">
+              <button class="btn btn-sm btn-primary">{{ 'ChuniV2.CharacterPage.Unlock' | translate }}</button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </ng-container>
   </div>
 </div>
 
