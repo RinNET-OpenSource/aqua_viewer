@@ -64,6 +64,7 @@ export class V2SymbolChatSettingComponent implements OnInit {
             this.data.symbolChatId = result.symbolChatId;
             this.messageService.notice(await lastValueFrom(this.translateService.get('ChuniV2.UserBoxPage.MessageSuccess')), 'success');
             this.modalService.dismissAll();
+            return;
           }
           this.messageService.notice(await lastValueFrom(this.translateService.get('ChuniV2.UserBoxPage.MessageFailed')), 'warning');
         },
