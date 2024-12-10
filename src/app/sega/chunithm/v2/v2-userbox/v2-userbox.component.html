@@ -1,5 +1,5 @@
 <h1 class="page-heading">{{'ChuniV2.UserBoxPage.Title' | translate}}</h1>
-<div class="row">
+<div class="row mb-3">
   <div class="col-12 px-2 mb-2">
     <div class="card p-0 overflow-hidden">
       <div class="card-header item-title text-light d-flex justify-content-center align-items-center py-1">
@@ -63,4 +63,54 @@
       </div>
     </div>
   </div>
+</div>
+<h2 class="mb-3">{{ 'ChuniV2.UserBoxPage.SymbolChat' | translate }}</h2>
+<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+  <ng-container *ngFor="let scene of scenes; let i = index">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="scene-{{i + 1}}-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="true"
+              [attr.data-bs-target]="'#scene-' + (i + 1) + '-tab-pane'"
+              [attr.aria-controls]="'scene-' + (i + 1) + '-tab-pane'"
+              [class.active]="selectedScene === (i + 1)"
+              (click)="selectedScene = (i + 1)">
+        {{ ('ChuniV2.UserBoxPage.' + scene) | translate }}
+      </button>
+    </li>
+  </ng-container>
+</ul>
+<div *ngIf="symbolChatInfo" class="tab-content mb-3" id="myTabContent">
+  <ng-container *ngFor="let scene of scenes; let i = index">
+    <div class="tab-pane" id="scene-{{i + 1}}-tab-pane" role="tabpanel" tabindex="{{i}}"
+         [attr.aria-labelledby]="'scene-' + (i + 1) + '-tab'"
+         [class.show]="selectedScene === (i + 1)" [class.active]="selectedScene === (i + 1)">
+      <div class="col-12 px-1">
+        <div class="row p-0 m-0 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
+          <div class="col px-1 pt-0 pb-2 m-0" *ngFor="let _ of Array(4); let j = index">
+            <div class="card p-0">
+              <div class="card-header item-title text-light d-flex justify-content-center align-items-center py-1">
+                <span class="m-0">{{ 'ChuniV2.UserBoxPage.Chat' | translate }} {{ j + 1 }}</span>
+              </div>
+              <div class="card-body text-center">
+                <div class="symbol-chat-container">
+                  <div class="symbol-chat-body">
+                    <img src="{{host}}assets/chuni/symbolChat/{{getBalloonId(i + 1, j)}}.webp">
+                    <div class="symbol-chat-text">{{getSymbolChatText(i + 1, j)}}</div>
+                  </div>
+                </div>
+                <div class="hstack gap-2 mt-2">
+                  <button class="btn btn-primary btn-sm text-light" (click)="openSymbolChatModal(i + 1, j)">{{'ChuniV2.UserBoxPage.Change' | translate}}</button>
+                </div>
+                <ng-template #content let-modal>
+                  <ng-container *ngTemplateOutlet="setSymbolChat; context: {sceneId: (i + 1), orderId: j}"></ng-container>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #setSymbolChat let-sceneId="sceneId" let-orderId="orderId">
+    {{sceneId}}{{orderId}}
+  </ng-template>
 </div>

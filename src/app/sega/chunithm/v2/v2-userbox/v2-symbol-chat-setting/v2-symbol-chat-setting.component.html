@@ -1,0 +1,42 @@
+<ng-template #pagination>
+  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center mb-1">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+<div class="modal-content">
+  <div class="modal-body">
+    <div class="p-2 mb-2">
+      <button type="button" class="btn-close shadow-none float-end" aria-label="Close" (click)="activeModal.dismiss();"></button>
+      <h3 class="modal-title">{{ 'ChuniV2.UserBoxPage.SelectItem' | translate  }}</h3>
+    </div>
+    <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+    <div class="row p-2">
+      <ng-container *ngFor="let item of iList | paginate: { id: 'server', itemsPerPage: 12, currentPage: currentPage, totalItems: iList.length }">
+        <div class="item-card col-6 col-sm-4 col-lg-3 text-center my-1" (click)="selectedItem = item.id" [ngClass]="{'selected': selectedItem == item.id}">
+          <div class="item-container">
+            <div class="item-body">
+              <img src="{{host}}assets/chuni/symbolChat/{{item.balloonId}}.webp">
+              <div class="item-text" [innerHTML]="item.text.replace('\n', '<br>')"></div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngTemplateOutlet="pagination;"></ng-container>
+    <button type="button" class="btn btn-sm btn-primary w-100 mt-2" (click)="applySymbolChat()">{{ 'Common.OK' | translate  }}</button>
+  </div>
+</div>

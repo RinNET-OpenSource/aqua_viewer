@@ -4,13 +4,13 @@ import {
   AnnouncementComponent,
   AnnouncementStatus,
   AnnouncementType
-} from "../announcement/announcement.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ActivatedRoute} from "@angular/router";
-import {LanguageService} from "../../language.service";
-import {StatusCode} from "../../status-code";
-import {MessageService} from "../../message.service";
-import {ApiService} from "../../api.service";
+} from '../announcement/announcement.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute} from '@angular/router';
+import {LanguageService} from '../../language.service';
+import {StatusCode} from '../../status-code';
+import {MessageService} from '../../message.service';
+import {ApiService} from '../../api.service';
 
 @Component({
   selector: 'app-edit',
@@ -18,10 +18,6 @@ import {ApiService} from "../../api.service";
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit, AfterViewInit   {
-  announcement: Announcement;
-  loading = true;
-  activeTab: string;
-  announcementType = AnnouncementType;
 
   constructor(
     public route: ActivatedRoute,
@@ -31,6 +27,13 @@ export class EditComponent implements OnInit, AfterViewInit   {
     private modalService: NgbModal) {
     this.activeTab = language.getDefaultLang();
   }
+  announcement: Announcement;
+  loading = true;
+  activeTab: string;
+  announcementType = AnnouncementType;
+
+  protected readonly AnnouncementStatus = AnnouncementStatus;
+  protected readonly AnnouncementType = AnnouncementType;
 
   ngOnInit(){
     this.route.queryParams.subscribe((data) => {
@@ -38,7 +41,7 @@ export class EditComponent implements OnInit, AfterViewInit   {
         this.loadAnnouncement(data.id);
       }
       else{
-        let announcement = new Announcement();
+        const announcement = new Announcement();
         announcement.type = AnnouncementType.GENERAL;
         announcement.priority = 0;
         this.announcement = announcement;
@@ -64,13 +67,13 @@ export class EditComponent implements OnInit, AfterViewInit   {
 
   post(status: AnnouncementStatus){
     let data;
-    if(this.announcement.id === undefined){
+    if (this.announcement.id === undefined){
       data = {
         title: this.announcement.title,
         content: this.announcement.content,
         translations: this.announcement.translations,
         type: this.announcement.type,
-        status: status,
+        status,
         updatedAt: Date.now()
       };
     }
@@ -78,7 +81,7 @@ export class EditComponent implements OnInit, AfterViewInit   {
       data = this.announcement;
       data.status = status;
     }
-    if(status === AnnouncementStatus.EXPIRED || status === AnnouncementStatus.DRAFT){
+    if (status === AnnouncementStatus.EXPIRED || status === AnnouncementStatus.DRAFT){
       data.updatedAt = this.announcement.updatedAt;
     }
     this.api.post('api/admin/announcement', data).subscribe(
@@ -117,7 +120,4 @@ export class EditComponent implements OnInit, AfterViewInit   {
         this.loading = false;
       });
   }
-
-  protected readonly AnnouncementStatus = AnnouncementStatus;
-  protected readonly AnnouncementType = AnnouncementType;
 }

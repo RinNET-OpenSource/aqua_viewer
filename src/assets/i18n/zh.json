@@ -413,11 +413,21 @@
       "AvatarSkin": "皮肤",
       "AvatarItem": "道具",
       "AvatarFront": "前面",
-      "AvatarBack": "背面",
+      "AvatarBack": "背部",
       "Trophy": "称号",
       "Frame": "框体",
       "Change": "更改",
-      "Preview": "预览"
+      "Preview": "预览",
+      "SymbolChat": "聊天气泡",
+      "Matching": "匹配中",
+      "OverviewSelf": "乐曲开始前(自选)",
+      "OverviewRival": "乐曲开始前(对手)",
+      "Result": "结算",
+      "BattleResult": "结果发表",
+      "Chat": "聊天",
+      "SelectItem": "选择",
+      "MessageSuccess": "更换成功",
+      "MessageFailed": "更换失败"
     },
     "RivalPage": {
       "Title": "好友",

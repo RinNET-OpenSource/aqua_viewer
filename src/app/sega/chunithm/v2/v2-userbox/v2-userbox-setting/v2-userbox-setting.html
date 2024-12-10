@@ -21,7 +21,7 @@
   <div class="modal-body">
     <div class="p-2 mb-2">
       <button type="button" class="btn-close shadow-none float-end" aria-label="Close" (click)="activeModal.dismiss();"></button>
-      <h3 class="modal-title">Change Item</h3>
+      <h3 class="modal-title">{{ 'ChuniV2.UserBoxPage.SelectItem' | translate  }}</h3>
     </div>
     <ng-container *ngTemplateOutlet="pagination;"></ng-container>
     <div class="row p-2">
@@ -67,6 +67,6 @@
       </ng-container>
     </div>
     <ng-container *ngTemplateOutlet="pagination;"></ng-container>
-    <button type="button" class="btn btn-sm btn-primary w-100 mt-2" (click)="parentComponent.handleApplyClick(this.data)">Apply</button>
+    <button type="button" class="btn btn-sm btn-primary w-100 mt-2" (click)="parentComponent.handleApplyClick(this.data)">{{ 'Common.OK' | translate  }}</button>
   </div>
 </div>

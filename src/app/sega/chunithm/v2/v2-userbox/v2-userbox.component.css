@@ -204,3 +204,34 @@ img {
   width: 100%;
   object-fit: contain;
 }
+
+.symbol-chat-container{
+  aspect-ratio: 1.8;
+  width: 100%;
+  max-height: 6em;
+  display: flex;
+  justify-content: center;
+}
+
+.symbol-chat-body{
+  height: 100%;
+  aspect-ratio: 1.5;
+  position: relative;
+  container: symbol-chat-container / size;
+}
+
+.symbol-chat-body img{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.symbol-chat-text{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  color: black;
+  font-size: 10cqh;
+  width: 70%;
+}

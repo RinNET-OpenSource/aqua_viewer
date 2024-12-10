@@ -3,23 +3,39 @@ import {DBConfig, NgxIndexedDBModule} from 'ngx-indexed-db';
 
 export function migrationFactory() {
   return {
+    3: (db: IDBDatabase, transaction: IDBTransaction) => {
+      db.deleteObjectStore('divaPv');
+      db.deleteObjectStore('divaModule');
+      db.deleteObjectStore('divaCustomize');
+      db.deleteObjectStore('chuniMusic');
+      db.deleteObjectStore('chuniCharacter');
+      db.deleteObjectStore('chuniSkill');
+      const ongekiTrophyStore = db.createObjectStore('ongekiTrophy', {keyPath: 'id', autoIncrement: false});
+      ongekiTrophyStore.createIndex('name', 'name', {unique: false});
+      ongekiTrophyStore.createIndex('rarityType', 'rarityType', {unique: false});
+    },
     4: (db: IDBDatabase, transaction: IDBTransaction) => {
-      db.deleteObjectStore("divaPv");
-      db.deleteObjectStore("divaModule");
-      db.deleteObjectStore("divaCustomize");
-      db.deleteObjectStore("chuniMusic");
-      db.deleteObjectStore("chuniCharacter");
-      db.deleteObjectStore("chuniSkill");
-      db.createObjectStore("maimai2Music");
-      const ongekiTrophyStore = db.createObjectStore("ongekiTrophy", {keyPath: 'id', autoIncrement: false});
-      ongekiTrophyStore.createIndex('name', 'name', {unique: false})
-      ongekiTrophyStore.createIndex('rarityType', 'rarityType', {unique: false})
-    }
+      const maimai2MusicStore = db.createObjectStore('maimai2Music', {keyPath: 'musicId', autoIncrement: false});
+      maimai2MusicStore.createIndex('name', 'name', {unique: false});
+      maimai2MusicStore.createIndex('sortName', 'sortName', {unique: false});
+      maimai2MusicStore.createIndex('artistName', 'artistName', {unique: false});
+      maimai2MusicStore.createIndex('genreId', 'genreId', {unique: false});
+      maimai2MusicStore.createIndex('romVersion', 'romVersion', {unique: false});
+      maimai2MusicStore.createIndex('addVersion', 'addVersion', {unique: false});
+    },
+    5: (db: IDBDatabase, transaction: IDBTransaction) => {
+      const chusanSymbolChatStore = db.createObjectStore('chusanSymbolChat', {keyPath: 'id', autoIncrement: false});
+      chusanSymbolChatStore.createIndex('name', 'name', {unique: false});
+      chusanSymbolChatStore.createIndex('sortName', 'sortName', {unique: false});
+      chusanSymbolChatStore.createIndex('text', 'text', {unique: false});
+      chusanSymbolChatStore.createIndex('balloonId', 'balloonId', {unique: false});
+      chusanSymbolChatStore.createIndex('sceneIds', 'sceneIds', {unique: false});
+    },
   };
 }
 const dbConfig: DBConfig = {
   name: 'Aqua',
-  version: 4,
+  version: 5,
   objectStoresMeta: [
     {
       store: 'ongekiCard',
@@ -134,6 +150,16 @@ const dbConfig: DBConfig = {
       storeSchema: [
         {name: 'name', keypath: 'name', options: {unique: false}},
         {name: 'category', keypath: 'category', options: {unique: false}}
+      ]
+    }, {
+      store: 'chusanSymbolChat',
+      storeConfig: {keyPath: 'id', autoIncrement: false},
+      storeSchema: [
+        {name: 'name', keypath: 'name', options: {unique: false}},
+        {name: 'sortName', keypath: 'sortName', options: {unique: false}},
+        {name: 'text', keypath: 'text', options: {unique: false}},
+        {name: 'balloonId', keypath: 'balloonId', options: {unique: false}},
+        {name: 'sceneIds', keypath: 'sceneIds', options: {unique: false}}
       ]
     }, {
      store: 'maimai2Music',

@@ -27,7 +27,8 @@ import {NgIcon} from '@ng-icons/core';
 import {V2RivalListComponent} from './v2-rival-list/v2-rival-list.component';
 import {CharacterImagePipe} from './util/character-image.pipe';
 import {ToLevelStringPipe} from './util/to-level-string.pipe';
-import { ToTechRatingPipe } from './util/to-tech-rating.pipe';
+import {ToTechRatingPipe} from './util/to-tech-rating.pipe';
+import {V2SymbolChatSettingComponent} from './v2-userbox/v2-symbol-chat-setting/v2-symbol-chat-setting.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -74,7 +75,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     V2RivalListComponent,
     CharacterImagePipe,
     ToLevelStringPipe,
-    ToTechRatingPipe
+    ToTechRatingPipe,
+    V2SymbolChatSettingComponent
   ]
 })
 export class V2Module {

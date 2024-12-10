@@ -417,7 +417,17 @@
       "Trophy": "Trophy",
       "Frame": "Frame",
       "Change": "Change",
-      "Preview": "Preview"
+      "Preview": "Preview",
+      "SymbolChat": "Symbol Chat",
+      "Matching": "Matching",
+      "OverviewSelf": "Overview(Self)",
+      "OverviewRival": "Overview(Rival)",
+      "Result": "Result",
+      "BattleResult": "BattleResult",
+      "Chat": "Chat",
+      "SelectItem": "Select Item",
+      "MessageSuccess": "Successfully changed.",
+      "MessageFailed": "Failed to change item."
     },
     "RivalPage": {
       "Title": "Rival",

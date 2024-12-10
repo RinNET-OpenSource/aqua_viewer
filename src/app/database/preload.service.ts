@@ -1,24 +1,25 @@
-import { Injectable } from '@angular/core';
-import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { ReplaySubject, forkJoin } from 'rxjs';
-import { ApiService } from '../api.service';
-import { OngekiCard } from '../sega/ongeki/model/OngekiCard';
-import { OngekiCharacter } from '../sega/ongeki/model/OngekiCharacter';
-import { OngekiMusic } from '../sega/ongeki/model/OngekiMusic';
-import { OngekiSkill } from '../sega/ongeki/model/OngekiSkill';
-import { OngekiTrophy } from '../sega/ongeki/model/OngekiTrophy';
-import { ChusanMusic } from '../sega/chunithm/v2/model/ChusanMusic';
-import { ChusanCharacter } from '../sega/chunithm/v2/model/ChusanCharacter';
-import { ChusanTrophy } from '../sega/chunithm/v2/model/ChusanTrophy';
-import { ChusanNamePlate } from '../sega/chunithm/v2/model/ChusanNamePlate';
-import { ChusanSystemVoice } from '../sega/chunithm/v2/model/ChusanSystemVoice';
-import { ChusanMapIcon } from '../sega/chunithm/v2/model/ChusanMapIcon';
-import { ChusanFrame } from '../sega/chunithm/v2/model/ChusanFrame';
-import { ChusanAvatarAcc } from '../sega/chunithm/v2/model/ChusanAvatarAcc';
-import { HttpParams } from '@angular/common/http';
-import { AuthenticationService } from '../auth/authentication.service';
-import { MessageService } from '../message.service';
-import {Maimai2Music} from "../sega/maimai2/model/Maimai2Music";
+import {Injectable} from '@angular/core';
+import {NgxIndexedDBService} from 'ngx-indexed-db';
+import {ReplaySubject, forkJoin} from 'rxjs';
+import {ApiService} from '../api.service';
+import {OngekiCard} from '../sega/ongeki/model/OngekiCard';
+import {OngekiCharacter} from '../sega/ongeki/model/OngekiCharacter';
+import {OngekiMusic} from '../sega/ongeki/model/OngekiMusic';
+import {OngekiSkill} from '../sega/ongeki/model/OngekiSkill';
+import {OngekiTrophy} from '../sega/ongeki/model/OngekiTrophy';
+import {ChusanMusic} from '../sega/chunithm/v2/model/ChusanMusic';
+import {ChusanCharacter} from '../sega/chunithm/v2/model/ChusanCharacter';
+import {ChusanTrophy} from '../sega/chunithm/v2/model/ChusanTrophy';
+import {ChusanNamePlate} from '../sega/chunithm/v2/model/ChusanNamePlate';
+import {ChusanSystemVoice} from '../sega/chunithm/v2/model/ChusanSystemVoice';
+import {ChusanMapIcon} from '../sega/chunithm/v2/model/ChusanMapIcon';
+import {ChusanFrame} from '../sega/chunithm/v2/model/ChusanFrame';
+import {ChusanAvatarAcc} from '../sega/chunithm/v2/model/ChusanAvatarAcc';
+import {ChusanSymbolChat} from '../sega/chunithm/v2/model/ChusanSymbolChat';
+import {HttpParams} from '@angular/common/http';
+import {AuthenticationService} from '../auth/authentication.service';
+import {MessageService} from '../message.service';
+import {Maimai2Music} from '../sega/maimai2/model/Maimai2Music';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,8 @@ export class PreloadService {
   chusanFrameState = this.chusanFrame.asObservable();
   private chusanAvatarAcc = new ReplaySubject<string>();
   chusanAvatarAccState = this.chusanAvatarAcc.asObservable();
+  private chusanSymbolChat = new ReplaySubject<string>();
+  chusanSymbolChatState = this.chusanSymbolChat.asObservable();
   private maimai2Music = new ReplaySubject<string>();
   maimai2MusicState = this.maimai2Music.asObservable();
 
@@ -84,6 +87,7 @@ export class PreloadService {
     this.loader<ChusanMapIcon>('chusanMapIcon', 'api/game/chuni/v2/data/mapicon', this.chusanMapIcon);
     this.loader<ChusanFrame>('chusanFrame', 'api/game/chuni/v2/data/frame', this.chusanFrame);
     this.loader<ChusanAvatarAcc>('chusanAvatarAcc', 'api/game/chuni/v2/data/avatar', this.chusanAvatarAcc);
+    this.loader<ChusanSymbolChat>('chusanSymbolChat', 'api/game/chuni/v2/data/symbolChatInfo', this.chusanSymbolChat);
     this.loader<Maimai2Music>('maimai2Music', 'api/game/maimai2/data/musicList', this.maimai2Music);
   }
 
@@ -102,6 +106,7 @@ export class PreloadService {
       this.dbService.clear('chusanMapIcon'),
       this.dbService.clear('chusanFrame'),
       this.dbService.clear('chusanAvatarAcc'),
+      this.dbService.clear('chusanSymbolChat'),
       this.dbService.clear('maimai2Music')
     ]);
   }
@@ -114,20 +119,19 @@ export class PreloadService {
       });
   }
 
-  checkDbUpdate(){
+  checkDbUpdate() {
     this.checkingUpdate.next(true);
     this.api.get('api/static/dbVersion').subscribe(
       resp => {
         if (resp?.state.toLowerCase().includes('success')) {
           const latestVersion = resp.version.major;
           this.dbVersionObservable.subscribe(version => {
-            if (latestVersion > version){
+            if (latestVersion > version) {
               this.clearDb().subscribe(() => {
                 localStorage.setItem('dbVersion', latestVersion.toString());
                 window.location.reload();
               });
-            }
-            else{
+            } else {
               this.load();
               this.checkingUpdate.next(false);
             }

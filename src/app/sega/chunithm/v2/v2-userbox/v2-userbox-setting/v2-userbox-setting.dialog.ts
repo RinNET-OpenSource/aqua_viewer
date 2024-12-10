@@ -1,6 +1,5 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AuthenticationService} from '../../../../../auth/authentication.service';
 import {MessageService} from '../../../../../message.service';
 import {ApiService} from '../../../../../api.service';
 import {V2Item} from '../../model/V2Item';
@@ -68,7 +67,7 @@ export class V2UserBoxSettingDialog implements OnInit{
         }
       });
     }
-    else if(!this.data.showAllItems) {
+    else if (!this.data.showAllItems) {
       this.api.get('api/game/chuni/v2/item/' + this.data.itemKind, param).subscribe(
         (data: V2Item[]) => {
           if (data) {
