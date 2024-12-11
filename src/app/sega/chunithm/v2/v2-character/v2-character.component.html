@@ -26,11 +26,11 @@
     <div class="col-12 col-sm">
       <div class="row justify-content-start align-items-center g-1">
         <div class="col-auto">
-          <input class="checkbox" type="checkbox" role="switch" id="showAcquired" [value]="'acquired'" [formControl]="acquiredControls.controls[0]">
+          <input class="checkbox checkbox-btn" type="checkbox" role="switch" id="showAcquired" [value]="'acquired'" [formControl]="acquiredControls.controls[0]">
           <label class="checkbox-label" for="showAcquired">{{ 'ChuniV2.CharacterPage.Acquired' | translate }}</label>
         </div>
         <div class="col-auto">
-          <input class="checkbox" type="checkbox" role="switch" id="showUnacquired" [value]="'unacquired'" [formControl]="acquiredControls.controls[1]">
+          <input class="checkbox checkbox-btn" type="checkbox" role="switch" id="showUnacquired" [value]="'unacquired'" [formControl]="acquiredControls.controls[1]">
           <label class="checkbox-label" for="showUnacquired">{{ 'ChuniV2.CharacterPage.Unacquired' | translate }}</label>
         </div>
       </div>
@@ -42,7 +42,7 @@
     <div class="col-12 col-sm">
       <div class="row justify-content-start align-items-center g-1">
         <div *ngFor="let releaseTag of releaseTags; let i = index" class="col-auto">
-          <input type="checkbox" class="form-check-input" [value]="releaseTag" [id]="'releaseTag' + i" [formControl]="versionControls.controls[i]">
+          <input type="checkbox" class="form-check-input checkbox-btn" [value]="releaseTag" [id]="'releaseTag' + i" [formControl]="versionControls.controls[i]">
           <label class="checkbox-label" [for]="'releaseTag' + i">{{releaseTagMap.get(releaseTag)}}</label>
         </div>
       </div>

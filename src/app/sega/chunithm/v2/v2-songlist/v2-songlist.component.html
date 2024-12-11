@@ -23,11 +23,11 @@
 
 <div class="row justify-content-start mb-2 g-2">
   <div *ngFor="let genre of genres; let i = index" class="col-auto">
-    <input type="checkbox" class="form-check-input" [value]="genre" [id]="'genre' + i" [formControl]="genreControls.controls[i]">
+    <input type="checkbox" class="form-check-input checkbox-btn" [value]="genre" [id]="'genre' + i" [formControl]="genreControls.controls[i]">
     <label class="checkbox-label" [for]="'genre' + i">{{genresMap.get(genre)}}</label>
   </div>
   <div class="col-auto">
-    <input type="checkbox" class="form-check-input" value="lunatic" id="lunatic" [formControl]="weControl">
+    <input type="checkbox" class="form-check-input checkbox-btn" value="lunatic" id="lunatic" [formControl]="weControl">
     <label class="checkbox-label" for="lunatic">World's End</label>
   </div>
 </div>
