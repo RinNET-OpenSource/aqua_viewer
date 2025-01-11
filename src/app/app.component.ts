@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   sidebarOffcanvasOpened = false;
 
   disableSidebar = false;
+  isRouterHome = false;
 
   loading$: Observable<boolean>;
 
@@ -119,6 +120,11 @@ export class AppComponent implements OnInit, OnDestroy {
         this.messageService.notice(message, 'warning');
       });
     }
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd) // 只关注 NavigationEnd 事件
+    ).subscribe((event: NavigationEnd) => {
+      this.isRouterHome = event.urlAfterRedirects === '/';
+    });
   }
 
   private initializeApp() {
