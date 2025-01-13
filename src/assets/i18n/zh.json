@@ -213,6 +213,8 @@
     "AccessCode": "卡号",
     "ChangeAccessCode": "变更卡号",
     "Aliases": "已关联卡片",
+    "RemoveAlias": "取消关联",
+    "RemoveAliasTip": "确定要取消这张卡的关联吗？",
     "None": "无",
     "AddAlias": "添加",
     "SetDefault": "设为默认",
@@ -220,7 +222,15 @@
     "Warning1": "不要将你的卡号发送给任何人，也不要在关联卡片中添加其他人的卡片。",
     "Warning2": "由于读卡器与卡片的功能差异，卡号可能与卡片背面印刷内容不同，实际卡号请遵循游戏标题页相关引导查看。",
     "Warning3": "至少游玩一局游戏后，才可能绑定成功。",
-    "Warning4": "关联卡片用于多张卡片指向同一存档，只能添加没有游玩过的卡片。"
+    "Warning4": "关联卡片用于多张卡片指向同一存档，只能添加没有游玩过的卡片。",
+    "BindSuccessMessage": "绑定成功。",
+    "CardNotFountMessage": "卡号不存在。",
+    "AlreadyBoundToOthersMessage": "卡片已被他人绑定。",
+    "AlreadyBoundToSelfMessage": "你已经绑定了这张卡片。",
+    "SetDefaultSuccessMessage": "已设为默认卡片。",
+    "AddAliasErrorMessage": "卡片已被注册，只能添加未注册的卡号作为别名。",
+    "ChangeAccessCodeErrorMessage": "卡片已被注册，你只能变更到没有注册过的卡号。",
+    "ChangeAccessCodeSuccessMessage": "变更卡号成功。"
   },
   "KeychipPage": {
     "Title": "机台",

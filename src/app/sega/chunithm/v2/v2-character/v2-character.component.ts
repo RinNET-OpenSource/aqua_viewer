@@ -357,4 +357,17 @@ export class V2CharacterComponent implements OnInit {
         error: error => this.messageService.notice(error, 'warning')
     });
   }
+
+  unlockCharacter(characterId: number) {
+    this.api.post('api/game/chuni/v2/character', {
+      aimeId: this.aimeId,
+      characterId,
+      level: 1,
+      isValid: true,
+      isNewMark: true
+    }).subscribe(data => {
+      this.characterIds = [characterId].concat(this.characterIds);
+      this.load(this.currentPage);
+    }, error => this.messageService.notice(error));
+  }
 }

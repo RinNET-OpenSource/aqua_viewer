@@ -82,13 +82,14 @@
           </div>
           <ng-template #removeExternal let-modal>
             <div class="modal-header">
-              <h4 class="modal-title">Remove Alias</h4>
+              <h4 class="modal-title">{{'CardsPage.RemoveAlias' | translate}}</h4>
+              <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss();"></button>
             </div>
             <div class="modal-body">
               <form>
                 <div class="d-grid">
                   <p class="mb-3 ms-1">
-                    Are you sure to remove this alias?
+                    {{'CardsPage.RemoveAliasTip' | translate}}
                   </p>
                   <button class="btn btn-danger btn-sm" (click)="onRemoveExternal(item, modal)">{{'Common.OK' | translate}}</button>
                 </div>
@@ -115,7 +116,7 @@
         <div class="modal-body">
           <form (ngSubmit)="onAddAccessCode(card.extId, modal)" [formGroup]="addAccessCodeForm">
             <div class="d-grid">
-              <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="{{'CardsPage.AccessCode' | translate}}">
+              <input type="text" class="form-control mb-3" formControlName="accessCode" maxlength="20" placeholder="{{'CardsPage.AccessCode' | translate}}">
               <button type="submit" class="btn btn-primary btn-sm">{{'Common.OK' | translate}}</button>
             </div>
           </form>
@@ -153,7 +154,7 @@
   <div class="modal-body">
     <form (ngSubmit)="onBindCard(modal)" [formGroup]="bindCardForm">
       <div class="d-grid">
-        <input type="text" class="form-control mb-3" formControlName="accessCode" placeholder="{{'CardsPage.AccessCode' | translate}}">
+        <input type="text" class="form-control mb-3" formControlName="accessCode" maxlength="20" placeholder="{{'CardsPage.AccessCode' | translate}}">
         <button type="submit" class="btn btn-primary btn-sm">{{'Common.OK' | translate}}</button>
       </div>
     </form>

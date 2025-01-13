@@ -6,7 +6,8 @@ import {AuthenticationService} from '../auth/authentication.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Time} from '@angular/common';
 import {StatusCode} from '../status-code';
-import { UserService } from '../user.service';
+import {UserService} from '../user.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cards',
@@ -21,6 +22,7 @@ export class CardsComponent implements OnInit {
   loaded = false;
 
   constructor(
+    private translate: TranslateService,
     private fb: FormBuilder,
     protected userService: UserService,
     private messageService: MessageService,
@@ -72,6 +74,9 @@ export class CardsComponent implements OnInit {
         const statusCode: StatusCode = resp.status.code;
         if (statusCode === StatusCode.OK) {
           this.loadCards();
+          this.translate.get('CardsPage.SetDefaultSuccessMessage').subscribe((res: string) => {
+            this.messageService.notice(res, 'success');
+          });
         }
         else {
           this.messageService.notice(resp.status.message);
@@ -128,6 +133,24 @@ export class CardsComponent implements OnInit {
           if (statusCode === StatusCode.OK) {
             this.bindCardForm.reset();
             this.loadCards();
+            this.translate.get('CardsPage.BindSuccessMessage').subscribe((res: string) => {
+              this.messageService.notice(res, 'success');
+            });
+          }
+          else if (statusCode === StatusCode.CARD_NOT_FOUND){
+            this.translate.get('CardsPage.CardNotFountMessage').subscribe((res: string) => {
+              this.messageService.notice(res, 'danger');
+            });
+          }
+          else if (statusCode === StatusCode.CARD_ALREADY_LINKED_BY_YOU){
+            this.translate.get('CardsPage.AlreadyBoundToSelfMessage').subscribe((res: string) => {
+              this.messageService.notice(res, 'warning');
+            });
+          }
+          else if (statusCode === StatusCode.CARD_ALREADY_LINKED_BY_OTHERS){
+            this.translate.get('CardsPage.AlreadyBoundToOthersMessage').subscribe((res: string) => {
+              this.messageService.notice(res, 'danger');
+            });
           }
           else {
             this.messageService.notice(resp.status.message);
@@ -157,6 +180,11 @@ export class CardsComponent implements OnInit {
             this.addAccessCodeForm.reset();
             this.loadCards();
           }
+          else if (statusCode === StatusCode.ADD_ACCESS_CODE_ERROR){
+            this.translate.get('CardsPage.AddAliasErrorMessage').subscribe((res: string) => {
+              this.messageService.notice(res, 'danger');
+            });
+          }
           else {
             this.messageService.notice(resp.status.message);
           }
@@ -184,6 +212,14 @@ export class CardsComponent implements OnInit {
           if (statusCode === StatusCode.OK) {
             this.changeAccessCodeForm.reset();
             this.loadCards();
+            this.translate.get('CardsPage.ChangeAccessCodeSuccessMessage').subscribe((res: string) => {
+              this.messageService.notice(res, 'success');
+            });
+          }
+          else if (statusCode === StatusCode.CHANGE_ACCESS_CODE_ERROR) {
+            this.translate.get('CardsPage.ChangeAccessCodeErrorMessage').subscribe((res: string) => {
+              this.messageService.notice(res, 'danger');
+            });
           }
           else {
             this.messageService.notice(resp.status.message);

@@ -165,7 +165,7 @@
               </tbody>
             </table>
             <div class="hstack gap-1 float-end">
-              <button class="btn btn-sm btn-primary">{{ 'ChuniV2.CharacterPage.Unlock' | translate }}</button>
+              <button class="btn btn-sm btn-primary" (click)="unlockCharacter(item.characterInfo.id)">{{ 'ChuniV2.CharacterPage.Unlock' | translate }}</button>
             </div>
           </div>
         </ng-template>
