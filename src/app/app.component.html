@@ -2,7 +2,8 @@
   <div class="flex-grow-1">
     <nav ngbNav #nav="ngbNav" class="app-navbar navbar navbar-expand-lg position-fixed shadow w-100">
       <div class="container-xxl">
-        <button [class.v-hidden]="disableSidebar || !accountService.currentAccountValue" (click)="showSidebar()"
+        <button [class.v-not-login]="disableSidebar && !accountService.currentAccountValue" (click)="showSidebar()"
+                [class.v-hidden]="isRouterHome && accountService.currentAccountValue"
                 class="navbar-toggler btn btn-icon"
                 type="button">
           <div class="d-flex align-items-center">

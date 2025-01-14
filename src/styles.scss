@@ -167,6 +167,12 @@ pagination-template {
   visibility: hidden;
 }
 
+.v-not-login {
+  visibility: hidden;
+  padding: 0;
+  width: 0;
+}
+
 .callout {
   padding: 1.25rem;
   margin-top: 1.25rem;
