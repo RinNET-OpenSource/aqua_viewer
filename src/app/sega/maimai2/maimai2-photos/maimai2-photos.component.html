@@ -1,7 +1,7 @@
 <h1 class="page-heading">{{'Maimai2.PhotosPage.Title'|translate}}</h1>
 
 <ng-template #pagination>
-  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none d-flex justify-content-center mt-2" id="server" maxSize="7"
                        style="cursor: default"
                        (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
     <ul class="pagination pagination-sm justify-content-center mb-2">

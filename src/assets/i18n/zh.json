@@ -24,6 +24,7 @@
       "Profile": "档案"
     },
     "Sidebar": {
+      "Navigation": "导航栏",
       "Dashboard": "仪表板",
       "Import": "导入",
       "Announcements": "公告",
@@ -491,7 +492,15 @@
   },
   "Maimai2": {
     "ProfilePage": {
-      "Overview": "玩家信息"
+      "Title": "档案",
+      "UserName": "玩家名",
+      "Overview": "玩家信息",
+      "Rating": "Rating",
+      "AwakenedCharacter": "角色觉醒★数",
+      "PlayCount": "游玩次数",
+      "LastPay": "最后游玩日期",
+      "OTOMODACHI": "友人对战Class",
+      "DANININTEI": "段位认定Class"
     },
     "RatingPage": {
       "Title": "评级",
@@ -512,10 +521,36 @@
     "DxpassPage": {
       "Title": "DX通行证",
       "NotOwned": "你暂未拥有任何DX通行证。",
-      "BuyDate": "购入时间",
+      "BuyDate": "获得时间",
       "ExpireDate": "到期时间",
       "DefaultInfo": "当前设定的默认DX Pass类型",
-      "SetDefault": "设为默认类型"
+      "SetDefault": "设为默认类型",
+      "Remaining": "剩余",
+      "Expired": "已过期"
+    },
+    "Setting": {
+      "Title": "设定",
+      "UserName": "用户名",
+      "UserNameTitle": "这是你的游戏内用户名:",
+      "UserNameSubTitle": "*注意，更改名称使用全角字符",
+      "UserNameChangeButton": "更改名称",
+      "UserIcon": "用户头像",
+      "UserIconTex": " ",
+      "UserIconChangeButton": "上传头像",
+      "RedemptionCode": "兑换码",
+      "RedemptionCodeTitle": "使用兑换码来激活礼品:",
+      "RedemptionCodeSubTitle": "*请不要使用他人的兑换码",
+      "RedeemButton": "兑换",
+      "BindingCardNumber": "绑定的卡号",
+      "BindingCardNumberTitle": "绑定一张Aime卡到现在的账号，可以使用该Aime卡访问登录这个游戏档案",
+      "BindingCardNumberSubTitle1": "*请输入20位数字",
+      "BindingCardNumberSubTitle2": "*解除绑定后，你的Aime卡将会回复到原先的档案。",
+      "TryBind": "尝试绑定",
+      "Unbind": "解除绑定",
+      "ExportData": "导出数据",
+      "ExportDataTitle": "通过这个功能可以导出数据，以便迁移时使用",
+      "ExportDataSubTitle": "*请不要将导出的文件分享给他人",
+      "ExportDataSubButton": "导出"
     }
   },
   "ContributorsPage": {

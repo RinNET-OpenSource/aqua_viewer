@@ -21,6 +21,9 @@
           <span *ngSwitchCase="4" class="difficulty-remaster badge rounded-pill">
             Re:Master {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
           </span>
+          <span *ngSwitchCase="9" class="difficulty-UTAGE badge rounded-pill">
+            U﹒TA﹒GE
+          </span>
         </ng-container>
       </div>
     </div>
@@ -86,10 +89,10 @@
             <thead>
             <tr>
               <th style="min-width: 4rem;"></th>
-              <th>CRIT.PREF</th>
-              <th>PREFECT</th>
-              <th>GREAT</th>
-              <th>GOOD</th>
+              <th style="color: yellow;text-shadow: 0px 0px 1 #FFC125;">CRIT.PREF</th>
+              <th style="color: #FFC125;">PREFECT</th>
+              <th style="color: #FF6A6A;">GREAT</th>
+              <th style="color: #7FFF00;">GOOD</th>
               <th>MISS</th>
             </tr>
             </thead>
@@ -136,9 +139,9 @@
             </tr>
             <tr>
               <td></td>
-              <td>FAST</td>
+              <td style="color: blue;">FAST</td>
               <td>{{item.fastCount}}</td>
-              <td>LATE</td>
+              <td style="color: red;">LATE</td>
               <td>{{item.lateCount}}</td>
               <td></td>
             </tr>
@@ -182,12 +185,34 @@
         <div>
           {{(item.userPlayDate | toDate).toLocaleString()}}
         </div>
-        <button class="btn btn-link p-0" (click)="toggleDetail(i)">{{'Maimai2.RecentPage.Detailed'|translate}}</button>
+        <button class="btn btn-primary btn-sm" (click)="toggleDetail(i)">
+          {{'Maimai2.RecentPage.Detailed'|translate}}
+        </button>
       </div>
     </div>
 
   </div>
 </div>
-<div class="pagination">
-  <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>
-</div>
+<!--<div class="pagination d-flex justify-content-center">-->
+<!--  <pagination-controls (pageChange)="load($event)" id="server"></pagination-controls>-->
+<!--</div>-->
+<ng-template #pagination>
+  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none d-flex justify-content-center mt-2" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="load($event)" (pageBoundsCorrection)="load($event)">
+    <ul class="pagination pagination-sm justify-content-center mb-2">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>

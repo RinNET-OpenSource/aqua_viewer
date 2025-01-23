@@ -66,21 +66,30 @@
               Freedom Pass
             </span>
             </ng-container>
-            <span class="expired-pass badge rounded-pill">
-               剩余{{ calculateRemainingTime(item.endDate) }}
+            <ng-container *ngIf="calculateRemainingTime(item.endDate) === '已过期'; else remainingTime">
+              <span class="expired-pass badge rounded-pill">
+                {{ 'Maimai2.DxpassPage.Expired' | translate }}
               </span>
+            </ng-container>
+            <ng-template #remainingTime>
+              <span class="expired-pass badge rounded-pill">
+                {{ 'Maimai2.DxpassPage.Remaining' | translate }}{{ calculateRemainingTime(item.endDate) }}
+              </span>
+            </ng-template>
           </div>
         </div>
         <div #collapse="ngbCollapse" class="card-footer p-2 small" [ngbCollapse]="!isDetailVisible[i]">
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold">{{'Maimai2.DxpassPage.BuyDate'|translate}}:</span>
-            <span>{{ formatDate(item.startDate) }}</span>
-          </div>
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold">{{'Maimai2.DxpassPage.ExpireDate'|translate}}:</span>
-            <span class="text-danger">{{ formatDate(item.endDate) }}</span> <!-- 到期时间用红色突出 -->
-          </div>
-          <a *ngIf="item.cardTypeId == 4 || item.cardTypeId == 6" (click)="setDefaultCardType(item.cardTypeId)" class="btn-link">{{'Maimai2.DxpassPage.SetDefault'|translate}}</a>
+          <ul class="list-group profile-list">
+            <li class="list-group-item">
+              <th>{{'Maimai2.DxpassPage.BuyDate'|translate}}:</th>
+              <td>{{ formatDate(item.startDate) }}</td>
+            </li>
+            <li class="list-group-item">
+              <th>{{'Maimai2.DxpassPage.ExpireDate'|translate}}:</th>
+              <td class="text-danger">{{ formatDate(item.endDate) }}</td>
+            </li>
+          </ul>
+          <button *ngIf="item.cardTypeId == 4 || item.cardTypeId == 6" (click)="setDefaultCardType(item.cardTypeId)" class="btn btn-primary btn-sm mt-2" >{{'Maimai2.DxpassPage.SetDefault'|translate}}</button>
         </div>
       </div>
     </div>

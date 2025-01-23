@@ -24,6 +24,7 @@
       "Profile": "Profile"
     },
     "Sidebar": {
+      "Navigation": "Navigation",
       "Dashboard": "Dashboard",
       "Import": "Import",
       "Announcements": "Announcements",
@@ -491,7 +492,15 @@
   },
   "Maimai2": {
     "ProfilePage": {
-      "Overview": "Player Info"
+      "Title": "Profile",
+      "UserName": "User Name",
+      "Overview": "Player info",
+      "Rating": "Rating",
+      "AwakenedCharacter": "Awakened character★",
+      "PlayCount": "Play Count",
+      "LastPay": "Last Pay",
+      "OTOMODACHI": "OTOMODACHI Class",
+      "DANININTEI": "DANININTEI Class"
     },
     "RatingPage": {
       "Title": "Best 50 Rating",
@@ -515,7 +524,33 @@
       "BuyDate": "Buy-In Date",
       "ExpireDate": "Expire Date",
       "DefaultInfo": "Default DX Pass kind currently",
-      "SetDefault": "Set type as default"
+      "SetDefault": "Set type as default",
+      "Remaining": "remaining",
+      "Expired": "Expired"
+    },
+    "Setting": {
+      "Title": "Setting",
+      "UserName": "User Name",
+      "UserNameTitle": "This is your in-game username:",
+      "UserNameSubTitle": "*Note: Use full-width characters when changing the name.",
+      "UserNameChangeButton": "Change",
+      "UserIcon": "User Icon",
+      "UserIconTex": " ",
+      "UserIconChangeButton": "Upload",
+      "RedemptionCode": "Redemption Code",
+      "RedemptionCodeTitle": "Use a redemption code to activate gifts:",
+      "RedemptionCodeSubTitle": "*Please do not use someone else's redemption code.",
+      "RedeemButton": "Redeem",
+      "BindingCardNumber": "Bound Card Number",
+      "BindingCardNumberTitle": "Bind an Aime card to this account, allowing you to use the Aime card to log in to this game profile.",
+      "BindingCardNumberSubTitle1": "*Please enter a 20-digit number.",
+      "BindingCardNumberSubTitle2": "*After unbinding, your Aime card will revert to its original profile.",
+      "TryBind": "Try Binding",
+      "Unbind": "Unbind",
+      "ExportData": "Export Data",
+      "ExportDataTitle": "This function allows you to export data for use during migration.",
+      "ExportDataSubTitle": "*Please do not share the exported files with others",
+      "ExportDataSubButton": "Export"
     }
   },
   "ContributorsPage": {

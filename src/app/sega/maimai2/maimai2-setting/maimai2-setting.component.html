@@ -1,26 +1,26 @@
-<h1 class="page-heading">设定</h1>
+<h1 class="page-heading">{{ 'Maimai2.Setting.Title' | translate }}</h1>
 
 
 <div class="card mb-3" *ngIf="profile">
   <div class="card-header">
-    用户名
+    {{ 'Maimai2.Setting.UserName' | translate }}
   </div>
   <div class="card-body">
-    <h5 class="card-title">这是你的游戏内用户名:</h5>
+    <h5 class="card-title">{{ 'Maimai2.Setting.UserNameTitle' | translate }}</h5>
     <form [formGroup]="userNameForm" (ngSubmit)="onSubmit()">
-   <!-- <h2 class="card-text text-center">{{profile.userName}}</h2> -->
-    <input type="text" class="form-control mb-3" id="username" formControlName="username">
+      <!-- <h2 class="card-text text-center">{{profile.userName}}</h2> -->
+      <input type="text" class="form-control mb-3" id="username" formControlName="username">
     </form>
     <div class="d-flex justify-content-between align-items-center">
-      <div class="text-muted small align-text-bottom">*注意，更改名称使用全角字符</div>
-      <a (click)="userName()" class="btn btn-primary">更改名称</a>
+      <div class="text-muted small align-text-bottom">{{ 'Maimai2.Setting.UserNameSubTitle' | translate }}</div>
+      <a (click)="userName()" class="btn btn-primary">{{ 'Maimai2.Setting.UserNameChangeButton' | translate }}</a>
     </div>
   </div>
 </div>
 
 <div class="card mb-3" *ngIf="profile">
   <div class="card-header">
-    用户头像
+    {{ 'Maimai2.Setting.UserIcon' | translate }}
   </div>
   <div class="card-body">
     <h5 class="card-title"></h5>
@@ -34,23 +34,23 @@
     </h5>
     <div class="d-flex justify-content-between align-items-end">
       <div></div>
-      <a (click)="openUploadUserPortraitDialog()" class="btn btn-primary">上传头像</a>
+      <a (click)="openUploadUserPortraitDialog()" class="btn btn-primary">{{ 'Maimai2.Setting.UserIconChangeButton' | translate }}</a>
     </div>
   </div>
 </div>
 
 <div class="card mb-3" *ngIf="profile">
   <div class="card-header">
-    兑换码
+    {{ 'Maimai2.Setting.RedemptionCode' | translate }}
   </div>
   <div class="card-body">
-    <h5 class="card-title">使用兑换码来激活礼品:</h5>
+    <h5 class="card-title">{{ 'Maimai2.Setting.RedemptionCodeTitle' | translate }}</h5>
     <form [formGroup]="redeemCodeForm" (ngSubmit)="onSubmit()">
       <input type="text" class="form-control mb-3" id="redeemCode" formControlName="redeemCode">
     </form>
     <div class="d-flex justify-content-between align-items-center">
-      <div class="text-muted small align-text-bottom">*请不要使用他人的兑换码</div>
-      <a (click)="activateRedeemCode()" class="btn btn-primary">兑换</a>
+      <div class="text-muted small align-text-bottom">{{ 'Maimai2.Setting.RedemptionCodeSubTitle' | translate }}</div>
+      <a (click)="activateRedeemCode()" class="btn btn-primary">{{ 'Maimai2.Setting.RedeemButton' | translate }}</a>
     </div>
   </div>
 </div>
@@ -58,13 +58,13 @@
 
 <div class="card mb-3" *ngIf="profile">
   <div class="card-header text-danger">
-    导出数据
+    {{ 'Maimai2.Setting.ExportData' | translate }}
   </div>
   <div class="card-body">
-    <h5 class="card-text">通过这个功能可以导出数据，以便迁移时使用</h5>
+    <h5 class="card-text">{{ 'Maimai2.Setting.ExportDataTitle' | translate }}</h5>
     <div class="d-flex justify-content-between align-items-end">
-      <div class="text-muted small align-text-bottom">*请不要将导出的文件分享给他人</div>
-      <a (click)="downloadFile()" class="btn btn-primary">导出</a>
+      <div class="text-muted small align-text-bottom">{{ 'Maimai2.Setting.ExportDataSubTitle' | translate }}</div>
+      <a (click)="downloadFile()" class="btn btn-primary">{{ 'Maimai2.Setting.ExportDataSubButton' | translate }}</a>
     </div>
   </div>
 </div>
