@@ -12,6 +12,7 @@ import {Maimai2RecentComponent} from './maimai2-recent/maimai2-recent.component'
 import {NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
 import {Maimai2PhotosComponent} from "./maimai2-photos/maimai2-photos.component";
 import { Maimai2DxpassComponent } from './maimai2-dxpass/maimai2-dxpass.component';
+import {Maimai2SonglistComponent} from "./maimai2-songlist/maimai2-songlist.component";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { Maimai2DxpassComponent } from './maimai2-dxpass/maimai2-dxpass.componen
     Maimai2RatingComponent,
     Maimai2RecentComponent,
     Maimai2PhotosComponent,
-    Maimai2DxpassComponent
+    Maimai2DxpassComponent,
+    Maimai2SonglistComponent
   ],
     imports: [
         CommonModule,

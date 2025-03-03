@@ -166,6 +166,12 @@ export class MenuService {
             displayCondition: DisplayCondition.HasProfile,
           },
           {
+            id: 6,
+            name: 'MusicList',
+            url: 'mai2/songlist',
+            displayCondition: DisplayCondition.Always,
+          },
+          {
             id: 1,
             name: 'Setting',
             url: 'mai2/setting',

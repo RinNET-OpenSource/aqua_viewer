@@ -551,6 +551,16 @@
       "ExportDataTitle": "通过这个功能可以导出数据，以便迁移时使用",
       "ExportDataSubTitle": "*请不要将导出的文件分享给他人",
       "ExportDataSubButton": "导出"
+    },
+    "SongList": {
+      "Title": "歌曲列表",
+      "Filter": "搜索",
+      "Sort": "切换排序顺序",
+      "SortByIDUp": "排序 ↑",
+      "SortByIDDown": "排序 ↓",
+      "Genre": "流派",
+      "Version": "版本",
+      "MatchingSongs": "匹配歌曲"
     }
   },
   "ContributorsPage": {

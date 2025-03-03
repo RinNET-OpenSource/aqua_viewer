@@ -5,6 +5,7 @@ import {Maimai2RatingComponent} from './maimai2-rating/maimai2-rating.component'
 import {Maimai2RecentComponent} from './maimai2-recent/maimai2-recent.component';
 import {Maimai2PhotosComponent} from './maimai2-photos/maimai2-photos.component';
 import {Maimai2DxpassComponent} from './maimai2-dxpass/maimai2-dxpass.component';
+import {Maimai2SonglistComponent} from './maimai2-songlist/maimai2-songlist.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'recent', component: Maimai2RecentComponent, data: {title: 'Recent'}},
   {path: 'rating', component: Maimai2RatingComponent, data: {title: 'Rating'}},
   {path: 'photos', component: Maimai2PhotosComponent, data: {title: 'Photos'}},
-  {path: 'dxpass', component: Maimai2DxpassComponent, data: {title: 'DxPass'}}
+  {path: 'dxpass', component: Maimai2DxpassComponent, data: {title: 'DxPass'}},
+  {path: 'songlist', component: Maimai2SonglistComponent, data: {title: 'Songlist'}},
 ];
 
 export const Maimai2Routes = RouterModule.forChild(routes);

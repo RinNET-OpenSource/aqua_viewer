@@ -43,7 +43,7 @@
       "Setting": "Setting",
       "Photos": "Photos",
       "Dxpass": "Deluxe Pass",
-      "OnlineBattle": "Online Battle"
+      "OnlineBattle": "Online Battle",
     },
     "Messages": {
       "BrowserNotSupported": "Your browser is not supported! Please upgrade to the latest version of Chrome, Firefox, Safari, or Edge for the best experience."
@@ -551,7 +551,18 @@
       "ExportDataTitle": "This function allows you to export data for use during migration.",
       "ExportDataSubTitle": "*Please do not share the exported files with others",
       "ExportDataSubButton": "Export"
+    },
+    "SongList": {
+      "Title": "Song List",
+      "Filter": "Search",
+      "Sort": "Switch sorting order",
+      "SortByIDUp": "Sort ↑",
+      "SortByIDDown": "Sort ↓",
+      "Genre": "Genre",
+      "Version": "Version",
+      "MatchingSongs": "Matching Songs"
     }
+
   },
   "ContributorsPage": {
     "Title": "Contributors",

@@ -1,0 +1,170 @@
+<h1 class="page-heading">{{'Maimai2.SongList.Title'|translate}}</h1>
+
+<ng-template #pagination>
+  <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
+                       style="cursor: default"
+                       (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)">
+    <ul class="pagination pagination-sm justify-content-center mb-2">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">&nbsp;<&nbsp;</a>
+      </li>
+      <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+        <a *ngIf="p.getCurrent() == page.value" class="page-link">{{ page.label }}</a>
+        <a *ngIf="p.getCurrent() != page.value" (click)="p.setCurrent(page.value)"
+           class="page-link">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">&nbsp;>&nbsp;</a>
+      </li>
+    </ul>
+  </pagination-template>
+</ng-template>
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
+
+<div class="accordion mb-2" id="Filter" >
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{'Maimai2.SongList.Genre'|translate}}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row justify-content-start mb-2 g-2">
+          <div *ngFor="let genre of genreOptions; let i = index" class="col-auto">
+            <input type="checkbox"
+                   class="form-check-input checkbox-btn"
+                   [id]="'genre' + i"
+                   [formControl]="genreControls.controls[i]">
+            <label class="checkbox-label" [for]="'genre' + i">{{genre.name}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        {{'Maimai2.SongList.Version'|translate}}
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row justify-content-start mb-2 g-2">
+          <div *ngFor="let version of versionOptions; let i = index" class="col-auto">
+            <input type="checkbox"
+                   class="form-check-input checkbox-btn"
+                   [id]="'version' + i"
+                   [formControl]="versionControls.controls[i]">
+            <label class="checkbox-label" [for]="'version' + i">{{version.name}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form class="row gy-2 gx-3 align-items-center">
+  <div class="col-md-auto flex-grow-1 flex-md-grow-0">
+    <div class="form-control input-container mb-2">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <input class="form-control-plaintext p-0"
+                 [placeholder]="'Maimai2.SongList.Filter'|translate"
+                 [formControl]="searchControl">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-auto col-auto d-flex align-items-center gap-2">
+    <div>
+      <select class="form-select form-select-sm mb-2"
+              (change)="onSortOptionChange($event)">
+        <option *ngFor="let option of sortOptions"
+                [value]="option.id">
+          {{ option.name }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <button class="btn btn-primary btn-sm mb-2"
+              (click)="toggleSortOrder()"
+              [title]="'Maimai2.SongList.Sort' | translate">
+        <i class="bi me-1"
+           [class.bi-sort-down]="!sortOrder$.value"
+           [class.bi-sort-up]="sortOrder$.value"></i>
+        {{ !sortOrder$.value ?
+        ('Maimai2.SongList.SortByIDUp' | translate) :
+        ('Maimai2.SongList.SortByIDDown' | translate) }}
+      </button>
+    </div>
+  </div>
+
+  <div class="col-auto">
+    <div class="text-nowrap mb-2 d-flex align-items-center" style="font-size: 0.9rem">
+      <span class="text-muted">{{'Maimai2.SongList.MatchingSongs'|translate}}：</span>
+      <strong>{{ (filteredSongList$ | async)?.length || 0 }}</strong>
+    </div>
+  </div>
+</form>
+
+<div class="card-btn card mb-2 text-start user-select-none"
+     *ngFor="let song of filteredSongList$ | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }">
+  <div class="song-info card-body hstack gap-2 p-0" >
+    <!-- 封面 -->
+    <div class="jacket-container ratio ratio-1x1 position-relative">
+      <img class="position-absolute rounded-start"
+           *ngIf="enableImages"
+           [src]="host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(song.musicId) + '.webp'"
+           (error)="imgError($event)"
+           alt="{{song.name}}">
+    </div>
+    <div class="overflow-hidden">
+      <div class="song-info-title text-truncate fw-bold">
+        <span>{{song.musicId}}.「{{song.name}}」</span>
+        <span class="badge-SD badge rounded-pill"
+              *ngIf="getBadgeType(song.musicId) === 'sd'">
+              SD
+        </span>
+        <span class="badge-UTAGE badge rounded-pill"
+              *ngIf="getBadgeType(song.musicId) === 'utage'">
+              宴
+        </span>
+        <span class="badge-DX badge rounded-pill"
+              *ngIf="getBadgeType(song.musicId) === 'dx'">
+              DX
+        </span>
+
+      </div>
+
+
+      <div class="song-info-artist text-truncate mb-1">
+        <span>{{song.artistName}}</span>
+      </div>
+
+      <div class="row m-0 align-items-center gap-2">
+        <span *ngIf="song.details[0] != null" class="col-auto difficulty difficulty-basic badge rounded-pill">
+          {{song.details[0].levelDecimal/10}}
+        </span>
+        <span *ngIf="song.details[1] != null" class="col-auto difficulty difficulty-advanced badge rounded-pill">
+          {{song.details[1].levelDecimal/10}}
+        </span>
+        <span *ngIf="song.details[2] != null" class="col-auto difficulty difficulty-expert badge rounded-pill">
+           {{song.details[2].levelDecimal/10}}
+        </span>
+        <span *ngIf="song.details[3] != null" class="col-auto difficulty difficulty-master badge rounded-pill">
+           {{song.details[3].levelDecimal/10}}
+        </span>
+        <span *ngIf="song.details[4] != null" class="col-auto difficulty difficulty-remaster badge rounded-pill">
+           {{song.details[4].levelDecimal/10}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
