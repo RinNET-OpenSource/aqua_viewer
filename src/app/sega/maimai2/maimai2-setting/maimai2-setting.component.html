@@ -25,15 +25,14 @@
   <div class="card-body">
     <h5 class="card-title"></h5>
     <h5 class="card-text">
-      You can upload image to server as your user portrait(a.k.a avatar) in game, but there are some limits:
+      {{ 'Maimai2.Setting.UserIconTips' | translate}}
       <ul>
-        <li>(Cropped) Image file size &lt; <b>{{divMaxLength * 10}} kb</b>.</li>
-        <li>Square image.</li>
+        <li>{{ 'Maimai2.Setting.UserIconLimit1' | translate}} &lt; <b>{{divMaxLength * 10}} kb</b>.</li>
+        <li>{{ 'Maimai2.Setting.UserIconLimit2' | translate}}</li>
       </ul>
-      Compress once before loading image into web if you want to crop big picture.
     </h5>
     <div class="d-flex justify-content-between align-items-end">
-      <div></div>
+      <div class="text-muted small align-text-bottom">{{ 'Maimai2.Setting.UserIconSubTitle' | translate}}</div>
       <a (click)="openUploadUserPortraitDialog()" class="btn btn-primary">{{ 'Maimai2.Setting.UserIconChangeButton' | translate }}</a>
     </div>
   </div>
