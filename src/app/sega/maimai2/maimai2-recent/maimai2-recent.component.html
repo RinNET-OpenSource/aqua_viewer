@@ -86,17 +86,17 @@
       <div class="row align-items-center px-3 py-2">
         <div class="col-12 col-md-8">
           <table class="table detail-table table-striped">
-            <thead>
+            <thead class="table-grade-color">
             <tr>
               <th style="min-width: 4rem;"></th>
-              <th style="color: yellow;text-shadow: 0px 0px 1 #FFC125;">CRIT.PERF</th>
-              <th style="color: #FFC125;">PERFECT</th>
-              <th style="color: #FF6A6A;">GREAT</th>
-              <th style="color: #7FFF00;">GOOD</th>
+              <th>CRIT.PERF</th>
+              <th>PERFECT</th>
+              <th>GREAT</th>
+              <th>GOOD</th>
               <th>MISS</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="table-first-col table-grade-color">
             <tr>
               <td>TAP</td>
               <td>{{item.tapCriticalPerfect}}</td>
@@ -137,18 +137,28 @@
               <td>{{item.breakGood}}</td>
               <td>{{item.breakMiss}}</td>
             </tr>
-            <tr>
-              <td></td>
-              <td style="color: blue;">FAST</td>
-              <td>{{item.fastCount}}</td>
-              <td style="color: red;">LATE</td>
-              <td>{{item.lateCount}}</td>
-              <td></td>
-            </tr>
             </tbody>
           </table>
         </div>
         <div class="col-12 col-md-4">
+          <div class="row">
+            <div class="col-6 col-md-12 col-xl-6">
+              <div style="color: #2973e0;font-weight: bold;">FAST</div>
+              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+                <div>
+                  <div class="dx-rating-textholder">{{item.fastCount}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-12 col-xl-6">
+              <div style="color: #f35015;font-weight: bold;">LATE</div>
+              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+                <div>
+                  <div class="dx-rating-textholder">{{item.lateCount}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-6 col-md-12 col-xl-6">
               <div class="small mt-2">DXRating</div>

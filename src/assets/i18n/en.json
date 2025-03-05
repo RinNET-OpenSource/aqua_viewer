@@ -43,7 +43,7 @@
       "Setting": "Setting",
       "Photos": "Photos",
       "Dxpass": "Deluxe Pass",
-      "OnlineBattle": "Online Battle",
+      "OnlineBattle": "Online Battle"
     },
     "Messages": {
       "BrowserNotSupported": "Your browser is not supported! Please upgrade to the latest version of Chrome, Firefox, Safari, or Edge for the best experience."
@@ -535,7 +535,10 @@
       "UserNameSubTitle": "*Note: Use full-width characters when changing the name.",
       "UserNameChangeButton": "Change",
       "UserIcon": "User Icon",
-      "UserIconTex": " ",
+      "UserIconTips": "You can upload image to server as your user portrait(a.k.a avatar) in game, but there are some limits:",
+      "UserIconLimit1": "(Cropped) Image file size",
+      "UserIconLimit2": "Square image.",
+      "UserIconSubTitle": "Compress once before loading image into web if you want to crop big picture.",
       "UserIconChangeButton": "Upload",
       "RedemptionCode": "Redemption Code",
       "RedemptionCodeTitle": "Use a redemption code to activate gifts:",
