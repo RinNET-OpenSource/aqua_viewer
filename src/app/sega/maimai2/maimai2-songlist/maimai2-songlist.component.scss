@@ -32,24 +32,24 @@
   font-size: 1.2rem;
   vertical-align: middle;
 }
-.difficulty-badges {
-  margin-top: 0.5rem;
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
 
-  .badge {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-  }
+.badge {
+  width: 2.5rem;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.25rem;
+  box-sizing: border-box;
 }
 
 /* 难度颜色 */
-.difficulty-basic { background: #2da060; }
-.difficulty-advanced { background: #e6a047; }
-.difficulty-expert { background: #e55353; }
-.difficulty-master { background: #9d5cb9; }
-.difficulty-remaster { background: #ffffff; color: #000; border: 1px solid #cb41ff; }
+.difficulty-basic { background: #82d956; }
+.difficulty-advanced { background: #fab609; }
+.difficulty-expert { background: #ff818d; }
+.difficulty-master { background: #c347e7; }
+.difficulty-remaster { background: #ffffff; color: #000; border: 1px solid #c148e5; }
+.difficulty-utage { background: #fe6ffd; }
 
 .song-grid {
   display: grid;
@@ -148,24 +148,23 @@
 // 自定义颜色定义
 
 .badge-SD{
-  background: #0096b5;
-  border: 1px solid #3a4165;
+  background: #45aeff;
   color: #ffffff;
   flex-shrink: 0;
   white-space: nowrap;
-}s,
+}
 
 .badge-UTAGE{
-  background: #870085 linear-gradient(45deg, #7c00a8, #ff6ffd, #870085);
-  border: 1px solid #870085;
+  border: #bde5fe solid 0.125rem;
+  background: #20356a;
   color: #ffffff;
-   flex-shrink: 0;
-   white-space: nowrap;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .badge-DX{
-  background: #ffdd30 linear-gradient(45deg, #2fdbe8, #ff8383, #67ff57);
-  color: white;
+  background: linear-gradient(-30deg, #fbad02 50%, #ff4427 50%);
+  color: #ffffff;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -187,15 +186,19 @@
 }
 
 .song-info .song-info-title {
-  font-size: 16px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .song-info .song-info-artist {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .difficulty {
-  font-size: 12px;
+  width: 3.5rem;
+  font-size: 0.75rem;
 }
 
 /* 难度颜色保持原有 */

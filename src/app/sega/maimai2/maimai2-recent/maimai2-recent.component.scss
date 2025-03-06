@@ -28,39 +28,25 @@
     border-width: 1px;
 }
 
-.song-jacket-container {
-    display: flex;
-    align-items: center;
-
-}
-
 .tiny-text {
     font-size: 0.7rem;
 }
 
-.difficulty-basic {
-    background: #2da060;
-    border: 1px solid #145830;
-    color: white;
+.difficulty{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.25rem;
+    width: 8rem;
 }
 
-.difficulty-advanced {
-    background: #e6a047;
-    border: 1px solid #995014;
-    color: white;
-}
-
-.difficulty-expert {
-    background: #e55353;
-    border: 1px solid #7B1F18;
-    color: white;
-}
-
-.difficulty-master {
-    background: #933daa;
-    border: 1px solid #381C47;
-    color: white;
-}
+.difficulty-basic { background: #82d956; }
+.difficulty-advanced { background: #fab609; }
+.difficulty-expert { background: #ff818d; }
+.difficulty-master { background: #c347e7; }
+.difficulty-remaster { background: #ffffff; color: #933daa; border: 1px solid #381C47; }
+.difficulty-utage { background: #fe6ffd; }
 
 .new-record::after {
     content: "NEW RECORD";
@@ -71,12 +57,6 @@
     bottom: 100%;
     white-space: nowrap;
     font-weight: bold;
-}
-
-.difficulty-remaster {
-    background: whitesmoke;
-    border: 1px solid #381C47;
-    color: #933daa;
 }
 
 .song-name {
@@ -196,4 +176,12 @@
 .table-grade-color>tr>th:nth-child(6) {
     color: #868686;
     font-weight: bold;
+}
+
+:host-context([data-bs-theme="light"]) .track-num-title {
+    color: #323232;
+}
+
+:host-context([data-bs-theme=dark]) .track-num-title {
+    color: #d2d2d2;
 }

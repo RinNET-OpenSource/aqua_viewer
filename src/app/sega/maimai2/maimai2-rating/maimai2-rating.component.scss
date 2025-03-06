@@ -55,3 +55,11 @@
     height: 2rem;
     width: auto
 }
+
+:host-context([data-bs-theme="light"]) .player-rating {
+    color: #323232;
+}
+
+:host-context([data-bs-theme=dark]) .player-rating {
+    color: #d2d2d2;
+}
