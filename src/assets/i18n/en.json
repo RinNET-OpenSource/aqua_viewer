@@ -54,6 +54,8 @@
     "LatestAnnouncement": "Latest Announcement",
     "More": "More",
     "Profiles": "Profiles",
+    "NoBind": "No Bind",
+    "Switch": "Switch",
     "GameData": "Game Data",
     "NoKeychipMessage": "No available keychips. Your account cannot login on non-whitelisted keychips. ",
     "HasTrustedKeychipMessage": "You have set others' keychips as trusted. The holders of these keychips are authorized to log in to your account. ",
@@ -257,7 +259,9 @@
     "Warning4": "Do not add to trust if you do not intend to play on their machine."
   },
   "ImportPage": {
-    "Title": "Import"
+    "Title": "Import",
+    "WarningTitle": "Warning!",
+    "WarningContent": "While this could work, it is not recommended to use this feature."
   },
   "Ongeki": {
     "ProfilePage": {
@@ -506,8 +510,7 @@
       "Title": "Best 50 Rating",
       "B35": "BEST35 ",
       "B15": "BEST15  ",
-      "YourRating": "Your Maimai Rating",
-      "RatingRecommend": "Rating Recommend"
+      "ElevateRecommend": "Elevate Recommend"
     },
     "RecentPage": {
       "Title": "Play Record",

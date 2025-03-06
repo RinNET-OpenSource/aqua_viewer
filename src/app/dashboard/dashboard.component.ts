@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   loadingTrustedKeychip = true;
   checkingUpdate = true;
   dbVersion = 0;
+  currentCard = undefined;
   noCard = false;
   hasKeychip = false;
   hasTrustedKeychip = false;
@@ -96,6 +97,10 @@ export class DashboardComponent implements OnInit {
             this.chusanProfile = resp.data.chusan;
             this.ongekiProfile = resp.data.ongeki;
             this.mai2Profile = resp.data.maimai2;
+            this.currentCard = resp.data.chusan?.accessCode || resp.data.ongeki?.accessCode || resp.data.maimai2?.accessCode;
+            if(this.currentCard){
+              this.currentCard = this.currentCard.substring(0, 4) + '************' + this.currentCard.substring(16);
+            }
           }
           else if (statusCode === StatusCode.NOT_FOUND){
             this.noCard = true;

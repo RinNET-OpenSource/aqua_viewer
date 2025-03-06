@@ -1,75 +1,39 @@
 <h1 class="page-heading">{{ 'Maimai2.RatingPage.Title'|translate }}</h1>
 
 <div class="card p-1 mt-3">
-  <div class="row justify-content-between p-3 align-items-center">
-    <h4 class="col-auto">
-      {{ 'Maimai2.RatingPage.YourRating'|translate }}:
-    </h4>
-    <h4 class="col-auto">
-      {{ playerRating }}({{b35rating}}+{{b15rating}})
-    </h4>
+  <div class="row justify-content-between p-3 align-items-center" style="font-size: 1.25rem;">
+    <span class="col-auto">
+      Rating:
+    </span>
+    <span class="col-auto">
+      <code>{{b35rating}}+{{b15rating}}=</code>{{ playerRating }}
+    </span>
   </div>
 </div>
 
 <div class="card mt-3 mb-3">
-    <div class="card-body">
-      <h5 class="card-title">{{ 'Maimai2.RatingPage.RatingRecommend'|translate }}</h5>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th></th>
-          <th>{{displayRatingTableHeader[0]!=0?displayRatingTableHeader[0]/10:" "}}</th>
-          <th>{{displayRatingTableHeader[1]!=0?displayRatingTableHeader[1]/10:" "}}</th>
-          <th>{{displayRatingTableHeader[2]!=0?displayRatingTableHeader[2]/10:" "}}</th>
-          <th>{{displayRatingTableHeader[3]!=0?displayRatingTableHeader[3]/10:" "}}</th>
-          <th>{{displayRatingTableHeader[4]!=0?displayRatingTableHeader[4]/10:" "}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>S+</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],0)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],0)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],0)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],0)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],0)}}</td>
-        </tr>
-        <tr>
-          <td>SS</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],1)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],1)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],1)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],1)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],1)}}</td>
-        </tr>
-        <tr>
-          <td>SS+</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],2)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],2)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],2)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],2)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],2)}}</td>
-        </tr>
-        <tr>
-          <td>SSS</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],3)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],3)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],3)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],3)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],3)}}</td>
-        </tr>
-        <tr>
-          <td>SSS+</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[0],4)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[1],4)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[2],4)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[3],4)}}</td>
-          <td>{{getRatingInfoByBase(displayRatingTableHeader[4],4)}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="card-body">
+    <span class="card-title" style="font-size: 1.25rem;">{{ 'Maimai2.RatingPage.ElevateRecommend'|translate }}</span>
+    <table class="table table-striped" style="text-align: center;">
+      <thead>
+      <tr>
+        <th></th>
+        <th *ngFor="let i of ['sp', 'ss', 'ssp', 'sss', 'sssp']">
+          <img class="rank-icon" src="{{host}}assets/mai2/common/music_icon_{{i}}.webp">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let i of [0, 1, 2, 3, 4]">
+        <td style="font-weight: bold">{{displayRatingTableHeader[i]!=0?displayRatingTableHeader[i]/10:" "}}</td>
+        <td *ngFor="let j of [0, 1, 2, 3, 4]">
+          {{getRatingInfoByBase(displayRatingTableHeader[i],j)}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+</div>
 
 <div class="mb-3 d-flex align-items-center mt-3">
   <h2 class="mb-0">{{ 'Maimai2.RatingPage.B35'|translate }}</h2>

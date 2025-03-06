@@ -54,6 +54,8 @@
     "LatestAnnouncement": "最新公告",
     "More": "查看更多",
     "Profiles": "游玩信息",
+    "NoBind": "暂未绑定",
+    "Switch": "切换账号",
     "GameData": "游戏数据",
     "NoKeychipMessage": "没有任何可用机台，你的账号无法在非白名单机台登录。",
     "HasTrustedKeychipMessage": "已信任他人的机台，任何持有该机台ID的人都可以登录你的游戏账号。",
@@ -257,7 +259,9 @@
     "Warning4": "如果你不在对方的机台上游玩，请不要添加到信任。"
   },
   "ImportPage": {
-    "Title": "导入"
+    "Title": "导入",
+    "WarningTitle": "警告！",
+    "WarningContent": "虽然这可以工作，但不建议使用此功能"
   },
   "Ongeki": {
     "ProfilePage": {
@@ -506,8 +510,7 @@
       "Title": "评级",
       "B35": "BEST35 旧曲 ",
       "B15": "BEST15 新曲 ",
-      "YourRating": "你的舞萌评级",
-      "RatingRecommend": "Rating建议"
+      "ElevateRecommend": "推分建议"
     },
     "RecentPage": {
       "Title": "游玩记录",
