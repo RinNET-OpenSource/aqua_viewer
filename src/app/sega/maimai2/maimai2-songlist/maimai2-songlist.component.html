@@ -65,10 +65,10 @@
 </div>
 
 
-<form class="row gy-2 gx-3 align-items-center">
-  <div class="col-md-auto flex-grow-1 flex-md-grow-0">
-    <div class="form-control input-container mb-2">
-      <div class="row g-2 align-items-center">
+<form class="gy-2 gx-3 align-items-center my-2 d-grid d-sm-flex gap-2">
+  <div class="w-100 flex-grow-1 flex-md-grow-0 mt-0">
+    <div class="form-control input-container form-select-sm">
+      <div class="row g-2">
         <div class="col">
           <input class="form-control-plaintext p-0"
                  [placeholder]="'Maimai2.SongList.Filter'|translate"
@@ -78,9 +78,9 @@
     </div>
   </div>
 
-  <div class="ms-auto col-auto d-flex align-items-center gap-2">
+  <div class="ms-auto flex-shrink-0 d-flex gap-2 mt-0">
     <div>
-      <select class="form-select form-select-sm mb-2"
+      <select class="form-select form-select-sm"
               (change)="onSortOptionChange($event)">
         <option *ngFor="let option of sortOptions"
                 [value]="option.id">
@@ -90,30 +90,25 @@
     </div>
 
     <div>
-      <button class="btn btn-primary btn-sm mb-2"
+      <button class="btn btn-primary btn-sm"
               (click)="toggleSortOrder()"
               [title]="'Maimai2.SongList.Sort' | translate">
-        <i class="bi me-1"
-           [class.bi-sort-down]="!sortOrder$.value"
-           [class.bi-sort-up]="sortOrder$.value"></i>
         {{ !sortOrder$.value ?
         ('Maimai2.SongList.SortByIDUp' | translate) :
         ('Maimai2.SongList.SortByIDDown' | translate) }}
       </button>
     </div>
   </div>
-
-  <div class="col-auto">
-    <div class="text-nowrap mb-2 d-flex align-items-center" style="font-size: 0.9rem">
-      <span class="text-muted">{{'Maimai2.SongList.MatchingSongs'|translate}}：</span>
-      <strong>{{ (filteredSongList$ | async)?.length || 0 }}</strong>
-    </div>
-  </div>
 </form>
-
+<div class="my-2 justify-content-end d-flex">
+  <div class="text-nowrap d-flex" style="font-size: 0.9rem">
+    <span class="text-muted">{{'Maimai2.SongList.MatchingSongs'|translate}}：</span>
+    <strong>{{ (filteredSongList$ | async)?.length || 0 }}</strong>
+  </div>
+</div>
 <div class="card-btn card mb-2 text-start user-select-none"
      *ngFor="let song of filteredSongList$ | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }">
-  <div class="song-info card-body hstack gap-2 p-0" >
+  <div class="song-info card-body hstack p-0" >
     <!-- 封面 -->
     <div class="jacket-container ratio ratio-1x1 position-relative">
       <img class="position-absolute rounded-start"
@@ -122,31 +117,28 @@
            (error)="imgError($event)"
            alt="{{song.name}}">
     </div>
-    <div class="overflow-hidden">
+    <div class="overflow-hidden px-3 py-1" style="width: 100%;">
       <div class="song-info-title text-truncate fw-bold">
-        <span>{{song.musicId}}.「{{song.name}}」</span>
-        <span class="badge-SD badge rounded-pill"
-              *ngIf="getBadgeType(song.musicId) === 'sd'">
-              SD
-        </span>
-        <span class="badge-UTAGE badge rounded-pill"
-              *ngIf="getBadgeType(song.musicId) === 'utage'">
-              宴
-        </span>
-        <span class="badge-DX badge rounded-pill"
-              *ngIf="getBadgeType(song.musicId) === 'dx'">
-              DX
-        </span>
-
+        <div style="margin-right: 0.5rem;">
+            <span style="font-size: 0.75rem;">{{song.musicId}}. </span>
+            <span>{{song.name}}</span>
+        </div>
+        <div class="badge rounded-pill"
+          [ngClass]="{ 
+            'badge-SD': getBadgeType(song.musicId) === 'sd',
+            'badge-UTAGE': getBadgeType(song.musicId) === 'utage',
+            'badge-DX': getBadgeType(song.musicId) === 'dx'
+          }">
+          {{ getBadgeType(song.musicId).toUpperCase().replace('UTAGE', song.name.substring(1, 2)) || "宴"}}
+        </div>
       </div>
-
 
       <div class="song-info-artist text-truncate mb-1">
         <span>{{song.artistName}}</span>
       </div>
 
       <div class="row m-0 align-items-center gap-2">
-        <span *ngIf="song.details[0] != null" class="col-auto difficulty difficulty-basic badge rounded-pill">
+        <span *ngIf="song.details[0] != null" [ngClass]="getBadgeType(song.musicId) === 'utage' ? 'difficulty-utage' : 'difficulty-basic'" class="col-auto difficulty badge rounded-pill">
           {{song.details[0].levelDecimal/10}}
         </span>
         <span *ngIf="song.details[1] != null" class="col-auto difficulty difficulty-advanced badge rounded-pill">
