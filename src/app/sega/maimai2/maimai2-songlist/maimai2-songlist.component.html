@@ -1,4 +1,4 @@
-<h1 class="page-heading">{{'Maimai2.SongList.Title'|translate}}</h1>
+ <h1 class="page-heading">{{'Maimai2.SongList.Title'|translate}}</h1>
 
 <ng-template #pagination>
   <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
@@ -106,11 +106,15 @@
     <strong>{{ (filteredSongList$ | async)?.length || 0 }}</strong>
   </div>
 </div>
-<div class="card-btn card mb-2 text-start user-select-none"
+<div class="card-btn card mb-2 text-start user-select-none" (click)="showDetail(song)"
      *ngFor="let song of filteredSongList$ | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }">
   <div class="song-info card-body hstack p-0" >
     <!-- 封面 -->
-    <div class="jacket-container ratio ratio-1x1 position-relative">
+    <div class="jacket-container ratio ratio-1x1 position-relative"
+        (contextmenu)="handleContextMenu($event, song.name)"
+        (touchstart)="handleTouchStart($event, song.name)"
+        (touchend)="handleTouchEnd()"
+        (touchcancel)="handleTouchEnd()">
       <img class="position-absolute rounded-start"
            *ngIf="enableImages"
            [src]="host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(song.musicId) + '.webp'"
@@ -119,7 +123,7 @@
     </div>
     <div class="overflow-hidden px-3 py-1" style="width: 100%;">
       <div class="song-info-title text-truncate fw-bold">
-        <div style="margin-right: 0.5rem;">
+        <div class="overflow-hidden" style="margin-right: 0.5rem; white-space: nowrap; text-overflow: ellipsis;">
             <span style="font-size: 0.75rem;">{{song.musicId}}. </span>
             <span>{{song.name}}</span>
         </div>
@@ -141,22 +145,23 @@
         <span *ngIf="song.details[0] != null" [ngClass]="getBadgeType(song.musicId) === 'utage' ? 'difficulty-utage' : 'difficulty-basic'" class="col-auto difficulty badge rounded-pill">
           {{song.details[0].levelDecimal/10}}
         </span>
-        <span *ngIf="song.details[1] != null" class="col-auto difficulty difficulty-advanced badge rounded-pill">
+         <span *ngIf="song.details[1] != null" class="col-auto difficulty difficulty-advanced badge rounded-pill">
           {{song.details[1].levelDecimal/10}}
         </span>
-        <span *ngIf="song.details[2] != null" class="col-auto difficulty difficulty-expert badge rounded-pill">
+         <span *ngIf="song.details[2] != null" class="col-auto difficulty difficulty-expert badge rounded-pill">
            {{song.details[2].levelDecimal/10}}
         </span>
-        <span *ngIf="song.details[3] != null" class="col-auto difficulty difficulty-master badge rounded-pill">
+         <span *ngIf="song.details[3] != null" class="col-auto difficulty difficulty-master badge rounded-pill">
            {{song.details[3].levelDecimal/10}}
         </span>
-        <span *ngIf="song.details[4] != null" class="col-auto difficulty difficulty-remaster badge rounded-pill">
+         <span *ngIf="song.details[4] != null" class="col-auto difficulty difficulty-remaster badge rounded-pill">
            {{song.details[4].levelDecimal/10}}
         </span>
-      </div>
-    </div>
-  </div>
-</div>
+       </div>
+     </div>
+   </div>
+ </div>
+
 
 
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
