@@ -57,6 +57,17 @@
   gap: 1.5rem;
   padding: 1rem;
 }
+
+/* 添加移动端长按视觉反馈 */
+/* 添加移动端长按反馈 */
+.card-btn {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: transform 0.1s;
+
+
+}
 .filter-section {
   padding: 1rem;
   display: flex;
@@ -84,57 +95,9 @@
   }
 }
 
-/* 原有其他样式保持不变 */
-/*
-.song-card {
-  transition: transform 0.2s;
-  &:hover { transform: translateY(-5px); }
-
-  .card {
-    height: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-  }
-
-  .song-jacket-container {
-    width: 160px;
-    height: 160px;
-    margin-bottom: 1rem;
-
-    .song-jacket {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-  }
-
-  .song-info {
-    text-align: center;
-    width: 100%;
-
-    .song-title {
-      font-size: 1rem;
-      margin-bottom: 0.25rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .song-artist {
-      font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.7);
-    }
-  }
+.text-nowrap {
+  white-space: nowrap;
 }
-*/
 
 /* 分页样式 */
 .pagination {
@@ -171,17 +134,6 @@
   padding: 0 1rem;
 }
 
-/*.card-btn {
-  transition: transform 0.2s;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  &:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.1);
-  }
-}*/
 
 .jacket-container {
   width: 80px;
@@ -199,17 +151,29 @@
   background: #0096b5;
   border: 1px solid #3a4165;
   color: #ffffff;
-}
+  flex-shrink: 0;
+  white-space: nowrap;
+}s,
 
 .badge-UTAGE{
   background: #870085 linear-gradient(45deg, #7c00a8, #ff6ffd, #870085);
   border: 1px solid #870085;
   color: #ffffff;
+   flex-shrink: 0;
+   white-space: nowrap;
 }
 
 .badge-DX{
   background: #ffdd30 linear-gradient(45deg, #2fdbe8, #ff8383, #67ff57);
   color: white;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.song-info-title {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 .song-info .jacket-container {
@@ -252,3 +216,4 @@
 .d-flex.gap-2 {
   gap: 0.8rem !important;
 }
+
