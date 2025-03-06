@@ -55,3 +55,11 @@
     height: 2rem;
     width: auto
 }
+
+.player-rating[data-bs-theme=light] {
+    color: #323232;
+}
+
+.player-rating[data-bs-theme=dark] {
+    color: #c8c8c8;
+}

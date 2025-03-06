@@ -4,7 +4,7 @@
   <div class="card" *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }; let i = index">
     <div class="card-header px-3 py-2">
       <div class="d-flex align-items-center justify-content-between gap-2">
-        <span class="no-wrap" style="font-size: 0.875rem; color: #323232">TRACK {{item.trackNo}}</span>
+        <span class="no-wrap track-num-title" style="font-size: 0.875rem;">TRACK {{item.trackNo}}</span>
         <ng-container *ngIf="item.songInfo" [ngSwitch]="item.level">
           <span *ngSwitchCase="0" class="difficulty difficulty-basic badge rounded-pill">
             Basic {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}

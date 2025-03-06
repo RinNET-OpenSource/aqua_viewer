@@ -177,3 +177,11 @@
     color: #868686;
     font-weight: bold;
 }
+
+.track-num-title[data-bs-theme=light] {
+    color: #323232;
+}
+
+.track-num-title[data-bs-theme=dark] {
+    color: #c8c8c8;
+}
