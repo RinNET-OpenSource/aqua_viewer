@@ -14,7 +14,8 @@ export class ContributorsComponent implements OnInit {
     {id: 20372033, name: "HoshimiRin", link: "https://github.com/mxihan"},
     {id: 29558475, name: "Rinne", link: "https://github.com/OharaRinneY"},
     {id: 35133371, name: "Sanhei", link: "https://github.com/Sanheiii"},
-    {id: 88378875, name: "TCPL", link: "https://github.com/xuanxuan-0403"}
+    {id: 88378875, name: "TCPL", link: "https://github.com/xuanxuan-0403"},
+    {id: 105532072, name: "天梯Tyuikl", link: "https://github.com/tyuikl32"}
   ];
   shuffledDevelopers: Developer[];
   sponsors: Sponsor[];
