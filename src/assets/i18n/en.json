@@ -257,7 +257,9 @@
     "Warning4": "Do not add to trust if you do not intend to play on their machine."
   },
   "ImportPage": {
-    "Title": "Import"
+    "Title": "Import",
+    "WarningTitle": "Warning!",
+    "WarningContent": "While this could work, it is not recommended to use this feature."
   },
   "Ongeki": {
     "ProfilePage": {
