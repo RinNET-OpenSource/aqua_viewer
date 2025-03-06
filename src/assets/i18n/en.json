@@ -54,6 +54,8 @@
     "LatestAnnouncement": "Latest Announcement",
     "More": "More",
     "Profiles": "Profiles",
+    "NoBind": "No Bind",
+    "Switch": "Switch",
     "GameData": "Game Data",
     "NoKeychipMessage": "No available keychips. Your account cannot login on non-whitelisted keychips. ",
     "HasTrustedKeychipMessage": "You have set others' keychips as trusted. The holders of these keychips are authorized to log in to your account. ",

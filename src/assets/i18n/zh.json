@@ -54,6 +54,8 @@
     "LatestAnnouncement": "最新公告",
     "More": "查看更多",
     "Profiles": "游玩信息",
+    "NoBind": "暂未绑定",
+    "Switch": "切换账号",
     "GameData": "游戏数据",
     "NoKeychipMessage": "没有任何可用机台，你的账号无法在非白名单机台登录。",
     "HasTrustedKeychipMessage": "已信任他人的机台，任何持有该机台ID的人都可以登录你的游戏账号。",
