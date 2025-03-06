@@ -56,10 +56,10 @@
     width: auto
 }
 
-.player-rating[data-bs-theme=light] {
+:host-context([data-bs-theme="light"]) .player-rating {
     color: #323232;
 }
 
-.player-rating[data-bs-theme=dark] {
-    color: #c8c8c8;
+:host-context([data-bs-theme=dark]) .player-rating {
+    color: #d2d2d2;
 }

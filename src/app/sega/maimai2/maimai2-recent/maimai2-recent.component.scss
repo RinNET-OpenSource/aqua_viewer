@@ -178,10 +178,10 @@
     font-weight: bold;
 }
 
-.track-num-title[data-bs-theme=light] {
+:host-context([data-bs-theme="light"]) .track-num-title {
     color: #323232;
 }
 
-.track-num-title[data-bs-theme=dark] {
-    color: #c8c8c8;
+:host-context([data-bs-theme=dark]) .track-num-title {
+    color: #d2d2d2;
 }
