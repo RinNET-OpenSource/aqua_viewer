@@ -4,52 +4,56 @@
   <div class="card" *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }; let i = index">
     <div class="card-header px-3 py-2">
       <div class="d-flex align-items-center justify-content-between gap-2">
-        <span class="no-wrap">TRACK {{item.trackNo}}</span>
+        <span class="no-wrap" style="font-size: 0.875rem; color: #323232">TRACK {{item.trackNo}}</span>
         <ng-container *ngIf="item.songInfo" [ngSwitch]="item.level">
-          <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
+          <span *ngSwitchCase="0" class="difficulty difficulty-basic badge rounded-pill">
             Basic {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
           </span>
-          <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
+          <span *ngSwitchCase="1" class="difficulty difficulty-advanced badge rounded-pill">
             Advanced {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
           </span>
-          <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
+          <span *ngSwitchCase="2" class="difficulty difficulty-expert badge rounded-pill">
             Expert {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
           </span>
-          <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
+          <span *ngSwitchCase="3" class="difficulty difficulty-master badge rounded-pill">
             Master {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
           </span>
-          <span *ngSwitchCase="4" class="difficulty-remaster badge rounded-pill">
+          <span *ngSwitchCase="4" class="difficulty difficulty-remaster badge rounded-pill">
             Re:Master {{item.songInfo.details[item.level].levelDecimal/10.0|number:'1.1-1'}}
           </span>
-          <span *ngSwitchCase="9" class="difficulty-UTAGE badge rounded-pill">
+          <span *ngSwitchCase="9" class="difficulty difficulty-utage badge rounded-pill">
             U﹒TA﹒GE
           </span>
         </ng-container>
       </div>
     </div>
-    <div class="card-body">
-      <div class="row mb-2 g-2">
-        <div class="col-12 col-sm-auto song-jacket-container">
+    <div class="card-body gap-2 d-grid">
+      <div class="d-block gap-2 d-flex align-items-center">
+        <div>
           <img
-            class="song-jacket"
+            class="song-jacket cover-full"
             *ngIf="enableImages == true"
             [src]="host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(item.musicId) + '.webp'"
             (error)="imgError($event)"
             #img alt="">
         </div>
-        <div class="col-12 col-sm">
-          <div class="d-flex justify-content-center h-100 gap-1" style="flex-flow: column">
+        <div class="d-grid gap-4 position-relative w-100">
+          <div class="overflow-hidden" style="text-overflow: ellipsis">
             <h3 class="text-nowrap fw-bold m-0">{{item.songInfo != null ? item.songInfo.name : 'musicId:' + item.musicId}}</h3>
             <div class="text-nowrap fw-light">{{item.songInfo != null ? item.songInfo.artistName : 'artist'}}</div>
-            <div class="position-relative">
-              <div>
-                <h3 class="d-inline-block m-0">{{Math.floor(item.achievement/10000)}}.</h3>
-                <div class="d-inline-block position-relative">
-                  <h3 class="small m-0" [class.new-record]="item.isAchieveNewRecord">{{(item.achievement%10000).toString().padStart(4, '0')}}%</h3>
+          </div>
+          <div>
+            <div class="d-flex justify-content-between h-100 gap-1" style="flex-flow: column">
+              <div class="position-relative">
+                <div>
+                  <h3 class="d-inline-block m-0">{{Math.floor(item.achievement/10000)}}.</h3>
+                  <div class="d-inline-block position-relative">
+                    <h3 class="small m-0" [class.new-record]="item.isAchieveNewRecord">{{(item.achievement%10000).toString().padStart(4, '0')}}%</h3>
+                  </div>
                 </div>
-              </div>
-              <div class="position-absolute end-0 bottom-0">
-                <img class="rank-icon" src="{{host}}assets/mai2/common/{{getRankIcon(item)}}.webp">
+                <div class="position-absolute end-0" style="bottom: -0.25rem;">
+                  <img class="rank-icon" src="{{host}}assets/mai2/common/{{getRankIcon(item)}}.webp">
+                </div>
               </div>
             </div>
           </div>
@@ -75,7 +79,7 @@
           </div>
           <div class="col-auto">
             <div class="d-flex flex-column align-items-end dx-score-container">
-              <span class="text-end mx-1">{{item.deluxscore}}/{{item.totalCombo*3}}</span>
+              <span class="text-end mx-1">{{item.deluxscore}}/<span style="font-size: 0.75rem;">{{item.totalCombo*3}}</span></span>
               <span class="text-end tiny-text mx-1">{{getDxScoreStar(item)}}</span>
             </div>
           </div>
@@ -83,17 +87,54 @@
       </div>
     </div>
     <div #collapse="ngbCollapse" class="card-footer p-0" [ngbCollapse]="!isDetailVisible[i]">
-      <div class="row align-items-center px-3 py-2">
-        <div class="col-12 col-md-8">
-          <table class="table detail-table table-striped">
+      <div class="align-items-center px-3 py-2">
+        <div class="d-flex gap-2 flex-wrap">
+          <div style="flex: 1; min-width: 8rem">
+            <div style="color: #2973e0;font-weight: bold; height: 1.25rem; align-items: center; display: flex; justify-content: center;">FAST</div>
+            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+              <div class="dx-rating-textholder">{{item.fastCount}}</div>
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 8rem">
+            <div style="color: #f35015;font-weight: bold; height: 1.25rem; align-items: center; display: flex; justify-content: center;">LATE</div>
+            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+              <div class="dx-rating-textholder">{{item.lateCount}}</div>
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 8rem">
+            <div class="small" style="height: 1.25rem; align-items: center; display: flex; justify-content: center;">Combo</div>
+            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+              <div class="dx-rating-textholder">{{item.maxCombo}}/<span style="font-size: 0.75rem;">{{item.totalCombo}}</span></div>
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 8rem" *ngIf="getIconVisibility(item,1)">
+            <div class="small" style="height: 1.25rem; align-items: center; display: flex; justify-content: center;">Sync</div>
+            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+              <div class="dx-rating-textholder">{{item.maxSync}}/<span style="font-size: 0.75rem;">{{item.totalSync}}</span></div>
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 8rem" *ngIf="getIconVisibility(item,1)">
+            <div class="small" style="height: 1.25rem; align-items: center; display: flex; justify-content: center;">2P Player</div>
+            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+              <div class="dx-rating-textholder">{{item.playedUserName1}}</div>
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 8rem">
+            <div class="small" style="height: 1.25rem; align-items: center; display: flex; justify-content: center;">DXRating</div>
+            <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
+              <div class="dx-rating-textholder">{{item.afterRating}}<span style="font-size: 0.75rem;">(+{{item.afterRating - item.beforeRating}})</span></div>
+            </div>
+          </div>
+        </div>
+        <table class="table detail-table table-striped my-2 w-100" style="text-align: center;">
             <thead class="table-grade-color">
             <tr>
-              <th style="min-width: 4rem;"></th>
-              <th>CRIT.PERF</th>
-              <th>PERFECT</th>
-              <th>GREAT</th>
-              <th>GOOD</th>
-              <th>MISS</th>
+              <th style="width: 15%"></th>
+              <th style="width: 17%">CRIT.PERF</th>
+              <th style="width: 17%">PERFECT</th>
+              <th style="width: 17%">GREAT</th>
+              <th style="width: 17%">GOOD</th>
+              <th style="width: 17%">MISS</th>
             </tr>
             </thead>
             <tbody class="table-first-col table-grade-color">
@@ -139,55 +180,6 @@
             </tr>
             </tbody>
           </table>
-        </div>
-        <div class="col-12 col-md-4">
-          <div class="row">
-            <div class="col-6 col-md-12 col-xl-6">
-              <div style="color: #2973e0;font-weight: bold;">FAST</div>
-              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-                <div>
-                  <div class="dx-rating-textholder">{{item.fastCount}}</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6 col-md-12 col-xl-6">
-              <div style="color: #f35015;font-weight: bold;">LATE</div>
-              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-                <div>
-                  <div class="dx-rating-textholder">{{item.lateCount}}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6 col-md-12 col-xl-6">
-              <div class="small mt-2">DXRating</div>
-              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-                <div>
-                  <div class="dx-rating-textholder">{{item.afterRating}}<span class="small">+{{item.afterRating - item.beforeRating}}</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6 col-md-12 col-xl-6">
-              <div class="small mt-2">Combo</div>
-              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-                <div class="dx-rating-textholder">{{item.maxCombo}}/{{item.totalCombo}}</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-12 col-xl-6" *ngIf="getIconVisibility(item,1)">
-              <div class="small mt-2">Sync</div>
-              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-                <div class="dx-rating-textholder">{{item.maxSync}}/{{item.totalSync}}</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-12 col-xl-6" *ngIf="getIconVisibility(item,1)">
-              <div class="small mt-2">2P Player</div>
-              <div class="dx-rating-container p-1 bg-secondary-subtle mt-1">
-                <div class="dx-rating-textholder">{{item.playedUserName1}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <div class="card-footer">
@@ -200,7 +192,6 @@
         </button>
       </div>
     </div>
-
   </div>
 </div>
 <!--<div class="pagination d-flex justify-content-center">-->

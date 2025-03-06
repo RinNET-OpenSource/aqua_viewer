@@ -36,6 +36,10 @@
 .badge {
   width: 2.5rem;
   font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.25rem;
   box-sizing: border-box;
 }
 
