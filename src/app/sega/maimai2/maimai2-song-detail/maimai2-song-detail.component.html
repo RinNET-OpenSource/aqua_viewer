@@ -1,8 +1,8 @@
-<div class="offcanvas-header" >
-  <h2 class="offcanvas-title m-0" id="offcanvasDarkLabel">User Score</h2>
-  <button type="button" class="btn-close" (click)="offcanvasService.dismiss()"></button>
-</div>
-<div class="offcanvas-body" style="max-height: 90vh; overflow-y: scroll; box-sizing: border-box; margin: 0; padding: 0;">
+<div class="offcanvas-body" style="max-height: 100vh; overflow-y: scroll; box-sizing: border-box; margin: 0; padding: 0;">
+  <button type="button" class="btn-close"
+          style="position: fixed; top: 1rem; right: 1rem; z-index: 1000;"
+          (click)="offcanvasService.dismiss()">
+  </button>
       <div class="music-info-container position-relative"
            [style.--jacket-img]="'url(' + host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(music.musicId) + '.webp)'">
         <img class="card-img mb-3 music-img sm ms-4 mt-4 rounded"
@@ -76,7 +76,7 @@
               <div class="difficulty-detail-body d-flex align-items-center justify-content-between">
                 <div class="float-start small">
                   <div *ngIf="songData[difficulty]" class="d-flex flex-column">
-                    <div class="achievement-main fs-6 small fw-bold text-dark">
+                    <div class="achievement-main fs-6 small fw-bold">
                       {{ songData[difficulty].achievement / 10000 | number: '1.4-4' }}%
                     </div>
                     <div class="dx-score text-muted">
