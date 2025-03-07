@@ -118,7 +118,7 @@ export class Maimai2RatingComponent implements OnInit {
             romVersion: Number(value[2]),
             score: Number(value[3]),
             artistName: musicInfo?.artistName ?? 'Unknown Artist',
-            ratingBase: detail?.levelDecimal ?? 'None',
+            ratingBase: detail?.levelDecimal ?? 0,
             rating: 0,
             musicName: musicInfo?.name ?? `MusicID: ${value[0]}`,
           };
