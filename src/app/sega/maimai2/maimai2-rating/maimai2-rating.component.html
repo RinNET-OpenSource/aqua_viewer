@@ -10,11 +10,34 @@
     </span>
   </div>
 </div>
-
 <div class="card mt-3 mb-3">
   <div class="card-body">
     <span class="card-title" style="font-size: 1.25rem;">{{ 'Maimai2.RatingPage.ElevateRecommend'|translate }}</span>
-    <div class="w-100 overflow-auto text-nowrap">
+
+    <div class="table-container d-block d-md-none">
+      <table class="table table-striped" style="text-align: center;">
+        <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let i of [0, 1, 2, 3, 4]" style="font-weight: bold">
+            {{ displayRatingTableHeader[i] != 0 ? displayRatingTableHeader[i] / 10 : " " }}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let i of ['sp', 'ss', 'ssp', 'sss', 'sssp']; let rowIndex = index">
+          <td>
+            <img class="rank-icon" src="{{host}}assets/mai2/common/music_icon_{{i}}.webp">
+          </td>
+          <td *ngFor="let j of [0, 1, 2, 3, 4]">
+            {{ getRatingInfoByBase(displayRatingTableHeader[j], rowIndex) }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-container d-none d-md-block">
       <table class="table table-striped" style="text-align: center;">
         <thead>
         <tr>
@@ -26,9 +49,9 @@
         </thead>
         <tbody>
         <tr *ngFor="let i of [0, 1, 2, 3, 4]">
-          <td style="font-weight: bold">{{displayRatingTableHeader[i]!=0?displayRatingTableHeader[i]/10:" "}}</td>
+          <td style="font-weight: bold">{{ displayRatingTableHeader[i] != 0 ? displayRatingTableHeader[i] / 10 : " " }}</td>
           <td *ngFor="let j of [0, 1, 2, 3, 4]">
-            {{getRatingInfoByBase(displayRatingTableHeader[i],j)}}
+            {{ getRatingInfoByBase(displayRatingTableHeader[i], j) }}
           </td>
         </tr>
         </tbody>
@@ -36,7 +59,6 @@
     </div>
   </div>
 </div>
-
 <div class="mb-3 d-flex align-items-center mt-3">
   <h2 class="mb-0">{{ 'Maimai2.RatingPage.B35'|translate }}</h2>
   <span class="badge bg-secondary text-bg-secondary rounded-pill ms-2">{{b35rating}}</span>
