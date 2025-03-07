@@ -219,7 +219,7 @@
 }
 
 .scrollbar-hidden {
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
   scrollbar-width: none;
