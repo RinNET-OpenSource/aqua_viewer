@@ -121,46 +121,48 @@
            (error)="imgError($event)"
            alt="{{song.name}}">
     </div>
-    <div class="overflow-hidden px-3 py-1" style="width: 100%;">
-      <div class="song-info-title text-truncate fw-bold">
-        <div class="overflow-hidden" style="margin-right: 0.5rem; white-space: nowrap; text-overflow: ellipsis;">
-            <span style="font-size: 0.75rem;">{{song.musicId}}. </span>
-            <span>{{song.name}}</span>
-        </div>
-        <div class="badge rounded-pill"
-          [ngClass]="{ 
-            'badge-SD': getBadgeType(song.musicId) === 'sd',
-            'badge-UTAGE': getBadgeType(song.musicId) === 'utage',
-            'badge-DX': getBadgeType(song.musicId) === 'dx'
-          }">
-          {{ getBadgeType(song.musicId).toUpperCase().replace('UTAGE', song.name.substring(1, 2)) || "宴"}}
+    <div class="h-100 w-100 position-relative">
+      <div class="position-absolute h-100 d-flex align-items-center px-3 py-1" style="left: 0; right: 0;">
+        <div class="w-100 overflow-hidden">
+          <div class="song-info-title text-truncate fw-bold">
+            <div class="overflow-hidden" style="margin-right: 0.5rem; white-space: nowrap; text-overflow: ellipsis;">
+                <span style="font-size: 0.75rem;">{{song.musicId}}. </span>
+                <span>{{song.name}}</span>
+            </div>
+            <div class="badge rounded-pill"
+              [ngClass]="{ 
+                'badge-SD': getBadgeType(song.musicId) === 'sd',
+                'badge-UTAGE': getBadgeType(song.musicId) === 'utage',
+                'badge-DX': getBadgeType(song.musicId) === 'dx'
+              }">
+              {{ getBadgeType(song.musicId).toUpperCase().replace('UTAGE', song.name.substring(1, 2)) || "宴"}}
+            </div>
+          </div>
+          <div class="song-info-artist text-truncate mb-1">
+            <span>{{song.artistName}}</span>
+          </div>
+          <div class="row m-0 align-items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hidden">
+            <span *ngIf="song.details[0] != null" [ngClass]="getBadgeType(song.musicId) === 'utage' ? 'difficulty-utage' : 'difficulty-basic'" class="col-auto difficulty badge rounded-pill">
+              {{song.details[0].levelDecimal/10}}
+            </span>
+             <span *ngIf="song.details[1] != null" class="col-auto difficulty difficulty-advanced badge rounded-pill">
+              {{song.details[1].levelDecimal/10}}
+            </span>
+             <span *ngIf="song.details[2] != null" class="col-auto difficulty difficulty-expert badge rounded-pill">
+               {{song.details[2].levelDecimal/10}}
+            </span>
+             <span *ngIf="song.details[3] != null" class="col-auto difficulty difficulty-master badge rounded-pill">
+               {{song.details[3].levelDecimal/10}}
+            </span>
+             <span *ngIf="song.details[4] != null" class="col-auto difficulty difficulty-remaster badge rounded-pill">
+               {{song.details[4].levelDecimal/10}}
+            </span>
+          </div>
         </div>
       </div>
-
-      <div class="song-info-artist text-truncate mb-1">
-        <span>{{song.artistName}}</span>
-      </div>
-
-      <div class="row m-0 align-items-center gap-2">
-        <span *ngIf="song.details[0] != null" [ngClass]="getBadgeType(song.musicId) === 'utage' ? 'difficulty-utage' : 'difficulty-basic'" class="col-auto difficulty badge rounded-pill">
-          {{song.details[0].levelDecimal/10}}
-        </span>
-         <span *ngIf="song.details[1] != null" class="col-auto difficulty difficulty-advanced badge rounded-pill">
-          {{song.details[1].levelDecimal/10}}
-        </span>
-         <span *ngIf="song.details[2] != null" class="col-auto difficulty difficulty-expert badge rounded-pill">
-           {{song.details[2].levelDecimal/10}}
-        </span>
-         <span *ngIf="song.details[3] != null" class="col-auto difficulty difficulty-master badge rounded-pill">
-           {{song.details[3].levelDecimal/10}}
-        </span>
-         <span *ngIf="song.details[4] != null" class="col-auto difficulty difficulty-remaster badge rounded-pill">
-           {{song.details[4].levelDecimal/10}}
-        </span>
-       </div>
-     </div>
-   </div>
- </div>
+    </div>
+  </div>
+</div>
 
 
 
