@@ -187,9 +187,14 @@
         <div class="align-items-center d-flex">
           {{(item.userPlayDate | toDate).toLocaleString()}}
         </div>
-        <button class="btn btn-primary btn-sm" (click)="toggleDetail(i)">
-          {{'Maimai2.RecentPage.Detailed'|translate}}
-        </button>
+        <div>
+          <button class="btn btn-secondary btn-sm me-2" (click)="showDetail(item.songInfo)" *ngIf="item.songInfo">
+            {{'Maimai2.RecentPage.ShowData'|translate}}
+          </button>
+          <button class="btn btn-primary btn-sm" (click)="toggleDetail(i)">
+            {{'Maimai2.RecentPage.Detailed'|translate}}
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -515,7 +515,8 @@
     "RecentPage": {
       "Title": "Play Record",
       "DXScore": "DX Score",
-      "Detailed": "Show Detail"
+      "Detailed": "Show Detail",
+      "ShowData": "Music Data"
     },
     "PhotosPage": {
       "Title": "Game Gallery",

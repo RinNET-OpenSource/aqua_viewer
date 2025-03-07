@@ -12,6 +12,7 @@ import { UserService } from 'src/app/user.service';
 import {Maimai2Music} from '../model/Maimai2Music';
 import {Difficulty} from '../model/Maimai2Enums';
 import {Maimai2Playlog} from '../model/Maimai2Playlog';
+import {Maimai2SongDetailComponent} from "../maimai2-song-detail/maimai2-song-detail.component";
 
 @Component({
   selector: 'app-maimai2-recent',
@@ -45,6 +46,14 @@ export class Maimai2RecentComponent implements OnInit {
   ngOnInit() {
     this.aimeId = String(this.userService.currentUser.defaultCard.extId);
     this.load(this.currentPage);
+  }
+
+  showDetail(music: Maimai2Music) {
+    const offcanvasRef = this.offcanvasService.open(Maimai2SongDetailComponent, {
+      position: 'end',
+      scroll: false,
+    });
+    offcanvasRef.componentInstance.music = music;
   }
 
   load(page: number) {

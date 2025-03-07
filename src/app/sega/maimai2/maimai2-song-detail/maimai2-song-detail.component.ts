@@ -6,6 +6,7 @@ import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
 import {Maimai2Music, Maimai2MusicDetail} from '../model/Maimai2Music';
+import {NgxIndexedDBService} from "ngx-indexed-db";
 
 interface ISongData {
   musicId: number;
@@ -53,10 +54,15 @@ export class Maimai2SongDetailComponent {
     private userService: UserService,
     public messageService: MessageService,
     public offcanvasService: NgbOffcanvas,
+    private dbService: NgxIndexedDBService,
   ) {
   }
 
   ngOnInit() {
+    if (!this.music){
+      this.offcanvasService.dismiss('No music found!');
+      return;
+    }
     console.log(this.music);
     const {musicId} = this.music;
     if (this.music.details[4]){

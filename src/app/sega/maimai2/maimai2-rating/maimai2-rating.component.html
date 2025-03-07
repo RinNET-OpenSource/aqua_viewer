@@ -83,7 +83,7 @@
 
 <ng-template #record let-index="index" let-item="item">
   <div class="col-12 col-md-6 col-xxl-4">
-    <div class="card rating-card">
+    <div class="card rating-card" (click)="showDetail(item.music)">
       <div class="hstack">
         <img
           class="jacket rounded-start"

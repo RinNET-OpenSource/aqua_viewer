@@ -7,6 +7,8 @@ import {HttpParams} from '@angular/common/http';
 import {firstValueFrom} from 'rxjs';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {Maimai2Music} from '../model/Maimai2Music';
+import {Maimai2SongDetailComponent} from "../maimai2-song-detail/maimai2-song-detail.component";
+import {NgbOffcanvas} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-maimai2-rating',
@@ -23,11 +25,13 @@ export class Maimai2RatingComponent implements OnInit {
    4:SSS+
    */
 
+
   constructor(
     private api: ApiService,
     private userService: UserService,
     private messageService: MessageService,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    private offcanvasService: NgbOffcanvas
   ) {
   }
 
@@ -121,6 +125,7 @@ export class Maimai2RatingComponent implements OnInit {
             ratingBase: detail?.levelDecimal ?? 0,
             rating: 0,
             musicName: musicInfo?.name ?? `MusicID: ${value[0]}`,
+            music: musicInfo
           };
           list.push(item);
         }
@@ -135,7 +140,13 @@ export class Maimai2RatingComponent implements OnInit {
       }
     );
   }
-
+  showDetail(music: Maimai2Music) {
+    const offcanvasRef = this.offcanvasService.open(Maimai2SongDetailComponent, {
+      position: 'end',
+      scroll: false,
+    });
+    offcanvasRef.componentInstance.music = music;
+  }
   getRatingInfoByBase(ratingBase: number, rank: number): string{
     switch (rank){
       case 0:
@@ -256,4 +267,5 @@ export interface RatingItem {
   ratingBase: number;
   rating: number;
   romVersion: number;
+  music: Maimai2Music;
 }

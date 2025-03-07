@@ -515,7 +515,8 @@
     "RecentPage": {
       "Title": "游玩记录",
       "DXScore": "DX分数",
-      "Detailed": "详细信息"
+      "Detailed": "详细信息",
+      "ShowData": "乐曲数据"
     },
     "PhotosPage": {
       "Title": "相册",

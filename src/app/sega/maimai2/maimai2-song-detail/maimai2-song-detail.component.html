@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="mx-3">
-      <section *ngIf="songData">
+      <section>
         <ng-template #difficultyDetail let-difficulty>
           <div class="card my-2">
             <ng-container [ngSwitch]="difficulty">
@@ -75,7 +75,7 @@
             <div class="card-body py-1 px-3">
               <div class="difficulty-detail-body d-flex align-items-center justify-content-between">
                 <div class="float-start small">
-                  <div *ngIf="songData[difficulty]" class="d-flex flex-column">
+                  <div *ngIf="songData&&songData[difficulty]" class="d-flex flex-column">
                     <div class="achievement-main fs-6 small fw-bold">
                       {{ songData[difficulty].achievement / 10000 | number: '1.4-4' }}%
                     </div>
@@ -84,11 +84,11 @@
                       <span>{{ songData[difficulty].deluxscoreMax }} / {{ songData[difficulty].totalCombo * 3 }}</span>
                     </div>
                   </div>
-                  <span *ngIf="!songData[difficulty]" class="fw-bold">No Record</span>
+                  <span *ngIf="!songData||!(songData[difficulty])" class="fw-bold">No Record</span>
                 </div>
               </div>
             </div>
-            <div class="card-footer text-truncate py-1" *ngIf="songData[difficulty]">
+            <div class="card-footer text-truncate py-1" *ngIf="songData&&songData[difficulty]">
               <div class="d-flex justify-content-between small">
                 <div>
                   <span class="text-muted small">Playcount</span><span>  {{songData[difficulty].playCount}}</span>
@@ -109,7 +109,7 @@
           </ng-container>
         </ng-container>
         <ng-container *ngIf="music.musicId > 100000">
-          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 5}"></ng-container>
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 0}"></ng-container>
         </ng-container>
       </section>
 
@@ -127,39 +127,27 @@
           </ng-container>
         </div>
       </nav>
-      <div *ngIf="songData" class="tab-content" id="nav-tabContent">
+      <div *ngIf="music" class="tab-content" id="nav-tabContent">
         <ng-container *ngIf="music.musicId < 100000">
           <div class="tab-pane fade" id="nav-ba" role="tabpanel" aria-labelledby="nav-ba-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
-            <span *ngIf="songData[0]">
-            </span>
           </div>
           <div class="tab-pane fade" id="nav-ad" role="tabpanel" aria-labelledby="nav-ad-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
-            <span *ngIf="songData[1]">
-            </span>
           </div>
           <div class="tab-pane fade" id="nav-ex" role="tabpanel" aria-labelledby="nav-ex-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
-            <span *ngIf="songData[2]">
-            </span>
           </div>
           <div class="tab-pane fade show active" id="nav-ma" aria-labelledby="nav-ma-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
-            <span *ngIf="songData[3]">
-            </span>
           </div>
           <div class="tab-pane fade" id="nav-ul" aria-labelledby="nav-ul-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
-            <span *ngIf="songData[4]">
-            </span>
           </div>
         </ng-container>
         <ng-container *ngIf="music.musicId >= 100000">
           <div class="tab-pane fade show active" id="nav-we" aria-labelledby="nav-we-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
-            <span *ngIf="songData[5]">
-            </span>
           </div>
         </ng-container>
       </div>
@@ -202,7 +190,7 @@
     </div>
   </div>
   <br/>
-  <table class="table table-striped table-borderless">
+  <table class="table table-striped table-borderless" *ngIf="ranking&&ranking.length>0">
     <thead>
     <th>No.</th>
     <th>Username</th>
