@@ -2,18 +2,19 @@
   <h2 class="offcanvas-title m-0" id="offcanvasDarkLabel">User Score</h2>
   <button type="button" class="btn-close" (click)="offcanvasService.dismiss()"></button>
 </div>
-<div class="offcanvas-body" style="max-height: 90vh; overflow-y: scroll;">
-  <div class="card">
-    <div class="card-body">
-      <img class="card-img mb-3 music-img sm"
-           [src]="host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(music.musicId) + '.webp'"
-           (error)="imgError($event)"
-           alt="">
-      <div class="position-relative">
-        <h5 class="card-title mb-1 fw-bold">「{{music.name}}」</h5>
-        <span class="card-subtitle music-artistName" style="font-size: 12px">{{music.artistName}}</span>
-        <hr>
+<div class="offcanvas-body" style="max-height: 90vh; overflow-y: scroll; box-sizing: border-box; margin: 0; padding: 0;">
+      <div class="music-info-container position-relative"
+           [style.--jacket-img]="'url(' + host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(music.musicId) + '.webp)'">
+        <img class="card-img mb-3 music-img sm ms-4 mt-4 rounded"
+             [src]="host + 'assets/mai2/jacket/UI_Jacket_' + getJacketId(music.musicId) + '.webp'"
+             (error)="imgError($event)">
+        <div class="position-relative">
+          <h5 class="card-title mb-1 fw-bold ms-4">{{music.name}}</h5>
+          <span class="card-subtitle music-artistName ms-4" style="font-size: 12px">{{music.artistName}}</span>
+          <hr class="mb-0">
+        </div>
       </div>
+      <div class="mx-3">
       <section *ngIf="songData">
         <ng-template #difficultyDetail let-difficulty>
           <div class="card my-2">
@@ -65,7 +66,7 @@
               </div>
               <div *ngSwitchCase="5" class="card-header py-1 px-2 text-truncate">
                 <div class="hstack">
-                  <div class="p-0 align-middle ps-1 small fw-bold color-we">
+                  <div class="p-0 align-middle ps-1 small fw-bold color-utage">
                     UTAGE
                   </div>
                 </div>
@@ -73,11 +74,24 @@
             </ng-container>
             <div class="card-body py-1 px-3">
               <div class="difficulty-detail-body d-flex align-items-center justify-content-between">
-                <div class="float-start small fw-bold">
-                  <div *ngIf="songData[difficulty]">
-                    {{songData[difficulty].achievement/10000 | number: '1.4-4'}}%
+                <div class="float-start small">
+                  <div *ngIf="songData[difficulty]" class="d-flex flex-column">
+                    <div class="achievement-main fs-6 small fw-bold text-dark">
+                      {{ songData[difficulty].achievement / 10000 | number: '1.4-4' }}%
+                    </div>
+                    <div class="dx-score text-muted">
+                      <span class="me-1">DXScore:</span>
+                      <span>{{ songData[difficulty].deluxscoreMax }} / {{ songData[difficulty].totalCombo * 3 }}</span>
+                    </div>
                   </div>
-                  <span *ngIf="!songData[difficulty]">No Record</span>
+                  <span *ngIf="!songData[difficulty]" class="fw-bold">No Record</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-truncate py-1" *ngIf="songData[difficulty]">
+              <div class="d-flex justify-content-between small">
+                <div>
+                  <span class="text-muted small">Playcount</span><span>  {{songData[difficulty].playCount}}</span>
                 </div>
               </div>
             </div>
@@ -118,31 +132,26 @@
           <div class="tab-pane fade" id="nav-ba" role="tabpanel" aria-labelledby="nav-ba-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
             <span *ngIf="songData[0]">
-            You rank {{songData[0].ranking.rank}} in {{songData[0].ranking.playedCount}} players.
             </span>
           </div>
           <div class="tab-pane fade" id="nav-ad" role="tabpanel" aria-labelledby="nav-ad-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
             <span *ngIf="songData[1]">
-            You rank {{songData[1].ranking.rank}} in {{songData[1].ranking.playedCount}} players.
             </span>
           </div>
           <div class="tab-pane fade" id="nav-ex" role="tabpanel" aria-labelledby="nav-ex-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
             <span *ngIf="songData[2]">
-            You rank {{songData[2].ranking.rank}} in {{songData[2].ranking.playedCount}} players.
             </span>
           </div>
           <div class="tab-pane fade show active" id="nav-ma" aria-labelledby="nav-ma-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
             <span *ngIf="songData[3]">
-            You rank {{songData[3].ranking.rank}} in {{songData[3].ranking.playedCount}} players.
             </span>
           </div>
           <div class="tab-pane fade" id="nav-ul" aria-labelledby="nav-ul-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
             <span *ngIf="songData[4]">
-            You rank {{songData[4].ranking.rank}} in {{songData[3].ranking.playedCount}} players.
             </span>
           </div>
         </ng-container>
@@ -150,20 +159,24 @@
           <div class="tab-pane fade show active" id="nav-we" aria-labelledby="nav-we-tab" tabindex="0">
             <ng-container *ngTemplateOutlet="rankingTable"/>
             <span *ngIf="songData[5]">
-            You rank {{songData[5].ranking.rank}} in {{songData[5].ranking.playedCount}} players.
             </span>
           </div>
         </ng-container>
       </div>
     </div>
-  </div>
-</div>
 
+</div>
 <ng-template #rankingTable>
   <div class="card mt-2 mb-2 small" *ngIf="music.details[currentDiffTab]">
     <div class="card-header py-1">
-      <span>Notes Designer:</span>
-      <span class="fw-normal">{{music.details[currentDiffTab].noteDesigner}}</span>
+      <ng-container *ngIf="music.details[currentDiffTab].noteDesigner">
+        <span>Notes Designer:</span>
+        <span class="fw-normal">{{music.details[currentDiffTab].noteDesigner}}</span>
+      </ng-container>
+      <ng-container *ngIf="music.details[currentDiffTab].utageComment">
+        <span>Comment:</span>
+        <span class="fw-normal">{{music.details[currentDiffTab].utageComment}}</span>
+      </ng-container>
     </div>
     <div class="card-body p-0">
       <div class="table detail-table table-striped-columns table-bordered table-fixed table-sm w-100 mb-0" style="width: 100%; display: flex; flex-direction: column;">

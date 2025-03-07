@@ -62,6 +62,9 @@ export class Maimai2SongDetailComponent {
     if (this.music.details[4]){
       this.hasRemaster = true;
     }
+    if (this.music.musicId > 100000){
+      this.currentDiffTab = 0;
+    }
     this.api.get(`api/game/maimai2/song/${musicId}?aimeId=${String(this.userService.currentUser.defaultCard.extId)}`).subscribe(
       res => {
         const songData = {};
