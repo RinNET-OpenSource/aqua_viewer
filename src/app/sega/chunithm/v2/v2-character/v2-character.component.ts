@@ -14,6 +14,7 @@ import {FormArray, FormControl} from '@angular/forms';
 import {Collapse} from 'bootstrap';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from '@ngx-translate/core';
+import {ReleaseTagService} from '../util/release-tag.service';
 
 @Component({
   selector: 'app-v2-character',
@@ -47,37 +48,7 @@ export class V2CharacterComponent implements OnInit {
   acquiredControls = new FormArray([new FormControl(true), new FormControl(false)]);
   versionControls = new FormArray<FormControl<boolean>>([]);
 
-  releaseTags = [
-    'v1 1.00.00', 'v1 1.05.00',
-    'v1 1.10.00', 'v1 1.15.00',
-    'v1 1.20.00', 'v1 1.25.00',
-    'v1 1.30.00', 'v1 1.35.00',
-    'v1 1.40.00', 'v1 1.45.00',
-    'v1 1.50.00', 'v1 1.55.00',
-    'v2 2.00.00', 'v2 2.05.00',
-    'v2 2.10.00', 'v2 2.15.00',
-    'v2 2.20.00', 'v2 2.25.00'
-  ];
-  releaseTagMap = new Map([
-    ['v1 1.00.00', 'ORIGIN'],
-    ['v1 1.05.00', 'ORIGIN PLUS'],
-    ['v1 1.10.00', 'AIR'],
-    ['v1 1.15.00', 'AIR PLUS'],
-    ['v1 1.20.00', 'STAR'],
-    ['v1 1.25.00', 'STAR PLUS'],
-    ['v1 1.30.00', 'AMAZON'],
-    ['v1 1.35.00', 'AMAZON PLUS'],
-    ['v1 1.40.00', 'CRYSTAL'],
-    ['v1 1.45.00', 'CRYSTAL PLUS'],
-    ['v1 1.50.00', 'PARADISE'],
-    ['v1 1.55.00', 'PARADISE LOST'],
-    ['v2 2.00.00', 'NEW'],
-    ['v2 2.05.00', 'NEW PLUS'],
-    ['v2 2.10.00', 'SUN'],
-    ['v2 2.15.00', 'SUN PLUS'],
-    ['v2 2.20.00', 'LUMINOUS'],
-    ['v2 2.25.00', 'LUMINOUS PLUS'],
-  ]);
+
 
   constructor(
     private api: ApiService,
@@ -87,10 +58,11 @@ export class V2CharacterComponent implements OnInit {
     private translateService: TranslateService,
     protected modalService: NgbModal,
     protected route: ActivatedRoute,
-    protected router: Router
+    protected router: Router,
+    protected releaseTagService: ReleaseTagService
   ) {
     this.aimeId = String(this.userService.currentUser.defaultCard.extId);
-    this.releaseTags.forEach(() => this.versionControls.push(new FormControl(false)));
+    releaseTagService.getReleaseTags().forEach(() => this.versionControls.push(new FormControl(false)));
   }
 
   async ngOnInit() {
@@ -101,7 +73,7 @@ export class V2CharacterComponent implements OnInit {
       this.versionControls.valueChanges.pipe(startWith(this.versionControls.value)),
       this.searchTermControl.valueChanges.pipe(startWith(this.searchTermControl.value)),
     ]).subscribe(([queryParams, acquiredValues, versionValues, searchTerm]) => {
-      const selectedVersions = this.releaseTags.filter((_, index) => versionValues[index]);
+      const selectedVersions = this.releaseTagService.getReleaseTags().filter((_, index) => versionValues[index]);
       this.filteredIds = this.filterCharacter(acquiredValues, selectedVersions, searchTerm);
       this.totalElements = this.filteredIds.length;
       if (queryParams.page) {
@@ -187,7 +159,7 @@ export class V2CharacterComponent implements OnInit {
       filteredIds = allIds.filter(id => !this.characterIds.includes(id));
     }
 
-    if (selectedVersions.length !== 0 && selectedVersions.length !== this.releaseTags.length) {
+    if (selectedVersions.length !== 0 && selectedVersions.length !== this.releaseTagService.getReleaseTags().length) {
       const ids = this.allCharacters.filter(c => selectedVersions.indexOf(c.releaseTag) !== -1).map(c => c.id);
       filteredIds = filteredIds.filter(id => ids.includes(id));
     }

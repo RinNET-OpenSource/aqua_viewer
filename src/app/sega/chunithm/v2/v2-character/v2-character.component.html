@@ -41,9 +41,9 @@
     <div class="col-12 col-sm-auto pt-1 me-3">{{ 'ChuniV2.CharacterPage.Version' | translate }}</div>
     <div class="col-12 col-sm">
       <div class="row justify-content-start align-items-center g-1">
-        <div *ngFor="let releaseTag of releaseTags; let i = index" class="col-auto">
+        <div *ngFor="let releaseTag of releaseTagService.getReleaseTags(); let i = index" class="col-auto">
           <input type="checkbox" class="form-check-input checkbox-btn" [value]="releaseTag" [id]="'releaseTag' + i" [formControl]="versionControls.controls[i]">
-          <label class="checkbox-label" [for]="'releaseTag' + i">{{releaseTagMap.get(releaseTag)}}</label>
+          <label class="checkbox-label" [for]="'releaseTag' + i">{{releaseTagService.getName(releaseTag)}}</label>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
               </tr>
               <tr *ngIf="item.characterInfo">
                 <td>{{ 'ChuniV2.CharacterPage.Version' | translate }}</td>
-                <td>{{releaseTagMap.get(item.characterInfo.releaseTag)}}</td>
+                <td>{{releaseTagService.getName(item.characterInfo.releaseTag)}}</td>
               </tr>
               </tbody>
             </table>
@@ -160,7 +160,7 @@
               </tr>
               <tr *ngIf="item.characterInfo">
                 <td>{{ 'ChuniV2.CharacterPage.Version' | translate }}</td>
-                <td>{{releaseTagMap.get(item.characterInfo.releaseTag)}}</td>
+                <td>{{releaseTagService.getName(item.characterInfo.releaseTag)}}</td>
               </tr>
               </tbody>
             </table>
