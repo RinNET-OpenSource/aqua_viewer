@@ -48,6 +48,7 @@ export class Maimai2SongDetailComponent {
   @Input() public music: Maimai2Music;
   currentDiffTab = 3;
   hasRemaster = false;
+  isUtage = false;
 
   constructor(
     private api: ApiService,
@@ -70,6 +71,7 @@ export class Maimai2SongDetailComponent {
     }
     if (this.music.musicId > 100000){
       this.currentDiffTab = 0;
+      this.isUtage = true;
     }
     this.api.get(`api/game/maimai2/song/${musicId}?aimeId=${String(this.userService.currentUser.defaultCard.extId)}`).subscribe(
       res => {
@@ -83,6 +85,9 @@ export class Maimai2SongDetailComponent {
               this.music.details[data.level].slideCount +
               this.music.details[data.level].breakCount +
               this.music.details[data.level].touchCount);
+          }
+          if (this.isUtage){
+            songData[5] = songData[0];
           }
           console.log(songData);
         }
@@ -114,7 +119,10 @@ export class Maimai2SongDetailComponent {
   }
 
   getLevelString(song: Maimai2Music, index: number): string {
-    const level: Maimai2MusicDetail = song.details[index.toString()];
+    if (this.isUtage) {
+      index = 0;
+    }
+    const level: Maimai2MusicDetail = song.details[index];
     return `${level.levelDecimal / 10}` ?? '0';
   }
   getColumnWidth(): string {

@@ -68,6 +68,7 @@
                 <div class="hstack">
                   <div class="p-0 align-middle ps-1 small fw-bold color-utage">
                     UTAGE
+                    {{getLevelString(music, difficulty) }}
                   </div>
                 </div>
               </div>
@@ -109,7 +110,7 @@
           </ng-container>
         </ng-container>
         <ng-container *ngIf="music.musicId > 100000">
-          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 0}"></ng-container>
+          <ng-container *ngTemplateOutlet="difficultyDetail; context: {$implicit: 5}"></ng-container>
         </ng-container>
       </section>
 
