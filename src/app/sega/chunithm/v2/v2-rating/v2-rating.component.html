@@ -8,6 +8,18 @@
   </div>
 </div>
 
+<ng-container *ngIf="newRating">
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">New</h2>
+  </div>
+
+  <div class="row mb-4 g-2">
+    <ng-container *ngFor="let item of newRating; index as i">
+      <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
 <div class="mb-3 d-flex align-items-center">
   <h2 class="mb-0">Best</h2>
 </div>
@@ -18,15 +30,19 @@
   </ng-container>
 </div>
 
-<div class="mb-3 d-flex align-items-center">
-  <h2 class="mb-0">Recent</h2>
-</div>
+<ng-template *ngIf="recentRating">
 
-<div class="row mb-4 g-2">
-  <ng-container *ngFor="let item of recentRating; index as i">
-    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
-  </ng-container>
-</div>
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">Recent</h2>
+  </div>
+
+  <div class="row mb-4 g-2">
+    <ng-container *ngFor="let item of recentRating; index as i">
+      <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+    </ng-container>
+  </div>
+
+</ng-template>
 
 <ng-template #record let-index="index" let-item="item">
   <div class="col-12 col-md-6 col-xxl-4">
