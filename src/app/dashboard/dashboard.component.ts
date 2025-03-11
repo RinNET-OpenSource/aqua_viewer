@@ -10,9 +10,10 @@ import {AuthenticationService} from '../auth/authentication.service';
 import {StatusCode} from '../status-code';
 import {Router} from '@angular/router';
 import {Announcement, AnnouncementComponent} from '../announcements/announcement/announcement.component';
-import {LanguageService} from "../language.service";
-import {HttpParams} from "@angular/common/http";
-import {TranslateService} from "@ngx-translate/core";
+import {LanguageService} from '../language.service';
+import {HttpParams} from '@angular/common/http';
+import {TranslateService} from '@ngx-translate/core';
+import {Luid} from '../cards/cards.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -100,9 +101,9 @@ export class DashboardComponent implements OnInit {
             this.chusanProfile = resp.data.chusan;
             this.ongekiProfile = resp.data.ongeki;
             this.mai2Profile = resp.data.maimai2;
-            this.currentCard = resp.data.chusan?.accessCode || resp.data.ongeki?.accessCode || resp.data.maimai2?.accessCode;
-            if (this.currentCard){
-              this.currentCard = this.currentCard.substring(0, 4) + '************' + this.currentCard.substring(16);
+            const accessCode = resp.data.chusan?.accessCode || resp.data.ongeki?.accessCode || resp.data.maimai2?.accessCode;
+            if (accessCode){
+              this.currentCard = new Luid(accessCode).getMaskedValue();
             }
           }
           else if (statusCode === StatusCode.NOT_FOUND){

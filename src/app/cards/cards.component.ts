@@ -278,13 +278,31 @@ export interface CardExternal {
 export class Luid {
   public full: string;
   public hidden: boolean;
+  mask = '11001111000000000000';
 
   get displayValue() {
     if (this.hidden) {
-      return this.full.substring(0, 4) + '************' + this.full.substring(16);
+      return this.getMaskedValue();
     } else {
       return this.full;
     }
+  }
+
+  getMaskedValue(){
+    let result = '';
+    for (let i = 0; i < this.mask.length; i++){
+      const char = this.mask.at(i);
+      if (char === '0'){
+        result += '*';
+      }
+      else if (char === '1'){
+        result += this.full.at(i);
+      }
+      else{
+        result += char;
+      }
+    }
+    return result;
   }
 
   constructor(value: string) {
