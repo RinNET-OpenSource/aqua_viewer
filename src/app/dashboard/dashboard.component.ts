@@ -28,6 +28,8 @@ export class DashboardComponent implements OnInit {
   enableImages = environment.enableImages;
   announcement: Announcement;
   loadingAnnouncement = true;
+  recentUpdate: Announcement;
+  loadingUpdate = true;
   loadingDatabase = true;
   loadingProfile = true;
   loadingKeychip = true;
@@ -80,8 +82,9 @@ export class DashboardComponent implements OnInit {
     });
     this.translate.onLangChange.subscribe(event => {
       this.loadingAnnouncement = true;
-      this.loadAnnouncements()
-    })
+      this.loadingUpdate = true;
+      this.loadAnnouncements();
+    });
 
     this.getProfiles();
     this.loadKeychip();
@@ -98,7 +101,7 @@ export class DashboardComponent implements OnInit {
             this.ongekiProfile = resp.data.ongeki;
             this.mai2Profile = resp.data.maimai2;
             this.currentCard = resp.data.chusan?.accessCode || resp.data.ongeki?.accessCode || resp.data.maimai2?.accessCode;
-            if(this.currentCard){
+            if (this.currentCard){
               this.currentCard = this.currentCard.substring(0, 4) + '************' + this.currentCard.substring(16);
             }
           }
@@ -142,7 +145,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadAnnouncements() {
-    const param = new HttpParams().set('lang', this.language.getCurrentLang())
+    let param = new HttpParams().set('lang', this.language.getCurrentLang());
     this.api.get('api/user/announcement/recent', param).subscribe(
       resp => {
         if (resp?.status) {
@@ -159,6 +162,24 @@ export class DashboardComponent implements OnInit {
       error => {
         this.messageService.notice(error);
         this.loadingAnnouncement = false;
+      });
+    param = param.set('lang', this.language.getCurrentLang()).set('type', 'UPDATE').set('size', '1');
+    this.api.get('api/user/announcement/', param).subscribe(
+      resp => {
+        if (resp?.status) {
+          const statusCode: StatusCode = resp.status.code;
+          if (statusCode === StatusCode.OK && resp.data) {
+            this.recentUpdate = Announcement.fromJSON(resp.data.content[0]);
+          }
+          else{
+            this.messageService.notice(resp.status.message);
+          }
+          this.loadingUpdate = false;
+        }
+      },
+      error => {
+        this.messageService.notice(error);
+        this.loadingUpdate = false;
       });
   }
 

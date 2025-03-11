@@ -7,21 +7,62 @@
       </h3>
       <a class="more-announcements" routerLink="/announcements">{{'DashboardPage.More' | translate}}</a>
     </div>
-    <div class="card-btn card mb-3 user-select-none" (click)="showAnnouncement(announcement)">
-      <div class="card-body py-2">
-        <div *ngIf="loadingAnnouncement" class="placeholder-glow my-1">
-          <div>
-            <div class="placeholder fw-light text-secondary" style="width: 8em;"></div>
-          </div>
-          <div>
-            <h4 class="placeholder" style="width: 12em;"></h4>
-          </div>
+    <ng-template #announcementItem let-announcement='announcement'>
+          <li class="list-group-item card-btn" (click)="showAnnouncement(announcement)">
+            <div class="d-flex align-items-center gap-1 mb-1">
+              <div class="fw-light small text-secondary">{{announcement.updatedAt.toLocaleDateString()}}</div>
+              <ng-container [ngSwitch]="announcement.type">
+            <span *ngSwitchCase="'GENERAL'" class="bg-primary badge rounded-pill">
+              {{'AnnouncementsPage.General' | translate}}
+            </span>
+                <span *ngSwitchCase="'MAINTENANCE'" class="bg-warning badge rounded-pill">
+              {{'AnnouncementsPage.Maintenance' | translate}}
+            </span>
+                <span *ngSwitchCase="'UPDATE'" class="bg-info badge rounded-pill">
+              {{'AnnouncementsPage.Update' | translate}}
+            </span>
+                <span *ngSwitchCase="'EVENT'" class="bg-orange badge rounded-pill">
+              {{'AnnouncementsPage.Event' | translate}}
+            </span>
+                <span *ngSwitchCase="'TUTORIAL'" class="bg-teal badge rounded-pill">
+              {{'AnnouncementsPage.Tutorial' | translate}}
+            </span>
+                <span *ngSwitchCase="'OTHER'" class="bg-gray badge rounded-pill">
+              {{'AnnouncementsPage.Other' | translate}}
+            </span>
+              </ng-container>
+              <ng-container *ngIf="announcement.priority > 0">
+            <span class="bg-danger-subtle text-danger badge rounded-pill border-danger-subtle border-1 border-solid">
+              {{'AnnouncementsPage.Pinned' | translate}}
+            </span>
+              </ng-container>
+            </div>
+            <h4 class="mb-1">{{announcement.title}}</h4>
+          </li>
+    </ng-template>
+    <ng-template #announcementPlaceholder>
+      <li class="list-group-item placeholder-glow">
+        <div class="d-flex align-items-center gap-1 mb-1">
+          <div class="placeholder fw-light small text-secondary" style="width: 8em"></div>
         </div>
-        <div *ngIf="!loadingAnnouncement && announcement" class="my-1">
-          <div class="fw-light text-secondary mb-1">{{announcement.updatedAt.toLocaleDateString()}}</div>
-          <h4>{{announcement.title}}</h4>
-        </div>
-      </div>
+        <h4 class="placeholder mb-1" style="width: 12em"></h4>
+      </li>
+    </ng-template>
+    <div class="card user-select-none mb-2">
+      <ul class="list-group list-group-flush">
+        <ng-container *ngIf="loadingAnnouncement">
+          <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
+        </ng-container>
+        <ng-container *ngIf="!loadingAnnouncement && announcement">
+          <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: announcement}"/>
+        </ng-container>
+        <ng-container *ngIf="loadingUpdate">
+          <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
+        </ng-container>
+        <ng-container *ngIf="!loadingUpdate && recentUpdate">
+          <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: recentUpdate}"/>
+        </ng-container>
+      </ul>
     </div>
     <ng-container *ngIf="!loadingKeychip && !loadingTrustedKeychip && !hasKeychip && !hasTrustedKeychip">
       <div class="hstack alert alert-danger" role="alert">
