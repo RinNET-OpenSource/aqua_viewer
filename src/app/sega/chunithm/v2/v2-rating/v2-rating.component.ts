@@ -53,6 +53,7 @@ export class V2RatingComponent implements OnInit {
           }
           this.topRating.forEach(item => this.topTotal += item.rating);
           this.newRating.forEach(item => this.newTotal += item.rating);
+          this.newRating.forEach(item => console.log(item.rating.toString()));
         },
         error => this.messageService.notice(error)
       );
