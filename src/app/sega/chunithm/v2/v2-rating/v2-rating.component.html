@@ -3,8 +3,9 @@
 <div class="card mb-3">
   <div class="card-body">
       <div>Total Rating: <span class="{{(topTotal + recentTotal) / 40 | toRating | ratingClass}}">{{(topTotal + recentTotal) / 40 | toRating }}</span></div>
+      <div *ngIf="romVersion >= verseVersion">New: <span class="{{newTotal / 15 | toRating | ratingClass}}">{{topTotal / 15 | toRating }}</span></div>
       <div>Best: <span class="{{topTotal / 30 | toRating | ratingClass}}">{{topTotal / 30 | toRating }}</span></div>
-      <div>Recent: <span class="{{recentTotal / 10 | toRating | ratingClass}}">{{recentTotal / 10 | toRating }}</span></div>
+      <div *ngIf="romVersion < verseVersion">Recent: <span class="{{recentTotal / 10 | toRating | ratingClass}}">{{recentTotal / 10 | toRating }}</span></div>
   </div>
 </div>
 
