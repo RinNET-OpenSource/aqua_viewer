@@ -1,98 +1,103 @@
 <h1 class="page-heading">{{'DashboardPage.Title' | translate}}</h1>
 <div class="row">
   <div class="col-12 col-lg-8">
-    <div class="mb-3 d-flex justify-content-between align-items-end">
-      <h3 class="m-0">
-        {{'DashboardPage.LatestAnnouncement' | translate}}
-      </h3>
-      <a class="more-announcements" routerLink="/announcements">{{'DashboardPage.More' | translate}}</a>
-    </div>
-    <ng-template #announcementItem let-announcement='announcement'>
-          <li class="list-group-item card-btn" (click)="showAnnouncement(announcement)">
-            <div class="d-flex align-items-center gap-1 mb-1">
-              <div class="fw-light small text-secondary">{{announcement.updatedAt.toLocaleDateString()}}</div>
-              <ng-container [ngSwitch]="announcement.type">
-            <span *ngSwitchCase="'GENERAL'" class="bg-primary badge rounded-pill">
-              {{'AnnouncementsPage.General' | translate}}
-            </span>
-                <span *ngSwitchCase="'MAINTENANCE'" class="bg-warning badge rounded-pill">
-              {{'AnnouncementsPage.Maintenance' | translate}}
-            </span>
-                <span *ngSwitchCase="'UPDATE'" class="bg-info badge rounded-pill">
-              {{'AnnouncementsPage.Update' | translate}}
-            </span>
-                <span *ngSwitchCase="'EVENT'" class="bg-orange badge rounded-pill">
-              {{'AnnouncementsPage.Event' | translate}}
-            </span>
-                <span *ngSwitchCase="'TUTORIAL'" class="bg-teal badge rounded-pill">
-              {{'AnnouncementsPage.Tutorial' | translate}}
-            </span>
-                <span *ngSwitchCase="'OTHER'" class="bg-gray badge rounded-pill">
-              {{'AnnouncementsPage.Other' | translate}}
-            </span>
-              </ng-container>
-              <ng-container *ngIf="announcement.priority > 0">
-            <span class="bg-danger-subtle text-danger badge rounded-pill border-danger-subtle border-1 border-solid">
-              {{'AnnouncementsPage.Pinned' | translate}}
-            </span>
-              </ng-container>
-            </div>
-            <h4 class="mb-1">{{announcement.title}}</h4>
-          </li>
-    </ng-template>
-    <ng-template #announcementPlaceholder>
-      <li class="list-group-item placeholder-glow">
-        <div class="d-flex align-items-center gap-1 mb-1">
-          <div class="placeholder fw-light small text-secondary" style="width: 8em"></div>
-        </div>
-        <h4 class="placeholder mb-1" style="width: 12em"></h4>
-      </li>
-    </ng-template>
-    <div class="card user-select-none mb-2">
-      <ul class="list-group list-group-flush">
-        <ng-container *ngIf="loadingAnnouncement">
-          <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
-        </ng-container>
-        <ng-container *ngIf="!loadingAnnouncement && announcement">
-          <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: announcement}"/>
-        </ng-container>
-        <ng-container *ngIf="loadingUpdate">
-          <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
-        </ng-container>
-        <ng-container *ngIf="!loadingUpdate && recentUpdate">
-          <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: recentUpdate}"/>
-        </ng-container>
-      </ul>
-    </div>
-    <ng-container *ngIf="!loadingKeychip && !loadingTrustedKeychip && !hasKeychip && !hasTrustedKeychip">
-      <div class="hstack alert alert-danger" role="alert">
-        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill" size="1em"></ng-icon>
-        <div>{{'DashboardPage.NoKeychipMessage' | translate}}<a routerLink="/keychip">{{'DashboardPage.GoToKeychipPage' | translate}}</a></div>
+    <div class="mb-4">
+      <div class="mb-3 d-flex justify-content-between align-items-end">
+        <h3 class="m-0">
+          {{'DashboardPage.LatestAnnouncement' | translate}}
+        </h3>
+        <a class="more-announcements" routerLink="/announcements">{{'DashboardPage.More' | translate}}</a>
       </div>
-    </ng-container>
-    <ng-container *ngIf="hasTrustedKeychip">
-      <div class="hstack alert alert-warning" role="alert">
-        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
-        <div>{{'DashboardPage.HasTrustedKeychipMessage' | translate}}<a routerLink="/keychip">{{'DashboardPage.GoToKeychipPage' | translate}}</a></div>
+      <ng-template #announcementItem let-announcement='announcement'>
+            <li class="list-group-item card-btn" (click)="showAnnouncement(announcement)">
+              <div class="d-flex align-items-center gap-1 mb-1">
+                <div class="fw-light small text-secondary">{{announcement.updatedAt.toLocaleDateString()}}</div>
+                <ng-container [ngSwitch]="announcement.type">
+              <span *ngSwitchCase="'GENERAL'" class="bg-primary badge rounded-pill">
+                {{'AnnouncementsPage.General' | translate}}
+              </span>
+                  <span *ngSwitchCase="'MAINTENANCE'" class="bg-warning badge rounded-pill">
+                {{'AnnouncementsPage.Maintenance' | translate}}
+              </span>
+                  <span *ngSwitchCase="'UPDATE'" class="bg-info badge rounded-pill">
+                {{'AnnouncementsPage.Update' | translate}}
+              </span>
+                  <span *ngSwitchCase="'EVENT'" class="bg-orange badge rounded-pill">
+                {{'AnnouncementsPage.Event' | translate}}
+              </span>
+                  <span *ngSwitchCase="'TUTORIAL'" class="bg-teal badge rounded-pill">
+                {{'AnnouncementsPage.Tutorial' | translate}}
+              </span>
+                  <span *ngSwitchCase="'OTHER'" class="bg-gray badge rounded-pill">
+                {{'AnnouncementsPage.Other' | translate}}
+              </span>
+                </ng-container>
+                <ng-container *ngIf="announcement.priority > 0">
+              <span class="bg-danger-subtle text-danger badge rounded-pill border-danger-subtle border-1 border-solid">
+                {{'AnnouncementsPage.Pinned' | translate}}
+              </span>
+                </ng-container>
+              </div>
+              <h4 class="mb-1">{{announcement.title}}</h4>
+            </li>
+      </ng-template>
+      <ng-template #announcementPlaceholder>
+        <li class="list-group-item placeholder-glow">
+          <div class="d-flex align-items-center gap-1 mb-1">
+            <div class="placeholder fw-light small text-secondary" style="width: 8em"></div>
+          </div>
+          <h4 class="placeholder mb-1" style="width: 12em"></h4>
+        </li>
+      </ng-template>
+      <div class="card user-select-none mb-2">
+        <ul class="list-group list-group-flush">
+          <ng-container *ngIf="loadingAnnouncement">
+            <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
+          </ng-container>
+          <ng-container *ngIf="!loadingAnnouncement && announcement">
+            <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: announcement}"/>
+          </ng-container>
+          <ng-container *ngIf="loadingUpdate">
+            <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
+          </ng-container>
+          <ng-container *ngIf="!loadingUpdate && recentUpdate">
+            <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: recentUpdate}"/>
+          </ng-container>
+        </ul>
       </div>
-    </ng-container>
-    <div *ngIf="!loadingProfile" class="mb-3 d-flex justify-content-between align-items-end">
-      <h3 class="m-0">
-        {{'DashboardPage.Profiles' | translate}}
-        <code style="font-size: 1rem;">({{ currentCard || ('DashboardPage.NoBind' | translate) }})</code>
-      </h3>
-      <a class="more-announcements" routerLink="/cards">{{'DashboardPage.Switch' | translate}}</a>
-    </div>
-    <ng-container *ngIf="loadingProfile">
-      <div class="card mb-3 placeholder-wave">
-        <div class="card-header">
-          <span class="placeholder" style="width: 6em;"></span>
+      <ng-container *ngIf="!loadingKeychip && !loadingTrustedKeychip && !hasKeychip && !hasTrustedKeychip">
+        <div class="hstack alert alert-danger" role="alert">
+          <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill" size="1em"></ng-icon>
+          <div>{{'DashboardPage.NoKeychipMessage' | translate}}<a routerLink="/keychip">{{'DashboardPage.GoToKeychipPage' | translate}}</a></div>
         </div>
-        <div class="card-body p-2">
-          <div class="hstack gap-2">
-            <img class="placeholder profile-icon">
-            <table class="profile-table">
-              <tbody>
+      </ng-container>
+      <ng-container *ngIf="hasTrustedKeychip">
+        <div class="hstack alert alert-warning" role="alert">
+          <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+          <div>{{'DashboardPage.HasTrustedKeychipMessage' | translate}}<a routerLink="/keychip">{{'DashboardPage.GoToKeychipPage' | translate}}</a></div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="mb-4">
+      <div class="mb-3 d-flex justify-content-between align-items-end">
+        <div class="d-flex align-items-center">
+          <h3 class="m-0">
+            {{'DashboardPage.Profiles' | translate}}
+          </h3>
+          <code class="small">({{ currentCard || ('DashboardPage.NoBind' | translate) }})</code>
+        </div>
+        <a *ngIf="!loadingProfile" class="more-announcements" routerLink="/cards">{{'DashboardPage.Switch' | translate}}</a>
+      </div>
+      <ng-container *ngIf="loadingProfile">
+        <div class="card mb-3 placeholder-wave">
+          <div class="card-header">
+            <span class="placeholder" style="width: 6em;"></span>
+          </div>
+          <div class="card-body p-2">
+            <div class="hstack gap-2">
+              <img class="placeholder profile-icon">
+              <table class="profile-table">
+                <tbody>
                 <tr>
                   <th>
                     <span class="placeholder" style="width: 3em;"></span>
@@ -117,42 +122,42 @@
                     <span class="placeholder" style="width: 3em;"></span>
                   </td>
                 </tr>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="float-end fw-bold small">
+              <span class="placeholder" style="width: 14em;"></span>
+            </div>
           </div>
         </div>
-        <div class="card-footer">
-          <div class="float-end fw-bold small">
-            <span class="placeholder" style="width: 14em;"></span>
+      </ng-container>
+      <ng-container *ngIf="noCard">
+        <div class="hstack alert alert-warning" role="alert">
+          <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+          <div>{{'DashboardPage.NoCardMessage' | translate}}<a routerLink="/cards">{{'DashboardPage.GoToCardPage' | translate}}</a></div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!loadingProfile && !noCard && !ongekiProfile && !chusanProfile && !mai2Profile">
+        <div class="card mb-3 placeholder-glow">
+          <div class="card-body">
+            {{'DashboardPage.NoProfileMessage' | translate}}
           </div>
         </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="noCard">
-      <div class="hstack alert alert-warning" role="alert">
-        <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
-        <div>{{'DashboardPage.NoCardMessage' | translate}}<a routerLink="/cards">{{'DashboardPage.GoToCardPage' | translate}}</a></div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="!loadingProfile && !noCard && !ongekiProfile && !chusanProfile && !mai2Profile">
-      <div class="card mb-3 placeholder-glow">
-        <div class="card-body">
-          {{'DashboardPage.NoProfileMessage' | translate}}
-        </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="ongekiProfile">
-      <div class="card mb-3">
-        <div class="card-header fw-bold d-flex align-items-center gap-2">
-          <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
-            <use href="assets/ongeki.svg#icon"/>
-          </svg>
-          {{ongekiProfile.userName | fullWidth}}</div>
-        <div class="card-body p-2">
-          <div class="hstack gap-2">
-            <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{ongekiProfile.cardId}}.webp">
-            <table class="profile-table">
-              <tbody>
+      </ng-container>
+      <ng-container *ngIf="ongekiProfile">
+        <div class="card mb-2">
+          <div class="card-header fw-bold d-flex align-items-center gap-2">
+            <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+              <use href="assets/ongeki.svg#icon"/>
+            </svg>
+            {{ongekiProfile.userName | fullWidth}}</div>
+          <div class="card-body p-2">
+            <div class="hstack gap-2">
+              <img class="profile-icon" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{ongekiProfile.cardId}}.webp">
+              <table class="profile-table">
+                <tbody>
                 <tr>
                   <th>{{'DashboardPage.Level' | translate}}</th>
                   <td>{{ongekiProfile.reincarnationNum * 100 + ongekiProfile.level}}</td>
@@ -165,90 +170,91 @@
                   <th>{{'DashboardPage.BattlePoint' | translate}}</th>
                   <td>{{ongekiProfile.battlePoint}}</td>
                 </tr>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="float-end fw-bold small">
+              {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(ongekiProfile.lastPlayDate | toDate).toLocaleString()}}
+            </div>
           </div>
         </div>
-        <div class="card-footer">
-          <div class="float-end fw-bold small">
-            {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(ongekiProfile.lastPlayDate | toDate).toLocaleString()}}
-          </div>
-        </div>
-      </div>
-    </ng-container>
+      </ng-container>
 
-    <ng-container *ngIf="chusanProfile">
-      <div class="card mb-3">
-        <div class="card-header fw-bold d-flex align-items-center gap-2">
-          <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
-            <use href="assets/chunithm.svg#icon"/>
-          </svg>
-          {{chusanProfile.userName | fullWidth}}
-        </div>
-        <div class="card-body p-2">
-          <div class="hstack gap-2">
-            <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{chusanProfile.characterId|characterImage}}_02.webp">
-            <table class="profile-table">
-              <tbody>
-              <tr>
-                <th>{{'DashboardPage.Level' | translate}}</th>
-                <td>{{chusanProfile.reincarnationNum * 100 + chusanProfile.level}}</td>
-              </tr>
-              <tr>
-                <th>{{'DashboardPage.Rating' | translate}}</th>
-                <td>{{chusanProfile.playerRating / 100 | number: '1.2-2'}}</td>
-              </tr>
-              <tr>
-                <th>{{'DashboardPage.OverPower' | translate}}</th>
-                <td>{{chusanProfile.overPowerRate/ 100}}%</td>
-              </tr>
-              </tbody>
-            </table>
+      <ng-container *ngIf="chusanProfile">
+        <div class="card mb-2">
+          <div class="card-header fw-bold d-flex align-items-center gap-2">
+            <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+              <use href="assets/chunithm.svg#icon"/>
+            </svg>
+            {{chusanProfile.userName | fullWidth}}
+          </div>
+          <div class="card-body p-2">
+            <div class="hstack gap-2">
+              <img class="profile-icon" src="{{host}}/assets/chuni/chara/CHU_UI_Character_{{chusanProfile.characterId|characterImage}}_02.webp">
+              <table class="profile-table">
+                <tbody>
+                <tr>
+                  <th>{{'DashboardPage.Level' | translate}}</th>
+                  <td>{{chusanProfile.reincarnationNum * 100 + chusanProfile.level}}</td>
+                </tr>
+                <tr>
+                  <th>{{'DashboardPage.Rating' | translate}}</th>
+                  <td>{{chusanProfile.playerRating / 100 | number: '1.2-2'}}</td>
+                </tr>
+                <tr>
+                  <th>{{'DashboardPage.OverPower' | translate}}</th>
+                  <td>{{chusanProfile.overPowerRate/ 100}}%</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="float-end fw-bold small">
+              {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(chusanProfile.lastPlayDate | toDate).toLocaleString()}}
+            </div>
           </div>
         </div>
-        <div class="card-footer">
-          <div class="float-end fw-bold small">
-            {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(chusanProfile.lastPlayDate | toDate).toLocaleString()}}
+      </ng-container>
+      <ng-container *ngIf="mai2Profile">
+        <div class="card mb-2">
+          <div class="card-header fw-bold d-flex align-items-center gap-2">
+            <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+              <use href="assets/mai2.svg#icon"/>
+            </svg>
+            {{mai2Profile.userName | fullWidth}}
+          </div>
+          <div class="card-body p-2">
+            <div class="hstack gap-2">
+              <img class="profile-icon" src="{{host}}assets/mai2/icon/UI_Icon_{{getFormattedNumberByDigit(mai2Profile.iconId,6)}}.webp">
+              <table class="profile-table">
+                <tbody>
+                <tr>
+                  <th>{{'DashboardPage.AwakenLevel' | translate}}</th>
+                  <td>{{mai2Profile.totalAwake}}</td>
+                </tr>
+                <tr>
+                  <th>{{'DashboardPage.Rating' | translate}}</th>
+                  <td>{{mai2Profile.playerRating}}</td>
+                </tr>
+                <tr>
+                  <th>{{'DashboardPage.PlayCount' | translate}}</th>
+                  <td>{{mai2Profile.playCount}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="float-end fw-bold small">
+              {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(mai2Profile.lastPlayDate | toDate).toLocaleString()}}
+            </div>
           </div>
         </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="mai2Profile">
-      <div class="card mb-3">
-        <div class="card-header fw-bold d-flex align-items-center gap-2">
-          <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
-            <use href="assets/mai2.svg#icon"/>
-          </svg>
-          {{mai2Profile.userName | fullWidth}}
-        </div>
-        <div class="card-body p-2">
-          <div class="hstack gap-2">
-            <img class="profile-icon" src="{{host}}assets/mai2/icon/UI_Icon_{{getFormattedNumberByDigit(mai2Profile.iconId,6)}}.webp">
-            <table class="profile-table">
-              <tbody>
-              <tr>
-                <th>{{'DashboardPage.AwakenLevel' | translate}}</th>
-                <td>{{mai2Profile.totalAwake}}</td>
-              </tr>
-              <tr>
-                <th>{{'DashboardPage.Rating' | translate}}</th>
-                <td>{{mai2Profile.playerRating}}</td>
-              </tr>
-              <tr>
-                <th>{{'DashboardPage.PlayCount' | translate}}</th>
-                <td>{{mai2Profile.playCount}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="float-end fw-bold small">
-            {{'DashboardPage.LastPlay' | translate}}{{'Common.Colon' | translate}}{{(mai2Profile.lastPlayDate | toDate).toLocaleString()}}
-          </div>
-        </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
   <div class="col-12 col-lg-4">
     <h3 class="mb-3">
