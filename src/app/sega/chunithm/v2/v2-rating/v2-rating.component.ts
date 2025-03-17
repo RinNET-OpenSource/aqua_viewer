@@ -18,6 +18,7 @@ export class V2RatingComponent implements OnInit {
   enableImages = environment.enableImages;
 
   romVersion: Version;
+  verseVersion = new Version('2.30.00');
   topRating: RatingItem[] = [];
   newRating: RatingItem[] = [];
   recentRating: RatingItem[] = [];
@@ -38,7 +39,6 @@ export class V2RatingComponent implements OnInit {
     const profile = await lastValueFrom(this.api.get('api/game/chuni/v2/profile', param));
     if (!profile) { return; }
     this.romVersion = new Version(profile.lastRomVersion);
-    this.messageService.notice(this.romVersion.full);
     if (this.romVersion >= new Version('2.30.00')){
       // b50
       this.api.get('api/game/chuni/v2/verse-rating', param).subscribe(
@@ -53,6 +53,7 @@ export class V2RatingComponent implements OnInit {
           }
           this.topRating.forEach(item => this.topTotal += item.rating);
           this.newRating.forEach(item => this.newTotal += item.rating);
+          this.newRating.forEach(item => console.log(item.rating.toString()));
         },
         error => this.messageService.notice(error)
       );
