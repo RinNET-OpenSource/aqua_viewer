@@ -164,13 +164,13 @@ export class DashboardComponent implements OnInit {
         this.messageService.notice(error);
         this.loadingAnnouncement = false;
       });
-    param = param.set('lang', this.language.getCurrentLang()).set('type', 'UPDATE').set('size', '1');
-    this.api.get('api/user/announcement/', param).subscribe(
+    param = param.set('lang', this.language.getCurrentLang()).set('type', 'UPDATE');
+    this.api.get('api/user/announcement/recent', param).subscribe(
       resp => {
         if (resp?.status) {
           const statusCode: StatusCode = resp.status.code;
           if (statusCode === StatusCode.OK && resp.data) {
-            this.recentUpdate = Announcement.fromJSON(resp.data.content[0]);
+            this.recentUpdate = Announcement.fromJSON(resp.data);
           }
           else{
             this.messageService.notice(resp.status.message);
