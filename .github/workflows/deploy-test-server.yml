@@ -28,6 +28,7 @@ jobs:
           name: dist
           path: dist.tar.gz
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
