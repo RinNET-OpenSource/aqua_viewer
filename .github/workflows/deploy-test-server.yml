@@ -12,9 +12,9 @@ jobs:
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
             - name: Use Node.js
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v4
               with:
                 node-version: '16'
             - name: Install dependencies
@@ -24,7 +24,7 @@ jobs:
             - name: Compress dist folder
               run: tar -czf dist.tar.gz dist/
             - name: Upload artifact
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4.6.1
               with:
                 name: dist
                 path: dist.tar.gz
