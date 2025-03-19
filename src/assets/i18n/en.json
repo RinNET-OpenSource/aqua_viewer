@@ -444,6 +444,15 @@
       "MessageSuccess": "Successfully changed.",
       "MessageFailed": "Failed to change item."
     },
+    "MusicListPage": {
+      "Title": "Music List",
+      "ReleaseVersion": "Release Version",
+      "TotalSongNum": "Total {{num}} Songs",
+      "ShowFilter": "Show Filter",
+      "HideFilter": "Hide Filter",
+      "ResetFilter": "Reset Filter",
+      "FilterPlaceholder": "ID, Name, Artist"
+    },
     "RivalPage": {
       "Title": "Rival",
       "IDInputPlaceholder": "Rival Card ID",

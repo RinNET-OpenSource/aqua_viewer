@@ -8,8 +8,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Develop with CDN
 
-- Add the following rule to your hosts file: <br>
-`127.0.0.1 portal-dev.naominet.live`
 - Change `proxy.conf.json` if needed
 - Launch the development server with the command: <br>`$ npm run start `
 - Visit [https://portal-dev.naominet.live](https://portal-dev.naominet.live).

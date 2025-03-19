@@ -444,6 +444,15 @@
       "MessageSuccess": "更换成功",
       "MessageFailed": "更换失败"
     },
+    "MusicListPage": {
+      "Title": "乐曲列表",
+      "ReleaseVersion": "发布版本",
+      "TotalSongNum": "共 {{num}} 首乐曲",
+      "ShowFilter": "显示过滤",
+      "HideFilter": "隐藏过滤",
+      "ResetFilter": "重置过滤",
+      "FilterPlaceholder": "ID, 曲名, 作者"
+    },
     "RivalPage": {
       "Title": "好友",
       "IDInputPlaceholder": "好友ID",

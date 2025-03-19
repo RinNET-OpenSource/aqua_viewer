@@ -1,4 +1,4 @@
-<h1 class="page-heading">Music List</h1>
+<h1 class="page-heading">{{ "ChuniV2.MusicListPage.Title" | translate }}</h1>
 
 <ng-template #pagination>
   <pagination-template *ngIf="true" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
@@ -19,20 +19,44 @@
     </ul>
   </pagination-template>
 </ng-template>
-<ng-container *ngTemplateOutlet="pagination;"></ng-container>
-
-<div class="row justify-content-start mb-2 g-2">
-  <div *ngFor="let genre of genres; let i = index" class="col-auto">
-    <input type="checkbox" class="form-check-input checkbox-btn" [value]="genre" [id]="'genre' + i" [formControl]="genreControls.controls[i]">
-    <label class="checkbox-label" [for]="'genre' + i">{{genresMap.get(genre)}}</label>
+<div class="collapse" id="filterCollapse">
+  <div class="row mb-2 g-1">
+    <div class="col-12 col-sm-auto pt-1 me-3">{{'ChuniV2.MusicListPage.ReleaseVersion' | translate}}</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-1">
+        <div *ngFor="let version of releaseTagService.releaseTags; let i = index" class="col-auto">
+          <input type="checkbox" class="form-check-input checkbox-btn" [value]="version" [id]="'version' + i" [formControl]="versionControls.controls[i]">
+          <label class="checkbox-label" [for]="'version' + i">{{releaseTagService.releaseTagMap.get(version)}}</label>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-auto">
-    <input type="checkbox" class="form-check-input checkbox-btn" value="lunatic" id="lunatic" [formControl]="weControl">
-    <label class="checkbox-label" for="lunatic">World's End</label>
+  <div class="row mb-2 g-1">
+    <div class="col-12 col-sm-auto pt-1 me-3">分类</div>
+    <div class="col-12 col-sm">
+      <div class="row justify-content-start align-items-center g-1">
+        <div *ngFor="let genre of genres; let i = index" class="col-auto">
+          <input type="checkbox" class="form-check-input checkbox-btn" [value]="genre" [id]="'genre' + i" [formControl]="genreControls.controls[i]">
+          <label class="checkbox-label" [for]="'genre' + i">{{genreMap.get(genre)}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 g-1">
+    <div class="col-12 p-0">
+      <input type="text" #search class="form-control form-control-sm" placeholder="{{'ChuniV2.MusicListPage.FilterPlaceholder' | translate}}" [formControl]="patternControl">
+    </div>
   </div>
 </div>
 
-<input type="text" #search class="form-control mb-2" placeholder="Filter" [formControl]="patternControl">
+<div *ngIf="filteredSongList" class="mb-2">
+  <span>{{'ChuniV2.MusicListPage.TotalSongNum' | translate: {num: totalElements} }}</span>
+  <a class="link-btn ms-3" (click)="toggleFilter()">{{filterCollapsed?('ChuniV2.MusicListPage.ShowFilter' | translate):('ChuniV2.MusicListPage.HideFilter' | translate)}}</a>
+  <a *ngIf="!isDefaultFilter()" class="link-btn ms-3" (click)="resetFilter()">{{'ChuniV2.MusicListPage.ResetFilter' | translate}}</a>
+</div>
+
+<ng-container *ngTemplateOutlet="pagination;"></ng-container>
 
 <div class="card-btn card mb-2 text-start user-select-none"  (click)="showDetail(item)"
      *ngFor="let item of filteredSongList | async | paginate: { id: 'server', itemsPerPage: 15, currentPage: currentPage, totalItems: totalElements }">
