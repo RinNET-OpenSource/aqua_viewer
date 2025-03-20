@@ -64,9 +64,9 @@ jobs:
             cd /root
             rm -rf dist
             tar -zxvf dist.tar.gz
-            docker exec -it nginx rm -rf /var/www/portal
-            docker cp dist/aqua-viewer nginx:/var/www/portal
-            docker restart nginx
+            docker exec -it nginx rm -rf /var/www/portal > /dev/null
+            docker cp dist/aqua-viewer nginx:/var/www/portal > /dev/null
+            docker restart nginx > /dev/null
 
             
 
