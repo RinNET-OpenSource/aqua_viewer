@@ -84,7 +84,7 @@
           <h3 class="m-0">
             {{'DashboardPage.Profiles' | translate}}
           </h3>
-          <code class="small">({{ currentCard || ('DashboardPage.NoBind' | translate) }})</code>
+          <code *ngIf="!loadingProfile" class="small">({{ currentCard || ('DashboardPage.NoBind' | translate) }})</code>
         </div>
         <a *ngIf="!loadingProfile" class="more-announcements" routerLink="/cards">{{'DashboardPage.Switch' | translate}}</a>
       </div>

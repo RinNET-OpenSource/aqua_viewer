@@ -4,7 +4,8 @@
     "ChuniV2": "中二节奏NEW",
     "Mai2": "舞萌DX",
     "Colon": "：",
-    "OK": "确定"
+    "OK": "确定",
+    "FailedToLoad": "加载失败"
   },
   "App": {
     "Footer": {

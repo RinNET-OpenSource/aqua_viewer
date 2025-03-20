@@ -8,6 +8,7 @@ import {HttpParams} from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {OngekiCard} from '../model/OngekiCard';
+import {TranslateService} from '@ngx-translate/core';
 
 interface Ranking {
   level?: number;
@@ -50,6 +51,7 @@ export class OngekiSongScoreRankingComponent {
   protected readonly Math = Math;
   ranking: Ranking[];
   songData: {[key: number]: ISongData};
+  loadingSongData = true;
   host = environment.assetsHost;
   protected readonly parseFloat = parseFloat;
   @Input() public music: OngekiMusic;
@@ -58,6 +60,7 @@ export class OngekiSongScoreRankingComponent {
     private dbService: NgxIndexedDBService,
     private api: ApiService,
     private userService: UserService,
+    private translate: TranslateService,
     public messageService: MessageService,
     public offcanvasService: NgbOffcanvas,
   ) {
@@ -69,14 +72,22 @@ export class OngekiSongScoreRankingComponent {
     });
 
     const { id } = this.music;
-    this.api.get(`api/game/ongeki/song/${id}?aimeId=${String(this.userService.currentUser.defaultCard.extId)}`).subscribe(
-      res => {
+    this.api.get(`api/game/ongeki/song/${id}?aimeId=${String(this.userService.currentUser.defaultCard.extId)}`).subscribe({
+      next: (res) => {
         const songData = {};
         for (const data of res) {
           songData[data.level] = data;
         }
         this.songData = songData;
+        this.loadingSongData = false;
+      },
+      error: (err) => {
+        this.translate.get('Common.FailedToLoad').subscribe((res: string) => {
+          this.messageService.notice(res, 'danger');
+        });
+        this.loadingSongData = false;
       }
+    }
     );
 
     if (!this.isLunatic(this.music)){

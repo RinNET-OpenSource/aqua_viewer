@@ -4,7 +4,8 @@
     "ChuniV2": "CHUNITHM NEW",
     "Mai2": "Maimai DX",
     "Colon": ": ",
-    "OK": "OK"
+    "OK": "OK",
+    "FailedToLoad": "Failed to load"
   },
   "App": {
     "Footer": {
