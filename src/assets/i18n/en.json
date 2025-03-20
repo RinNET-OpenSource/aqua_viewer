@@ -477,6 +477,16 @@
       "Rating": "Rating",
       "Activity": "Activity"
     },
+    "RatingPage": {
+      "Title": "Rating",
+      "Overview": "Overview",
+      "PlayerRating": "Your Rating",
+      "HighestRating": "Highest",
+      "New": "New",
+      "Best": "Best",
+      "Recent": "Recent",
+      "DataVersionWarning": "Due to a mismatch between the game and server data versions, the fumen constants or rating calculations may be incorrect."
+    },
     "RecentPage": {
       "Title": "Play Record",
       "Ranking": "Ranking"

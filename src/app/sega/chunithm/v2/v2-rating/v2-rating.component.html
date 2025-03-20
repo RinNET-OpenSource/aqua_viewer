@@ -1,23 +1,72 @@
-<h1 class="page-heading">Rating</h1>
+<h1 class="page-heading">{{ "ChuniV2.RatingPage.Title" | translate }}</h1>
 
-<div class="card mb-3">
-  <div class="card-body">
-    <ng-container *ngIf="romVersion >= verseVersion">
-      <div>Total Rating: <span class="{{(topTotal + newTotal) / 50 | toRating | ratingClass}}">{{(topTotal + newTotal) / 50 | toRating }}</span></div>
-      <div>New: <span class="{{newTotal / 20 | toRating | ratingClass}}">{{newTotal / 20 | toRating }}</span></div>
-      <div>Old: <span class="{{topTotal / 30 | toRating | ratingClass}}">{{topTotal / 30 | toRating }}</span></div>
-    </ng-container>
-    <ng-container *ngIf="romVersion < verseVersion">
-      <div>Total Rating: <span class="{{(topTotal + recentTotal) / 40 | toRating | ratingClass}}">{{(topTotal + recentTotal) / 40 | toRating }}</span></div>
-      <div>Best: <span class="{{topTotal / 30 | toRating | ratingClass}}">{{topTotal / 30 | toRating }}</span></div>
-      <div>Recent: <span class="{{recentTotal / 10 | toRating | ratingClass}}">{{recentTotal / 10 | toRating }}</span></div>
+<ng-container *ngIf="playerRating">
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">{{ "ChuniV2.RatingPage.Overview" | translate }}</h2>
+  </div>
+  <div class="mb-4">
+    <div class="card user-select-none mb-2">
+      <ul class="list-group list-group-flush my-1">
+        <li class="list-group-item">
+          <div>{{ "ChuniV2.RatingPage.PlayerRating" | translate }} {{"Common.Colon" | translate}} {{playerRating | toRating | number: '1.2-2'}}</div>
+        </li>
+        <li class="list-group-item">
+          <div>{{ "ChuniV2.RatingPage.HighestRating" | translate }} {{"Common.Colon" | translate}} {{highestRating | toRating | number: '1.2-2'}}</div>
+        </li>
+      </ul>
+    </div>
+    <ng-container *ngIf="playerRating != calcRating">
+      <div class="alert alert-warning" role="alert">
+        {{ "ChuniV2.RatingPage.DataVersionWarning" | translate }}
+      </div>
     </ng-container>
   </div>
-</div>
+</ng-container>
 
-<ng-container *ngIf="newRating">
+
+<ng-template #itemPlaceholder>
+  <div class="col-12 col-md-6 col-xxl-4">
+    <div class="card rating-card">
+      <div class="hstack">
+        <img class="jacket rounded-start placeholder" alt="">
+        <div class="card-body overflow-hidden user-select-none py-0 px-2">
+          <div class="fw-bold m-0 mb-1 placeholder"><span class="placeholder">#0 Music Title</span></div>
+          <div class="text-truncate mb-1"><span class="placeholder">1010000</span></div>
+          <div class="text-truncate small rating-score">
+            <span class="score-value placeholder">Master 10.0 ➛ 12.15</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-container *ngIf="loadingRating">
+  <div class="placeholder-wave">
+    <div class="mb-3 d-flex align-items-center">
+      <h2 class="mb-0"><span class="placeholder">Best</span></h2>
+    </div>
+    <div class="row mb-4 g-2">
+      <ng-container *ngTemplateOutlet="itemPlaceholder"></ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="loadingRecent">
+  <div class="placeholder-wave">
+    <div class="mb-3 d-flex align-items-center">
+      <h2 class="mb-0"><span class="placeholder">Recent</span></h2>
+    </div>
+    <div class="row mb-4 g-2">
+      <ng-container *ngTemplateOutlet="itemPlaceholder"></ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!loadingRating && newRating">
   <div class="mb-3 d-flex align-items-center">
-    <h2 class="mb-0">New</h2>
+    <h2 class="mb-0">{{ "ChuniV2.RatingPage.New" | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ newTotal / 20 | toRating }}</span>
   </div>
 
   <div class="row mb-4 g-2">
@@ -27,20 +76,24 @@
   </div>
 </ng-container>
 
-<div class="mb-3 d-flex align-items-center">
-  <h2 class="mb-0">Best</h2>
-</div>
-
-<div class="row mb-4 g-2">
-  <ng-container *ngFor="let item of topRating; index as i">
-    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
-  </ng-container>
-</div>
-
-<ng-template *ngIf="recentRating">
-
+<ng-container *ngIf="!loadingRating && topRating">
   <div class="mb-3 d-flex align-items-center">
-    <h2 class="mb-0">Recent</h2>
+    <h2 class="mb-0">{{ "ChuniV2.RatingPage.Best" | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ topTotal / 30 | toRating }}</span>
+  </div>
+
+  <div class="row mb-4 g-2">
+    <ng-container *ngFor="let item of topRating; index as i">
+      <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
+
+<ng-template *ngIf="!loadingRecent && recentRating">
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">{{ "ChuniV2.RatingPage.Recent" | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ recentTotal / 10 | toRating }}</span>
   </div>
 
   <div class="row mb-4 g-2">
@@ -53,44 +106,44 @@
 
 <ng-template #record let-index="index" let-item="item">
   <div class="col-12 col-md-6 col-xxl-4">
-    <div class="card rating-card">
+    <div class="card rating-card card-btn" (click)="showDetail(item.musicId)">
       <div class="hstack">
         <img class="jacket rounded-start"
              src="{{host}}assets/chuni/jacket/CHU_UI_Jacket_{{item.musicId|formatNumber:4}}.webp" alt=""
         >
         <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
-          <div class="text-truncate fw-bold m-0"><span>#{{index + 1}}</span> {{item.musicName}}</div>
-          <div class="text-truncate">{{item.score}}</div>
+          <div class="text-truncate fw-bold m-0"><span>#{{ index + 1 }}</span> {{ item.musicName }}</div>
+          <div class="text-truncate">{{ item.score }}</div>
           <div class="text-truncate small rating-score">
             <ng-container [ngSwitch]="item.level">
             <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
-              Basic {{(item.ratingBase|toRating)??'None'}}
+              Basic {{ (item.ratingBase|toRating) ?? 'None' }}
             </span>
-            <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
-              Advanced {{(item.ratingBase|toRating)??'None'}}
+              <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
+              Advanced {{ (item.ratingBase|toRating) ?? 'None' }}
             </span>
-            <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
-              Expert {{(item.ratingBase|toRating)??'None'}}
+              <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
+              Expert {{ (item.ratingBase|toRating) ?? 'None' }}
             </span>
-            <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
-              Master {{(item.ratingBase|toRating)??'None'}}
+              <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
+              Master {{ (item.ratingBase|toRating) ?? 'None' }}
             </span>
-            <span *ngSwitchCase="4" class="difficulty-ultima badge rounded-pill text-danger border border-danger">
-              Ultima {{(item.ratingBase|toRating)??'None'}}
+              <span *ngSwitchCase="4" class="difficulty-ultima badge rounded-pill text-danger border border-danger">
+              Ultima {{ (item.ratingBase|toRating) ?? 'None' }}
             </span>
             </ng-container>
             <b>➛</b>
             <ng-container [ngSwitch]="item.level">
             <span *ngSwitchCase="0"
-                  class="score-value">{{item.rating|toRating}}</span>
-            <span *ngSwitchCase="1"
-                  class="score-value">{{item.rating|toRating}}</span>
-            <span *ngSwitchCase="2"
-                  class="score-value">{{item.rating|toRating}}</span>
-            <span *ngSwitchCase="3"
-                  class="score-value">{{item.rating|toRating}}</span>
-            <span *ngSwitchCase="4"
-                  class="score-value">{{item.rating|toRating}}</span>
+                  class="score-value">{{ item.rating|toRating }}</span>
+              <span *ngSwitchCase="1"
+                    class="score-value">{{ item.rating|toRating }}</span>
+              <span *ngSwitchCase="2"
+                    class="score-value">{{ item.rating|toRating }}</span>
+              <span *ngSwitchCase="3"
+                    class="score-value">{{ item.rating|toRating }}</span>
+              <span *ngSwitchCase="4"
+                    class="score-value">{{ item.rating|toRating }}</span>
             </ng-container>
           </div>
         </div>

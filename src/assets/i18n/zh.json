@@ -477,6 +477,16 @@
       "Rating": "评级",
       "Activity": "活跃度"
     },
+    "RatingPage": {
+      "Title": "评级",
+      "Overview": "概览",
+      "PlayerRating": "你的评级",
+      "HighestRating": "历史最高",
+      "New": "当前版本",
+      "Best": "最佳成绩",
+      "Recent": "最近高分",
+      "DataVersionWarning": "由于游戏与服务器数据版本不一致，谱面定数或评级计算可能有误"
+    },
     "RecentPage": {
       "Title": "游玩记录",
       "Ranking": "排名"
