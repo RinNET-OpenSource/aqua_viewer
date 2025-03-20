@@ -62,10 +62,11 @@ jobs:
           port: 22
           script: |
             cd /root
-            rm -rf dist
+            rm -rf dist && rm -rf portal
             tar -zxvf dist.tar.gz
+            mv dist/aqua-viewer portal
             docker exec -it nginx rm -rf /var/www/portal > /dev/null
-            docker cp dist/aqua-viewer nginx:/var/www/portal > /dev/null
+            docker cp portal nginx:/var/www/portal > /dev/null
             docker restart nginx > /dev/null
 
             
