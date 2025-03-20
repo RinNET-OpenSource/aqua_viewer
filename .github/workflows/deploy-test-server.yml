@@ -66,7 +66,7 @@ jobs:
             tar -zxvf dist.tar.gz
             docker exec nginx rm -rf /var/www/portal
             docker cp dist/aqua-viewer nginx:/var/www/portal
-            docker restart nginx
+            echo "Finished Deployment!"
 
             
 
