@@ -7,6 +7,7 @@ import {MessageService} from '../../../../message.service';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
+import {Router} from '@angular/router';
 
 interface ISongData {
   musicId: number;
@@ -54,6 +55,7 @@ export class V2SongScoreRankingComponent {
 
   constructor(
     private api: ApiService,
+    private router: Router,
     private userService: UserService,
     public messageService: MessageService,
     public offcanvasService: NgbOffcanvas,
@@ -75,12 +77,12 @@ export class V2SongScoreRankingComponent {
       }
     );
     const param = new HttpParams().set('musicId', musicId).set('level', 3);
-    this.api.get("api/game/chuni/v2/musicScoreRanking", param).subscribe((res) => {
+    this.api.get('api/game/chuni/v2/musicScoreRanking', param).subscribe((res) => {
       if (res.length > 0) {
         this.ranking = res;
       } else {
-        const param = new HttpParams().set("musicId", musicId).set("level", 5);
-        this.api.get("api/game/chuni/v2/musicScoreRanking", param).subscribe((res) => {
+        const param = new HttpParams().set('musicId', musicId).set('level', 5);
+        this.api.get('api/game/chuni/v2/musicScoreRanking', param).subscribe((res) => {
             this.ranking = res;
           });
       }
@@ -102,4 +104,10 @@ export class V2SongScoreRankingComponent {
     return `${level.level}.${level.levelDecimal.toString().charAt(0)}` ?? '0';
   }
 
+  showPlayLog(id: number, level: any) {
+    if (this.songData[level]){
+      this.offcanvasService.dismiss();
+      this.router.navigate(['chuni/v2/recent'], {queryParams: {id, level}});
+    }
+  }
 }

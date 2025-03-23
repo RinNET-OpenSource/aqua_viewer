@@ -1,4 +1,4 @@
-<h1 class="page-heading">{{"ChuniV2.RecentPage.Title" | translate}}</h1>
+<h1 class="page-heading">{{ "ChuniV2.RecentPage.Title" | translate }}</h1>
 
 <ng-template #pagination>
   <pagination-template *ngIf="!loading" #p="paginationApi" class="user-select-none" id="server" maxSize="7"
@@ -20,11 +20,32 @@
   </pagination-template>
 </ng-template>
 
+<ng-container *ngIf="musicName">
+  <div class="d-flex align-items-center gap-2 mb-2">
+    <ng-container [ngSwitch]="level">
+      <span *ngSwitchCase="0" class="col-auto filter-text difficulty-basic badge rounded-pill">Basic</span>
+      <span *ngSwitchCase="1" class="col-auto filter-text difficulty-advanced badge rounded-pill">Advanced</span>
+      <span *ngSwitchCase="2" class="col-auto filter-text difficulty-expert badge rounded-pill">Expert</span>
+      <span *ngSwitchCase="3" class="col-auto filter-text difficulty-master badge rounded-pill">Master</span>
+      <span *ngSwitchCase="4" class="col-auto filter-text difficulty-ultima badge rounded-pill">Ultima</span>
+      <span *ngSwitchCase="5" class="col-auto filter-text difficulty-we badge rounded-pill">
+      <span class="color-we">World's End</span>
+    </span>
+    </ng-container>
+    <span>{{musicName}}</span>
+  </div>
+</ng-container>
+
+<div class="d-flex align-items-center gap-2 mb-3">
+  <span>{{'ChuniV2.RecentPage.TotalPlayLogNum' | translate: {num: totalElements} }}</span>
+  <a *ngIf="musicName" class="link-btn" [routerLink]="[]" [queryParams]="{}">{{ "ChuniV2.RecentPage.ResetFilter" | translate }}</a>
+</div>
+
 <ng-container *ngTemplateOutlet="pagination;"></ng-container>
 
 <div *ngIf="recent" class="d-flex flex-column gap-2 my-3 this-page">
   <div class="card"
-    *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
+       *ngFor="let item of recent | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: currentPage, totalItems: totalElements }">
     <div class="card-header p-0">
       <div class="position-relative">
         <div class="d-flex rounded-top g-0 flex-nowrap">
@@ -33,16 +54,16 @@
           </div>
           <div class="flex-grow-1 overflow-hidden">
             <div class="info-container">
-              <div class="ps-2 py-1 user-select-none difficulty-{{item.level}}" >
-                <div class="track"><span [class.color-we]="item.level==5">Track.{{item.track}}</span></div>
-                <div class="difficulty"><span [class.color-we]="item.level==5">{{difficulty[item.level]}}</span></div>
+              <div class="ps-2 py-1 user-select-none difficulty-{{item.level}}">
+                <div class="track"><span [class.color-we]="item.level==5">Track.{{ item.track }}</span></div>
+                <div class="difficulty"><span [class.color-we]="item.level==5">{{ difficulty[item.level] }}</span></div>
                 <!--            <div>{{item.songInfo.levels[item.level] | toLevelString}}</div>-->
               </div>
               <div class="info-second">
                 <div class="w-100">
-                  <div class="title ps-2">{{item.songInfo?.name ?? 'musicId:' + item.musicId }}</div>
+                  <div class="title ps-2">{{ item.songInfo?.name ?? 'musicId:' + item.musicId }}</div>
                   <hr class="w-100 my-1">
-                  <div class="artist ps-2">{{item.songInfo?.artistName??'Unknown Artist' }}</div>
+                  <div class="artist ps-2">{{ item.songInfo?.artistName ?? 'Unknown Artist' }}</div>
                 </div>
               </div>
             </div>
@@ -99,16 +120,20 @@
               <div class="h-100 d-flex align-items-center">
                 <div>
                   <div>
-                    <div class="new-record-badge rounded-pill badge" [class.new-record]="item.isNewRecord">NEW RECORD</div>
+                    <div class="new-record-badge rounded-pill badge" [class.new-record]="item.isNewRecord">NEW RECORD
+                    </div>
                     <div class="score-label">Score</div>
                     <div class="score">{{ item.score }}</div>
                   </div>
                   <div *ngIf="item.songInfo?.levels[item.level]">
                     <div class="score-label">Rating</div>
-                    <div class="rating">{{ ((item.score | toTechRating: (item.songInfo.levels[item.level].level * 100 + item.songInfo.levels[item.level].levelDecimal)) / 100).toFixed(2).toString() }}</div>
+                    <div
+                      class="rating">{{ ((item.score | toTechRating: (item.songInfo.levels[item.level].level * 100 + item.songInfo.levels[item.level].levelDecimal)) / 100).toFixed(2).toString() }}
+                    </div>
                   </div>
                   <div>
-                    <img class="honor" [class.grayscale]="!item.isFullCombo" src="{{host}}assets/chuni/gameUi/CHU_UI_Result_{{getFcLevel(item)}}.webp">
+                    <img class="honor" [class.grayscale]="!item.isFullCombo"
+                         src="{{host}}assets/chuni/gameUi/CHU_UI_Result_{{getFcLevel(item)}}.webp">
                   </div>
                 </div>
               </div>
@@ -118,23 +143,26 @@
                 <div class="d-flex flex-nowrap align-items-start">
                   <ng-container *ngFor="let char of (item.rank | toRank).split('')">
                     <ng-container [ngSwitch]="char">
-                      <img *ngSwitchCase="'+'" class="result-plus" src="{{host}}assets/chuni/gameUi/CHU_UI_Result_Plus.webp">
-                      <img *ngSwitchDefault class="result-char" src="{{host}}assets/chuni/gameUi/CHU_UI_Result_{{char}}.webp">
+                      <img *ngSwitchCase="'+'" class="result-plus"
+                           src="{{host}}assets/chuni/gameUi/CHU_UI_Result_Plus.webp">
+                      <img *ngSwitchDefault class="result-char"
+                           src="{{host}}assets/chuni/gameUi/CHU_UI_Result_{{char}}.webp">
                     </ng-container>
                   </ng-container>
                 </div>
               </div>
             </div>
           </div>
-          </div>
         </div>
+      </div>
     </div>
     <div class="card-footer fw-bold">
       <div *ngIf="item.songInfo" class="float-start">
-        <a type="button" class="text-primary" (click)="showDetail(item.songInfo)">{{"ChuniV2.RecentPage.Ranking" | translate}}</a>
+        <a type="button" class="text-primary"
+           (click)="showDetail(item.songInfo)">{{ "ChuniV2.RecentPage.Details" | translate }}</a>
       </div>
       <div class="float-end">
-        {{item.userPlayDate.toLocaleString()}}
+        {{ item.userPlayDate.toLocaleString() }}
       </div>
     </div>
   </div>

@@ -212,3 +212,42 @@
     font-size: 0.8em;
   }
 }
+
+.filter-text {
+  font-size: 12px;
+}
+
+.difficulty-basic {
+  background: #00ab84;
+  border: 1px solid #145830;
+  color: white;
+}
+
+.difficulty-advanced {
+  background: #ff7e00;
+  border: 1px solid #995014;
+  color: white;
+}
+
+.difficulty-expert {
+  background: #f12929;
+  border: 1px solid #7B1F18;
+  color: white;
+}
+
+.difficulty-master {
+  background: #8e1be5;
+  border: 1px solid #381C47;
+  color: white;
+}
+
+.difficulty-ultima {
+  background: #424242;
+  border: 1px solid #ff2854;
+  color: white;
+}
+
+.difficulty-we {
+  background: #343636;
+  border: 1px solid var(--bs-secondary);
+}

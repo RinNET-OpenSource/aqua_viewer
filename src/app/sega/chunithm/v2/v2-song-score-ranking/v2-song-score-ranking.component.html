@@ -15,7 +15,7 @@
       </div>
       <section *ngIf="songData">
         <ng-template #difficultyDetail let-difficulty>
-          <div class="card my-2">
+          <div class="card my-2" [class.card-btn]="songData[difficulty]" (click)="showPlayLog(music.musicId, difficulty)">
             <ng-container [ngSwitch]="difficulty">
               <div *ngSwitchCase="0" class="card-header py-1 px-2 text-truncate">
                 <div class="hstack">

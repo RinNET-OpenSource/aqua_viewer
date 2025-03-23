@@ -402,7 +402,7 @@
       "Unacquired": "Unacquired",
       "Version": "Version",
       "SearchPlaceholder": "ID，Name，Illustrator，WorkName",
-      "TotalCharaNum": "Total {{num}} characters",
+      "TotalCharaNum": "Total {{num}} Characters",
       "ShowFilter": "Show Filter",
       "HideFilter": "Hide Filter",
       "ResetFilter": "Reset Filter",
@@ -448,6 +448,7 @@
     "MusicListPage": {
       "Title": "Music List",
       "ReleaseVersion": "Release Version",
+      "Genre": "Genre",
       "TotalSongNum": "Total {{num}} Songs",
       "ShowFilter": "Show Filter",
       "HideFilter": "Hide Filter",
@@ -489,7 +490,9 @@
     },
     "RecentPage": {
       "Title": "Play Record",
-      "Ranking": "Ranking"
+      "Details": "Details",
+      "TotalPlayLogNum": "Total {{num}} Play Records",
+      "ResetFilter": "Reset Filter"
     },
     "SettingsPage": {
       "Title": "Settings",

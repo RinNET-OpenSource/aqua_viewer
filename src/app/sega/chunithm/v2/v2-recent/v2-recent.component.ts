@@ -8,11 +8,12 @@ import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {ChusanMusic, Difficulty} from '../model/ChusanMusic';
 import {environment} from '../../../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {lastValueFrom, Observable} from 'rxjs';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-score-ranking.component';
-import { UserService } from 'src/app/user.service';
+import {UserService} from 'src/app/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {load} from '@angular-devkit/build-angular/src/utils/server-rendering/esm-in-memory-file-loader';
 
 @Component({
   selector: 'app-v2-recent',
@@ -25,6 +26,9 @@ export class V2RecentComponent implements OnInit {
   enableImages = environment.enableImages;
   loading: boolean;
   aimeId: string;
+  id: number;
+  musicName: string;
+  level: number;
 
   recent: Observable<V2PlayLog[]>;
   difficulty = Difficulty;
@@ -48,7 +52,21 @@ export class V2RecentComponent implements OnInit {
     this.loading = true;
     this.route.queryParams.subscribe((data) => {
       if (data.page) {
-        this.currentPage = data.page;
+        this.currentPage = Number(data.page);
+      } else {
+        this.currentPage = 1;
+      }
+      if (data.id && data.level) {
+        this.id = Number(data.id);
+        this.getMusicName(this.id);
+        this.level = Number(data.level);
+        if (this.level > 5){
+          this.router.navigate(['chuni/v2/recent'], {queryParams: {}});
+        }
+      } else {
+        this.id = null;
+        this.musicName = null;
+        this.level = null;
       }
       this.load(this.currentPage);
     });
@@ -56,7 +74,14 @@ export class V2RecentComponent implements OnInit {
 
   load(page: number) {
     const param = new HttpParams().set('aimeId', this.aimeId).set('page', String(page - 1));
-    this.recent = this.api.get('api/game/chuni/v2/recent', param).pipe(
+
+    let api;
+    if (this.id && this.level) {
+      api = `api/game/chuni/v2/song/${this.id}/${this.level}`;
+    } else {
+      api = 'api/game/chuni/v2/recent';
+    }
+    this.recent = this.api.get(api, param).pipe(
       tap(
         data => {
           this.totalElements = data.totalElements;
@@ -88,21 +113,34 @@ export class V2RecentComponent implements OnInit {
   }
 
   pageChanged(page: number) {
-    this.router.navigate(['chuni/v2/recent'], {queryParams: {page}});
+    this.router.navigate(['chuni/v2/recent'], {queryParams: {page, id: this.id, level: this.level}});
   }
 
-  getFcLevel(item: V2PlayLog){
-    if (item.score === 1010000){
+  getFcLevel(item: V2PlayLog) {
+    if (item.score === 1010000) {
       return 'AJC';
-    }
-    else if (item.isAllJustice){
+    } else if (item.isAllJustice) {
       return 'AJ';
-    }
-    else if (item.isFullCombo){
+    } else if (item.isFullCombo) {
       return 'FC';
-    }
-    else{
+    } else {
       return 'FC_Base';
     }
+  }
+
+  getMusicName(id: number) {
+    this.dbService.getByID<ChusanMusic>('chusanMusic', id).subscribe({
+      next: (data) => {
+        if (data) {
+          this.musicName = data.name;
+        }
+        else {
+          this.musicName = `ID: ${id}`;
+        }
+      },
+      error: error => {
+        this.musicName = `ID: ${id}`;
+      }
+    });
   }
 }
