@@ -89,8 +89,7 @@
   </div>
 </ng-container>
 
-
-<ng-template *ngIf="!loadingRecent && recentRating">
+<ng-container *ngIf="!loadingRecent && recentRating">
   <div class="mb-3 d-flex align-items-center">
     <h2 class="mb-0">{{ "ChuniV2.RatingPage.Recent" | translate }}</h2>
     <span class="badge bg-primary rounded-pill ms-2">{{ recentTotal / 10 | toRating }}</span>
@@ -102,7 +101,7 @@
     </ng-container>
   </div>
 
-</ng-template>
+</ng-container>
 
 <ng-template #record let-index="index" let-item="item">
   <div class="col-12 col-md-6 col-xxl-4">

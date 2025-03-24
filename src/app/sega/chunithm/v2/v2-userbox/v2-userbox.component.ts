@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Version} from '@angular/core';
 import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../../api.service';
 import {MessageService} from '../../../../message.service';
@@ -17,6 +17,7 @@ import {UserService} from 'src/app/user.service';
 import {V2SymbolChat} from '../model/V2SymbolChat';
 import {ChusanSymbolChat} from '../model/ChusanSymbolChat';
 import {V2SymbolChatSettingComponent} from './v2-symbol-chat-setting/v2-symbol-chat-setting.component';
+import {compareVersions} from 'compare-versions';
 
 @Component({
   selector: 'app-v2-userbox',
@@ -41,6 +42,7 @@ export class V2UserBoxComponent implements OnInit {
 
   systemVoiceIDs = [34, 0, 1, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 49, 50, 51];
   currentAvatarAcc: { category: number, accId: number } = {category: 0, accId: 0};
+  currentSubTrophyIndex: number;
 
   dialogOptions: NgbModalOptions = {
     centered: true,
@@ -71,6 +73,15 @@ export class V2UserBoxComponent implements OnInit {
     this.customable = [
       {name: 'Nameplate', value: this.getNamePlateName(this.profile.nameplateId), click: () => this.namePlate()},
       {name: 'Trophy', value: this.getTrophyName(this.profile.trophyId), click: () => this.trophy()},
+    ];
+    if (compareVersions(this.profile.lastRomVersion, '2.30.00') >= 0){
+      this.customable = this.customable.concat([
+
+        {name: 'TrophySub1', value: this.getTrophyName(this.profile.trophyIdSub1), click: () => this.trophySub1()},
+        {name: 'TrophySub2', value: this.getTrophyName(this.profile.trophyIdSub2), click: () => this.trophySub2()},
+      ]);
+    }
+    this.customable = this.customable.concat([
       {name: 'MapIcon', value: this.getMapIconName(this.profile.mapIconId), click: () => this.mapIcon()},
       {name: 'SystemVoice', value: this.getSystemVoiceName(this.profile.voiceId), click: () => this.systemVoice()},
       {
@@ -98,7 +109,7 @@ export class V2UserBoxComponent implements OnInit {
         click: () => this.avatarAcc(7, this.profile.avatarBack)
       },
       // { name: 'Frame', value: this.getFrameName(this.profile.frameId), click: () => this.frame() },
-    ];
+    ]);
   }
 
   playAudio(id: number) {
@@ -152,7 +163,7 @@ export class V2UserBoxComponent implements OnInit {
           ];
           for (const item of data) {
             const symbolChat = value.find(v => v.sceneId === item.sceneId && v.orderId === item.orderId);
-            if (symbolChat){
+            if (symbolChat) {
               symbolChat.symbolChatId = item.symbolChatId;
             }
           }
@@ -259,7 +270,15 @@ export class V2UserBoxComponent implements OnInit {
           break;
         case 3: // Trophy
           apiURL = 'api/game/chuni/v2/profile/trophy';
-          requestBody = {aimeId: this.aimeId, trophyId: itemId};
+          if (this.currentSubTrophyIndex === 0){
+            requestBody = {aimeId: this.aimeId, trophyId: itemId};
+          }
+          else if (this.currentSubTrophyIndex === 1){
+            requestBody = {aimeId: this.aimeId, trophyIdSub1: itemId};
+          }
+          else if (this.currentSubTrophyIndex === 2){
+            requestBody = {aimeId: this.aimeId, trophyIdSub2: itemId};
+          }
           break;
         case 8: // MapIcon
           apiURL = 'api/game/chuni/v2/profile/mapicon';
@@ -289,6 +308,17 @@ export class V2UserBoxComponent implements OnInit {
 
   trophy() {
     this.openItemDialog({itemKind: 3, itemId: this.profile.trophyId, showAllItems: this.showAllItems});
+    this.currentSubTrophyIndex = 0;
+  }
+
+  trophySub1() {
+    this.openItemDialog({itemKind: 3, itemId: this.profile.trophyIdSub1, showAllItems: this.showAllItems});
+    this.currentSubTrophyIndex = 1;
+  }
+
+  trophySub2() {
+    this.openItemDialog({itemKind: 3, itemId: this.profile.trophyIdSub2, showAllItems: this.showAllItems});
+    this.currentSubTrophyIndex = 2;
   }
 
   mapIcon() {

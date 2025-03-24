@@ -10,6 +10,7 @@ import {ChusanMusic} from '../model/ChusanMusic';
 import {V2SongScoreRankingComponent} from '../v2-song-score-ranking/v2-song-score-ranking.component';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
+import {compareVersions} from 'compare-versions';
 
 @Component({
   selector: 'app-v2-rating',
@@ -21,16 +22,15 @@ export class V2RatingComponent implements OnInit {
   host = environment.assetsHost;
   enableImages = environment.enableImages;
 
-  romVersion: Version;
+  romVersion: string;
   playerRating: number;
   highestRating: number;
   calcRating: number;
-  verseVersion = new Version('2.30.00');
   loadingRating = true;
   loadingRecent = true;
-  topRating: RatingItem[] = [];
-  newRating: RatingItem[] = [];
-  recentRating: RatingItem[] = [];
+  topRating: RatingItem[] = undefined;
+  newRating: RatingItem[] = undefined;
+  recentRating: RatingItem[] = undefined;
   topTotal = 0;
   newTotal = 0;
   recentTotal = 0;
@@ -49,10 +49,10 @@ export class V2RatingComponent implements OnInit {
     const param = new HttpParams().set('aimeId', aimeId);
     const profile = await lastValueFrom(this.api.get('api/game/chuni/v2/profile', param));
     if (!profile) { return; }
-    this.romVersion = new Version(profile.lastRomVersion);
+    this.romVersion = profile.lastRomVersion;
     this.playerRating = profile.playerRating;
     this.highestRating = profile.highestRating;
-    if (this.romVersion >= new Version('2.30.00')){
+    if (compareVersions(this.romVersion, '2.30.00') >= 0){
       // b50
       const data = await lastValueFrom(this.api.get('api/game/chuni/v2/verse-rating', param));
       if (data) {

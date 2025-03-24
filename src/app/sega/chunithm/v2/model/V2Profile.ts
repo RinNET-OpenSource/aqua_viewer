@@ -17,6 +17,8 @@ export interface V2Profile {
   frameId: number;
   characterId: number;
   trophyId: number;
+  trophyIdSub1: number;
+  trophyIdSub2: number;
   playedTutorialBit: number;
   firstTutorialCancelNum: number;
   masterTutorialCancelNum: number;
