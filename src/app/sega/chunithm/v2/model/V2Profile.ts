@@ -1,6 +1,7 @@
 export interface V2Profile {
   userName: string;
   level: number;
+  reincarnationNum: number;
   exp: number;
   point: number;
   totalPoint: bigint;
