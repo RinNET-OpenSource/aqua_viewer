@@ -49,16 +49,30 @@
           <h4 class="placeholder mb-1" style="width: 12em"></h4>
         </li>
       </ng-template>
+      <ng-template #announcementError>
+        <li class="list-group-item">
+          <div class="d-flex align-items-center gap-1 mb-1">
+            <div class="fw-light small text-secondary" style="width: 8em"></div>
+          </div>
+          <h4 class="my-2">{{'App.Messages.LoadingFailed' | translate}}</h4>
+        </li>
+      </ng-template>
       <div class="card user-select-none mb-2">
         <ul class="list-group list-group-flush">
           <ng-container *ngIf="loadingAnnouncement">
             <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
+          </ng-container>
+          <ng-container *ngIf="!loadingAnnouncement && !announcement">
+            <ng-container *ngTemplateOutlet="announcementError"/>
           </ng-container>
           <ng-container *ngIf="!loadingAnnouncement && announcement">
             <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: announcement}"/>
           </ng-container>
           <ng-container *ngIf="loadingUpdate">
             <ng-container *ngTemplateOutlet="announcementPlaceholder"/>
+          </ng-container>
+          <ng-container *ngIf="!loadingUpdate && !recentUpdate">
+            <ng-container *ngTemplateOutlet="announcementError"/>
           </ng-container>
           <ng-container *ngIf="!loadingUpdate && recentUpdate">
             <ng-container *ngTemplateOutlet="announcementItem; context: {announcement: recentUpdate}"/>
@@ -84,11 +98,11 @@
           <h3 class="m-0">
             {{'DashboardPage.Profiles' | translate}}
           </h3>
-          <code *ngIf="!loadingProfile" class="small">({{ currentCard || ('DashboardPage.NoBind' | translate) }})</code>
+          <code *ngIf="!loadingProfiles && !profilesError" class="small">({{ currentCard || ('DashboardPage.NoBind' | translate) }})</code>
         </div>
-        <a *ngIf="!loadingProfile" class="more-announcements" routerLink="/cards">{{'DashboardPage.Switch' | translate}}</a>
+        <a *ngIf="!loadingProfiles && !profilesError" class="more-announcements" routerLink="/cards">{{'DashboardPage.Switch' | translate}}</a>
       </div>
-      <ng-container *ngIf="loadingProfile">
+      <ng-container *ngIf="loadingProfiles">
         <div class="card mb-3 placeholder-wave">
           <div class="card-header">
             <span class="placeholder" style="width: 6em;"></span>
@@ -139,11 +153,14 @@
           <div>{{'DashboardPage.NoCardMessage' | translate}}<a routerLink="/cards">{{'DashboardPage.GoToCardPage' | translate}}</a></div>
         </div>
       </ng-container>
-      <ng-container *ngIf="!loadingProfile && !noCard && !ongekiProfile && !chusanProfile && !mai2Profile">
-        <div class="card mb-3 placeholder-glow">
-          <div class="card-body">
-            {{'DashboardPage.NoProfileMessage' | translate}}
-          </div>
+      <ng-container *ngIf="!loadingProfiles && !profilesError && !noCard && !ongekiProfile && !chusanProfile && !mai2Profile">
+        <div class="alert alert-warning" role="alert">
+          {{'DashboardPage.NoProfileMessage' | translate}}
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!loadingProfiles && profilesError">
+        <div class="alert alert-danger" role="alert">
+          {{'App.Messages.LoadingFailed' | translate}}
         </div>
       </ng-container>
       <ng-container *ngIf="ongekiProfile">
@@ -262,27 +279,31 @@
     </h3>
     <div class="card mb-3">
       <div class="card-body">
-        <div *ngIf="checkingUpdate || (loadingDatabase && downloadingPreloadTaskCount == 0)" class="mb-2">
+        <div *ngIf="checkingUpdateState == 'checking' || (loadingDatabase && downloadingPreloadTaskCount == 0)" class="mb-2">
           <span class="pe-2">{{'DashboardPage.CheckingUpdate' | translate}}</span>
           <span class="spinner-border spinner-border-sm" role="status">
             <span class="visually-hidden">Loading...</span>
           </span>
         </div>
-        <div *ngIf="!checkingUpdate && loadingDatabase && downloadingPreloadTaskCount > 0" class="d-flex align-items-center mb-2">
+        <div *ngIf="checkingUpdateState != 'checking' && loadingDatabase && downloadingPreloadTaskCount > 0" class="d-flex align-items-center mb-2">
           <span class="pe-2">{{'DashboardPage.Downloading' | translate}}{{'Common.Colon' | translate}}{{completedPreloadTaskCount}}/{{totalPreloadTaskCount}}</span>
           <span class="spinner-border spinner-border-sm" role="status">
             <span class="visually-hidden">Loading...</span>
           </span>
         </div>
-        <div *ngIf="!checkingUpdate && !loadingDatabase && errorPreloadTaskCount == 0" class="d-flex align-items-center mb-2">
+        <div *ngIf="checkingUpdateState == 'completed' && !loadingDatabase && errorPreloadTaskCount == 0" class="d-flex align-items-center mb-2">
           <ng-icon name="bootstrap-check-lg" class="d-flex align-items-center me-2 text-success"></ng-icon>
           <span class="pe-2">{{'DashboardPage.Version' | translate}}{{'Common.Colon' | translate}}{{dbVersion}}</span>
         </div>
-        <div *ngIf="!checkingUpdate && !loadingDatabase && errorPreloadTaskCount > 0" class="d-flex align-items-center mb-2">
+        <div *ngIf="checkingUpdateState == 'error' && !loadingDatabase && errorPreloadTaskCount == 0" class="d-flex align-items-center mb-2">
+          <ng-icon name="bootstrap-question-lg" class="d-flex align-items-center me-2 text-warning"></ng-icon>
+          <span class="pe-2">{{'DashboardPage.Version' | translate}}{{'Common.Colon' | translate}}{{dbVersion}}</span>
+        </div>
+        <div *ngIf="checkingUpdateState != 'checking' && !loadingDatabase && errorPreloadTaskCount > 0" class="d-flex align-items-center mb-2">
           <ng-icon name="bootstrap-x-lg" class="d-flex align-items-center me-2 text-danger"></ng-icon>
           <span class="pe-2">{{'DashboardPage.DownloadFailed' | translate}}{{'Common.Colon' | translate}}{{completedPreloadTaskCount}}/{{totalPreloadTaskCount}}</span>
         </div>
-        <button [class.disabled]="checkingUpdate || loadingDatabase" class="btn btn-danger btn-sm mt-1" (click)="reload()">{{'DashboardPage.Reload' | translate}}</button>
+        <button [class.disabled]="checkingUpdateState == 'checking' || loadingDatabase" class="btn btn-danger btn-sm mt-1" (click)="reload()">{{'DashboardPage.Reload' | translate}}</button>
       </div>
     </div>
   </div>

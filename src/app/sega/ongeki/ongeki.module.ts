@@ -3,7 +3,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OngekiRoutes} from './ongeki.routing';
 import {OngekiProfileComponent} from './ongeki-profile/ongeki-profile.component';
-import {OngekiCardComponent} from './ongeki-card/ongeki-card.component';
+import {OngekiCardGalleryComponent} from './ongeki-card-gallery/ongeki-card-gallery.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OngekiRecentComponent} from './ongeki-recent/ongeki-recent.component';
 import {ToolsModule} from '../../util/tools.module';
@@ -32,6 +32,8 @@ import {NgIconsModule} from '@ng-icons/core';
 import {
   bootstrapStopFill
 } from '@ng-icons/bootstrap-icons';
+import { OngekiCardItemComponent } from './ongeki-card-item/ongeki-card-item.component';
+import { OngekiCardComponent } from './ongeki-card/ongeki-card.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -40,7 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     OngekiProfileComponent,
-    OngekiCardComponent,
+    OngekiCardGalleryComponent,
     OngekiRecentComponent,
     ToAttributeClassPipe,
     OngekiSongListComponent,
@@ -59,9 +61,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     OngekiCardLevelComponent,
     OngekiSongScoreRankingComponent,
     ToTechHonorSpritePipe,
+    OngekiCardItemComponent,
+    OngekiCardGalleryComponent,
+    OngekiCardComponent,
   ],
     exports: [
-        OngekiCardComponent
+      OngekiCardGalleryComponent
     ],
   imports: [
     CommonModule,

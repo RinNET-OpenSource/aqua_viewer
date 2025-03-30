@@ -1,19 +1,15 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {OngekiCardComponent} from './ongeki-card.component';
+import { OngekiCardComponent } from './ongeki-card.component';
 
 describe('OngekiCardComponent', () => {
   let component: OngekiCardComponent;
   let fixture: ComponentFixture<OngekiCardComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [OngekiCardComponent]
-    })
-      .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(OngekiCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

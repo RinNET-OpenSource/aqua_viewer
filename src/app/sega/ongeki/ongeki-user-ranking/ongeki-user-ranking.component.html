@@ -33,7 +33,7 @@
           <img class="ranking-item-icon me-2" [class.ranking-item-icon-xl]="i == 0" [class.ranking-item-icon-lg]="i == 1 || i == 2" src="{{host}}/assets/ongeki/card-icon/UI_Card_Icon_{{item.cardId}}.webp">
           <div>
             <div [class.fw-bold]="i == 0 || i == 1 || i == 2">{{ item.userName | fullWidth }}</div>
-            <div><span>{{ item.nowRating.toFixed(2) }}</span><span class="ms-1 text-secondary small">(Max: {{item.highestRating.toFixed(2)}})</span></div>
+            <div><span>{{ item.nowRating.toFixed(3) }}</span><span class="ms-1 text-secondary small">(Max: {{item.highestRating.toFixed(3)}})</span></div>
           </div>
         </div>
       </td>

@@ -47,7 +47,8 @@
       "OnlineBattle": "全国对战"
     },
     "Messages": {
-      "BrowserNotSupported": "您的浏览器不受支持！请升级到最新版的Chrome、Firefox、Safari或Edge浏览器以获得最佳体验。"
+      "BrowserNotSupported": "您的浏览器不受支持！请升级到最新版的Chrome、Firefox、Safari或Edge浏览器以获得最佳体验。",
+      "LoadingFailed": "加载失败！"
     }
   },
   "DashboardPage": {
@@ -319,8 +320,19 @@
         "RankingInfo": "你在 {{total}} 名玩家中排名第 {{ranking}}。"
       }
     },
-    "CardPage": {
+    "Card": {
       "Title": "卡片",
+      "EditFor": "编成",
+      "Deck": "卡组",
+      "Skin": "皮肤",
+      "DeckID": "卡组编号",
+      "CardGallery": "所有卡片",
+      "SelectCard": "选择卡片",
+      "Valid": "启用",
+      "Warning1": "请确保你的游戏版本存在卡组设定的卡片，否则会导致游戏崩溃。"
+    },
+    "CardGallery": {
+      "Title": "卡片一览",
       "Holo": "闪膜",
       "Elements": "信息",
       "Details": "卡片信息",

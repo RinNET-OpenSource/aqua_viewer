@@ -47,7 +47,8 @@
       "OnlineBattle": "Online Battle"
     },
     "Messages": {
-      "BrowserNotSupported": "Your browser is not supported! Please upgrade to the latest version of Chrome, Firefox, Safari, or Edge for the best experience."
+      "BrowserNotSupported": "Your browser is not supported! Please upgrade to the latest version of Chrome, Firefox, Safari, or Edge for the best experience.",
+      "LoadingFailed": "Loading Failed！"
     }
   },
   "DashboardPage": {
@@ -319,8 +320,19 @@
         "RankingInfo": "You rank {{ranking}} out of {{total}} players."
       }
     },
-    "CardPage": {
+    "Card": {
       "Title": "Card",
+      "EditFor": "Edit For",
+      "Deck": "Deck",
+      "Skin": "Skin",
+      "DeckID": "Deck ID",
+      "CardGallery": "Card Gallery",
+      "SelectCard": "Select Card",
+      "Valid": "Valid",
+      "Warning1": "Using cards unsupported by your game version will crash the game."
+    },
+    "CardGallery": {
+      "Title": "Card Gallery",
       "Holo": "Holo",
       "Elements": "Elements",
       "Details": "Details",

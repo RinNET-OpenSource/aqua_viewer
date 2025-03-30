@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AttributeType} from '../model/OngekiEnums';
 import {environment} from '../../../../environments/environment';
 

@@ -60,7 +60,7 @@ export class PreloadService {
   private dbVersion = new ReplaySubject<number>();
   dbVersionObservable = this.dbVersion.asObservable();
 
-  private checkingUpdate = new ReplaySubject<boolean>();
+  private checkingUpdate = new ReplaySubject<'checking'|'completed'|'error'>();
   checkingUpdateObservable = this.checkingUpdate.asObservable();
 
   constructor(
@@ -120,7 +120,7 @@ export class PreloadService {
   }
 
   checkDbUpdate() {
-    this.checkingUpdate.next(true);
+    this.checkingUpdate.next('checking');
     this.api.get('api/static/dbVersion').subscribe(
       resp => {
         if (resp?.state.toLowerCase().includes('success')) {
@@ -133,14 +133,14 @@ export class PreloadService {
               });
             } else {
               this.load();
-              this.checkingUpdate.next(false);
+              this.checkingUpdate.next('completed');
             }
           });
         }
       },
       error => {
         this.load();
-        this.checkingUpdate.next(false);
+        this.checkingUpdate.next('error');
         this.messageService.notice(error);
       });
   }

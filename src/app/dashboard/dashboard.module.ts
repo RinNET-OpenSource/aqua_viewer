@@ -11,7 +11,8 @@ import {NgIconsModule} from '@ng-icons/core';
 import {
   bootstrapBell,
   bootstrapCheckLg,
-  bootstrapXLg
+  bootstrapXLg,
+  bootstrapQuestionLg
 } from '@ng-icons/bootstrap-icons';
 import { AppRoutingModule } from '../app-routing.module';
 import { AnnouncementComponent } from '../announcements/announcement/announcement.component';
@@ -42,7 +43,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         NgIconsModule.withIcons({
             bootstrapBell,
             bootstrapCheckLg,
-            bootstrapXLg
+            bootstrapXLg,
+            bootstrapQuestionLg
         }),
         ToolsModule,
         V2Module
