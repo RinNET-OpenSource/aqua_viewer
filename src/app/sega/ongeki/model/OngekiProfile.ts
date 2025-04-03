@@ -18,6 +18,8 @@ export interface DisplayOngekiProfile {
   medalCount: number;
   playerRating: number;
   highestRating: number;
+  newPlayerRating: number;
+  newHighestRating: number;
   battlePoint: number;
   bestBattlePoint: number;
   rankId: number;

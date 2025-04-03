@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class ToTechRatingPipe implements PipeTransform {
 
   // type: 1 for 13.00 + 2.00, 2 for 15.00
-  transform(diff: string, score: number, type: number): string {
+  transform(diff: string, score: number): string {
     if (diff === null) { return null; }
     const diffNum = parseFloat(diff);
     let result: number;
@@ -43,11 +43,7 @@ export class ToTechRatingPipe implements PipeTransform {
     if (result === 0) {
       return '0.00';
     } else {
-      if (type === 1) {
-        return diffNum.toFixed(2).toString() + (result >= diffNum ? '+' : '-') + Math.abs(result - diffNum).toFixed(2).toString();
-      } else {
-        return result.toFixed(2).toString();
-      }
+      return result.toFixed(2).toString();
     }
   }
 }

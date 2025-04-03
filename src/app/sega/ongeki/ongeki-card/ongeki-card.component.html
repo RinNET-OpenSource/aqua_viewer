@@ -40,7 +40,7 @@
 <ng-container *ngIf="currentDeck">
   <div class="deck-row row row-cols-3">
     <ng-container *ngFor="let item of currentDeck;let i = index">
-      <div class="col p-2">
+      <div class="col">
         <div class="cards-col">
           <app-ongeki-card-item
             (click)="open(selectCard)"

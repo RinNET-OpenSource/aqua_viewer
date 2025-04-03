@@ -1,101 +1,231 @@
-<h1 class="page-heading">{{'Ongeki.RatingPage.Title' | translate}}</h1>
-<div class="alert alert-info">
-  {{'Ongeki.RatingPage.TipLead' | translate}}
-  <ul class="m-0 mt-2">
-    <li>{{'Ongeki.RatingPage.Tip1' | translate}}</li>
-    <li>{{'Ongeki.RatingPage.Tip2' | translate}}</li>
-    <li>{{'Ongeki.RatingPage.Tip3' | translate}}</li>
-  </ul>
-</div>
-<div *ngIf="profile" class="card mb-4">
-  <div class="card-body">
-    <div>
-      {{'Ongeki.RatingPage.PlayerRating' | translate}}{{'Common.Colon' | translate}}{{profile.playerRating / 100 | number: '1.2-2'}}
+<h1 class="page-heading">{{ 'Ongeki.RatingPage.Title' | translate }}</h1>
+<ng-container *ngIf="ratingV2">
+  <ng-container *ngIf="profile">
+    <div class="mb-3 d-flex align-items-center">
+      <h2 class="mb-0">{{ "Ongeki.RatingPage.Overview" | translate }}</h2>
     </div>
-    <div>
-      {{'Ongeki.RatingPage.HighestRating' | translate}}{{'Common.Colon' | translate}}{{profile.highestRating / 100 | number: '1.2-2'}}
+    <div class="mb-4">
+      <div class="card user-select-none mb-2">
+        <ul class="list-group list-group-flush my-1">
+          <li class="list-group-item">
+            <div>{{ "Ongeki.RatingPage.PlayerRating" | translate }} {{ "Common.Colon" | translate }} {{ (profile.newPlayerRating / 1000).toFixed(3) }}</div>
+          </li>
+          <li class="list-group-item">
+            <div>{{ "Ongeki.RatingPage.HighestRating" | translate }} {{ "Common.Colon" | translate }} {{ (profile.newHighestRating / 1000).toFixed(3) }}</div>
+          </li>
+        </ul>
+      </div>
+      <ng-container>
+        <div class="alert alert-warning" role="alert">
+          {{ "Ongeki.RatingPage.DataVersionWarning" | translate }}
+        </div>
+      </ng-container>
     </div>
+  </ng-container>
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">{{ 'Ongeki.RatingPage.New' | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ ratingV2.avgNew }}</span>
   </div>
-</div>
-<div *ngIf="avgRating && profile && avgRating != (profile.playerRating / 100 | number: '1.2-2')" class="hstack alert alert-warning" role="alert">
-  <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
-  {{'Ongeki.RatingPage.RatingWarning' | translate}}
-</div>
-<div class="mb-3 d-flex align-items-center">
-  <h2 class="mb-0">{{'Ongeki.RatingPage.New' | translate}}</h2>
-  <span class="badge bg-primary rounded-pill ms-2">{{ avgNew }}</span>
-</div>
-<div *ngIf="bestList" class="row mb-4 g-2">
-  <ng-container *ngFor="let item of newBestList; index as i">
-    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
-  </ng-container>
-</div>
-<div class="mb-3 d-flex align-items-center">
-  <h2 class="mb-0">{{'Ongeki.RatingPage.Best' | translate}}</h2>
-  <span class="badge bg-primary rounded-pill ms-2">{{ avgBest }}</span>
-</div>
-<div *ngIf="bestList" class="row mb-4 g-2">
-  <ng-container *ngFor="let item of bestList; index as i">
-    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
-  </ng-container>
-</div>
-<div class="mb-3 d-flex align-items-center">
-  <h2 class="mb-0">{{'Ongeki.RatingPage.Recent' | translate}}</h2>
-  <span class="badge bg-primary rounded-pill ms-2">{{ avgHot }}</span>
-</div>
-<div *ngIf="bestList" class="row mb-4 g-2">
-  <ng-container *ngFor="let item of hotBestList; index as i">
-    <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
-  </ng-container>
-</div>
+  <div *ngIf="ratingV2.newBestList" class="row mb-4 g-1 row-cols-xxs-1 row-cols-2 row-cols-sm-3 row-cols-xl-4 row-cols-xxl-5">
+    <ng-container *ngFor="let item of ratingV2.newBestList; index as i">
+      <ng-container *ngTemplateOutlet="newTechItem; context: {item: item, index: i, type: NewRatingType.New}"></ng-container>
+    </ng-container>
+  </div>
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">{{ 'Ongeki.RatingPage.Best' | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ ratingV2.avgBest }}</span>
+  </div>
+  <div *ngIf="ratingV2.bestList" class="row mb-4 g-1 row-cols-xxs-1 row-cols-2 row-cols-sm-3 row-cols-xl-4 row-cols-xxl-5">
+    <ng-container *ngFor="let item of ratingV2.bestList; index as i">
+      <ng-container *ngTemplateOutlet="newTechItem; context: {item: item, index: i, type: NewRatingType.Best}"></ng-container>
+    </ng-container>
+  </div>
 
-<ng-template #record let-index="index" let-item="item">
-  <div class="col-12 col-md-6 col-xxl-4">
-    <div class="card rating-card card-btn user-select-none" (click)="item.musicInfo?showDetail(item.musicInfo):undefined">
-      <div class="hstack">
-        <img class="jacket rounded-start" src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.webp" (error)="setDefaultJacket($event)">
-        <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
-          <div class="text-truncate fw-bold m-0"><span>#{{index + 1}}</span> {{item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId}}</div>
-          <div class="text-truncate">{{item.value}}</div>
-          <div class="text-truncate small">
-            <ng-container [ngSwitch]="item.level">
-            <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
-              Basic{{(item.musicInfo?.level0 | toLevelDecimal)??''}}
-            </span>
-              <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
-              Advanced {{(item.musicInfo?.level1 | toLevelDecimal)??''}}
-            </span>
-              <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
-              Expert {{(item.musicInfo?.level2 | toLevelDecimal)??''}}
-            </span>
-              <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
-              Master {{(item.musicInfo?.level3 | toLevelDecimal)??''}}
-            </span>
-              <span *ngSwitchCase="10" class="difficulty-lunatic badge rounded-pill text-danger border border-danger">
-              Lunatic {{(item.musicInfo?.level4 | toLevelDecimal)??''}}
-            </span>
-            </ng-container>
-            <ng-container *ngIf="item.musicInfo">
-              ->
+  <ng-template #newTechItem let-index="index" let-item="item" let-type="type">
+    <div class="col">
+      <div class="card rating-card card-btn user-select-none"
+           (click)="item.musicInfo?showDetail(item.musicInfo):undefined">
+        <div class="hstack">
+          <img class="new-jacket"
+               src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.webp"
+               (error)="setDefaultJacket($event)">
+          <div *ngIf="item.musicId != 0" class="card-body small overflow-hidden py-0 px-2">
+            <div class="text-truncate fw-bold m-0">
+              {{ item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId }}
+            </div>
+            <div class="d-flex align-items-center gap-1">
               <ng-container [ngSwitch]="item.level">
-                <span *ngSwitchCase="0"
-                      class="score-value">{{((item.musicInfo.level0 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-                <span *ngSwitchCase="1"
-                      class="score-value">{{((item.musicInfo.level1 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-                <span *ngSwitchCase="2"
-                      class="score-value">{{((item.musicInfo.level2 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-                <span *ngSwitchCase="3"
-                      class="score-value">{{((item.musicInfo.level3 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
-                <span *ngSwitchCase="10"
-                      class="score-value">{{((item.musicInfo.level4 | toLevelDecimal) | toTechRating : item.value : 2)}}</span>
+                <span *ngSwitchCase="0" class="difficulty difficulty-basic badge rounded-pill">
+                  {{ (item.musicInfo?.level0 | toLevelDecimal) ?? 'Basic' }}
+                </span>
+                  <span *ngSwitchCase="1" class="difficulty difficulty-advanced badge rounded-pill">
+                  {{ (item.musicInfo?.level1 | toLevelDecimal) ?? 'Advanced' }}
+                </span>
+                  <span *ngSwitchCase="2" class="difficulty difficulty-expert badge rounded-pill">
+                  {{ (item.musicInfo?.level2 | toLevelDecimal) ?? 'Expert' }}
+                </span>
+                  <span *ngSwitchCase="3" class="difficulty difficulty-master badge rounded-pill">
+                  {{ (item.musicInfo?.level3 | toLevelDecimal) ?? 'Master' }}
+                </span>
+                  <span *ngSwitchCase="10" class="difficulty difficulty-lunatic badge rounded-pill text-danger border border-danger">
+                  {{ (item.musicInfo?.level4 | toLevelDecimal) ?? 'Lunatic' }}
+                </span>
               </ng-container>
-            </ng-container>
+              <div>
+                {{ item.techScoreMax }}
+              </div>
+            </div>
+
+          </div>
+          <div *ngIf="item.musicId == 0" class="card-body overflow-hidden py-0 px-4 text-truncate">
+            No Record
           </div>
         </div>
-        <div *ngIf="item.musicId == 0" class="card-body overflow-hidden py-0 px-4 text-truncate">
-          No Record
+        <div class="card-footer p-0 px-1">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <div class="honor">
+                <img class="honor-badge"
+                     src="{{host}}assets/ongeki/gameUi/{{newRating.getTechnicalRankIDByScore(item.techScoreMax) | toTechHonorSprite}}"
+                     alt="">
+                <ng-container [ngSwitch]="item.clearMarkType">
+                  <img *ngSwitchCase="ClearMarkType.AllBreakPlus"
+                       class="honor-badge"
+                       src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.webp" alt="">
+                  <img *ngSwitchCase="ClearMarkType.AllBreak"
+                       class="honor-badge"
+                       src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_AB.webp" alt="">
+                  <img *ngSwitchCase="ClearMarkType.FullCombo"
+                       class="honor-badge"
+                       src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_FC.webp" alt="">
+                  <img *ngSwitchCase="ClearMarkType.None"
+                       class="honor-badge"
+                       src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_None.webp" alt="">
+                </ng-container>
+                <img class="honor-badge"
+                     src="{{host}}assets/ongeki/gameUi/UI_SLC_MusicSelect_HornorBadge_{{item.isFullBell?'FB':'None'}}.webp"
+                     alt="">
+              </div>
+              <div *ngIf="item.musicInfo" class="text-truncate small">
+                <span class="score-value">{{ (newRating.calcRate1000(item, type)/1000).toFixed(3) }}</span>
+              </div>
+            </div>
+            <div class="small fw-bold">
+              #{{ index + 1 }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </ng-template>
+</ng-container>
+
+
+<ng-container *ngIf="ratingV1">
+  <div class="alert alert-info">
+    {{ 'Ongeki.RatingPage.TipLead' | translate }}
+    <ul class="m-0 mt-2">
+      <li>{{ 'Ongeki.RatingPage.Tip1' | translate }}</li>
+      <li>{{ 'Ongeki.RatingPage.Tip2' | translate }}</li>
+      <li>{{ 'Ongeki.RatingPage.Tip3' | translate }}</li>
+    </ul>
   </div>
-</ng-template>
+  <div *ngIf="profile" class="card mb-4">
+    <div class="card-body">
+      <div>
+        {{ 'Ongeki.RatingPage.PlayerRating' | translate }}{{ 'Common.Colon' | translate }}{{ profile.playerRating / 100 | number: '1.2-2' }}
+      </div>
+      <div>
+        {{ 'Ongeki.RatingPage.HighestRating' | translate }}{{ 'Common.Colon' | translate }}{{ profile.highestRating / 100 | number: '1.2-2' }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="avgRating && profile && avgRating != (profile.playerRating / 100 | number: '1.2-2')"
+       class="hstack alert alert-warning" role="alert">
+    <ng-icon class="me-2" name="bootstrap-exclamation-triangle-fill"></ng-icon>
+    {{ 'Ongeki.RatingPage.RatingWarning' | translate }}
+  </div>
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">{{ 'Ongeki.RatingPage.New' | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ ratingV1.avgNew }}</span>
+  </div>
+  <div *ngIf="ratingV1.newBestList" class="row mb-4 g-2">
+    <ng-container *ngFor="let item of ratingV1.newBestList; index as i">
+      <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+    </ng-container>
+  </div>
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">{{ 'Ongeki.RatingPage.Best' | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ ratingV1.avgBest }}</span>
+  </div>
+  <div *ngIf="ratingV1.bestList" class="row mb-4 g-2">
+    <ng-container *ngFor="let item of ratingV1.bestList; index as i">
+      <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+    </ng-container>
+  </div>
+  <div class="mb-3 d-flex align-items-center">
+    <h2 class="mb-0">{{ 'Ongeki.RatingPage.Recent' | translate }}</h2>
+    <span class="badge bg-primary rounded-pill ms-2">{{ ratingV1.avgHot }}</span>
+  </div>
+  <div *ngIf="ratingV1.hotBestList" class="row mb-4 g-2">
+    <ng-container *ngFor="let item of ratingV1.hotBestList; index as i">
+      <ng-container *ngTemplateOutlet="record; context: {item: item, index: i}"></ng-container>
+    </ng-container>
+  </div>
+
+  <ng-template #record let-index="index" let-item="item">
+    <div class="col-12 col-md-6 col-xxl-4">
+      <div class="card rating-card card-btn user-select-none"
+           (click)="item.musicInfo?showDetail(item.musicInfo):undefined">
+        <div class="hstack">
+          <img class="jacket rounded-start"
+               src="{{host}}assets/ongeki/jacket/UI_Jacket_{{item.musicId|formatNumber:4}}_S.webp"
+               (error)="setDefaultJacket($event)">
+          <div *ngIf="item.musicId != 0" class="card-body overflow-hidden py-0 px-2">
+            <div class="text-truncate fw-bold m-0">
+              <span>#{{ index + 1 }}</span> {{ item.musicInfo ? item.musicInfo.name : 'MusicID:' + item.musicId }}
+            </div>
+            <div class="text-truncate">{{ item.value }}</div>
+            <div class="text-truncate small">
+              <ng-container [ngSwitch]="item.level">
+            <span *ngSwitchCase="0" class="difficulty-basic badge rounded-pill">
+              Basic{{ (item.musicInfo?.level0 | toLevelDecimal) ?? '' }}
+            </span>
+                <span *ngSwitchCase="1" class="difficulty-advanced badge rounded-pill">
+              Advanced {{ (item.musicInfo?.level1 | toLevelDecimal) ?? '' }}
+            </span>
+                <span *ngSwitchCase="2" class="difficulty-expert badge rounded-pill">
+              Expert {{ (item.musicInfo?.level2 | toLevelDecimal) ?? '' }}
+            </span>
+                <span *ngSwitchCase="3" class="difficulty-master badge rounded-pill">
+              Master {{ (item.musicInfo?.level3 | toLevelDecimal) ?? '' }}
+            </span>
+                <span *ngSwitchCase="10" class="difficulty-lunatic badge rounded-pill text-danger border border-danger">
+              Lunatic {{ (item.musicInfo?.level4 | toLevelDecimal) ?? '' }}
+            </span>
+              </ng-container>
+              <ng-container *ngIf="item.musicInfo">
+                ->
+                <ng-container [ngSwitch]="item.level">
+                <span *ngSwitchCase="0"
+                      class="score-value">{{ ((item.musicInfo.level0 | toLevelDecimal) | toTechRating : item.value) }}</span>
+                  <span *ngSwitchCase="1"
+                        class="score-value">{{ ((item.musicInfo.level1 | toLevelDecimal) | toTechRating : item.value) }}</span>
+                  <span *ngSwitchCase="2"
+                        class="score-value">{{ ((item.musicInfo.level2 | toLevelDecimal) | toTechRating : item.value) }}</span>
+                  <span *ngSwitchCase="3"
+                        class="score-value">{{ ((item.musicInfo.level3 | toLevelDecimal) | toTechRating : item.value) }}</span>
+                  <span *ngSwitchCase="10"
+                        class="score-value">{{ ((item.musicInfo.level4 | toLevelDecimal) | toTechRating : item.value) }}</span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="item.musicId == 0" class="card-body overflow-hidden py-0 px-4 text-truncate">
+            No Record
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>

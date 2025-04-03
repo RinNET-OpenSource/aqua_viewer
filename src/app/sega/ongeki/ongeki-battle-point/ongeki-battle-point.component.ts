@@ -64,6 +64,8 @@ export class OngekiBattlePointComponent implements OnInit {
               musicId: Number(value[0]),
               level: Number(value[1]),
               value: Number(value[2]),
+              platinumScoreMax: Number(value[3]),
+              platinumScoreStar: Number(value[4]),
             };
             this.dbService.getByID<OngekiMusic>('ongekiMusic', item.musicId).subscribe(
               x => {

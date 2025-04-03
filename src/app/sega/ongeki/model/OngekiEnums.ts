@@ -53,8 +53,6 @@ export enum BattleRank {
 }
 
 export enum TechnicalRank {
-  Invalid = -1,
-  Begin = 0,
   None = 0,
   D = 1,
   C = 2,
@@ -68,7 +66,6 @@ export enum TechnicalRank {
   SS = 10,
   SSS = 11,
   SSS1 = 12,
-  End = 13,
 }
 
 // The AttributeType send by client is + 1. So the value here is start from 1

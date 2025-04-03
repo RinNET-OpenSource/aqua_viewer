@@ -91,15 +91,15 @@
             </div>
             <div class="score score-font-large" [ngSwitch]="difficulty[playLog.level]">
               <span
-                *ngSwitchCase="'Basic'">{{((playLog.songInfo?.level0 | toLevelDecimal) | toTechRating : playLog.techScore : 2)??'None'}}</span>
+                *ngSwitchCase="'Basic'">{{((playLog.songInfo?.level0 | toLevelDecimal) | toTechRating : playLog.techScore)??'None'}}</span>
               <span
-                *ngSwitchCase="'Advanced'">{{((playLog.songInfo?.level1 | toLevelDecimal) | toTechRating : playLog.techScore : 2)??'None'}}</span>
+                *ngSwitchCase="'Advanced'">{{((playLog.songInfo?.level1 | toLevelDecimal) | toTechRating : playLog.techScore)??'None'}}</span>
               <span
-                *ngSwitchCase="'Expert'">{{((playLog.songInfo?.level2 | toLevelDecimal) | toTechRating : playLog.techScore : 2)??'None'}}</span>
+                *ngSwitchCase="'Expert'">{{((playLog.songInfo?.level2 | toLevelDecimal) | toTechRating : playLog.techScore)??'None'}}</span>
               <span
-                *ngSwitchCase="'Master'">{{((playLog.songInfo?.level3 | toLevelDecimal) | toTechRating : playLog.techScore : 2)??'None'}}</span>
+                *ngSwitchCase="'Master'">{{((playLog.songInfo?.level3 | toLevelDecimal) | toTechRating : playLog.techScore)??'None'}}</span>
               <span
-                *ngSwitchCase="'Lunatic'">{{((playLog.songInfo?.level4 | toLevelDecimal) | toTechRating : playLog.techScore : 2)??'None'}}</span>
+                *ngSwitchCase="'Lunatic'">{{((playLog.songInfo?.level4 | toLevelDecimal) | toTechRating : playLog.techScore)??'None'}}</span>
             </div>
           </div>
           <!--score rank-->
