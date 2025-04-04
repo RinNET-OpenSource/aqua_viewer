@@ -282,16 +282,18 @@
     },
     "RatingPage": {
       "Title": "评级",
+      "Overview": "概览",
       "TipLead": "单曲评级由谱面定数与得分经过计算得出，玩家评级由55个单曲评级取平均数得出，其中包含：",
       "Tip1": "来自当前版本的15个最高评级的谱面",
       "Tip2": "来自以往版本的30个最高评级的谱面",
       "Tip3": "30次最近游玩记录中的10个最高评级（不计入Lunatic难度）",
-      "RatingWarning": "上次游玩使用的数据与服务器中的数据不匹配，单曲评级计算可能有误",
+      "DataVersionWarning": "由于游戏与服务器数据版本不一致，谱面定数或评级计算可能有误",
       "PlayerRating": "玩家评级",
       "HighestRating": "最高评级",
       "New": "当前版本",
       "Best": "以往版本",
-      "Recent": "最近"
+      "Recent": "最近",
+      "Platinum": "白金"
     },
     "RecentPage": {
       "Title": "游玩记录",

@@ -55,6 +55,11 @@
   width: 28px;
 }
 
+.honor-star {
+  aspect-ratio: 4.5;
+  width: 3.6em;
+}
+
 .honor{
   height: 28px;
 }
