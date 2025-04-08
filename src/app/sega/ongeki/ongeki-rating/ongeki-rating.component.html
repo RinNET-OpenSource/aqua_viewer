@@ -15,7 +15,7 @@
           </li>
         </ul>
       </div>
-      <ng-container>
+      <ng-container *ngIf="avgRating !== (profile.newPlayerRating / 1000).toFixed(3)">
         <div class="alert alert-warning" role="alert">
           {{ "Ongeki.RatingPage.DataVersionWarning" | translate }}
         </div>

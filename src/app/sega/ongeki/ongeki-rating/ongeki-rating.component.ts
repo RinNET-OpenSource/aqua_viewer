@@ -102,6 +102,7 @@ export class OngekiRatingComponent implements OnInit {
             platinumList,
             avgPlatinum
           };
+          this.avgRating = (Number(this.ratingV2.avgNew) + Number(this.ratingV2.avgBest) + Number(this.ratingV2.avgPlatinum)).toFixed(3);
         } else if (statusCode === StatusCode.BAD_REQUEST) {
           console.log(resp.status.message);
           await this.loadRating();
